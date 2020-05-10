@@ -11,7 +11,7 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>FirebaseAnalytics.xcscheme</key>
+		<key>FirebaseAuthInterop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -39,40 +39,33 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
-		<key>FirebaseInstallations.xcscheme</key>
+		<key>FirebaseDatabase.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>5</integer>
 		</dict>
-		<key>GoogleAppMeasurement.xcscheme</key>
+		<key>GoogleDataTransport.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
-		<key>GoogleDataTransport.xcscheme</key>
+		<key>GoogleDataTransportCCTSupport.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
-		<key>GoogleDataTransportCCTSupport.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>8</integer>
-		</dict>
 		<key>GoogleUtilities.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>8</integer>
 		</dict>
 		<key>Pods-PetAdoption.xcscheme</key>
 		<dict>
@@ -87,6 +80,13 @@
 			<false/>
 			<key>orderHint</key>
 			<integer>12</integer>
+		</dict>
+		<key>leveldb-library.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>9</integer>
 		</dict>
 		<key>nanopb.xcscheme</key>
 		<dict>
