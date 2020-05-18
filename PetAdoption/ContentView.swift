@@ -1,9 +1,16 @@
 import SwiftUI
 import Firebase
 
+enum barItem {
+    case first
+    case second
+    case third
+    case forth
+}
+
 struct ContentView: View {
     
-    @State var selected = 0
+    @State var selected = barItem.first
     let ref = Database.database().reference()
     
     var body: some View {
@@ -52,41 +59,41 @@ struct ContentView: View {
     
     struct BottomBar : View {
         
-        @Binding var selected: Int
+        @Binding var selected: barItem
         
         var body : some View {
             HStack {
                 Button(action: {
-                    self.selected = 0
+                    self.selected = .first
                    
                 }) {
                     Image(systemName: "desktopcomputer")
-                }.foregroundColor(self.selected == 0 ? .black : .gray)
+                }.foregroundColor(self.selected == .first ? .black : .gray)
                 
                 Spacer(minLength: 12)
                 
                 Button(action: {
-                    self.selected = 1
+                    self.selected = .second
                   
                 }) {
                     Image(systemName: "keyboard")
-                }.foregroundColor(self.selected == 1 ? .black : .gray)
+                }.foregroundColor(self.selected == .second ? .black : .gray)
                 
                 Spacer().frame(width: 120)
                 
                 Button(action: {
-                    self.selected = 2
+                    self.selected = .third
                 }) {
                     Image(systemName: "person")
-                }.foregroundColor(self.selected == 2 ? .black : .gray)
+                }.foregroundColor(self.selected == .third ? .black : .gray)
                 
                 Spacer(minLength: 12)
                 
                 Button(action: {
-                    self.selected = 3
+                    self.selected = .forth
                 }) {
                     Image(systemName: "person")
-                }.foregroundColor(self.selected == 3 ? .black : .gray)
+                }.foregroundColor(self.selected == .forth ? .black : .gray)
                 
                
             }
