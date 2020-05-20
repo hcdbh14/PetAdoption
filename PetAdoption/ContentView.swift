@@ -10,6 +10,9 @@ enum barItem {
 
 struct ContentView: View {
     
+    var dogArray = ["doggie", "pug", "puppy"]
+    @State var x: [CGFloat] = [0,0,0,0,0,0,0]
+    @State var degree: [Double] = [0,0,0,0,0,0,0]
     @State var selected = barItem.first
     let ref = Database.database().reference()
     
@@ -18,13 +21,42 @@ struct ContentView: View {
         NavigationView {
             
             VStack {
-                
-                Image("doggie")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
-                    .cornerRadius(20)
-                    .padding(.top, 100)
+                ZStack {
+                    ForEach(0...2,id: \.self) { i in
+                        Card(dogName: self.dogArray[i])
+                            .offset(x: self.x[i])
+                            .rotationEffect(.init(degrees: self.degree[i]))
+                            .gesture(DragGesture()
+                                .onChanged({ (value) in
+                                    if value.translation.width > 0 {
+                                        self.x[i] = value.translation.width
+                                        self.degree[i] = 8
+                                    } else {
+                                        self.x[i] = value.translation.width
+                                        self.degree[i] = -8
+                                    }
+                                })
+                                .onEnded({ (value) in
+                                    if value.translation.width > 0 {
+                                        if value.translation.width > 100 {
+                                            self.x[i] = 500
+                                            self.degree[i] = 15
+                                        } else {
+                                            self.x[i] = 0
+                                            self.degree[i] = 0
+                                        }
+                                    } else {
+                                        if value.translation.width < -100 {
+                                            self.x[i] = -500
+                                            self.degree[i] = -15
+                                        } else {
+                                            self.x[i] = 0
+                                            self.degree[i] = 0
+                                        }
+                                    }
+                                }))
+                    }.animation(.default)
+                }
                 
                 Spacer()
                 ZStack(alignment: .top) {
@@ -103,6 +135,40 @@ struct BarButtons : View {
     }
 }
 
+
+struct Card: View {
+    var dogName: String
+    
+    init(dogName: String) {
+        self.dogName = dogName
+    }
+    
+    var body: some View {
+        ZStack(alignment: .bottomLeading) {
+            VStack {
+                Image(dogName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
+                    .cornerRadius(20)
+                    .padding(.top, 100)
+                
+            }
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Doggie")
+                    .font(.title)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                
+                Text("good oby")
+                    .font(.body)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+            }.padding(.bottom, 50)
+                .padding(.leading, 10)
+        }
+    }
+}
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
