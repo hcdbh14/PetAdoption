@@ -1,22 +1,27 @@
 import SwiftUI
 
 struct Card: View {
-    var dogName: String
+ 
+    @ObservedObject var imageLoader: DataLoader
+    @State var image:UIImage = UIImage()
     
-    init(dogName: String) {
-        self.dogName = dogName
+    
+    init(imageURL: String) {
+        imageLoader = DataLoader(urlString:imageURL)
     }
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             VStack {
-                Image(dogName)
+                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
                     .cornerRadius(20)
                     .padding(.top, 100)
-                
+                    .onReceive(imageLoader.didChange) { data in
+                    self.image = UIImage(data: data) ?? UIImage()
+                }
             }
             VStack(alignment: .leading, spacing: 12) {
                 Text("Doggie")
