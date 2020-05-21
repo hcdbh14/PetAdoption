@@ -8,7 +8,7 @@ enum barItem {
     case forth
 }
 
-struct ContentView: View {
+struct MainScreen: View {
     
     var dogArray = ["doggie", "pug", "puppy", "doggie2", "doggie3"]
     @State var x: [CGFloat] = [0,0,0,0,0,0,0]
@@ -136,41 +136,9 @@ struct BarButtons : View {
 }
 
 
-struct Card: View {
-    var dogName: String
-    
-    init(dogName: String) {
-        self.dogName = dogName
-    }
-    
-    var body: some View {
-        ZStack(alignment: .bottomLeading) {
-            VStack {
-                Image(dogName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
-                    .cornerRadius(20)
-                    .padding(.top, 100)
-                
-            }
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Doggie")
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .fontWeight(.bold)
-                
-                Text("good oby")
-                    .font(.body)
-                    .foregroundColor(.white)
-                    .fontWeight(.bold)
-            }.padding(.bottom, 50)
-                .padding(.leading, 10)
-        }
-    }
-}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MainScreen()
     }
 }
