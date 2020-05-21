@@ -10,7 +10,7 @@ enum barItem {
 
 struct ContentView: View {
     
-    var dogArray = ["doggie", "pug", "puppy"]
+    var dogArray = ["doggie", "pug", "puppy", "doggie2", "doggie3"]
     @State var x: [CGFloat] = [0,0,0,0,0,0,0]
     @State var degree: [Double] = [0,0,0,0,0,0,0]
     @State var selected = barItem.first
@@ -22,7 +22,7 @@ struct ContentView: View {
             
             VStack {
                 ZStack {
-                    ForEach(0...2,id: \.self) { i in
+                    ForEach(0...dogArray.count - 1,id: \.self) { i in
                         Card(dogName: self.dogArray[i])
                             .offset(x: self.x[i])
                             .rotationEffect(.init(degrees: self.degree[i]))

@@ -8,20 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		2E721F0523C023B9B9351CE0 /* Pods_PetAdoption.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E302403B879AB37660643957 /* Pods_PetAdoption.framework */; };
-		ED320D33246853750034FED3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED320D32246853750034FED3 /* GoogleService-Info.plist */; };
 		EDF777D524684EB100154110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF777D424684EB100154110 /* AppDelegate.swift */; };
 		EDF777D724684EB100154110 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF777D624684EB100154110 /* SceneDelegate.swift */; };
 		EDF777D924684EB100154110 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF777D824684EB100154110 /* ContentView.swift */; };
 		EDF777DB24684EB400154110 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDF777DA24684EB400154110 /* Assets.xcassets */; };
 		EDF777DE24684EB400154110 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDF777DD24684EB400154110 /* Preview Assets.xcassets */; };
 		EDF777E124684EB400154110 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDF777DF24684EB400154110 /* LaunchScreen.storyboard */; };
+		EDF9F18324764F7700272C03 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDF9F18224764F7700272C03 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		67FB5269D49CC4303E90B581 /* Pods-PetAdoption.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetAdoption.debug.xcconfig"; path = "Target Support Files/Pods-PetAdoption/Pods-PetAdoption.debug.xcconfig"; sourceTree = "<group>"; };
 		E302403B879AB37660643957 /* Pods_PetAdoption.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetAdoption.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBA9FDD9453FF6AA2833B046 /* Pods-PetAdoption.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetAdoption.release.xcconfig"; path = "Target Support Files/Pods-PetAdoption/Pods-PetAdoption.release.xcconfig"; sourceTree = "<group>"; };
-		ED320D32246853750034FED3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EDF777D124684EB100154110 /* PetAdoption.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetAdoption.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDF777D424684EB100154110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDF777D624684EB100154110 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +29,7 @@
 		EDF777DD24684EB400154110 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EDF777E024684EB400154110 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EDF777E224684EB400154110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EDF9F18224764F7700272C03 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +88,7 @@
 				EDF777DA24684EB400154110 /* Assets.xcassets */,
 				EDF777DF24684EB400154110 /* LaunchScreen.storyboard */,
 				EDF777E224684EB400154110 /* Info.plist */,
-				ED320D32246853750034FED3 /* GoogleService-Info.plist */,
+				EDF9F18224764F7700272C03 /* GoogleService-Info.plist */,
 				EDF777DC24684EB400154110 /* Preview Content */,
 			);
 			path = PetAdoption;
@@ -163,7 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDF777E124684EB400154110 /* LaunchScreen.storyboard in Resources */,
-				ED320D33246853750034FED3 /* GoogleService-Info.plist in Resources */,
+				EDF9F18324764F7700272C03 /* GoogleService-Info.plist in Resources */,
 				EDF777DE24684EB400154110 /* Preview Assets.xcassets in Resources */,
 				EDF777DB24684EB400154110 /* Assets.xcassets in Resources */,
 			);
