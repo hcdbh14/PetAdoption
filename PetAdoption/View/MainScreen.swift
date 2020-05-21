@@ -1,6 +1,7 @@
 import SwiftUI
 import Firebase
 import FirebaseStorage
+
 enum barItem {
     case first
     case second
@@ -12,7 +13,7 @@ struct MainScreen: View {
     
     @State var shown = false
     @State var imageURL = ""
-    let FILE_LIST = ["doggie.jpg", "pug.jpg", "puppy.jpg", "doggie2.jpg", "doggie3.jpg"]
+    
     @ObservedObject var mainVM = MainVM()
     @State var x: [CGFloat] = [0,0,0,0,0,0,0]
     @State var degree: [Double] = [0,0,0,0,0,0,0]
@@ -22,9 +23,6 @@ struct MainScreen: View {
     var body: some View {
         
         NavigationView {
-            if imageURL != "" {
-                           FirebaseImageView(imageURL: imageURL)
-                       }
                        
             VStack {
                 ZStack {
@@ -80,22 +78,8 @@ struct MainScreen: View {
             }.background(Color.white)
                 .navigationBarTitle("Doggo app", displayMode: .inline)
                 .navigationBarItems(leading: Image(systemName: "person"), trailing: Image("dog").resizable().frame(width: 30, height: 30))
-                .onAppear(perform: loadImageFromFirebase).animation(.spring())
+                .onAppear(perform: mainVM.loadImageFromFirebase)
         }
-    }
-    
-    func loadImageFromFirebase() {
-        for i in FILE_LIST {
-        let storage = Storage.storage().reference(withPath: i)
-        storage.downloadURL { (url, error) in
-            if error != nil {
-                print((error?.localizedDescription)!)
-                return
-            }
-            print("Download success")
-            self.mainVM.dogArray.append("\(url!)")
-        }
-    }
     }
 }
 
