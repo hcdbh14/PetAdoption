@@ -8,7 +8,7 @@ class MainVM: ObservableObject {
     var dogsList: [Dog] = []
     @Published var x: [CGFloat] = []
     @Published var degree: [Double] = []
-    @Published var dogsImages: [String] = []
+    @Published var dogsImages: [[String]] = []
     
     func loadDataFromFirebase() {
         
@@ -41,18 +41,19 @@ class MainVM: ObservableObject {
             if count > 5 {
                 break
             }
-            
-            let storage = Storage.storage().reference(withPath: i.images[0])
-            storage.downloadURL { (url, error) in
-                if error != nil {
-                    print((error?.localizedDescription)!)
-                    return
+            for path in i.images {
+                let storage = Storage.storage().reference(withPath: path)
+                storage.downloadURL { (url, error) in
+                    if error != nil {
+                        print((error?.localizedDescription)!)
+                        return
+                    }
+                    
+                    print("Download success")
+                    self.x.append(0)
+                    self.degree.append(0)
+                    self.dogsImages.append(["\(url!)"])
                 }
-                
-                print("Download success")
-                self.x.append(0)
-                self.degree.append(0)
-                self.dogsImages.append("\(url!)")
             }
         }
     }
