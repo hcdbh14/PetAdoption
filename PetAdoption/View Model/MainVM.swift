@@ -34,14 +34,13 @@ class MainVM: ObservableObject {
     
     
     func loadImageFromFirebase() {
-        var count = 0
         
-        for i in dogsList {
-            count += 1
-            if count > 5 {
+        for (index, dog) in dogsList.enumerated() {
+            if index > 5 {
                 break
             }
-            for path in i.images {
+            
+            for path in dog.images {
                 let storage = Storage.storage().reference(withPath: path)
                 storage.downloadURL { (url, error) in
                     if error != nil {
