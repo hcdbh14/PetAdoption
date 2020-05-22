@@ -5,10 +5,10 @@ import FirebaseStorage
 
 class MainVM: ObservableObject {
     let ref = Database.database().reference()
-    let FILE_LIST = ["doggie.jpg", "pug.jpg", "puppy.jpg", "doggie2.jpg", "doggie3.jpg"]
-    @Published var dogArray: [String] = ["", ""]
-    
-    
+    var dogsList: [Dog] = []
+    @Published var x: [CGFloat] = []
+    @Published var degree: [Double] = []
+    @Published var dogArray: [String] = []
     
     func loadDataFromFirebase() {
         
@@ -18,9 +18,10 @@ class MainVM: ObservableObject {
                     for i in json.values {
                         let data = try JSONSerialization.data(withJSONObject: i, options: [])
                         let decoder = JSONDecoder()
-                        let dogs  = try decoder.decode(Dog.self, from: data)
-                        print(dogs)
+                        let dogObject = try decoder.decode(Dog.self, from: data)
+                        self.dogsList.append(dogObject)
                     }
+                    self.loadImageFromFirebase()
                 } catch {
                     print("error: \(error)")
                 }
@@ -28,17 +29,20 @@ class MainVM: ObservableObject {
         }) { (error) in
             print(error.localizedDescription)
         }
+       
     }
     
     
     func loadImageFromFirebase() {
-        for i in FILE_LIST {
-            let storage = Storage.storage().reference(withPath: i)
+        for i in dogsList {
+            let storage = Storage.storage().reference(withPath: i.images[0])
             storage.downloadURL { (url, error) in
                 if error != nil {
                     print((error?.localizedDescription)!)
                     return
                 }
+                self.x.append(0)
+                self.degree.append(0)
                 print("Download success")
                 self.dogArray.append("\(url!)")
             }

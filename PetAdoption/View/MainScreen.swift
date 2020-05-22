@@ -15,50 +15,51 @@ struct MainScreen: View {
     @State var imageURL = ""
     
     @ObservedObject var mainVM = MainVM()
-    @State var x: [CGFloat] = [0,0,0,0,0,0,0]
-    @State var degree: [Double] = [0,0,0,0,0,0,0]
+    
     @State var selected = barItem.first
     
     var body: some View {
         
         NavigationView {
-                       
+            
             VStack {
                 ZStack {
-                    ForEach(0...mainVM.dogArray.count - 1,id: \.self) { i in
-                        Card(imageURL: self.mainVM.dogArray[i])
-                            .offset(x: self.x[i])
-                            .rotationEffect(.init(degrees: self.degree[i]))
-                            .gesture(DragGesture()
-                                .onChanged({ (value) in
-                                    if value.translation.width > 0 {
-                                        self.x[i] = value.translation.width
-                                        self.degree[i] = 8
-                                    } else {
-                                        self.x[i] = value.translation.width
-                                        self.degree[i] = -8
-                                    }
-                                })
-                                .onEnded({ (value) in
-                                    if value.translation.width > 0 {
-                                        if value.translation.width > 100 {
-                                            self.x[i] = 500
-                                            self.degree[i] = 15
+                    if mainVM.dogArray.isEmpty == false {
+                        ForEach(0...mainVM.dogArray.count - 1,id: \.self) { i in
+                            Card(imageURL: self.mainVM.dogArray[i])
+                                .offset(x: self.mainVM.x[i])
+                                .rotationEffect(.init(degrees: self.mainVM.degree[i]))
+                                .gesture(DragGesture()
+                                    .onChanged({ (value) in
+                                        if value.translation.width > 0 {
+                                            self.mainVM.x[i] = value.translation.width
+                                            self.mainVM.degree[i] = 8
                                         } else {
-                                            self.x[i] = 0
-                                            self.degree[i] = 0
+                                            self.mainVM.x[i] = value.translation.width
+                                            self.mainVM.degree[i] = -8
                                         }
-                                    } else {
-                                        if value.translation.width < -100 {
-                                            self.x[i] = -500
-                                            self.degree[i] = -15
+                                    })
+                                    .onEnded({ (value) in
+                                        if value.translation.width > 0 {
+                                            if value.translation.width > 100 {
+                                                self.mainVM.x[i] = 500
+                                                self.mainVM.degree[i] = 15
+                                            } else {
+                                                self.mainVM.x[i] = 0
+                                                self.mainVM.degree[i] = 0
+                                            }
                                         } else {
-                                            self.x[i] = 0
-                                            self.degree[i] = 0
+                                            if value.translation.width < -100 {
+                                                self.mainVM.x[i] = -500
+                                                self.mainVM.degree[i] = -15
+                                            } else {
+                                                self.mainVM.x[i] = 0
+                                                self.mainVM.degree[i] = 0
+                                            }
                                         }
-                                    }
-                                }))
-                    }.animation(.default)
+                                    }))
+                        }.animation(.default)
+                    }
                 }
                 
                 Spacer()
@@ -69,16 +70,19 @@ struct MainScreen: View {
                         .background(ButtomBar())
                     
                 }.background(Color.white).edgesIgnoringSafeArea(.top)
-                    
-                    .onAppear() {
-                        self.mainVM.loadDataFromFirebase()
-                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])
-                }
+                
+                //                    .onAppear() {
+                ////                        self.mainVM.loadDataFromFirebase()
+                ////                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])
+                //                }
             }.background(Color.white)
                 .navigationBarTitle("Doggo app", displayMode: .inline)
                 .navigationBarItems(leading: Image(systemName: "person"), trailing: Image("dog").resizable().frame(width: 30, height: 30))
-                .onAppear(perform: mainVM.loadImageFromFirebase)
+                .onAppear(perform: mainVM.loadDataFromFirebase)
         }
+    }
+    func test() {
+        
     }
 }
 
