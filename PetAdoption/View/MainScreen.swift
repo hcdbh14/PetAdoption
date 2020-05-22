@@ -24,9 +24,9 @@ struct MainScreen: View {
             
             VStack {
                 ZStack {
-                    if mainVM.dogArray.isEmpty == false {
-                        ForEach(0...mainVM.dogArray.count - 1,id: \.self) { i in
-                            Card(imageURL: self.mainVM.dogArray[i])
+                    if mainVM.dogsImages.isEmpty == false {
+                        ForEach(0...mainVM.dogsImages.count - 1,id: \.self) { i in
+                            Card(imageURL: self.mainVM.dogsImages[i])
                                 .offset(x: self.mainVM.x[i])
                                 .rotationEffect(.init(degrees: self.mainVM.degree[i]))
                                 .gesture(DragGesture()
