@@ -11,6 +11,7 @@
 		ED49A3792476DBD800A87257 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED49A3782476DBD800A87257 /* GoogleService-Info.plist */; };
 		ED49A37B2476DBEF00A87257 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49A37A2476DBEF00A87257 /* Card.swift */; };
 		ED5A628024770AF70081DF00 /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5A627F24770AF70081DF00 /* MainVM.swift */; };
+		ED825A382478185C00ACA8E6 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED825A372478185C00ACA8E6 /* Dog.swift */; };
 		EDDB49E1247708250068026C /* FirebaseImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDB49E0247708250068026C /* FirebaseImageView.swift */; };
 		EDF777D524684EB100154110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF777D424684EB100154110 /* AppDelegate.swift */; };
 		EDF777D724684EB100154110 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF777D624684EB100154110 /* SceneDelegate.swift */; };
@@ -27,6 +28,7 @@
 		ED49A3782476DBD800A87257 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED49A37A2476DBEF00A87257 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		ED5A627F24770AF70081DF00 /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
+		ED825A372478185C00ACA8E6 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		EDDB49E0247708250068026C /* FirebaseImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseImageView.swift; sourceTree = "<group>"; };
 		EDF777D124684EB100154110 /* PetAdoption.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetAdoption.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDF777D424684EB100154110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				EDDB49E0247708250068026C /* FirebaseImageView.swift */,
+				ED825A372478185C00ACA8E6 /* Dog.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDF777D524684EB100154110 /* AppDelegate.swift in Sources */,
+				ED825A382478185C00ACA8E6 /* Dog.swift in Sources */,
 				ED5A628024770AF70081DF00 /* MainVM.swift in Sources */,
 				EDF777D724684EB100154110 /* SceneDelegate.swift in Sources */,
 				EDF777D924684EB100154110 /* MainScreen.swift in Sources */,

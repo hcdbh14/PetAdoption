@@ -18,7 +18,6 @@ struct MainScreen: View {
     @State var x: [CGFloat] = [0,0,0,0,0,0,0]
     @State var degree: [Double] = [0,0,0,0,0,0,0]
     @State var selected = barItem.first
-    let ref = Database.database().reference()
     
     var body: some View {
         
@@ -72,8 +71,8 @@ struct MainScreen: View {
                 }.background(Color.white).edgesIgnoringSafeArea(.top)
                     
                     .onAppear() {
-                        //                    self.ref.child("test/name").setValue("Kenny")
-                        //                    self.ref.childByAutoId().setValue(["name":"Tom", "role":"Admin", "age": 30])
+                        self.mainVM.loadDataFromFirebase()
+                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])
                 }
             }.background(Color.white)
                 .navigationBarTitle("Doggo app", displayMode: .inline)
