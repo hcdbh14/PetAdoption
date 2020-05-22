@@ -10,6 +10,7 @@ enum barItem {
 
 struct MainScreen: View {
     
+    @State var imageIndex = 0
     @State var shown = false
     @State var imageURL = ""
     
@@ -25,38 +26,47 @@ struct MainScreen: View {
                 ZStack {
                     if mainVM.dogsImages.isEmpty == false {
                         ForEach(0...mainVM.dogsImages.count - 1,id: \.self) { i in
-                            Card(imageURL: self.mainVM.dogsImages[i][0])
+                            Card(imageURL: self.mainVM.dogsImages[i]?[self.imageIndex] ?? "")
                                 .offset(x: self.mainVM.x[i])
                                 .rotationEffect(.init(degrees: self.mainVM.degree[i]))
-                                .gesture(DragGesture()
-                                    .onChanged({ (value) in
-                                        if value.translation.width > 0 {
-                                            self.mainVM.x[i] = value.translation.width
-                                            self.mainVM.degree[i] = 8
+                                .onTapGesture {
+                                    guard let numImages = self.mainVM.dogsImages[i]?.count else { return }
+                                    if self.imageIndex == numImages - 1 {
+                                        return
+                                    } else {
+                                        self.imageIndex += 1
+                                    }
+                            }
+                            .gesture(DragGesture()
+                            .onChanged({ (value) in
+                                if value.translation.width > 0 {
+                                    self.mainVM.x[i] = value.translation.width
+                                    self.mainVM.degree[i] = 8
+                                } else {
+                                    self.mainVM.x[i] = value.translation.width
+                                    self.mainVM.degree[i] = -8
+                                }
+                            })
+                                .onEnded({ (value) in
+                                    if value.translation.width > 0 {
+                                        if value.translation.width > 100 {
+                                            self.mainVM.x[i] = 500
+                                            self.mainVM.degree[i] = 15
                                         } else {
-                                            self.mainVM.x[i] = value.translation.width
-                                            self.mainVM.degree[i] = -8
+                                            self.mainVM.x[i] = 0
+                                            self.mainVM.degree[i] = 0
                                         }
-                                    })
-                                    .onEnded({ (value) in
-                                        if value.translation.width > 0 {
-                                            if value.translation.width > 100 {
-                                                self.mainVM.x[i] = 500
-                                                self.mainVM.degree[i] = 15
-                                            } else {
-                                                self.mainVM.x[i] = 0
-                                                self.mainVM.degree[i] = 0
-                                            }
+                                    } else {
+                                        if value.translation.width < -100 {
+                                            self.mainVM.x[i] = -500
+                                            self.mainVM.degree[i] = -15
                                         } else {
-                                            if value.translation.width < -100 {
-                                                self.mainVM.x[i] = -500
-                                                self.mainVM.degree[i] = -15
-                                            } else {
-                                                self.mainVM.x[i] = 0
-                                                self.mainVM.degree[i] = 0
-                                            }
+                                            self.mainVM.x[i] = 0
+                                            self.mainVM.degree[i] = 0
                                         }
-                                    }))
+                                    }
+                                    self.imageIndex = 0
+                                }))
                         }.animation(.default)
                     }
                 }

@@ -8,7 +8,7 @@ class MainVM: ObservableObject {
     var dogsList: [Dog] = []
     @Published var x: [CGFloat] = []
     @Published var degree: [Double] = []
-    @Published var dogsImages: [[String]] = []
+    @Published var dogsImages: [Int: [String]] = [:]
     
     func loadDataFromFirebase() {
         
@@ -41,6 +41,7 @@ class MainVM: ObservableObject {
             }
             
             for path in dog.images {
+                
                 let storage = Storage.storage().reference(withPath: path)
                 storage.downloadURL { (url, error) in
                     if error != nil {
@@ -51,7 +52,12 @@ class MainVM: ObservableObject {
                     print("Download success")
                     self.x.append(0)
                     self.degree.append(0)
-                    self.dogsImages.append(["\(url!)"])
+                    
+                    if self.dogsImages[index] == nil {
+                        self.dogsImages[index] = ["\(url!)"]
+                    } else {
+                        self.dogsImages[index]?.append("\(url!)")
+                    }
                 }
             }
         }
