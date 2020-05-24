@@ -26,7 +26,7 @@ struct MainScreen: View {
                 ZStack {
                     if mainVM.dogsImages.isEmpty == false {
                         ForEach(0...mainVM.dogsImages.count - 1,id: \.self) { i in
-                            Card(imageURL: self.mainVM.dogsImages[i]?[self.imageIndex] ?? "")
+                            Card(imageURL: self.mainVM.dogsImages[i]?[self.imageIndex] ?? "", displayed: self.$imageIndex)
                                 .offset(x: self.mainVM.x[i])
                                 .rotationEffect(.init(degrees: self.mainVM.degree[i]))
                                 .onTapGesture {

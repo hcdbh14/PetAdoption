@@ -1,14 +1,15 @@
 import SwiftUI
 
 struct Card: View {
-    @State var displyed = 1
+    @Binding var displyed: Int
     @State var imageCount = 5
     @ObservedObject var imageLoader: DataLoader
     @State var image: UIImage = UIImage()
     
     
-    init(imageURL: String) {
+    init(imageURL: String, displayed: Binding<Int>) {
         imageLoader = DataLoader(urlString:imageURL)
+        self._displyed = displayed
     }
     
     var body: some View {
