@@ -29,44 +29,65 @@ struct MainScreen: View {
                             Card(imageURL: self.mainVM.dogsImages[i]?[self.imageIndex] ?? "", displayed: self.$imageIndex)
                                 .offset(x: self.mainVM.x[i])
                                 .rotationEffect(.init(degrees: self.mainVM.degree[i]))
-                                .onTapGesture {
-                                    guard let numImages = self.mainVM.dogsImages[i]?.count else { return }
-                                    if self.imageIndex == numImages - 1 {
-                                        return
-                                    } else {
-                                        self.imageIndex += 1
-                                    }
-                            }
-                            .gesture(DragGesture()
-                            .onChanged({ (value) in
-                                if value.translation.width > 0 {
-                                    self.mainVM.x[i] = value.translation.width
-                                    self.mainVM.degree[i] = 8
-                                } else {
-                                    self.mainVM.x[i] = value.translation.width
-                                    self.mainVM.degree[i] = -8
-                                }
-                            })
-                                .onEnded({ (value) in
-                                    if value.translation.width > 0 {
-                                        if value.translation.width > 100 {
-                                            self.mainVM.x[i] = 500
-                                            self.mainVM.degree[i] = 15
+//                                                                .onTapGesture {
+//                                                                    guard let numImages = self.mainVM.dogsImages[i]?.count else { return }
+//                                                                    if self.imageIndex == numImages - 1 {
+//                                                                        return
+//                                                                    } else {
+//                                                                        self.imageIndex += 1
+//                                                                    }
+//                                                            }
+                                .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                                    .onChanged({ (value) in
+                                        
+                                        if value.translation.width > 0 {
+                                            self.mainVM.x[i] = value.translation.width
+                                            self.mainVM.degree[i] = 8
                                         } else {
-                                            self.mainVM.x[i] = 0
-                                            self.mainVM.degree[i] = 0
+                                            self.mainVM.x[i] = value.translation.width
+                                            self.mainVM.degree[i] = -8
                                         }
-                                    } else {
-                                        if value.translation.width < -100 {
-                                            self.mainVM.x[i] = -500
-                                            self.mainVM.degree[i] = -15
+                                    })
+                                    .onEnded({ (value) in
+                                        print(value.location)
+                                        print(self.imageIndex)
+       
+                                        
+                                        
+                                        if value.translation.width > 0 {
+                                            if value.translation.width > 100 {
+                                                self.mainVM.x[i] = 500
+                                                self.mainVM.degree[i] = 15
+                                                self.imageIndex = 0
+                                            } else {
+                                                self.mainVM.x[i] = 0
+                                                self.mainVM.degree[i] = 0
+                                            }
                                         } else {
-                                            self.mainVM.x[i] = 0
-                                            self.mainVM.degree[i] = 0
+                                            if value.translation.width < -100 {
+                                                self.mainVM.x[i] = -500
+                                                self.mainVM.degree[i] = -15
+                                                self.imageIndex = 0
+                                            } else {
+                                                self.mainVM.x[i] = 0
+                                                self.mainVM.degree[i] = 0
+                                            }
                                         }
-                                    }
-                                    self.imageIndex = 0
-                                }))
+                                        if value.location.x > 180 {
+                                                   guard let numImages = self.mainVM.dogsImages[i]?.count else { return }
+                                                   if self.imageIndex == numImages - 1 {
+                                                       return
+                                                   } else {
+                                                       self.imageIndex += 1
+                                                   }
+                                               } else {
+                                                   if self.imageIndex == 0 {
+                                                       return
+                                                   } else {
+                                                       self.imageIndex -= 1
+                                                   }
+                                               }
+                                    }))
                         }.animation(.default)
                     }
                 }

@@ -26,7 +26,7 @@ struct Card: View {
                     self.image = UIImage(data: data) ?? UIImage()
                 }
                 HStack {
-                    ForEach (1...imageCount,id: \.self) { i in
+                    ForEach (0...imageCount,id: \.self) { i in
                         Rectangle()
                             
                             .fill(Color.clear)
