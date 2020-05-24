@@ -36,7 +36,7 @@ class MainVM: ObservableObject {
     func loadImageFromFirebase() {
         
         for (index, dog) in dogsList.enumerated() {
-            if index > 5 {
+            if index > 10 {
                 break
             }
             

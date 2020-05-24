@@ -2,13 +2,14 @@ import SwiftUI
 
 struct Card: View {
     @Binding var displyed: Int
-    @State var imageCount = 5
+    var imageCount: Int
     @ObservedObject var imageLoader: DataLoader
     @State var image: UIImage = UIImage()
     
     
-    init(imageURL: String, displayed: Binding<Int>) {
+    init(imageURL: String, displayed: Binding<Int>, imageCount: Int) {
         imageLoader = DataLoader(urlString:imageURL)
+        self.imageCount = imageCount
         self._displyed = displayed
     }
     
@@ -26,7 +27,7 @@ struct Card: View {
                     self.image = UIImage(data: data) ?? UIImage()
                 }
                 HStack {
-                    ForEach (0...imageCount,id: \.self) { i in
+                    ForEach (0...imageCount - 1,id: \.self) { i in
                         Rectangle()
                             
                             .fill(Color.clear)

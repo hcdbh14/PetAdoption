@@ -26,17 +26,12 @@ struct MainScreen: View {
                 ZStack {
                     if mainVM.dogsImages.isEmpty == false {
                         ForEach(0...mainVM.dogsImages.count - 1,id: \.self) { i in
-                            Card(imageURL: self.mainVM.dogsImages[i]?[self.imageIndex] ?? "", displayed: self.$imageIndex)
+                            Card(imageURL: self.mainVM.dogsImages[i]?[self.imageIndex] ?? "", displayed: self.$imageIndex, imageCount: self.mainVM.dogsImages[i]?.count ?? 1)
                                 .offset(x: self.mainVM.x[i])
+                                .onAppear() {
+                                    print(self.$mainVM.dogsImages)
+                            }
                                 .rotationEffect(.init(degrees: self.mainVM.degree[i]))
-//                                                                .onTapGesture {
-//                                                                    guard let numImages = self.mainVM.dogsImages[i]?.count else { return }
-//                                                                    if self.imageIndex == numImages - 1 {
-//                                                                        return
-//                                                                    } else {
-//                                                                        self.imageIndex += 1
-//                                                                    }
-//                                                            }
                                 .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                                     .onChanged({ (value) in
                                         
@@ -49,11 +44,6 @@ struct MainScreen: View {
                                         }
                                     })
                                     .onEnded({ (value) in
-                                        print(value.location)
-                                        print(self.imageIndex)
-       
-                                        
-                                        
                                         if value.translation.width > 0 {
                                             if value.translation.width > 100 {
                                                 self.mainVM.x[i] = 500
