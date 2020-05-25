@@ -11,9 +11,7 @@ enum barItem {
 struct MainScreen: View {
     
     @State var imageIndex = 0
-    @State var shown = false
-    
-    @ObservedObject var mainVM = MainVM()
+    @EnvironmentObject var mainVM: MainVM
     
     @State var selected = barItem.first
     
@@ -23,37 +21,37 @@ struct MainScreen: View {
             
             VStack {
                 ZStack {
-                    if mainVM.dogsImages.isEmpty == false {
-                        ForEach(0...mainVM.dogsImages.count - 1,id: \.self) { i in
-                            Card(imageURL: self.mainVM.dogsImages[i]?[self.imageIndex] ?? "", displayed: self.$imageIndex, imageCount: self.mainVM.dogsImages[i]?.count ?? 1)
-
-                        }.animation(.default)
+                    if mainVM.dogsImages.isEmpty == false && mainVM.frontImage.isEmpty == false {
+                        
+                        Card(imageURL: self.mainVM.dogsImages[self.mainVM.count]?[0] ?? "" , displayed: self.$imageIndex, imageCount: self.mainVM.dogsImages[self.mainVM.count]?.count ?? 1).animation(.default)
+                        
+                        Card(imageURL: self.mainVM.frontImage[self.imageIndex], displayed: self.$imageIndex, imageCount: self.mainVM.frontImage.count )
+                            .animation(.default)
+                        
                     }
                 }
+            }
+            
+            Spacer()
+            ZStack(alignment: .top) {
+                BarButtons(selected: self.$selected)
+                    .padding()
+                    .padding(.horizontal, 22)
+                    .background(ButtomBar())
                 
-                Spacer()
-                ZStack(alignment: .top) {
-                    BarButtons(selected: self.$selected)
-                        .padding()
-                        .padding(.horizontal, 22)
-                        .background(ButtomBar())
-                    
-                }.background(Color.white).edgesIgnoringSafeArea(.top)
-                
-                //                    .onAppear() {
-                ////                        self.mainVM.loadDataFromFirebase()
-                ////                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])
-                //                }
-            }.background(Color.white)
-                .navigationBarTitle("Doggo app", displayMode: .inline)
-                .navigationBarItems(leading: Image(systemName: "person"), trailing: Image("dog").resizable().frame(width: 30, height: 30))
-                .onAppear(perform: mainVM.loadDataFromFirebase)
-        }
-    }
-    func test() {
-        
+            }.background(Color.white).edgesIgnoringSafeArea(.top)
+            
+            //                    .onAppear() {
+            ////                        self.mainVM.loadDataFromFirebase()
+            ////                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])
+            //                }
+        }.background(Color.white)
+            .navigationBarTitle("Doggo app", displayMode: .inline)
+            .navigationBarItems(leading: Image(systemName: "person"), trailing: Image("dog").resizable().frame(width: 30, height: 30))
+            .onAppear(perform: mainVM.loadDataFromFirebase)
     }
 }
+
 
 struct ButtomBar: View {
     

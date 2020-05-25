@@ -4,8 +4,11 @@ import FirebaseStorage
 
 
 class MainVM: ObservableObject {
+    
     let ref = Database.database().reference()
     var dogsList: [Dog] = []
+    @Published var count = 0
+    @Published var frontImage: [String] = []
     @Published var dogsImages: [Int: [String]] = [:]
     
     func loadDataFromFirebase() {
@@ -30,6 +33,13 @@ class MainVM: ObservableObject {
         
     }
     
+    func pushNewImage() {
+        let removed = dogsImages.removeValue(forKey: count)
+        frontImage = removed ?? []
+        print(frontImage)
+        count += 1
+    }
+    
     
     func loadImageFromFirebase() {
         
@@ -37,6 +47,7 @@ class MainVM: ObservableObject {
             if index > 10 {
                 break
             }
+
             
             for path in dog.images {
                 
@@ -51,8 +62,14 @@ class MainVM: ObservableObject {
 
                     
                     if self.dogsImages[index] == nil {
+                        if index < 1 {
+                            self.frontImage = ["\(url!)"]
+                        }
                         self.dogsImages[index] = ["\(url!)"]
                     } else {
+                        if index < 1 {
+                            self.frontImage[index].append("\(url!)")
+                        }
                         self.dogsImages[index]?.append("\(url!)")
                     }
                 }

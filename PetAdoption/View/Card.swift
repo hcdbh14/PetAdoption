@@ -5,7 +5,7 @@ struct Card: View {
     var imageCount: Int
     @ObservedObject var imageLoader: DataLoader
     @State var image: UIImage = UIImage()
-    
+    @EnvironmentObject var mainVM: MainVM
     @State var x: CGFloat = 0
     @State var degree: Double = 0
     
@@ -19,63 +19,83 @@ struct Card: View {
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             VStack {
-
                 
-                 Image(uiImage: image)
+                
+                Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
                     .cornerRadius(20)
                     .offset(x: self.x)
-                        .rotationEffect(.init(degrees: self.degree))
-                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                            .onChanged({ (value) in
+                    .rotationEffect(.init(degrees: self.degree))
+                    .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                        .onChanged({ (value) in
+                            
+                            if value.translation.width > 0 {
+                                self.x = value.translation.width
+                                self.degree = 8
+                            } else {
+                                self.x = value.translation.width
+                                self.degree = -8
+                            }
+                        })
+                        .onEnded({ (value) in
+                            if value.translation.width > 0 {
+                                if value.translation.width > 100 {
+                                    self.x = 500
+                                    self.degree = 15
+                                    self.displyed = 0
+                                    self.mainVM.pushNewImage()
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                        self.x = 0
+                                        self.degree = 0
+                                    }
+                                } else {
+                                    
+                                    self.x = 0
+                                    self.degree = 0
+                                    
+                                    
+                                }
+                            } else {
+                                if value.translation.width < -100 {
+                                    self.x = -500
+                                    self.degree = -15
+                                    self.displyed = 0
+                                    self.mainVM.pushNewImage()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                        
+                                        self.x = 0
+                                        self.degree = 0
+                                        
+                                        
+                                    }
+                                } else {
+                                    self.x = 0
+                                    self.degree = 0
+                                }
+                            }
+                            if value.location.x > 180 {
                                 
-                                if value.translation.width > 0 {
-                                    self.x = value.translation.width
-                                    self.degree = 8
+                                if self.displyed == self.imageCount - 1 {
+                                    return
                                 } else {
-                                    self.x = value.translation.width
-                                    self.degree = -8
+                                    
+                                    self.displyed += 1
+                                    
                                 }
-                            })
-                            .onEnded({ (value) in
-                                if value.translation.width > 0 {
-                                    if value.translation.width > 100 {
-                                        self.x = 500
-                                        self.degree = 15
-                                        self.displyed = 0
-                                    } else {
-                                        self.x = 0
-                                        self.degree = 0
-                                    }
+                            } else {
+                                if self.displyed == 0 {
+                                    return
                                 } else {
-                                    if value.translation.width < -100 {
-                                        self.x = -500
-                                        self.degree = -15
-                                        self.displyed = 0
-                                    } else {
-                                        self.x = 0
-                                        self.degree = 0
-                                    }
+                                    self.displyed -= 1
+                                    
                                 }
-                                if value.location.x > 180 {
-                                           
-                                    if self.displyed == self.imageCount - 1 {
-                                               return
-                                           } else {
-                                               self.displyed += 1
-                                           }
-                                       } else {
-                                           if self.displyed == 0 {
-                                               return
-                                           } else {
-                                               self.displyed -= 1
-                                           }
-                                       }
-                            }))
+                            }
+                        }))
                     .onReceive(imageLoader.didChange) { data in
-                    self.image = UIImage(data: data) ?? UIImage()
+                        self.image = UIImage(data: data) ?? UIImage()
                 }
                 HStack {
                     ForEach (0...imageCount - 1,id: \.self) { i in
@@ -86,9 +106,9 @@ struct Card: View {
                             
                             .frame(width: (UIScreen.main.bounds.width / CGFloat(self.imageCount)) - 30, height: 10)
                     }
-     
                     
-                        
+                    
+                    
                 }.padding(.top, -UIScreen.main.bounds.height / 1.8)
             }
             VStack(alignment: .leading, spacing: 12) {
