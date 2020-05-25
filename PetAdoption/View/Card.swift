@@ -6,6 +6,9 @@ struct Card: View {
     @ObservedObject var imageLoader: DataLoader
     @State var image: UIImage = UIImage()
     
+    @State var x: CGFloat = 0
+    @State var degree: Double = 0
+    
     
     init(imageURL: String, displayed: Binding<Int>, imageCount: Int) {
         imageLoader = DataLoader(urlString:imageURL)
@@ -23,6 +26,54 @@ struct Card: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
                     .cornerRadius(20)
+                    .offset(x: self.x)
+                        .rotationEffect(.init(degrees: self.degree))
+                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                            .onChanged({ (value) in
+                                
+                                if value.translation.width > 0 {
+                                    self.x = value.translation.width
+                                    self.degree = 8
+                                } else {
+                                    self.x = value.translation.width
+                                    self.degree = -8
+                                }
+                            })
+                            .onEnded({ (value) in
+                                if value.translation.width > 0 {
+                                    if value.translation.width > 100 {
+                                        self.x = 500
+                                        self.degree = 15
+                                        self.displyed = 0
+                                    } else {
+                                        self.x = 0
+                                        self.degree = 0
+                                    }
+                                } else {
+                                    if value.translation.width < -100 {
+                                        self.x = -500
+                                        self.degree = -15
+                                        self.displyed = 0
+                                    } else {
+                                        self.x = 0
+                                        self.degree = 0
+                                    }
+                                }
+                                if value.location.x > 180 {
+                                           
+                                    if self.displyed == self.imageCount - 1 {
+                                               return
+                                           } else {
+                                               self.displyed += 1
+                                           }
+                                       } else {
+                                           if self.displyed == 0 {
+                                               return
+                                           } else {
+                                               self.displyed -= 1
+                                           }
+                                       }
+                            }))
                     .onReceive(imageLoader.didChange) { data in
                     self.image = UIImage(data: data) ?? UIImage()
                 }

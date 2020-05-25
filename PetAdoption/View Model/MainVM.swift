@@ -6,8 +6,6 @@ import FirebaseStorage
 class MainVM: ObservableObject {
     let ref = Database.database().reference()
     var dogsList: [Dog] = []
-    @Published var x: [CGFloat] = []
-    @Published var degree: [Double] = []
     @Published var dogsImages: [Int: [String]] = [:]
     
     func loadDataFromFirebase() {
@@ -50,8 +48,7 @@ class MainVM: ObservableObject {
                     }
                     
                     print("Download success")
-                    self.x.append(0)
-                    self.degree.append(0)
+
                     
                     if self.dogsImages[index] == nil {
                         self.dogsImages[index] = ["\(url!)"]
