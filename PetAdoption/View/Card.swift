@@ -9,6 +9,7 @@ struct Card: View {
     @State var x: CGFloat = 0
     @State var degree: Double = 0
     @State var data: [Data] = []
+    @State var inAnimation = false
     
     
     init(imageURL: [String], displayed: Binding<Int>, imageCount: Int) {
@@ -21,7 +22,7 @@ struct Card: View {
         ZStack(alignment: .bottomLeading) {
             VStack {
                 
-
+                
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -46,29 +47,30 @@ struct Card: View {
                                     self.x = 500
                                     self.degree = 15
                                     self.displyed = 0
+                                    self.inAnimation = true
                                     self.mainVM.pushNewImage()
                                     
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                         self.x = 0
                                         self.degree = 0
+                                        self.inAnimation = false
                                     }
                                 } else {
                                     
                                     self.x = 0
                                     self.degree = 0
-                                    
-                                    
                                 }
                             } else {
                                 if value.translation.width < -100 {
                                     self.x = -500
                                     self.degree = -15
                                     self.displyed = 0
+                                    self.inAnimation = true
                                     self.mainVM.pushNewImage()
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                         self.x = 0
                                         self.degree = 0
-
+                                        self.inAnimation = false
                                     }
                                 } else {
                                     self.x = 0
@@ -77,7 +79,7 @@ struct Card: View {
                             }
                             if value.location.x > 180 {
                                 
-                                if self.displyed == self.imageCount - 1 {
+                                if self.displyed == self.imageCount - 1 || self.inAnimation {
                                     return
                                 } else {
                                     
@@ -85,7 +87,7 @@ struct Card: View {
                                     self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                 }
                             } else {
-                                if self.displyed == 0 {
+                                if self.displyed == 0 || self.inAnimation {
                                     return
                                 } else {
                                     self.displyed -= 1

@@ -9,7 +9,7 @@ struct FirebaseImageView: View {
     init(imageURL: [String]) {
         imageLoader = DataLoader(urlString: imageURL)
     }
-
+    
     var body: some View {
         VStack {
             Image(uiImage: image)
@@ -17,9 +17,9 @@ struct FirebaseImageView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width:400, height:400)
         }
-//        .onReceive(imageLoader.didChange) { data in
-//            self.image = UIImage(data: data) ?? UIImage()
-//        }
+        //        .onReceive(imageLoader.didChange) { data in
+        //            self.image = UIImage(data: data) ?? UIImage()
+        //        }
     }
 }
 
@@ -30,7 +30,7 @@ class DataLoader: ObservableObject {
             didChange.send(data)
         }
     }
-
+    
     init(urlString: [String]) {
         getDataFromURL(urlString: urlString)
     }

@@ -28,7 +28,7 @@ struct MainScreen: View {
                         Card(imageURL: self.mainVM.dogsImages[self.mainVM.count] ?? [] , displayed: self.$staticIndex, imageCount: self.mainVM.dogsImages[self.mainVM.count]?.count ?? 1).animation(.default)
                             .disabled(true)
                         
-        
+                        
                         
                         Card(imageURL: self.mainVM.frontImage, displayed: self.$imageIndex, imageCount: self.mainVM.frontImage.count )
                             .animation(.default)
@@ -46,9 +46,9 @@ struct MainScreen: View {
                 
                 
             }.background(Color.white)
-            .navigationBarTitle("Doggo app", displayMode: .inline)
-            .navigationBarItems(leading: Image(systemName: "person"), trailing: Image("dog").resizable().frame(width: 30, height: 30))
-            .onAppear(perform: mainVM.loadDataFromFirebase)
+                .navigationBarTitle("Doggo app", displayMode: .inline)
+                .navigationBarItems(leading: Image(systemName: "person"), trailing: Image("dog").resizable().frame(width: 30, height: 30))
+                .onAppear(perform: mainVM.loadDataFromFirebase)
             
             //                    .onAppear() {
             ////                        self.mainVM.loadDataFromFirebase()
