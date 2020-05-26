@@ -8,10 +8,11 @@ struct Card: View {
     @EnvironmentObject var mainVM: MainVM
     @State var x: CGFloat = 0
     @State var degree: Double = 0
+    @State var data: [Data] = []
     
     
-    init(imageURL: String, displayed: Binding<Int>, imageCount: Int) {
-        imageLoader = DataLoader(urlString:imageURL)
+    init(imageURL: [String], displayed: Binding<Int>, imageCount: Int) {
+        imageLoader = DataLoader(urlString: imageURL)
         self.imageCount = imageCount
         self._displyed = displayed
     }
@@ -20,7 +21,7 @@ struct Card: View {
         ZStack(alignment: .bottomLeading) {
             VStack {
                 
-                
+
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -65,11 +66,9 @@ struct Card: View {
                                     self.displyed = 0
                                     self.mainVM.pushNewImage()
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                        
                                         self.x = 0
                                         self.degree = 0
-                                        
-                                        
+
                                     }
                                 } else {
                                     self.x = 0
@@ -83,19 +82,22 @@ struct Card: View {
                                 } else {
                                     
                                     self.displyed += 1
-                                    
+                                    self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                 }
                             } else {
                                 if self.displyed == 0 {
                                     return
                                 } else {
                                     self.displyed -= 1
+                                    self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                     
                                 }
                             }
                         }))
                     .onReceive(imageLoader.didChange) { data in
-                        self.image = UIImage(data: data) ?? UIImage()
+                        print(self.displyed)
+                        self.image = UIImage(data: data[self.displyed]) ?? UIImage()
+                        self.data = data
                 }
                 HStack {
                     ForEach (0...imageCount - 1,id: \.self) { i in

@@ -6,8 +6,8 @@ struct FirebaseImageView: View {
     @ObservedObject var imageLoader: DataLoader
     @State var image:UIImage = UIImage()
     
-    init(imageURL: String) {
-        imageLoader = DataLoader(urlString:imageURL)
+    init(imageURL: [String]) {
+        imageLoader = DataLoader(urlString: imageURL)
     }
 
     var body: some View {
@@ -16,31 +16,35 @@ struct FirebaseImageView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width:400, height:400)
-        }.onReceive(imageLoader.didChange) { data in
-            self.image = UIImage(data: data) ?? UIImage()
         }
+//        .onReceive(imageLoader.didChange) { data in
+//            self.image = UIImage(data: data) ?? UIImage()
+//        }
     }
 }
 
 class DataLoader: ObservableObject {
-    @Published var didChange = PassthroughSubject<Data, Never>()
-    @Published var data = Data() {
+    @Published var didChange = PassthroughSubject<[Data], Never>()
+    @Published var data: [Data] = [] {
         didSet {
             didChange.send(data)
         }
     }
 
-    init(urlString:String) {
+    init(urlString: [String]) {
         getDataFromURL(urlString: urlString)
     }
     
-    func getDataFromURL(urlString:String) {
-        guard let url = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data else { return }
-            DispatchQueue.main.async {
-                self.data = data
-            }
-        }.resume()
+    func getDataFromURL(urlString: [String]) {
+        for i in urlString {
+            guard let url = URL(string: i) else { return }
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                guard let data = data else { return }
+                DispatchQueue.main.async {
+                    print("logic", self.data)
+                    self.data.append(data)
+                }
+            }.resume()
+        }
     }
 }

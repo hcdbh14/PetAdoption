@@ -10,6 +10,7 @@ enum barItem {
 
 struct MainScreen: View {
     
+    @State var staticIndex = 0
     @State var imageIndex = 0
     @EnvironmentObject var mainVM: MainVM
     
@@ -24,9 +25,12 @@ struct MainScreen: View {
                 ZStack {
                     if mainVM.dogsImages.isEmpty == false && mainVM.frontImage.isEmpty == false {
                         
-                        Card(imageURL: self.mainVM.dogsImages[self.mainVM.count]?[0] ?? "" , displayed: self.$imageIndex, imageCount: self.mainVM.dogsImages[self.mainVM.count]?.count ?? 1).animation(.default)
+                        Card(imageURL: self.mainVM.dogsImages[self.mainVM.count] ?? [] , displayed: self.$staticIndex, imageCount: self.mainVM.dogsImages[self.mainVM.count]?.count ?? 1).animation(.default)
+                            .disabled(true)
                         
-                        Card(imageURL: self.mainVM.frontImage[self.imageIndex], displayed: self.$imageIndex, imageCount: self.mainVM.frontImage.count )
+        
+                        
+                        Card(imageURL: self.mainVM.frontImage, displayed: self.$imageIndex, imageCount: self.mainVM.frontImage.count )
                             .animation(.default)
                         
                     }
