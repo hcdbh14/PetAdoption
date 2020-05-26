@@ -41,16 +41,16 @@ struct MainScreen: View {
                 
                 
                 
-            }.background(Color.white).edgesIgnoringSafeArea(.top)
+            }.background(Color.white)
+            .navigationBarTitle("Doggo app", displayMode: .inline)
+            .navigationBarItems(leading: Image(systemName: "person"), trailing: Image("dog").resizable().frame(width: 30, height: 30))
+            .onAppear(perform: mainVM.loadDataFromFirebase)
             
             //                    .onAppear() {
             ////                        self.mainVM.loadDataFromFirebase()
             ////                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])
             //                }
-        }.background(Color.white)
-            .navigationBarTitle("Doggo app", displayMode: .inline)
-            .navigationBarItems(leading: Image(systemName: "person"), trailing: Image("dog").resizable().frame(width: 30, height: 30))
-            .onAppear(perform: mainVM.loadDataFromFirebase)
+        }
     }
 }
 
