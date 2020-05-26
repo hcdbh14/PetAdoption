@@ -20,6 +20,7 @@ struct MainScreen: View {
         NavigationView {
             
             VStack {
+                Spacer()
                 ZStack {
                     if mainVM.dogsImages.isEmpty == false && mainVM.frontImage.isEmpty == false {
                         
@@ -30,14 +31,15 @@ struct MainScreen: View {
                         
                     }
                 }
-            }
-            
-            Spacer()
-            ZStack(alignment: .top) {
-                BarButtons(selected: self.$selected)
-                    .padding()
-                    .padding(.horizontal, 22)
-                    .background(ButtomBar())
+                Spacer()
+                ZStack(alignment: .top) {
+                    BarButtons(selected: self.$selected)
+                        .padding()
+                        .padding(.horizontal, 22)
+                        .background(ButtomBar())
+                }
+                
+                
                 
             }.background(Color.white).edgesIgnoringSafeArea(.top)
             
