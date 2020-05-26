@@ -33,12 +33,16 @@ struct Card: View {
                     .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                         .onChanged({ (value) in
                             
-                            if value.translation.width > 0 {
-                                self.x = value.translation.width
-                                self.degree = 8
-                            } else {
-                                self.x = value.translation.width
-                                self.degree = -8
+                            if value.startLocation != value.location {
+                                print(value)
+                                
+                                if value.translation.width > 0 {
+                                    self.x = value.translation.width
+                                    self.degree = 8
+                                } else {
+                                    self.x = value.translation.width
+                                    self.degree = -8
+                                }
                             }
                         })
                         .onEnded({ (value) in
@@ -97,7 +101,6 @@ struct Card: View {
                             }
                         }))
                     .onReceive(imageLoader.didChange) { data in
-                        print(self.displyed)
                         self.image = UIImage(data: data[self.displyed]) ?? UIImage()
                         self.data = data
                 }
@@ -107,8 +110,8 @@ struct Card: View {
                             
                             .fill(Color.clear)
                             .background((self.displyed == i ? Color.black : Color.gray).cornerRadius(20))
-                            
                             .frame(width: (UIScreen.main.bounds.width / CGFloat(self.imageCount)) - 30, height: 10)
+                            .animation(.none)       
                     }
                     
                     
