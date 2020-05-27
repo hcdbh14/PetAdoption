@@ -23,7 +23,7 @@ struct MainScreen: View {
             VStack {
                 Spacer()
                 ZStack {
-                    if mainVM.dogsImages.isEmpty == false && mainVM.frontImage.isEmpty == false {
+                    if  mainVM.frontImage.isEmpty == false {
                         
                         Card(imageURL: self.mainVM.dogsImages[self.mainVM.count] ?? [] , displayed: self.$staticIndex, imageCount: self.mainVM.dogsImages[self.mainVM.count]?.count ?? 1).animation(.default)
                             .disabled(true)

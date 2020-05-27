@@ -4,10 +4,10 @@ import FirebaseStorage
 
 
 class MainVM: ObservableObject {
-    
+    private var firstLaunch = false
     let ref = Database.database().reference()
     var dogsList: [Dog] = []
-    @Published var count = 0
+    @Published var count = 1
     @Published var frontImage: [String] = []
     @Published var dogsImages: [Int: [String]] = [:]
     
@@ -30,13 +30,11 @@ class MainVM: ObservableObject {
         }) { (error) in
             print(error.localizedDescription)
         }
-        
     }
     
     func pushNewImage() {
         let removed = dogsImages.removeValue(forKey: count)
         frontImage = removed ?? []
-        print(frontImage)
         count += 1
     }
     
@@ -47,7 +45,7 @@ class MainVM: ObservableObject {
             if index > 10 {
                 break
             }
-
+            
             
             for path in dog.images {
                 
@@ -59,19 +57,20 @@ class MainVM: ObservableObject {
                     }
                     
                     print("Download success")
-
+                    
                     
                     if self.dogsImages[index] == nil {
-                        if index < 1 {
-                            self.frontImage = ["\(url!)"]
-                        }
+                        
                         self.dogsImages[index] = ["\(url!)"]
                     } else {
-                        if index < 1 {
-                            self.frontImage[index].append("\(url!)")
+                        if self.dogsList[0].images.count ==  self.dogsImages[0]?.count &&  self.firstLaunch == false {
+                            //                            self.frontImage[index].append("\(url!)")
+                            self.frontImage = self.dogsImages.removeValue(forKey: 0) ?? []
+                            self.firstLaunch = true
                         }
                         self.dogsImages[index]?.append("\(url!)")
                     }
+                    print(self.dogsImages)
                 }
             }
         }
