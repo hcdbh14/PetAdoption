@@ -24,11 +24,9 @@ struct MainScreen: View {
                 Spacer()
                 ZStack {
                     if  mainVM.frontImage.isEmpty == false {
-                        
-                        Card(imageURL: self.mainVM.dogsImages[self.mainVM.count] ?? [] , displayed: self.$staticIndex, imageCount: self.mainVM.dogsImages[self.mainVM.count]?.count ?? 1).animation(.default)
-                            .disabled(true)
-                        
-                        
+                        if mainVM.dogsImages.isEmpty == false {
+                            BackCard(imageURL: self.mainVM.dogsImages[self.mainVM.count] ?? [])
+                        }
                         
                         Card(imageURL: self.mainVM.frontImage, displayed: self.$imageIndex, imageCount: self.mainVM.frontImage.count )
                             .animation(.default)

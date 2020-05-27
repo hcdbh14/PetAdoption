@@ -19,6 +19,7 @@
 		EDF777DB24684EB400154110 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDF777DA24684EB400154110 /* Assets.xcassets */; };
 		EDF777DE24684EB400154110 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDF777DD24684EB400154110 /* Preview Assets.xcassets */; };
 		EDF777E124684EB400154110 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDF777DF24684EB400154110 /* LaunchScreen.storyboard */; };
+		EDF94DED247E3C2E0094F5B6 /* BackCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF94DEC247E3C2E0094F5B6 /* BackCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		EDF777DD24684EB400154110 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EDF777E024684EB400154110 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EDF777E224684EB400154110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EDF94DEC247E3C2E0094F5B6 /* BackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			children = (
 				EDF777D824684EB100154110 /* MainScreen.swift */,
 				ED49A37A2476DBEF00A87257 /* Card.swift */,
+				EDF94DEC247E3C2E0094F5B6 /* BackCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				ED825A382478185C00ACA8E6 /* Dog.swift in Sources */,
 				ED5A628024770AF70081DF00 /* MainVM.swift in Sources */,
 				EDF777D724684EB100154110 /* SceneDelegate.swift in Sources */,
+				EDF94DED247E3C2E0094F5B6 /* BackCard.swift in Sources */,
 				EDF777D924684EB100154110 /* MainScreen.swift in Sources */,
 				EDDB49E1247708250068026C /* FirebaseImageView.swift in Sources */,
 				ED49A37B2476DBEF00A87257 /* Card.swift in Sources */,
