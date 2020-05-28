@@ -28,8 +28,6 @@ struct Card: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
                     .cornerRadius(20)
-                    .offset(x: self.x)
-                    .rotationEffect(.init(degrees: self.degree))
                     .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                         .onChanged({ (value) in
                             
@@ -71,11 +69,23 @@ struct Card: View {
                                     self.displyed = 0
                                     self.inAnimation = true
                                     self.mainVM.pushNewImage()
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                        self.x = 0
-                                        self.degree = 0
-                                        self.inAnimation = false
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        withAnimation (.none) {
+                                            self.x = 0
+                                            self.degree = 0
+                                        }
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                            
+                                            
+                                            withAnimation (.easeOut(duration: 5)) {
+                                                
+                                                self.inAnimation = false
+                                            }
+                                        }
                                     }
+                                    
                                 } else {
                                     self.x = 0
                                     self.degree = 0
@@ -101,8 +111,9 @@ struct Card: View {
                             }
                         }))
                     .onReceive(imageLoader.didChange) { data in
-                        self.image = UIImage(data: data[self.displyed]) ?? UIImage()
-                        self.data = data
+                   
+                            self.image = UIImage(data: data[self.displyed]) ?? UIImage()
+                            self.data = data
                 }
                 HStack {
                     ForEach (0...imageCount - 1,id: \.self) { i in
@@ -112,7 +123,7 @@ struct Card: View {
                             .background((self.displyed == i ? Color.black : Color.gray).cornerRadius(20))
                             .frame(width: (UIScreen.main.bounds.width / CGFloat(self.imageCount)) - 30, height: 10)
                             .animation(.none)       
-                    }
+                    }.animation(.none)
                     
                     
                     
@@ -123,13 +134,20 @@ struct Card: View {
                     .font(.title)
                     .foregroundColor(.white)
                     .fontWeight(.bold)
+                    .animation(.none)
                 
                 Text("good oby")
                     .font(.body)
                     .foregroundColor(.white)
                     .fontWeight(.bold)
+                    .animation(.none)
             }.padding(.bottom, 50)
                 .padding(.leading, 10)
+                .animation(.none)
         }.padding(.top, 100)
+            .offset(x: self.x)
+            .rotationEffect(.init(degrees: self.degree))
+            .frame(width: inAnimation ? 0  : UIScreen.main.bounds.width - 10,
+                   height: inAnimation ? 0 : UIScreen.main.bounds.height / 1.8)
     }
 }
