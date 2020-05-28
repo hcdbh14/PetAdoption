@@ -28,8 +28,9 @@ struct Card: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
                     .cornerRadius(20)
+                    .animation(inAnimation ? .none : .default)
                     .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                        .onChanged({ (value) in
+                    .onChanged({ (value) in
                             
                             if value.startLocation != value.location {
                                 print(value)
@@ -66,23 +67,20 @@ struct Card: View {
                                 if value.translation.width < -100 {
                                     self.x = -500
                                     self.degree = -15
-                                    self.displyed = 0
-                                    self.inAnimation = true
                                     self.mainVM.pushNewImage()
                                     
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                                         withAnimation (.none) {
+                                            self.displyed = 0
+                                            self.inAnimation = true
                                             self.x = 0
                                             self.degree = 0
                                         }
                                         
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                                             
-                                            
-                                            withAnimation (.easeOut(duration: 5)) {
-                                                
+                                    
                                                 self.inAnimation = false
-                                            }
                                         }
                                     }
                                     
@@ -91,6 +89,7 @@ struct Card: View {
                                     self.degree = 0
                                 }
                             }
+                            
                             if value.location.x > 180 {
                                 
                                 if self.displyed == self.imageCount - 1 || self.inAnimation {
@@ -147,7 +146,8 @@ struct Card: View {
         }.padding(.top, 100)
             .offset(x: self.x)
             .rotationEffect(.init(degrees: self.degree))
-            .frame(width: inAnimation ? 0  : UIScreen.main.bounds.width - 10,
-                   height: inAnimation ? 0 : UIScreen.main.bounds.height / 1.8)
+            .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
+//            .scaleEffect(inAnimation ? 0 : 1)
+            .animation(inAnimation ? .none : .default)
     }
 }
