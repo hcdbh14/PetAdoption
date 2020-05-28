@@ -10,6 +10,7 @@ struct Card: View {
     @State var degree: Double = 0
     @State var data: [Data] = []
     @State var inAnimation = false
+    @State var switchingImage = false
     
     
     init(imageURL: [String], displayed: Binding<Int>, imageCount: Int) {
@@ -50,14 +51,18 @@ struct Card: View {
                                 if value.translation.width > 100 {
                                     self.x = 500
                                     self.degree = 15
-                                    self.displyed = 0
-                                    self.inAnimation = true
+                                    self.switchingImage = true
                                     self.mainVM.pushNewImage()
                                     
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                        self.x = 0
-                                        self.degree = 0
-                                        self.inAnimation = false
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        withAnimation (.none) {
+                                            self.displyed = 0
+                                            self.inAnimation = true
+                                            self.x = 0
+                                            self.degree = 0
+                                        }
+                                            self.switchingImage = false
+                                            self.inAnimation = false
                                     }
                                 } else {
                                     
@@ -68,21 +73,18 @@ struct Card: View {
                                 if value.translation.width < -100 {
                                     self.x = -500
                                     self.degree = -15
+                                    self.switchingImage = true
                                     self.mainVM.pushNewImage()
                                     
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                         withAnimation (.none) {
                                             self.displyed = 0
                                             self.inAnimation = true
                                             self.x = 0
                                             self.degree = 0
                                         }
-                                        
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                                            
-                                            
+                                            self.switchingImage = false
                                             self.inAnimation = false
-                                        }
                                     }
                                     
                                 } else {
@@ -93,7 +95,7 @@ struct Card: View {
                             
                             if value.location.x > 180 {
                                 
-                                if self.displyed == self.imageCount - 1 || self.inAnimation {
+                                if self.displyed == self.imageCount - 1 || self.switchingImage {
                                     return
                                 } else {
                                     if self.data.hasValueAt(index: self.displyed + 1) {
@@ -106,7 +108,7 @@ struct Card: View {
                                     
                                 }
                             } else {
-                                if self.displyed == 0 || self.inAnimation {
+                                if self.displyed == 0 || self.switchingImage  {
                                     return
                                 } else {
                                     if self.data.hasValueAt(index: self.displyed - 1) {
@@ -121,10 +123,10 @@ struct Card: View {
                             }
                         }))
                     .onReceive(imageLoader.didChange) { data in
+                        self.data = data
                         if self.data.hasValueAt(index: self.displyed) {
                             self.image = UIImage(data: data[self.displyed]) ?? UIImage()
                         }
-                        self.data = data
                 }
                 
                 HStack {
