@@ -30,12 +30,16 @@ struct Card: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
                     .cornerRadius(20)
-                    .animation(inAnimation ? .none : .default)
+                    .animation(inAnimation ? .default : .none)
                     .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                         .onChanged({ (value) in
                             
+    
+                            
                             if value.startLocation != value.location {
-                                print(value)
+                                if self.switchingImage == false {
+                                        self.inAnimation = true
+                                    }
                                 
                                 if value.translation.width > 0 {
                                     self.x = value.translation.width
@@ -57,13 +61,14 @@ struct Card: View {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                         withAnimation (.none) {
                                             self.displyed = 0
-                                            self.inAnimation = true
+                                            self.switchingImage = false
+                                             self.inAnimation = false
                                             self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                             self.x = 0
                                             self.degree = 0
                                         }
-                                            self.switchingImage = false
-                                            self.inAnimation = false
+
+                                           
                                     }
                                 } else {
                                     
@@ -80,13 +85,14 @@ struct Card: View {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                         withAnimation (.none) {
                                             self.displyed = 0
-                                            self.inAnimation = true
+                                            self.switchingImage = false
+                                            self.inAnimation = false
                                             self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                             self.x = 0
                                             self.degree = 0
                                         }
-                                            self.switchingImage = false
-                                            self.inAnimation = false
+                                            
+                                           
                                     }
                                     
                                 } else {
@@ -101,6 +107,7 @@ struct Card: View {
                                     return
                                 } else {
                                     if self.data.hasValueAt(index: self.displyed + 1) {
+                                        self.inAnimation = false
                                         self.displyed += 1
                                         self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                     } else {
@@ -114,6 +121,7 @@ struct Card: View {
                                     return
                                 } else {
                                     if self.data.hasValueAt(index: self.displyed - 1) {
+                                         self.inAnimation = false
                                         self.displyed -= 1
                                         self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                     } else {
@@ -123,6 +131,7 @@ struct Card: View {
                                     
                                 }
                             }
+                            
                         }))
                     .onReceive(imageLoader.didChange) { data in
                         self.data = data
@@ -163,7 +172,7 @@ struct Card: View {
             .offset(x: self.x)
             .rotationEffect(.init(degrees: self.degree))
             .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
-            .animation(inAnimation ? .none : .default)
+            .animation(inAnimation ? .default : .none)
     }
 }
 
