@@ -22,8 +22,7 @@ struct Card: View {
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             VStack {
-                
-                
+
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -96,7 +95,7 @@ struct Card: View {
                                 if self.displyed == self.imageCount - 1 || self.inAnimation {
                                     return
                                 } else {
-                                    if self.data.canSupport(index: self.displyed + 1) {
+                                    if self.data.hasValueAt(index: self.displyed + 1) {
                                         self.displyed += 1
                                         self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                     } else {
@@ -108,7 +107,7 @@ struct Card: View {
                                 if self.displyed == 0 || self.inAnimation {
                                     return
                                 } else {
-                                    if self.data.canSupport(index: self.displyed - 1) {
+                                    if self.data.hasValueAt(index: self.displyed - 1) {
                                         self.displyed -= 1
                                         self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                     } else {
@@ -119,14 +118,13 @@ struct Card: View {
                             }
                         }))
                     .onReceive(imageLoader.didChange) { data in
-                        
                         self.image = UIImage(data: data[self.displyed]) ?? UIImage()
                         self.data = data
                 }
+                
                 HStack {
                     ForEach (0...imageCount - 1,id: \.self) { i in
                         Rectangle()
-                            
                             .fill(Color.clear)
                             .background((self.displyed == i ? Color.black : Color.gray).cornerRadius(20))
                             .frame(width: (UIScreen.main.bounds.width / CGFloat(self.imageCount)) - 30, height: 10)
@@ -162,7 +160,7 @@ struct Card: View {
 
 
 extension Array {
-    func canSupport(index: Int ) -> Bool {
+    func hasValueAt(index: Int ) -> Bool {
         return index >= startIndex && index < endIndex
     }
 }
