@@ -108,8 +108,6 @@ struct BarButtons : View {
             }) {
                 Image(systemName: "square.and.arrow.up")
             }.foregroundColor(self.selected == .forth ? .black : .gray)
-            
-            
         }
     }
 }

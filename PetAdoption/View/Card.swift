@@ -13,6 +13,7 @@ struct Card: View {
     
     
     init(imageURL: [String], displayed: Binding<Int>, imageCount: Int) {
+        
         imageLoader = DataLoader(urlString: imageURL)
         self.imageCount = imageCount
         self._displyed = displayed
@@ -30,7 +31,7 @@ struct Card: View {
                     .cornerRadius(20)
                     .animation(inAnimation ? .none : .default)
                     .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                    .onChanged({ (value) in
+                        .onChanged({ (value) in
                             
                             if value.startLocation != value.location {
                                 print(value)
@@ -79,8 +80,8 @@ struct Card: View {
                                         
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                                             
-                                    
-                                                self.inAnimation = false
+                                            
+                                            self.inAnimation = false
                                         }
                                     }
                                     
@@ -95,24 +96,32 @@ struct Card: View {
                                 if self.displyed == self.imageCount - 1 || self.inAnimation {
                                     return
                                 } else {
+                                    if self.data.canSupport(index: self.displyed + 1) {
+                                        self.displyed += 1
+                                        self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
+                                    } else {
+                                        self.image = UIImage()
+                                    }
                                     
-                                    self.displyed += 1
-                                    self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                 }
                             } else {
                                 if self.displyed == 0 || self.inAnimation {
                                     return
                                 } else {
-                                    self.displyed -= 1
-                                    self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
+                                    if self.data.canSupport(index: self.displyed - 1) {
+                                        self.displyed -= 1
+                                        self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
+                                    } else {
+                                        self.image = UIImage()
+                                    }
                                     
                                 }
                             }
                         }))
                     .onReceive(imageLoader.didChange) { data in
-                   
-                            self.image = UIImage(data: data[self.displyed]) ?? UIImage()
-                            self.data = data
+                        
+                        self.image = UIImage(data: data[self.displyed]) ?? UIImage()
+                        self.data = data
                 }
                 HStack {
                     ForEach (0...imageCount - 1,id: \.self) { i in
@@ -147,7 +156,13 @@ struct Card: View {
             .offset(x: self.x)
             .rotationEffect(.init(degrees: self.degree))
             .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
-//            .scaleEffect(inAnimation ? 0 : 1)
             .animation(inAnimation ? .none : .default)
+    }
+}
+
+
+extension Array {
+    func canSupport(index: Int ) -> Bool {
+        return index >= startIndex && index < endIndex
     }
 }

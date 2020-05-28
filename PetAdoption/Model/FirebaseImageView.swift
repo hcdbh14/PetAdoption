@@ -36,15 +36,60 @@ class DataLoader: ObservableObject {
     }
     
     func getDataFromURL(urlString: [String]) {
-        for i in urlString {
-            guard let url = URL(string: i) else { return }
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                guard let data = data else { return }
-                DispatchQueue.main.async {
-                    print("logic", self.data)
-                    self.data.append(data)
+        DispatchQueue.global().async {
+                        for i in urlString {
+                guard let url = URL(string: i) else { return }
+                
+                
+                
+                
+               let (data, _, error) = URLSession.shared.synchronousDataTask(urlrequest: url)
+                if let error = error {
+                    print("Synchronous task ended with error: \(error)")
                 }
-            }.resume()
+                else {
+                                       guard let data = data else { return }
+                    DispatchQueue.main.async {
+                        print("logic", self.data)
+                        self.data.append(data)
+                    }
+                }
         }
+
+                
+                
+                
+                
+//                URLSession.shared.dataTask(with: url) { data, response, error in
+//                    guard let data = data else { return }
+//                    DispatchQueue.main.async {
+//                        print("logic", self.data)
+//                        self.data.append(data)
+//                    }
+//                }
+            }
+    }
+}
+
+extension URLSession {
+    func synchronousDataTask(urlrequest: URL) -> (data: Data?, response: URLResponse?, error: Error?) {
+        var data: Data?
+        var response: URLResponse?
+        var error: Error?
+
+        let semaphore = DispatchSemaphore(value: 0)
+
+        let dataTask = self.dataTask(with: urlrequest) {
+            data = $0
+            response = $1
+            error = $2
+
+            semaphore.signal()
+        }
+        dataTask.resume()
+
+        _ = semaphore.wait(timeout: .distantFuture)
+
+        return (data, response, error)
     }
 }
