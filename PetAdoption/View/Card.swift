@@ -58,6 +58,7 @@ struct Card: View {
                                         withAnimation (.none) {
                                             self.displyed = 0
                                             self.inAnimation = true
+                                            self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                             self.x = 0
                                             self.degree = 0
                                         }
@@ -80,6 +81,7 @@ struct Card: View {
                                         withAnimation (.none) {
                                             self.displyed = 0
                                             self.inAnimation = true
+                                            self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                             self.x = 0
                                             self.degree = 0
                                         }
