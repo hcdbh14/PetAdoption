@@ -30,7 +30,7 @@ struct Card: View {
                     .resizable()
                     .background(Color.gray)
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
+                    .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                     .cornerRadius(20)
                     .animation(inAnimation ? .default : .none)
                     .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
@@ -147,9 +147,9 @@ struct Card: View {
                             .fill(Color.clear)
                             .background((self.displyed == i ? Color.black : Color.gray).cornerRadius(20))
                             .frame(width: (UIScreen.main.bounds.width / CGFloat(self.imageCount)) - 30, height: 10)
-                            .animation(.none)       
-                    }.animation(.none)
-                }.padding(.top, -UIScreen.main.bounds.height / 1.8)
+                       
+                    }
+                }.padding(.top, 15)
             }
             
             VStack(alignment: .trailing, spacing: 12) {
@@ -169,7 +169,7 @@ struct Card: View {
                 .rotationEffect(.init(degrees: self.degree))
             
             
-        }.padding(.top, 100)
+        }.padding(.top, 10)
             .offset(x: self.x)
             .rotationEffect(.init(degrees: self.degree))
             .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
