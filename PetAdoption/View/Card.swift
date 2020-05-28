@@ -25,6 +25,7 @@ struct Card: View {
 
                 Image(uiImage: image)
                     .resizable()
+                    .background(Color.gray)
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
                     .cornerRadius(20)
@@ -99,6 +100,7 @@ struct Card: View {
                                         self.displyed += 1
                                         self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                     } else {
+                                        self.displyed += 1
                                         self.image = UIImage()
                                     }
                                     
@@ -111,6 +113,7 @@ struct Card: View {
                                         self.displyed -= 1
                                         self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                                     } else {
+                                         self.displyed -= 1
                                         self.image = UIImage()
                                     }
                                     
@@ -118,7 +121,9 @@ struct Card: View {
                             }
                         }))
                     .onReceive(imageLoader.didChange) { data in
-                        self.image = UIImage(data: data[self.displyed]) ?? UIImage()
+                        if self.data.hasValueAt(index: self.displyed) {
+                            self.image = UIImage(data: data[self.displyed]) ?? UIImage()
+                        }
                         self.data = data
                 }
                 
