@@ -25,10 +25,10 @@ struct MainScreen: View {
                 ZStack {
                     if  mainVM.frontImage.isEmpty == false {
                         if mainVM.dogsImages.isEmpty == false {
-                            BackCard(imageURL: self.mainVM.dogsImages[self.mainVM.count] ?? [])
+                            BackCard(imageURL: mainVM.dogsImages[mainVM.count] ?? [])
                         }
                         
-                        Card(imageURL: self.mainVM.frontImage, displayed: self.$imageIndex, imageCount: self.mainVM.frontImage.count )
+                        Card(imageURL: mainVM.frontImage, displayed: $imageIndex, imageCount: mainVM.frontImage.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age)
                             .animation(.default)
                         
                     }
