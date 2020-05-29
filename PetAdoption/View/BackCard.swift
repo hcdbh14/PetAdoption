@@ -27,16 +27,4 @@ struct BackCard: View {
             }
         }.padding(.top, 10)
     }
-    
-//    private func playScaleAnimation() {
-//        withAnimation(.easeOut(duration: 1)) {
-//            scaleTrigger = true
-//        }
-//        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            withAnimation(.none) {
-//                self.scaleTrigger = false
-//            }
-//        }
-//    }
 }

@@ -64,7 +64,7 @@ struct Card: View {
                                         self.scaleAnimation = true
                                     }
                                     self.mainVM.pushNewImage()
-
+                                    
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                                         withAnimation (.none) {
                                             self.displyed = 0
@@ -75,7 +75,7 @@ struct Card: View {
                                             self.degree = 0
                                         }
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                           self.scaleAnimation = false
+                                            self.scaleAnimation = false
                                         }
                                         
                                         
@@ -95,7 +95,7 @@ struct Card: View {
                                         self.scaleAnimation = true
                                     }
                                     self.mainVM.pushNewImage()
-
+                                    
                                     
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                                         withAnimation (.none) {
@@ -171,16 +171,21 @@ struct Card: View {
                 Spacer()
             }.padding(.bottom, UIScreen.main.bounds.height / 1.45)
             VStack(alignment: .trailing, spacing: 12) {
-                Text(dogName)
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .fontWeight(.bold)
+                HStack (alignment: .bottom) {
+                    
+                    Text("\(age)")
+                        .font(.system(size: 24))
+                        .foregroundColor(.white)
+                        .fontWeight(.regular)
+                    
+                    Text(dogName)
+                        .font(.system(size: 30))
+                        .foregroundColor(.white)
+                        .fontWeight(.heavy)
+                }
                 
                 
-                Text("\(age)")
-                    .font(.body)
-                    .foregroundColor(.white)
-                    .fontWeight(.bold)
+                
                 
             }.padding(.bottom, 50)
                 .padding(.trailing, 10)
