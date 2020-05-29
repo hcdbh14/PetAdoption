@@ -18,9 +18,14 @@ struct MainScreen: View {
     
     var body: some View {
         
-        NavigationView {
+
             
             VStack {
+                HStack {
+                    Image(systemName: "person").padding(.leading, 10)
+                    Spacer()
+                    Image(systemName: "person").padding(.trailing, 10)
+                }.padding(.top, 5)
                 Spacer()
                 ZStack {
                     if  mainVM.frontImage.isEmpty == false {
@@ -44,15 +49,13 @@ struct MainScreen: View {
                 
                 
             }.background(Color.white)
-                .navigationBarTitle("Doggo app", displayMode: .inline)
-                .navigationBarItems(leading: Image(systemName: "person"), trailing: Image("dog").resizable().frame(width: 30, height: 30))
                 .onAppear(perform: mainVM.loadDataFromFirebase)
             
             //                    .onAppear() {
             ////                        self.mainVM.loadDataFromFirebase()
             ////                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])
             //                }
-        }.navigationViewStyle(StackNavigationViewStyle())
+
     }
 }
 

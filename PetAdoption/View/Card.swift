@@ -11,6 +11,7 @@ struct Card: View {
     @State var data: [Data] = []
     @State var inAnimation = false
     @State var switchingImage = false
+    @State var showInfo = false
     @Binding var scaleAnimation: Bool
     let dogName: String
     let age: Int
@@ -22,10 +23,12 @@ struct Card: View {
         self._scaleAnimation = scaleTrigger
         self.dogName = dogName
         self.age = age
+        UIScrollView.appearance().bounces = false
     }
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
+            if showInfo == false {
             VStack {
                 
                 Image(uiImage: image)
@@ -190,6 +193,8 @@ struct Card: View {
                         .font(.system(size: 30))
                         .foregroundColor(.white)
                         .fontWeight(.heavy)
+                }.onTapGesture {
+                    self.showInfo.toggle()
                 }
                 
                 
@@ -199,15 +204,90 @@ struct Card: View {
                 .padding(.trailing, 10)
                 .rotationEffect(.init(degrees: self.degree))
             
+        }
             
+            
+            
+            
+            
+            
+            
+            if showInfo {
+                ScrollView {
+                    Image(uiImage: image)
+                          .resizable()
+                          .background(Color.gray)
+                          .aspectRatio(contentMode: .fill)
+                          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4)
+                          .animation(inAnimation ? .default : .none)
+                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                            .onEnded({ (value) in
+                              
+
+                                
+                                if value.location.x > 180 {
+                                    
+                                    if self.displyed == self.imageCount - 1 || self.switchingImage {
+                                        return
+                                    } else {
+                                        if self.data.hasValueAt(index: self.displyed + 1) {
+                                            self.inAnimation = false
+                                            self.displyed += 1
+                                            self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
+                                        } else {
+                                            self.displyed += 1
+                                            self.image = UIImage()
+                                        }
+                                        
+                                    }
+                                } else {
+                                    if self.displyed == 0 || self.switchingImage  {
+                                        return
+                                    } else {
+                                        if self.data.hasValueAt(index: self.displyed - 1) {
+                                            self.inAnimation = false
+                                            self.displyed -= 1
+                                            self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
+                                        } else {
+                                            self.displyed -= 1
+                                            self.image = UIImage()
+                                        }
+                                        
+                                    }
+                                }
+                                
+                            }))
+                        .onReceive(imageLoader.didChange) { data in
+                            self.data = data
+                            if self.data.hasValueAt(index: self.displyed) {
+                                self.image = UIImage(data: data[self.displyed]) ?? UIImage()
+                            }}
+                        Text("test").onAppear() { print("test") }
+                   
+                            Text("test").frame(width: 100, height: 100)
+                         Text("test").frame(width: 100, height: 100)
+                       Text("test").frame(width: 100, height: 100)
+                         Text("test").frame(width: 100, height: 100)
+                       Text("test").frame(width: 100, height: 100)
+                         Text("test").frame(width: 100, height: 100)
+                       Text("test").frame(width: 100, height: 100)
+
+                    
+                }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height )
+                    .background(Color.white)
+                    .padding(.top, 40)
+            }
+
+        
         }.padding(.top, 10)
             .offset(x: self.x)
             .rotationEffect(.init(degrees: self.degree))
             .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
             .animation(inAnimation ? .default : .none)
+    
     }
-}
 
+}
 
 extension Array {
     
