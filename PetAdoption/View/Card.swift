@@ -74,7 +74,7 @@ struct Card: View {
                                             self.x = 0
                                             self.degree = 0
                                         }
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                                             self.scaleAnimation = false
                                         }
                                         
@@ -106,7 +106,7 @@ struct Card: View {
                                             self.x = 0
                                             self.degree = 0
                                         }
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                                             self.scaleAnimation = false
                                         }
                                         
@@ -171,6 +171,8 @@ struct Card: View {
                 Spacer()
             }.padding(.bottom, UIScreen.main.bounds.height / 1.45)
             VStack(alignment: .trailing, spacing: 12) {
+                
+                
                 HStack (alignment: .bottom) {
                     
                     Text("\(age)")
