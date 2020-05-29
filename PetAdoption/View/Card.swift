@@ -174,6 +174,12 @@ struct Card: View {
                 
                 
                 HStack (alignment: .bottom) {
+                    Image(systemName: "info.circle.fill")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.leading, 20)
+                    
+                    Spacer()
                     
                     Text("\(age)")
                         .font(.system(size: 24))
