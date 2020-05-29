@@ -141,17 +141,19 @@ struct Card: View {
                         }
                 }
                 
-                HStack {
-                    ForEach (0...imageCount - 1,id: \.self) { i in
-                        Rectangle()
-                            .fill(Color.clear)
-                            .background((self.displyed == i ? Color.black : Color.gray).cornerRadius(20))
-                            .frame(width: (UIScreen.main.bounds.width / CGFloat(self.imageCount)) - 30, height: 10)
-                       
-                    }
-                }.padding(.top, 15)
+
             }
-            
+            HStack {
+                Spacer()
+                ForEach (0...imageCount - 1,id: \.self) { i in
+                    Rectangle()
+                        .fill(Color.clear)
+                        .background((self.displyed == i ? Color.black : Color.gray).cornerRadius(20))
+                        .frame(width: (UIScreen.main.bounds.width / CGFloat(self.imageCount)) - 30, height: 10)
+                   
+                }
+                 Spacer()
+            }.padding(.bottom, UIScreen.main.bounds.height / 1.45)
             VStack(alignment: .trailing, spacing: 12) {
                 Text(dogName)
                     .font(.title)
