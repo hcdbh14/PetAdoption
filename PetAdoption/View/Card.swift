@@ -11,13 +11,15 @@ struct Card: View {
     @State var data: [Data] = []
     @State var inAnimation = false
     @State var switchingImage = false
+    @Binding var scaleAnimation: Bool
     let dogName: String
     let age: Int
     
-    init(imageURL: [String], displayed: Binding<Int>, imageCount: Int, dogName: String, age: Int) {
+    init(imageURL: [String], displayed: Binding<Int>, imageCount: Int, dogName: String, age: Int, scaleTrigger: Binding<Bool>) {
         imageLoader = DataLoader(urlString: imageURL)
         self.imageCount = imageCount
         self._displyed = displayed
+        self._scaleAnimation = scaleTrigger
         self.dogName = dogName
         self.age = age
     }
@@ -58,8 +60,11 @@ struct Card: View {
                                     self.x = 500
                                     self.degree = 15
                                     self.switchingImage = true
+                                    withAnimation(.easeOut(duration : 0.6)) {
+                                        self.scaleAnimation = true
+                                    }
                                     self.mainVM.pushNewImage()
-                                    
+
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                                         withAnimation (.none) {
                                             self.displyed = 0
@@ -69,6 +74,10 @@ struct Card: View {
                                             self.x = 0
                                             self.degree = 0
                                         }
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                           self.scaleAnimation = false
+                                        }
+                                        
                                         
                                         
                                     }
@@ -82,7 +91,11 @@ struct Card: View {
                                     self.x = -500
                                     self.degree = -15
                                     self.switchingImage = true
+                                    withAnimation(.easeOut(duration : 0.6)) {
+                                        self.scaleAnimation = true
+                                    }
                                     self.mainVM.pushNewImage()
+
                                     
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                                         withAnimation (.none) {
@@ -93,7 +106,10 @@ struct Card: View {
                                             self.x = 0
                                             self.degree = 0
                                         }
-            
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            self.scaleAnimation = false
+                                        }
+                                        
                                     }
                                     
                                 } else {
@@ -141,7 +157,7 @@ struct Card: View {
                         }
                 }
                 
-
+                
             }
             HStack {
                 Spacer()
@@ -150,9 +166,9 @@ struct Card: View {
                         .fill(Color.clear)
                         .background((self.displyed == i ? Color.black : Color.gray).cornerRadius(20))
                         .frame(width: (UIScreen.main.bounds.width / CGFloat(self.imageCount)) - 30, height: 10)
-                   
+                    
                 }
-                 Spacer()
+                Spacer()
             }.padding(.bottom, UIScreen.main.bounds.height / 1.45)
             VStack(alignment: .trailing, spacing: 12) {
                 Text(dogName)

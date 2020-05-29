@@ -1,14 +1,13 @@
 import SwiftUI
 
-
 struct BackCard: View {
     @ObservedObject var imageLoader: DataLoader
     @State var image: UIImage = UIImage()
-    @State var inAnimation = false
+    @Binding var scaleAnimation: Bool
     
-    
-    init(imageURL: [String]) {
+    init(imageURL: [String], scaleTrigger: Binding<Bool>) {
         imageLoader = DataLoader(urlString: imageURL)
+        self._scaleAnimation = scaleTrigger
     }
     
     
@@ -18,8 +17,9 @@ struct BackCard: View {
             Image(uiImage: image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                 .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.5)
+                .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                 .cornerRadius(20)
+                .scaleEffect(scaleAnimation ? 1 : 0.9)
                 .onReceive(imageLoader.didChange) { data in
                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.image = UIImage(data: data[0]) ?? UIImage()
@@ -27,4 +27,16 @@ struct BackCard: View {
             }
         }.padding(.top, 10)
     }
+    
+//    private func playScaleAnimation() {
+//        withAnimation(.easeOut(duration: 1)) {
+//            scaleTrigger = true
+//        }
+//        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            withAnimation(.none) {
+//                self.scaleTrigger = false
+//            }
+//        }
+//    }
 }
