@@ -12,9 +12,9 @@ struct Card: View {
     @State var degree: Double = 0
     @State var switchingImage = false
     @Binding var scaleAnimation: Bool
-    @EnvironmentObject var mainVM: MainVM
     @State var image: UIImage = UIImage()
     @ObservedObject var imageLoader: DataLoader
+    @EnvironmentObject var mainVM: MainVM
     
     init(imageURL: [String], displayed: Binding<Int>, imageCount: Int, dogName: String, age: Int, scaleTrigger: Binding<Bool>) {
         imageLoader = DataLoader(urlString: imageURL)
@@ -152,7 +152,7 @@ struct Card: View {
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
                     }.onTapGesture {
-                        self.showInfo.toggle()
+                        self.timedInfoAnimation()
                     }
                 }.padding(.bottom, 50)
                     .padding(.trailing, 10)
@@ -167,6 +167,7 @@ struct Card: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4)
                         .animation(inAnimation ? .default : .none)
+                        .transition(.move(edge: .bottom))
                         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                             .onEnded({ (value) in
                                 self.moveToImage(direction: value.location.x)
@@ -176,6 +177,28 @@ struct Card: View {
                             if self.data.hasValueAt(index: self.displyed) {
                                 self.image = UIImage(data: data[self.displyed]) ?? UIImage()
                             }}
+                    
+                    HStack (alignment: .bottom) {
+                        Image(systemName: "info.circle.fill")
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundColor(.white)
+                            .padding(.leading, 20)
+                        
+                        Spacer()
+                        
+                        Text("\(age)")
+                            .font(.system(size: 24))
+                            .foregroundColor(.black)
+                            .fontWeight(.regular)
+                        
+                        Text(dogName)
+                            .font(.system(size: 30))
+                            .foregroundColor(.black)
+                            .fontWeight(.heavy)
+                    }.onTapGesture {
+                        self.timedInfoAnimation()
+                    }
+                    
                     Text("test").onAppear() { print("test") }
                     Text("test").frame(width: 100, height: 100)
                     Text("test").frame(width: 100, height: 100)
@@ -189,15 +212,17 @@ struct Card: View {
                 }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height )
                     .background(Color.white)
                     .padding(.top, 40)
+                
             }
         }.padding(.top, 10)
             .offset(x: self.x)
             .rotationEffect(.init(degrees: self.degree))
             .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
             .animation(inAnimation ? .default : .none)
+            .transition(.move(edge: .bottom))
     }
     
-    func moveToImage(direction: CGFloat) {
+    private func moveToImage(direction: CGFloat) {
         if direction > 180 {
             
             if self.displyed == self.imageCount - 1 || self.switchingImage {
@@ -225,6 +250,14 @@ struct Card: View {
                     self.image = UIImage()
                 }
             }
+        }
+    }
+    
+    private func timedInfoAnimation() {
+        self.inAnimation = true
+        self.showInfo.toggle()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.inAnimation = false
         }
     }
 }
