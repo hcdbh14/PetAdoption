@@ -1,23 +1,23 @@
 import SwiftUI
 
 struct Card: View {
-    let age: Int
-    var imageCount: Int
-    let dogName: String
-    @State var x: CGFloat = 0
-    @Binding var displyed: Int
-    @State var showInfo = false
-    @State var inAnimation = false
-    @State var data: [Data] = []
-    @State var degree: Double = 0
-    @State var switchingImage = false
-    @Binding var scaleAnimation: Bool
-    @State var image: UIImage = UIImage()
-    @ObservedObject var imageLoader: DataLoader
-    @EnvironmentObject var mainVM: MainVM
+    private let age: Int
+    private var imageCount: Int
+    private let dogName: String
+    @State private var x: CGFloat = 0
+    @Binding private var displyed: Int
+    @State private var showInfo = false
+    @State private var inAnimation = false
+    @State private var data: [Data] = []
+    @State private var degree: Double = 0
+    @State private var switchingImage = false
+    @Binding private var scaleAnimation: Bool
+    @State private var image: UIImage = UIImage()
+    @ObservedObject private var imageLoader: ImageLoader
+    @EnvironmentObject private var mainVM: MainVM
     
     init(imageURL: [String], displayed: Binding<Int>, imageCount: Int, dogName: String, age: Int, scaleTrigger: Binding<Bool>) {
-        imageLoader = DataLoader(urlString: imageURL)
+        imageLoader = ImageLoader(urlString: imageURL)
         self.imageCount = imageCount
         self._displyed = displayed
         self._scaleAnimation = scaleTrigger
@@ -54,63 +54,7 @@ struct Card: View {
                                 }
                             })
                             .onEnded({ (value) in
-                                if value.translation.width > 0 {
-                                    if value.translation.width > 100 {
-                                        self.x = 500
-                                        self.degree = 15
-                                        self.switchingImage = true
-                                        withAnimation(.easeOut(duration : 0.6)) {
-                                            self.scaleAnimation = true
-                                        }
-                                        self.mainVM.pushNewImage()
-                                        
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                            withAnimation (.none) {
-                                                self.displyed = 0
-                                                self.switchingImage = false
-                                                self.inAnimation = false
-                                                self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
-                                                self.x = 0
-                                                self.degree = 0
-                                            }
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                                                self.scaleAnimation = false
-                                            }
-                                        }
-                                    } else {
-                                        
-                                        self.x = 0
-                                        self.degree = 0
-                                    }
-                                } else {
-                                    if value.translation.width < -100 {
-                                        self.x = -500
-                                        self.degree = -15
-                                        self.switchingImage = true
-                                        withAnimation(.easeOut(duration : 0.6)) {
-                                            self.scaleAnimation = true
-                                        }
-                                        self.mainVM.pushNewImage()
-                                        
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                                            withAnimation (.none) {
-                                                self.displyed = 0
-                                                self.switchingImage = false
-                                                self.inAnimation = false
-                                                self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
-                                                self.x = 0
-                                                self.degree = 0
-                                            }
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                                                self.scaleAnimation = false
-                                            }
-                                        }
-                                    } else {
-                                        self.x = 0
-                                        self.degree = 0
-                                    }
-                                }
-                                self.moveToImage(direction: value.location.x)
+                                self.dragAnimation(translation: value.translation.width , direction: value.location.x)
                             }))
                         .onReceive(imageLoader.didChange) { data in
                             self.data = data
@@ -222,6 +166,7 @@ struct Card: View {
             .transition(.move(edge: .bottom))
     }
     
+    
     private func moveToImage(direction: CGFloat) {
         if direction > 180 {
             
@@ -253,11 +198,73 @@ struct Card: View {
         }
     }
     
+    
     private func timedInfoAnimation() {
         self.inAnimation = true
         self.showInfo.toggle()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.inAnimation = false
         }
+    }
+    
+    
+    private func dragAnimation(translation: CGFloat, direction: CGFloat) {
+        
+        if translation > 0 {
+            if translation > 100 {
+                self.x = 500
+                self.degree = 15
+                self.switchingImage = true
+                withAnimation(.easeOut(duration : 0.6)) {
+                    self.scaleAnimation = true
+                }
+                self.mainVM.pushNewImage()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    withAnimation (.none) {
+                        self.displyed = 0
+                        self.switchingImage = false
+                        self.inAnimation = false
+                        self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
+                        self.x = 0
+                        self.degree = 0
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                        self.scaleAnimation = false
+                    }
+                }
+            } else {
+                self.x = 0
+                self.degree = 0
+            }
+        } else {
+            if translation < -100 {
+                self.x = -500
+                self.degree = -15
+                self.switchingImage = true
+                withAnimation(.easeOut(duration : 0.6)) {
+                    self.scaleAnimation = true
+                }
+                self.mainVM.pushNewImage()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    withAnimation (.none) {
+                        self.displyed = 0
+                        self.switchingImage = false
+                        self.inAnimation = false
+                        self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
+                        self.x = 0
+                        self.degree = 0
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                        self.scaleAnimation = false
+                    }
+                }
+            } else {
+                self.x = 0
+                self.degree = 0
+            }
+        }
+        self.moveToImage(direction: direction)
     }
 }

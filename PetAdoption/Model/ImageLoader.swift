@@ -1,7 +1,7 @@
 import Combine
 import FirebaseStorage
 
-class DataLoader: ObservableObject {
+class ImageLoader: ObservableObject {
     @Published var didChange = PassthroughSubject<[Data], Never>()
     @Published var data: [Data] = [] { didSet {
         didChange.send(data)

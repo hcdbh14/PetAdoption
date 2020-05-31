@@ -9,10 +9,10 @@ enum barItem {
 }
 
 struct MainScreen: View {
-    @State var staticIndex = 0
-    @State var imageIndex = 0
-    @State var scaleAnimation = false
-    @State var selected = barItem.first
+    @State private var staticIndex = 0
+    @State private var imageIndex = 0
+    @State private var scaleAnimation = false
+    @State private var selected = barItem.first
     @EnvironmentObject var mainVM: MainVM
     
     var body: some View {

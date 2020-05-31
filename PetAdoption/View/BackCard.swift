@@ -4,10 +4,10 @@ struct BackCard: View {
     
     @Binding var scaleAnimation: Bool
     @State var image: UIImage = UIImage()
-    @ObservedObject var imageLoader: DataLoader
+    @ObservedObject var imageLoader: ImageLoader
     
     init(imageURL: [String], scaleTrigger: Binding<Bool>) {
-        imageLoader = DataLoader(urlString: imageURL)
+        imageLoader = ImageLoader(urlString: imageURL)
         self._scaleAnimation = scaleTrigger
     }
     

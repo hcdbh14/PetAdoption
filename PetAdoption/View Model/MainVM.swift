@@ -5,7 +5,7 @@ import FirebaseDatabase
 class MainVM: ObservableObject {
     var dogsList: [Dog] = []
     private var firstLaunch = false
-    let ref = Database.database().reference()
+    private let ref = Database.database().reference()
     @Published var count = 1
     @Published var frontImage: [String] = []
     @Published var imageURLS: [Int: [String]] = [:]

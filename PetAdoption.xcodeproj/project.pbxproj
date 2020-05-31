@@ -13,7 +13,7 @@
 		ED825A382478185C00ACA8E6 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED825A372478185C00ACA8E6 /* Dog.swift */; };
 		EDD53A042483B856004EB14F /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD53A032483B856004EB14F /* URLSession.swift */; };
 		EDD53A062483B88D004EB14F /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD53A052483B88D004EB14F /* Array.swift */; };
-		EDDB49E1247708250068026C /* FirebaseImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDB49E0247708250068026C /* FirebaseImageView.swift */; };
+		EDDB49E1247708250068026C /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDB49E0247708250068026C /* ImageLoader.swift */; };
 		EDF52F2224817CF200EF5070 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDF52F2124817CF200EF5070 /* GoogleService-Info.plist */; };
 		EDF777D524684EB100154110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF777D424684EB100154110 /* AppDelegate.swift */; };
 		EDF777D724684EB100154110 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF777D624684EB100154110 /* SceneDelegate.swift */; };
@@ -33,7 +33,7 @@
 		ED825A372478185C00ACA8E6 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		EDD53A032483B856004EB14F /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		EDD53A052483B88D004EB14F /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
-		EDDB49E0247708250068026C /* FirebaseImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseImageView.swift; sourceTree = "<group>"; };
+		EDDB49E0247708250068026C /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		EDF52F2124817CF200EF5070 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EDF777D124684EB100154110 /* PetAdoption.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetAdoption.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDF777D424684EB100154110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 		ED49A3772476DB7900A87257 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				EDDB49E0247708250068026C /* FirebaseImageView.swift */,
+				EDDB49E0247708250068026C /* ImageLoader.swift */,
 				ED825A372478185C00ACA8E6 /* Dog.swift */,
 			);
 			path = Model;
@@ -279,7 +279,7 @@
 				EDF94DED247E3C2E0094F5B6 /* BackCard.swift in Sources */,
 				EDD53A042483B856004EB14F /* URLSession.swift in Sources */,
 				EDF777D924684EB100154110 /* MainScreen.swift in Sources */,
-				EDDB49E1247708250068026C /* FirebaseImageView.swift in Sources */,
+				EDDB49E1247708250068026C /* ImageLoader.swift in Sources */,
 				ED49A37B2476DBEF00A87257 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
