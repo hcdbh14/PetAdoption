@@ -2,8 +2,8 @@ import SwiftUI
 
 struct BackCard: View {
     
-    @Binding var scaleAnimation: Bool
-    @State var image: UIImage = UIImage()
+    @Binding private var scaleAnimation: Bool
+    @State private var image: UIImage = UIImage()
     @ObservedObject var imageLoader: ImageLoader
     
     init(imageURL: [String], scaleTrigger: Binding<Bool>) {
