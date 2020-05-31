@@ -9,53 +9,45 @@ enum barItem {
 }
 
 struct MainScreen: View {
-    @State var scaleAnimation = false
     @State var staticIndex = 0
     @State var imageIndex = 0
-    @EnvironmentObject var mainVM: MainVM
-    
+    @State var scaleAnimation = false
     @State var selected = barItem.first
+    @EnvironmentObject var mainVM: MainVM
     
     var body: some View {
         
-
-            
-            VStack {
-                HStack {
-                    Image(systemName: "person").padding(.leading, 10)
-                    Spacer()
-                    Image(systemName: "person").padding(.trailing, 10)
-                }.padding(.top, 5)
+        VStack {
+            HStack {
+                Image(systemName: "person").padding(.leading, 10)
                 Spacer()
-                ZStack {
-                    if  mainVM.frontImage.isEmpty == false {
-                        if mainVM.dogsImages.isEmpty == false {
-                            BackCard(imageURL: mainVM.dogsImages[mainVM.count] ?? [], scaleTrigger: $scaleAnimation)
-                        }
-                        
-                        Card(imageURL: mainVM.frontImage, displayed: $imageIndex, imageCount: mainVM.frontImage.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, scaleTrigger: $scaleAnimation)
-                            .animation(.default)
-                        
+                Image(systemName: "person").padding(.trailing, 10)
+            }.padding(.top, 5)
+            Spacer()
+            ZStack {
+                if  mainVM.frontImage.isEmpty == false {
+                    if mainVM.dogsImages.isEmpty == false {
+                        BackCard(imageURL: mainVM.dogsImages[mainVM.count] ?? [], scaleTrigger: $scaleAnimation)
                     }
+                    
+                    Card(imageURL: mainVM.frontImage, displayed: $imageIndex, imageCount: mainVM.frontImage.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, scaleTrigger: $scaleAnimation)
+                        .animation(.default)
                 }
-                Spacer()
-                ZStack(alignment: .top) {
-                    BarButtons(selected: self.$selected)
-                        .padding()
-                        .padding(.horizontal, 22)
-                        .background(ButtomBar())
-                }
-                
-                
-                
-            }.background(Color.white)
-                .onAppear(perform: mainVM.loadDataFromFirebase)
-            
-            //                    .onAppear() {
-            ////                        self.mainVM.loadDataFromFirebase()
-            ////                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])
-            //                }
-
+            }
+            Spacer()
+            ZStack(alignment: .top) {
+                BarButtons(selected: self.$selected)
+                    .padding()
+                    .padding(.horizontal, 22)
+                    .background(ButtomBar())
+            }
+        }.background(Color.white)
+            .onAppear(perform: mainVM.loadDataFromFirebase)
+        
+        //                    .onAppear() {
+        ////                        self.mainVM.loadDataFromFirebase()
+        ////                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])
+        //                }
     }
 }
 

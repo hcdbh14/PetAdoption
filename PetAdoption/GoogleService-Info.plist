@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1005529412924-p68cqjmq4drfh8m5u8v3m6rpm8vcg30a.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1005529412924-p68cqjmq4drfh8m5u8v3m6rpm8vcg30a</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDueknI-RRRjg7dcBO-SnhB2KERnxSCyJY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1005529412924</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>kenny.PetAdoption</string>
+	<key>PROJECT_ID</key>
+	<string>petadoption-a2cd3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>petadoption-a2cd3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1005529412924:ios:004649cfdb02c08ff61a39</string>
+	<key>DATABASE_URL</key>
+	<string>https://petadoption-a2cd3.firebaseio.com</string>
+</dict>
+</plist>

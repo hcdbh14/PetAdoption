@@ -5,8 +5,8 @@ import FirebaseStorage
 
 class MainVM: ObservableObject {
     private var firstLaunch = false
-    let ref = Database.database().reference()
     var dogsList: [Dog] = []
+    let ref = Database.database().reference()
     @Published var count = 1
     @Published var frontImage: [String] = []
     @Published var dogsImages: [Int: [String]] = [:]
@@ -45,8 +45,7 @@ class MainVM: ObservableObject {
             if index > 10 {
                 break
             }
-            
-            
+        
             for path in dog.images {
                 
                 let storage = Storage.storage().reference(withPath: path)
@@ -55,10 +54,7 @@ class MainVM: ObservableObject {
                         print((error?.localizedDescription)!)
                         return
                     }
-                    
                     print("Download success")
-                    
-                    
                     if self.dogsImages[index] == nil {
                         
                         self.dogsImages[index] = ["\(url!)"]
