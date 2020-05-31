@@ -26,8 +26,8 @@ struct MainScreen: View {
             Spacer()
             ZStack {
                 if  mainVM.frontImage.isEmpty == false {
-                    if mainVM.dogsImages.isEmpty == false {
-                        BackCard(imageURL: mainVM.dogsImages[mainVM.count] ?? [], scaleTrigger: $scaleAnimation)
+                    if mainVM.imageURLS.isEmpty == false {
+                        BackCard(imageURL: mainVM.imageURLS[mainVM.count] ?? [], scaleTrigger: $scaleAnimation)
                     }
                     
                     Card(imageURL: mainVM.frontImage, displayed: $imageIndex, imageCount: mainVM.frontImage.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, scaleTrigger: $scaleAnimation)
@@ -42,10 +42,10 @@ struct MainScreen: View {
                     .background(ButtomBar())
             }
         }.background(Color.white)
-            .onAppear(perform: mainVM.loadDataFromFirebase)
+            .onAppear(perform: mainVM.getDogsFromDB)
         
         //                    .onAppear() {
-        ////                        self.mainVM.loadDataFromFirebase()
+        ////                        self.mainVM.getDogsFromDB()
         ////                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])
         //                }
     }
@@ -104,13 +104,5 @@ struct BarButtons : View {
                 Image(systemName: "square.and.arrow.up")
             }.foregroundColor(self.selected == .forth ? .black : .gray)
         }
-    }
-}
-
-
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainScreen()
     }
 }

@@ -1,17 +1,23 @@
 import SwiftUI
-import FirebaseDatabase
 import FirebaseStorage
-
+import FirebaseDatabase
 
 class MainVM: ObservableObject {
-    private var firstLaunch = false
     var dogsList: [Dog] = []
+    private var firstLaunch = false
     let ref = Database.database().reference()
     @Published var count = 1
     @Published var frontImage: [String] = []
-    @Published var dogsImages: [Int: [String]] = [:]
+    @Published var imageURLS: [Int: [String]] = [:]
     
-    func loadDataFromFirebase() {
+    func pushNewImage() {
+        let removed = imageURLS.removeValue(forKey: count)
+        frontImage = removed ?? []
+        count += 1
+    }
+    
+    
+    func getDogsFromDB() {
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             if let json = snapshot.value as? [String: Any]  {
@@ -22,7 +28,7 @@ class MainVM: ObservableObject {
                         let dogObject = try decoder.decode(Dog.self, from: data)
                         self.dogsList.append(dogObject)
                     }
-                    self.loadImageFromFirebase()
+                    self.getImageURLS()
                 } catch {
                     print("error: \(error)")
                 }
@@ -32,20 +38,11 @@ class MainVM: ObservableObject {
         }
     }
     
-    func pushNewImage() {
-        let removed = dogsImages.removeValue(forKey: count)
-        frontImage = removed ?? []
-        count += 1
-    }
     
-    
-    func loadImageFromFirebase() {
+    func getImageURLS() {
         
         for (index, dog) in dogsList.enumerated() {
-            if index > 10 {
-                break
-            }
-        
+            
             for path in dog.images {
                 
                 let storage = Storage.storage().reference(withPath: path)
@@ -54,19 +51,16 @@ class MainVM: ObservableObject {
                         print((error?.localizedDescription)!)
                         return
                     }
-                    print("Download success")
-                    if self.dogsImages[index] == nil {
-                        
-                        self.dogsImages[index] = ["\(url!)"]
+                    
+                    if self.imageURLS[index] == nil {
+                        self.imageURLS[index] = ["\(url!)"]
                     } else {
-                        if self.dogsList[0].images.count ==  self.dogsImages[0]?.count &&  self.firstLaunch == false {
-                            //                            self.frontImage[index].append("\(url!)")
-                            self.frontImage = self.dogsImages.removeValue(forKey: 0) ?? []
+                        if self.dogsList[0].images.count ==  self.imageURLS[0]?.count &&  self.firstLaunch == false {
+                            self.frontImage = self.imageURLS.removeValue(forKey: 0) ?? []
                             self.firstLaunch = true
                         }
-                        self.dogsImages[index]?.append("\(url!)")
+                        self.imageURLS[index]?.append("\(url!)")
                     }
-                    print(self.dogsImages)
                 }
             }
         }

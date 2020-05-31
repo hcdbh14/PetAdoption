@@ -92,7 +92,6 @@ struct Card: View {
                                         }
                                         self.mainVM.pushNewImage()
                                         
-                                        
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                                             withAnimation (.none) {
                                                 self.displyed = 0
@@ -170,9 +169,7 @@ struct Card: View {
                         .animation(inAnimation ? .default : .none)
                         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                             .onEnded({ (value) in
-                                
                                 self.moveToImage(direction: value.location.x)
-                                
                             }))
                         .onReceive(imageLoader.didChange) { data in
                             self.data = data

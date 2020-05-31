@@ -1,9 +1,10 @@
 import SwiftUI
 
 struct BackCard: View {
-    @ObservedObject var imageLoader: DataLoader
-    @State var image: UIImage = UIImage()
+    
     @Binding var scaleAnimation: Bool
+    @State var image: UIImage = UIImage()
+    @ObservedObject var imageLoader: DataLoader
     
     init(imageURL: [String], scaleTrigger: Binding<Bool>) {
         imageLoader = DataLoader(urlString: imageURL)
@@ -21,7 +22,7 @@ struct BackCard: View {
                 .cornerRadius(20)
                 .scaleEffect(scaleAnimation ? 1 : 0.9)
                 .onReceive(imageLoader.didChange) { data in
-                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.image = UIImage(data: data[0]) ?? UIImage()
                     }
             }

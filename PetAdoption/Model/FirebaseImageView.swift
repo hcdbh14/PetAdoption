@@ -1,4 +1,3 @@
-import SwiftUI
 import Combine
 import FirebaseStorage
 
@@ -10,25 +9,18 @@ class DataLoader: ObservableObject {
     }
     
     init(urlString: [String]) {
-        getDataFromURL(urlString: urlString)
+        getStorageImages(urlString: urlString)
     }
     
-    func getDataFromURL(urlString: [String]) {
+    func getStorageImages(urlString: [String]) {
         DispatchQueue.global().async {
             for i in urlString {
                 guard let url = URL(string: i) else { return }
-                
-                
-                
-                
                 let (data, _, error) = URLSession.shared.synchronousDataTask(urlrequest: url)
-                if let error = error {
-                    print("Synchronous task ended with error: \(error)")
-                }
+                if let error = error { print("Synchronous task ended with error: \(error)") }
                 else {
                     guard let data = data else { return }
                     DispatchQueue.main.async {
-                        print("logic", self.data)
                         self.data.append(data)
                     }
                 }
