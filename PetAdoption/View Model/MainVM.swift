@@ -16,7 +16,6 @@ class MainVM: ObservableObject {
         count += 1
     }
     
-    
     func getDogsFromDB() {
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in

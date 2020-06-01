@@ -62,7 +62,6 @@ struct Card: View {
                                 self.image = UIImage(data: data[self.displyed]) ?? UIImage()
                             }
                     }
-                    
                 }
                 HStack {
                     Spacer()
@@ -76,7 +75,6 @@ struct Card: View {
                     Spacer()
                 }.padding(.bottom, UIScreen.main.bounds.height / 1.45)
                 VStack(alignment: .trailing, spacing: 12) {
-                    
                     
                     HStack (alignment: .bottom) {
                         Image(systemName: "info.circle.fill")
