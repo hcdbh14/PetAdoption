@@ -40,19 +40,23 @@ struct Card: View {
                         .animation(inAnimation ? .default : .none)
                         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                             .onChanged({ (value) in
-                                print(value.location.y)
+                                print(value.translation.width)
                                 if value.startLocation != value.location {
                                     if self.switchingImage == false {
                                         self.inAnimation = true
                                     }
-                                    if value.translation.width > 0 {
+                                    if value.translation.width > 50 && value.translation.width > 10 {
                                         self.x = value.translation.width
                                         self.y = value.translation.height
                                         self.degree = 8
-                                    } else {
+                                    } else if value.translation.width < -50 && value.translation.width < -10 {
                                         self.x = value.translation.width
                                         self.y = value.translation.height
                                         self.degree = -8
+                                    } else {
+                                        self.x = value.translation.width
+                                        self.y = value.translation.height
+                                        self.degree = 0
                                     }
                                 }
                             })
@@ -212,7 +216,7 @@ struct Card: View {
     private func dragAnimation(x: CGFloat, y: CGFloat, direction: CGFloat, start: CGPoint, end: CGPoint) {
         
         if x > 0 {
-            if x > 100 {
+            if x > 50 {
                 self.x = 500
                 decideHeightDirection(y: y)
                 self.degree = 15
@@ -242,7 +246,7 @@ struct Card: View {
                 self.degree = 0
             }
         } else {
-            if x < -100 {
+            if x < -50 {
                 self.x = -500
                 decideHeightDirection(y: y)
                 self.degree = -15
