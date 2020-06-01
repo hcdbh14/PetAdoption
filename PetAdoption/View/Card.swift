@@ -4,6 +4,7 @@ struct Card: View {
     private let age: Int
     private var imageCount: Int
     private let dogName: String
+    @State private var speed = 1.0
     @State private var x: CGFloat = 0
     @State private var y: CGFloat = 0
     @Binding private var displyed: Int
@@ -37,22 +38,23 @@ struct Card: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                         .cornerRadius(20)
-                        .animation(inAnimation ? .default : .none)
+                        .animation(inAnimation ? .linear : .none)
                         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                             .onChanged({ (value) in
-                                print(value.translation.width)
+                                
                                 if value.startLocation != value.location {
+                                    self.speed = 5.0
                                     if self.switchingImage == false {
                                         self.inAnimation = true
                                     }
                                     if value.translation.width > 50 && value.translation.width > 10 {
                                         self.x = value.translation.width
                                         self.y = value.translation.height
-                                        self.degree = 8
+                                        self.degree = -6
                                     } else if value.translation.width < -50 && value.translation.width < -10 {
                                         self.x = value.translation.width
                                         self.y = value.translation.height
-                                        self.degree = -8
+                                        self.degree = 6
                                     } else {
                                         self.x = value.translation.width
                                         self.y = value.translation.height
@@ -167,7 +169,7 @@ struct Card: View {
             .offset(x: self.x, y: self.y)
             .rotationEffect(.init(degrees: self.degree))
             .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
-            .animation(inAnimation ? .linear : .none)
+            .animation(inAnimation ? Animation.linear.speed(speed) : .none)
             .transition(.move(edge: .bottom))
     }
     
@@ -214,6 +216,7 @@ struct Card: View {
     
     
     private func dragAnimation(x: CGFloat, y: CGFloat, direction: CGFloat, start: CGPoint, end: CGPoint) {
+        speed = 1.0
         
         if x > 0 {
             if x > 50 {
@@ -280,7 +283,6 @@ struct Card: View {
     }
     
     private func decideHeightDirection(y: CGFloat) {
-        print("this is the \(y)")
         if y < 0 {
             self.y = y - 100
         } else {
