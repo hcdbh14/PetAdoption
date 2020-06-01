@@ -278,9 +278,9 @@ struct Card: View {
     private func decideHeightDirection(y: CGFloat) {
         print("this is the \(y)")
         if y < 0 {
-            self.y = -300
+            self.y = y - 100
         } else {
-            self.y = 300
+            self.y = y + 100
         }
     }
 }
