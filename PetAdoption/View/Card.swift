@@ -167,7 +167,7 @@ struct Card: View {
             .offset(x: self.x, y: self.y)
             .rotationEffect(.init(degrees: self.degree))
             .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
-            .animation(inAnimation ? .default : .none)
+            .animation(inAnimation ? .linear : .none)
             .transition(.move(edge: .bottom))
     }
     
@@ -221,7 +221,7 @@ struct Card: View {
                 decideHeightDirection(y: y)
                 self.degree = 15
                 self.switchingImage = true
-                withAnimation(.easeOut(duration : 0.6)) {
+                withAnimation(.easeIn(duration : 0.6)) {
                     self.scaleAnimation = true
                 }
                 self.mainVM.pushNewImage()
@@ -251,7 +251,7 @@ struct Card: View {
                 decideHeightDirection(y: y)
                 self.degree = -15
                 self.switchingImage = true
-                withAnimation(.easeOut(duration : 0.6)) {
+                withAnimation(.easeIn(duration : 0.6)) {
                     self.scaleAnimation = true
                 }
                 self.mainVM.pushNewImage()
