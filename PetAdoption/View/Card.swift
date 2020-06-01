@@ -222,7 +222,7 @@ struct Card: View {
             if x > 50 {
                 self.x = 500
                 decideHeightDirection(y: y)
-                self.degree = 15
+                self.degree = -15
                 self.switchingImage = true
                 withAnimation(.easeIn(duration : 0.6)) {
                     self.scaleAnimation = true
@@ -252,7 +252,7 @@ struct Card: View {
             if x < -50 {
                 self.x = -500
                 decideHeightDirection(y: y)
-                self.degree = -15
+                self.degree = 15
                 self.switchingImage = true
                 withAnimation(.easeIn(duration : 0.6)) {
                     self.scaleAnimation = true
