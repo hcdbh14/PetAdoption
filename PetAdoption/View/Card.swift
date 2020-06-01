@@ -40,7 +40,7 @@ struct Card: View {
                         .animation(inAnimation ? .default : .none)
                         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                             .onChanged({ (value) in
-                                
+                                print(value.location.y)
                                 if value.startLocation != value.location {
                                     if self.switchingImage == false {
                                         self.inAnimation = true
@@ -214,7 +214,7 @@ struct Card: View {
         if x > 0 {
             if x > 100 {
                 self.x = 500
-                self.y = 0
+                decideHeightDirection(y: y)
                 self.degree = 15
                 self.switchingImage = true
                 withAnimation(.easeOut(duration : 0.6)) {
@@ -244,7 +244,7 @@ struct Card: View {
         } else {
             if x < -100 {
                 self.x = -500
-                self.y = 0
+                decideHeightDirection(y: y)
                 self.degree = -15
                 self.switchingImage = true
                 withAnimation(.easeOut(duration : 0.6)) {
@@ -273,5 +273,14 @@ struct Card: View {
             }
         }
         if start == end { self.moveToImage(direction: direction) }
+    }
+    
+    private func decideHeightDirection(y: CGFloat) {
+        print("this is the \(y)")
+        if y < 0 {
+            self.y = -300
+        } else {
+            self.y = 300
+        }
     }
 }
