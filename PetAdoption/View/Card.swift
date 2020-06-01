@@ -5,6 +5,7 @@ struct Card: View {
     private var imageCount: Int
     private let dogName: String
     @State private var x: CGFloat = 0
+    @State private var y: CGFloat = 0
     @Binding private var displyed: Int
     @State private var showInfo = false
     @State private var inAnimation = false
@@ -46,15 +47,17 @@ struct Card: View {
                                     }
                                     if value.translation.width > 0 {
                                         self.x = value.translation.width
+                                        self.y = value.translation.height
                                         self.degree = 8
                                     } else {
                                         self.x = value.translation.width
+                                        self.y = value.translation.height
                                         self.degree = -8
                                     }
                                 }
                             })
                             .onEnded({ (value) in
-                                self.dragAnimation(translation: value.translation.width , direction: value.location.x)
+                                self.dragAnimation(x: value.translation.width, y: value.translation.height, direction: value.location.x, start: value.startLocation, end: value.location)
                             }))
                         .onReceive(imageLoader.didChange) { data in
                             self.data = data
@@ -157,7 +160,7 @@ struct Card: View {
                 
             }
         }.padding(.top, 10)
-            .offset(x: self.x)
+            .offset(x: self.x, y: self.y)
             .rotationEffect(.init(degrees: self.degree))
             .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
             .animation(inAnimation ? .default : .none)
@@ -206,11 +209,12 @@ struct Card: View {
     }
     
     
-    private func dragAnimation(translation: CGFloat, direction: CGFloat) {
+    private func dragAnimation(x: CGFloat, y: CGFloat, direction: CGFloat, start: CGPoint, end: CGPoint) {
         
-        if translation > 0 {
-            if translation > 100 {
+        if x > 0 {
+            if x > 100 {
                 self.x = 500
+                self.y = 0
                 self.degree = 15
                 self.switchingImage = true
                 withAnimation(.easeOut(duration : 0.6)) {
@@ -225,6 +229,7 @@ struct Card: View {
                         self.inAnimation = false
                         self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                         self.x = 0
+                        self.y = 0
                         self.degree = 0
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
@@ -233,11 +238,13 @@ struct Card: View {
                 }
             } else {
                 self.x = 0
+                self.y = 0
                 self.degree = 0
             }
         } else {
-            if translation < -100 {
+            if x < -100 {
                 self.x = -500
+                self.y = 0
                 self.degree = -15
                 self.switchingImage = true
                 withAnimation(.easeOut(duration : 0.6)) {
@@ -252,6 +259,7 @@ struct Card: View {
                         self.inAnimation = false
                         self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                         self.x = 0
+                        self.y = 0
                         self.degree = 0
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
@@ -260,9 +268,10 @@ struct Card: View {
                 }
             } else {
                 self.x = 0
+                self.y = 0
                 self.degree = 0
             }
         }
-        self.moveToImage(direction: direction)
+        if start == end { self.moveToImage(direction: direction) }
     }
 }
