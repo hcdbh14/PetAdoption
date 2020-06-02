@@ -38,7 +38,7 @@ struct Card: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                         .cornerRadius(20)
-                        .animation(inAnimation ? .linear : .none)
+                        .animation(.none)
                         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                             .onChanged({ (value) in
                                 
@@ -117,7 +117,7 @@ struct Card: View {
                         .background(Color.gray)
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4)
-                        .animation(inAnimation ? .default : .none)
+                        .animation(.none)
                         .transition(.move(edge: .bottom))
                         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                             .onEnded({ (value) in
@@ -239,7 +239,7 @@ struct Card: View {
                         self.y = 0
                         self.degree = 0
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                         self.scaleAnimation = false
                     }
                 }
@@ -269,7 +269,7 @@ struct Card: View {
                         self.y = 0
                         self.degree = 0
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                         self.scaleAnimation = false
                     }
                 }
