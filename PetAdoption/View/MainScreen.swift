@@ -43,8 +43,8 @@ struct MainScreen: View {
                 .onAppear() {
                     print((UIScreen.main.bounds.height / 1.16) * -1)
             }
-
-        }.background(Color.white)
+            
+        }.background(Color.offWhite)
             .onAppear(perform: mainVM.getDogsFromDB)
         
         //                    .onAppear() {
@@ -64,18 +64,18 @@ struct ButtomBar: View {
             path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: 55))
             path.addLine(to: CGPoint(x: 0, y: 55))
             
-        }.fill(Color.white)
+        }.fill(Color.offWhite)
             .rotationEffect(.init(degrees: 180))
     }
 }
 
 struct BarButtons : View {
     
-
+    
     var body : some View {
         HStack {
             Button(action: {
-               print("pressed")
+                print("pressed")
                 
             }) {
                 Image(systemName: "info.circle")
@@ -93,7 +93,7 @@ struct BarButtons : View {
             Spacer(minLength: 12)
             
             Button(action: {
-              print("pressed")
+                print("pressed")
             }) {
                 Image(systemName: "suit.heart.fill")
             }.foregroundColor(.gray)
@@ -101,7 +101,7 @@ struct BarButtons : View {
             Spacer(minLength: 12)
             
             Button(action: {
-               print("pressed")
+                print("pressed")
             }) {
                 Image(systemName: "square.and.arrow.up")
             }.foregroundColor(.gray)
@@ -113,13 +113,19 @@ struct BarButtons : View {
 struct CircleButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-        .padding(30)
-        .contentShape(Circle())
-        .background(
-       Circle()
-        .fill(Color.offWhite)
-        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-        .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+            .padding(30)
+            .background(
+                Group {
+                    if configuration.isPressed {
+                        Circle()
+                            .fill(Color.offWhite)
+                    } else {
+                            Circle()
+                                .fill(Color.offWhite)
+                                .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
+                                .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+                        }
+                    }
         )
     }
 }
