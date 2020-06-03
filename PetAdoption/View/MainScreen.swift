@@ -24,6 +24,12 @@ struct MainScreen: View {
                 Image(systemName: "person").padding(.trailing, 10)
             }.padding(.top, 5)
             Spacer()
+            ZStack(alignment: .top) {
+                BarButtons(selected: self.$selected)
+                    .padding()
+                    .padding(.horizontal, 22)
+                    .background(ButtomBar())
+            }
             ZStack {
                 if  mainVM.frontImage.isEmpty == false {
                     if mainVM.imageURLS.isEmpty == false {
@@ -33,14 +39,11 @@ struct MainScreen: View {
                     Card(imageURL: mainVM.frontImage, displayed: $imageIndex, imageCount: mainVM.frontImage.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, scaleTrigger: $scaleAnimation)
                         .animation(.default)
                 }
+            }.padding(.top, (UIScreen.main.bounds.height / 1.16) * -1)
+                .onAppear() {
+                    print((UIScreen.main.bounds.height / 1.16) * -1)
             }
-            Spacer()
-            ZStack(alignment: .top) {
-                BarButtons(selected: self.$selected)
-                    .padding()
-                    .padding(.horizontal, 22)
-                    .background(ButtomBar())
-            }
+
         }.background(Color.white)
             .onAppear(perform: mainVM.getDogsFromDB)
         
