@@ -22,7 +22,7 @@ struct MainScreen: View {
                 Image(systemName: "person").padding(.leading, 10)
                 Spacer()
                 Image(systemName: "person").padding(.trailing, 10)
-            }.padding(.top, 5)
+            }.padding(.top, 30)
             Spacer()
             ZStack(alignment: .top) {
                 BarButtons()
@@ -46,6 +46,7 @@ struct MainScreen: View {
             
         }.background(Color.offWhite)
             .onAppear(perform: mainVM.getDogsFromDB)
+            .edgesIgnoringSafeArea(.top)
         
         //                    .onAppear() {
         ////                        self.mainVM.getDogsFromDB()
