@@ -25,7 +25,7 @@ struct MainScreen: View {
             }.padding(.top, 5)
             Spacer()
             ZStack(alignment: .top) {
-                BarButtons(selected: self.$selected)
+                BarButtons()
                     .padding()
                     .padding(.horizontal, 22)
                     .background(ButtomBar())
@@ -71,41 +71,59 @@ struct ButtomBar: View {
 
 struct BarButtons : View {
     
-    @Binding var selected: barItem
-    
+
     var body : some View {
         HStack {
             Button(action: {
-                self.selected = .first
+               print("pressed")
                 
             }) {
                 Image(systemName: "info.circle")
-            }.foregroundColor(self.selected == .first ? .black : .gray)
+            }.foregroundColor(.gray)
             
             Spacer(minLength: 12)
             
             Button(action: {
-                self.selected = .second
+                print("pressed")
                 
             }) {
                 Image(systemName: "xmark")
-            }.foregroundColor(self.selected == .second ? .black : .gray)
+            }.foregroundColor(.gray)
             
             Spacer(minLength: 12)
             
             Button(action: {
-                self.selected = .third
+              print("pressed")
             }) {
                 Image(systemName: "suit.heart.fill")
-            }.foregroundColor(self.selected == .third ? .black : .gray)
-            
+            }.foregroundColor(.gray)
+                .buttonStyle(CircleButtonStyle())
             Spacer(minLength: 12)
             
             Button(action: {
-                self.selected = .forth
+               print("pressed")
             }) {
                 Image(systemName: "square.and.arrow.up")
-            }.foregroundColor(self.selected == .forth ? .black : .gray)
+            }.foregroundColor(.gray)
         }
     }
+}
+
+
+struct CircleButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+        .padding(30)
+        .contentShape(Circle())
+        .background(
+       Circle()
+        .fill(Color.offWhite)
+        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
+        .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+        )
+    }
+}
+
+extension Color {
+    static let offWhite = Color(red: 225 / 255, green: 225 / 255, blue: 235 / 255)
 }
