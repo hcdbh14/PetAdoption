@@ -1,6 +1,5 @@
 import Foundation
 
-
 extension URLSession {
     func synchronousDataTask(urlrequest: URL) -> (data: Data?, response: URLResponse?, error: Error?) {
         var data: Data?
