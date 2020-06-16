@@ -72,7 +72,6 @@ struct ButtomBar: View {
 
 struct BarButtons : View {
     
-    
     var body : some View {
         HStack {
             Button(action: {
@@ -81,7 +80,7 @@ struct BarButtons : View {
             }) {
                 Image(systemName: "info.circle")
             }.foregroundColor(.gray)
-            
+                .buttonStyle(CircleButtonStyle(isBig: false))
             Spacer(minLength: 12)
             
             Button(action: {
@@ -90,7 +89,9 @@ struct BarButtons : View {
             }) {
                 Image(systemName: "xmark")
             }.foregroundColor(.gray)
-            
+                .buttonStyle(CircleButtonStyle(isBig: true))
+
+                
             Spacer(minLength: 12)
             
             Button(action: {
@@ -98,7 +99,7 @@ struct BarButtons : View {
             }) {
                 Image(systemName: "suit.heart.fill")
             }.foregroundColor(.gray)
-                .buttonStyle(CircleButtonStyle())
+                .buttonStyle(CircleButtonStyle(isBig: true))
             Spacer(minLength: 12)
             
             Button(action: {
@@ -106,44 +107,11 @@ struct BarButtons : View {
             }) {
                 Image(systemName: "square.and.arrow.up")
             }.foregroundColor(.gray)
+                .buttonStyle(CircleButtonStyle(isBig: false))
         }
     }
 }
 
-
-struct CircleButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .padding(30)
-            .background(
-                Group {
-                    if configuration.isPressed {
-                        Circle()
-                            .fill(Color.offWhite)
-                            .overlay(
-                                Circle()
-                                    .stroke(Color.gray, lineWidth: 4)
-                                    .blur(radius: 4)
-                                    .offset(x: 2, y: 2)
-                                    .mask(Circle().fill(LinearGradient(Color.black, Color.clear)))
-                        )
-                            .overlay(
-                                Circle()
-                                    .stroke(Color.white, lineWidth: 9)
-                                    .blur(radius: 4)
-                                    .offset(x: -2, y: -2)
-                                    .mask(Circle().fill(LinearGradient(Color.clear, Color.black)))
-                        )
-                    } else {
-                        Circle()
-                            .fill(Color.offWhite)
-                            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 10, y: 10)
-                            .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
-                    }
-                }
-        )
-    }
-}
 
 
 
