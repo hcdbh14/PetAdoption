@@ -79,6 +79,7 @@ struct Card: View {
                             .fill(Color.clear)
                             .background((self.displyed == i ? Color.black : Color.gray).cornerRadius(20))
                             .frame(width: (UIScreen.main.bounds.width / CGFloat(self.imageCount)) - 30, height: 10)
+                            .opacity(self.imageCount == 1 ? 0 : 1)
                         
                     }
                     Spacer()
@@ -165,7 +166,7 @@ struct Card: View {
                     .padding(.top, 40)
                 
             }
-        }.padding(.top, 10)
+        }
             .offset(x: self.x, y: self.y)
             .rotationEffect(.init(degrees: self.degree))
             .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)

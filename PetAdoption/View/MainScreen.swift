@@ -22,14 +22,9 @@ struct MainScreen: View {
                 Image(systemName: "person").padding(.leading, 10)
                 Spacer()
                 Image(systemName: "person").padding(.trailing, 10)
-            }.padding(.top, 30)
+            }.padding(.top, 50)
             Spacer()
-            ZStack(alignment: .top) {
-                BarButtons()
-                    .padding()
-                    .padding(.horizontal, 22)
-                    .background(ButtomBar())
-            }
+            
             ZStack {
                 if  mainVM.frontImage.isEmpty == false {
                     if mainVM.imageURLS.isEmpty == false {
@@ -39,14 +34,20 @@ struct MainScreen: View {
                     Card(imageURL: mainVM.frontImage, displayed: $imageIndex, imageCount: mainVM.frontImage.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, scaleTrigger: $scaleAnimation)
                         .animation(.default)
                 }
-            }.padding(.top, (UIScreen.main.bounds.height / 1.16) * -1)
-                .onAppear() {
-                    print((UIScreen.main.bounds.height / 1.16) * -1)
-            }
+            }.zIndex(2)
+            
+            ZStack(alignment: .top) {
+                BarButtons()
+                    .padding(.bottom, 50)
+                    .padding(.horizontal, 22)
+                    .background(ButtomBar())
+            }.zIndex(1)
             
         }.background(Color.offWhite)
+            
             .onAppear(perform: mainVM.getDogsFromDB)
             .edgesIgnoringSafeArea(.top)
+            .edgesIgnoringSafeArea(.bottom)
         
         //                    .onAppear() {
         ////                        self.mainVM.getDogsFromDB()
@@ -79,35 +80,41 @@ struct BarButtons : View {
                 
             }) {
                 Image(systemName: "info.circle")
-            }.foregroundColor(.gray)
-                .buttonStyle(CircleButtonStyle(isBig: false))
+                    .foregroundColor(.blue)
+            }
+            .buttonStyle(CircleButtonStyle(isBig: false))
             Spacer(minLength: 12)
             
             Button(action: {
                 print("pressed")
                 
             }) {
-                Image(systemName: "xmark")
-            }.foregroundColor(.gray)
-                .buttonStyle(CircleButtonStyle(isBig: true))
-
-                
+                Image(systemName: "xmark").resizable()
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(.orange)
+            }
+            .buttonStyle(CircleButtonStyle(isBig: true))
+            
+            
             Spacer(minLength: 12)
             
             Button(action: {
                 print("pressed")
             }) {
-                Image(systemName: "suit.heart.fill")
-            }.foregroundColor(.gray)
-                .buttonStyle(CircleButtonStyle(isBig: true))
+                Image(systemName: "suit.heart.fill").resizable()
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(.pink)
+            }
+            .buttonStyle(CircleButtonStyle(isBig: true))
             Spacer(minLength: 12)
             
             Button(action: {
                 print("pressed")
             }) {
                 Image(systemName: "square.and.arrow.up")
-            }.foregroundColor(.gray)
-                .buttonStyle(CircleButtonStyle(isBig: false))
+                    .foregroundColor(.purple)
+            }
+            .buttonStyle(CircleButtonStyle(isBig: false))
         }
     }
 }
