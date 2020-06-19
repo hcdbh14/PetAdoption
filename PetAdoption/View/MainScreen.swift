@@ -18,12 +18,14 @@ struct MainScreen: View {
     var body: some View {
         
         VStack {
+            
             HStack {
-                Image(systemName: "person").padding(.leading, 10)
+                Image(systemName: "person").padding(.leading, 10).foregroundColor(.black)
                 Spacer()
-                Image(systemName: "person").padding(.trailing, 10)
+                Image(systemName: "person").padding(.trailing, 10).foregroundColor(.black)
             }.padding(.top, 50)
-            Spacer()
+               Spacer()
+
             
             ZStack {
                 if  mainVM.frontImage.isEmpty == false {
@@ -36,18 +38,18 @@ struct MainScreen: View {
                 }
             }.zIndex(2)
             
+           Spacer()
             ZStack(alignment: .top) {
                 BarButtons()
-                    .padding(.bottom, 50)
+                    .padding(.bottom, 75)
                     .padding(.horizontal, 22)
                     .background(ButtomBar())
             }.zIndex(1)
-            
-        }.background(Color.offWhite)
-            
-            .onAppear(perform: mainVM.getDogsFromDB)
-            .edgesIgnoringSafeArea(.top)
+        }
             .edgesIgnoringSafeArea(.bottom)
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20)
+            .background(Color.offWhite)
+            .onAppear(perform: mainVM.getDogsFromDB)
         
         //                    .onAppear() {
         ////                        self.mainVM.getDogsFromDB()

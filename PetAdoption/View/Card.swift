@@ -168,7 +168,7 @@ struct Card: View {
         }
             .offset(x: self.x, y: self.y)
             .rotationEffect(.init(degrees: self.degree))
-            .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.8)
+            .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
             .animation(inAnimation ? Animation.linear.speed(speed) : .none)
             .transition(.move(edge: .bottom))
     }
@@ -209,7 +209,7 @@ struct Card: View {
     private func timedInfoAnimation() {
         self.inAnimation = true
         self.showInfo.toggle()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.inAnimation = false
         }
     }

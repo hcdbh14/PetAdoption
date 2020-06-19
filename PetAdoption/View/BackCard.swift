@@ -26,6 +26,6 @@ struct BackCard: View {
                         self.image = UIImage(data: data[0]) ?? UIImage()
                     }
             }
-        }.padding(.top, 10)
+        }
     }
 }
