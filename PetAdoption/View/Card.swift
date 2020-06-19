@@ -77,9 +77,9 @@ struct Card: View {
                     ForEach (0...imageCount - 1,id: \.self) { i in
                         Rectangle()
                             .fill(Color.clear)
-                            .background((self.displyed == i ? Color.black : Color.gray).cornerRadius(20))
+                            .background((self.displyed == i ? Color.orange : Color.gray).cornerRadius(20))
                             .frame(width: (UIScreen.main.bounds.width / CGFloat(self.imageCount)) - 30, height: 10)
-                            .opacity(self.imageCount == 1 ? 0 : 1)
+                            .opacity(self.imageCount == 1 ? 0 : 0.7)
                         
                     }
                     Spacer()
