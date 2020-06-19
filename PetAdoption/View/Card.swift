@@ -162,9 +162,8 @@ struct Card: View {
                     
                     
                 }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height )
-                    .background(Color.white)
+                    .background(Color.offWhite)
                     .padding(.top, 40)
-                
             }
         }
             .offset(x: self.x, y: self.y)
