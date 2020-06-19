@@ -41,7 +41,7 @@ struct MainScreen: View {
            Spacer()
             ZStack(alignment: .top) {
                 BarButtons()
-                    .padding(.bottom, 75)
+                    .padding(.bottom, UIScreen.main.bounds.height / 10)
                     .padding(.horizontal, 22)
                     .background(ButtomBar())
             }.zIndex(1)
