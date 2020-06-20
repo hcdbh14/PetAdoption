@@ -86,7 +86,7 @@ struct Card: View {
                 }.padding(.bottom, UIScreen.main.bounds.height / 1.45)
                 VStack(alignment: .trailing, spacing: 12) {
                     
-                    HStack (alignment: .bottom) {
+                    HStack (alignment: .center) {
                         Image(systemName: "info.circle.fill")
                             .font(.system(size: 24, weight: .semibold))
                             .foregroundColor(.white)
@@ -100,15 +100,18 @@ struct Card: View {
                             .fontWeight(.regular)
                         
                         Text(dogName)
-                            .font(.system(size: 30))
+                            .font(.system(size: 35))
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
-                    }.onTapGesture {
-                        self.timedInfoAnimation()
+                            .padding(.trailing, 10)
                     }
-                }.padding(.bottom, 50)
-                    .padding(.trailing, 10)
-                    .rotationEffect(.init(degrees: self.degree))
+                }
+                .frame(height: 100)
+                .contentShape(Rectangle())
+                .rotationEffect(.init(degrees: self.degree))
+                .onTapGesture {
+                    self.timedInfoAnimation()
+                }
             }
             
             if showInfo {
@@ -166,11 +169,11 @@ struct Card: View {
                     .padding(.top, 40)
             }
         }
-            .offset(x: self.x, y: self.y)
-            .rotationEffect(.init(degrees: self.degree))
-            .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
-            .animation(inAnimation ? Animation.linear.speed(speed) : .none)
-            .transition(.move(edge: .bottom))
+        .offset(x: self.x, y: self.y)
+        .rotationEffect(.init(degrees: self.degree))
+        .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
+        .animation(inAnimation ? Animation.linear.speed(speed) : .none)
+        .transition(.move(edge: .bottom))
     }
     
     
