@@ -37,7 +37,7 @@ struct Card: View {
                         .background(Color.gray)
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
-                        .cornerRadius(20)
+                        .cornerRadius(5)
                         .animation(.none)
                         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                             .onChanged({ (value) in
@@ -72,6 +72,7 @@ struct Card: View {
                             }
                     }
                 }
+                
                 HStack {
                     Spacer()
                     ForEach (0...imageCount - 1,id: \.self) { i in
@@ -118,9 +119,9 @@ struct Card: View {
                     
                 }
                 .frame(height: 100)
-                .contentShape(Rectangle())
-                .background(LinearGradient(gradient: Gradient(colors: [.black, .clear]), startPoint: .bottom, endPoint: .top))
                 .rotationEffect(.init(degrees: self.degree))
+                .background(LinearGradient(gradient: Gradient(colors: [.black, .clear]), startPoint: .bottom, endPoint: .top))
+                .cornerRadius(5)
                 .onTapGesture {
                     self.timedInfoAnimation()
                 }
@@ -145,25 +146,37 @@ struct Card: View {
                                 self.image = UIImage(data: data[self.displyed]) ?? UIImage()
                             }}
                     
-                    HStack (alignment: .bottom) {
-                        Image(systemName: "info.circle.fill")
-                            .font(.system(size: 24, weight: .semibold))
-                            .foregroundColor(.white)
-                            .padding(.leading, 20)
+                    VStack(alignment: .trailing, spacing: 3) {
+                        HStack (alignment: .bottom) {
+                            Image(systemName: "info.circle.fill")
+                                .font(.system(size: 24, weight: .semibold))
+                                .foregroundColor(.white)
+                                .padding(.leading, 20)
+                            
+                            Spacer()
+                            
+                            Text("גור נקבה")
+                                .font(.system(size: 24))
+                                .foregroundColor(.black)
+                                .fontWeight(.regular)
+                            
+                            Text(dogName)
+                                .font(.system(size: 30))
+                                .foregroundColor(.black)
+                                .fontWeight(.heavy)
+                                .padding(.trailing, 10)
+                        }.onTapGesture {
+                            self.timedInfoAnimation()
+                        }
                         
-                        Spacer()
-                        
-                        Text("\(age)")
-                            .font(.system(size: 24))
+                        Text("לוולאדור")
+                            .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.black)
-                            .fontWeight(.regular)
-                        
-                        Text(dogName)
-                            .font(.system(size: 30))
+                            .padding(.trailing, 10)
+                        Text("ראשון לציון")
+                            .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.black)
-                            .fontWeight(.heavy)
-                    }.onTapGesture {
-                        self.timedInfoAnimation()
+                            .padding(.trailing, 10)
                     }
                     
                     Text("test").onAppear() { print("test") }
@@ -173,10 +186,8 @@ struct Card: View {
                     Text("test").frame(width: 100, height: 100)
                     Text("test").frame(width: 100, height: 100)
                     Text("test").frame(width: 100, height: 100)
-                    Text("test").frame(width: 100, height: 100)
                     
-                    
-                }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height )
+                }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height)
                     .background(Color.offWhite)
                     .padding(.top, 40)
             }
