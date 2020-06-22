@@ -84,30 +84,42 @@ struct Card: View {
                     }
                     Spacer()
                 }.padding(.bottom, UIScreen.main.bounds.height / 1.45)
-                VStack(alignment: .trailing, spacing: 12) {
+                VStack(alignment: .trailing, spacing: 3) {
                     
                     HStack (alignment: .center) {
                         Image(systemName: "info.circle.fill")
-                            .font(.system(size: 24, weight: .semibold))
+                            .font(.system(size: 26, weight: .semibold))
                             .foregroundColor(.white)
                             .padding(.leading, 20)
                         
                         Spacer()
                         
-                        Text("\(age)")
+                        Text("גור נקבה")
                             .font(.system(size: 24))
                             .foregroundColor(.white)
-                            .fontWeight(.regular)
+                            .fontWeight(.heavy)
                         
-                        Text(dogName)
-                            .font(.system(size: 35))
+                        
+                        Text(dogName + "," )
+                            .font(.system(size: 28))
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
                             .padding(.trailing, 10)
                     }
+                    Text("לוולאדור")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.trailing, 10)
+                    
+                    Text("ראשון לציון")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.trailing, 10)
+                    
                 }
                 .frame(height: 100)
                 .contentShape(Rectangle())
+                .background(LinearGradient(gradient: Gradient(colors: [.black, .clear]), startPoint: .bottom, endPoint: .top))
                 .rotationEffect(.init(degrees: self.degree))
                 .onTapGesture {
                     self.timedInfoAnimation()
