@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2E721F0523C023B9B9351CE0 /* Pods_PetAdoption.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E302403B879AB37660643957 /* Pods_PetAdoption.framework */; };
+		ED44E24524A265F900B77D3D /* BarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED44E24424A265F900B77D3D /* BarButtons.swift */; };
 		ED49A37B2476DBEF00A87257 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49A37A2476DBEF00A87257 /* Card.swift */; };
 		ED5A628024770AF70081DF00 /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5A627F24770AF70081DF00 /* MainVM.swift */; };
 		ED825A382478185C00ACA8E6 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED825A372478185C00ACA8E6 /* Dog.swift */; };
@@ -31,6 +32,7 @@
 		67FB5269D49CC4303E90B581 /* Pods-PetAdoption.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetAdoption.debug.xcconfig"; path = "Target Support Files/Pods-PetAdoption/Pods-PetAdoption.debug.xcconfig"; sourceTree = "<group>"; };
 		E302403B879AB37660643957 /* Pods_PetAdoption.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetAdoption.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBA9FDD9453FF6AA2833B046 /* Pods-PetAdoption.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetAdoption.release.xcconfig"; path = "Target Support Files/Pods-PetAdoption/Pods-PetAdoption.release.xcconfig"; sourceTree = "<group>"; };
+		ED44E24424A265F900B77D3D /* BarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtons.swift; sourceTree = "<group>"; };
 		ED49A37A2476DBEF00A87257 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		ED5A627F24770AF70081DF00 /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
 		ED825A372478185C00ACA8E6 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				ED49A37A2476DBEF00A87257 /* Card.swift */,
 				EDF94DEC247E3C2E0094F5B6 /* BackCard.swift */,
 				ED8B167524994C7100AF7B33 /* CircleButtonStyle.swift */,
+				ED44E24424A265F900B77D3D /* BarButtons.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				ED5A628024770AF70081DF00 /* MainVM.swift in Sources */,
 				EDF777D724684EB100154110 /* SceneDelegate.swift in Sources */,
 				EDF94DED247E3C2E0094F5B6 /* BackCard.swift in Sources */,
+				ED44E24524A265F900B77D3D /* BarButtons.swift in Sources */,
 				EDD53A042483B856004EB14F /* URLSession.swift in Sources */,
 				EDF777D924684EB100154110 /* MainScreen.swift in Sources */,
 				EDDB49E1247708250068026C /* ImageLoader.swift in Sources */,

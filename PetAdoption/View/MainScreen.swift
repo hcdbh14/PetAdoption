@@ -73,56 +73,6 @@ struct ButtomBar: View {
     }
 }
 
-struct BarButtons : View {
-    
-    @EnvironmentObject var mainVM: MainVM
-    
-    var body : some View {
-        HStack {
-            Button(action: {
-                print("pressed")
-                
-            }) {
-                Image(systemName: "info.circle")
-                    .foregroundColor(.blue)
-            }
-            .buttonStyle(CircleButtonStyle(isBig: false))
-            Spacer(minLength: 12)
-            
-            Button(action: {
-                self.mainVM.decision = .rejected
-                
-            }) {
-                Image(systemName: "xmark").resizable()
-                    .frame(width: 20, height: 20)
-                    .foregroundColor(.orange)
-            }
-            .buttonStyle(CircleButtonStyle(isBig: true))
-            
-            
-            Spacer(minLength: 12)
-            
-            Button(action: {
-                self.mainVM.decision = .picked
-            }) {
-                Image(systemName: "suit.heart.fill").resizable()
-                    .frame(width: 20, height: 20)
-                    .foregroundColor(.pink)
-            }
-            .buttonStyle(CircleButtonStyle(isBig: true))
-            Spacer(minLength: 12)
-            
-            Button(action: {
-                print("pressed")
-            }) {
-                Image(systemName: "square.and.arrow.up")
-                    .foregroundColor(.purple)
-            }
-            .buttonStyle(CircleButtonStyle(isBig: false))
-        }
-    }
-}
-
 
 
 

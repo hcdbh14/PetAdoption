@@ -91,8 +91,7 @@ struct Card: View {
                         }
                         self.mainVM.pushNewImage()
                         self.moveToNextCard()
-                    })
-                    
+                    }) 
                 }
                 
                 HStack {
