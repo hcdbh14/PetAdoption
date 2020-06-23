@@ -1,6 +1,13 @@
 import SwiftUI
+import Combine
 import FirebaseStorage
 import FirebaseDatabase
+
+enum Decision {
+    case picked
+    case rejected
+    case notDecided
+}
 
 class MainVM: ObservableObject {
     var dogsList: [Dog] = []
@@ -9,6 +16,11 @@ class MainVM: ObservableObject {
     @Published var count = 1
     @Published var frontImage: [String] = []
     @Published var imageURLS: [Int: [String]] = [:]
+    @Published var userDecided = PassthroughSubject<Decision, Never>()
+    @Published var decision: Decision = Decision.notDecided { didSet {
+        userDecided.send(decision)
+        }
+    }
     
     func pushNewImage() {
         let removed = imageURLS.removeValue(forKey: count)

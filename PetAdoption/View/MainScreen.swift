@@ -33,7 +33,7 @@ struct MainScreen: View {
                         BackCard(imageURL: mainVM.imageURLS[mainVM.count] ?? [], scaleTrigger: $scaleAnimation)
                     }
                     
-                    Card(imageURL: mainVM.frontImage, displayed: $imageIndex, imageCount: mainVM.frontImage.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, scaleTrigger: $scaleAnimation)
+                    Card(imageURL: mainVM.frontImage, displayed: $imageIndex, imageCount: mainVM.frontImage.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, scaleTrigger: $scaleAnimation, mainVM: mainVM)
                         .animation(.default)
                 }
             }.zIndex(2)
@@ -75,6 +75,8 @@ struct ButtomBar: View {
 
 struct BarButtons : View {
     
+    @EnvironmentObject var mainVM: MainVM
+    
     var body : some View {
         HStack {
             Button(action: {
@@ -88,7 +90,7 @@ struct BarButtons : View {
             Spacer(minLength: 12)
             
             Button(action: {
-                print("pressed")
+                self.mainVM.decision = .rejected
                 
             }) {
                 Image(systemName: "xmark").resizable()
@@ -101,7 +103,7 @@ struct BarButtons : View {
             Spacer(minLength: 12)
             
             Button(action: {
-                print("pressed")
+                self.mainVM.decision = .picked
             }) {
                 Image(systemName: "suit.heart.fill").resizable()
                     .frame(width: 20, height: 20)

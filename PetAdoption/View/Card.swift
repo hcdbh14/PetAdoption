@@ -16,9 +16,10 @@ struct Card: View {
     @Binding private var scaleAnimation: Bool
     @State private var image: UIImage = UIImage()
     @ObservedObject private var imageLoader: ImageLoader
-    @EnvironmentObject private var mainVM: MainVM
+    @ObservedObject private var mainVM: MainVM
     
-    init(imageURL: [String], displayed: Binding<Int>, imageCount: Int, dogName: String, age: Int, scaleTrigger: Binding<Bool>) {
+    init(imageURL: [String], displayed: Binding<Int>, imageCount: Int, dogName: String, age: Int, scaleTrigger: Binding<Bool>, mainVM: MainVM) {
+        self.mainVM = mainVM
         imageLoader = ImageLoader(urlString: imageURL)
         self.imageCount = imageCount
         self._displyed = displayed
@@ -71,6 +72,27 @@ struct Card: View {
                                 self.image = UIImage(data: data[self.displyed]) ?? UIImage()
                             }
                     }
+                    .onReceive(mainVM.userDecided, perform: { decision in
+                        self.inAnimation = true
+                        switch decision {
+                        case .picked:
+                            self.decideHeightDirection(y: -100)
+                            self.x = 500
+                        case .rejected:
+                            self.decideHeightDirection(y: -100)
+                            self.x = -500
+                        case .notDecided:
+                            self.decideHeightDirection(y: 0)
+                        }
+                        self.degree = -15
+                        self.switchingImage = true
+                        withAnimation(.easeIn(duration : 0.6)) {
+                            self.scaleAnimation = true
+                        }
+                        self.mainVM.pushNewImage()
+                        self.moveToNextCard()
+                    })
+                    
                 }
                 
                 HStack {
