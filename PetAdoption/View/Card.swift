@@ -255,15 +255,12 @@ struct Card: View {
                 }
                 self.mainVM.pushNewImage()
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                    self.scaleAnimation = false
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                     withAnimation (.none) {
                         self.displyed = 0
                         self.switchingImage = false
                         self.inAnimation = false
+                        self.scaleAnimation = false
                         self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                         self.x = 0
                         self.y = 0
@@ -292,13 +289,11 @@ struct Card: View {
                         self.displyed = 0
                         self.switchingImage = false
                         self.inAnimation = false
+                        self.scaleAnimation = false
                         self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
                         self.x = 0
                         self.y = 0
                         self.degree = 0
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                        self.scaleAnimation = false
                     }
                 }
             } else {
