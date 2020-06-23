@@ -256,6 +256,10 @@ struct Card: View {
                 self.mainVM.pushNewImage()
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    self.scaleAnimation = false
+                }
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                     withAnimation (.none) {
                         self.displyed = 0
                         self.switchingImage = false
@@ -265,10 +269,8 @@ struct Card: View {
                         self.y = 0
                         self.degree = 0
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                        self.scaleAnimation = false
-                    }
                 }
+                
             } else {
                 self.x = 0
                 self.y = 0
