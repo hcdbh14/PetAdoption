@@ -284,7 +284,7 @@ struct Card: View {
                 }
                 self.mainVM.pushNewImage()
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                     withAnimation (.none) {
                         self.displyed = 0
                         self.switchingImage = false
