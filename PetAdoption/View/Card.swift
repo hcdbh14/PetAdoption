@@ -39,6 +39,7 @@ struct Card: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                         .cornerRadius(5)
+                        .allowsHitTesting(inAnimation ? false : true)
                         .animation(.none)
                         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                             .onChanged({ (value) in
@@ -102,7 +103,6 @@ struct Card: View {
                             .background((self.displyed == i ? Color.orange : Color.gray).cornerRadius(20))
                             .frame(width: (UIScreen.main.bounds.width / CGFloat(self.imageCount)) - 30, height: 10)
                             .opacity(self.imageCount == 1 ? 0 : 0.7)
-                        
                     }
                     Spacer()
                 }.padding(.bottom, UIScreen.main.bounds.height / 1.45)
@@ -313,7 +313,7 @@ struct Card: View {
     }
     
     func moveToNextCard() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             withAnimation (.none) {
                 self.displyed = 0
                 self.switchingImage = false
