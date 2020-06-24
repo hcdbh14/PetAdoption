@@ -20,6 +20,7 @@ struct CircleButtonStyle: ButtonStyle {
             .contentShape(Circle())
             .allowsHitTesting(isEnabled)
             .onTapGesture {
+                print("pressed")
                 self.isEnabled = false
 
                 switch self.buttonType {
@@ -28,8 +29,9 @@ struct CircleButtonStyle: ButtonStyle {
                 case .reject:
                     self.mainVM.decision = .rejected
                 default:
-                    return
+                    break
                 }
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.isEnabled = true
                 }

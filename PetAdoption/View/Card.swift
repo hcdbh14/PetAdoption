@@ -41,31 +41,6 @@ struct Card: View {
                         .cornerRadius(5)
                         .allowsHitTesting(x == 0 ? true : false)
                         .animation(.none)
-                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                            .onChanged({ (value) in
-                                if value.startLocation != value.location {
-                                    self.speed = 5.0
-                                    if self.switchingImage == false {
-                                        self.inAnimation = true
-                                    }
-                                    if value.translation.width > 50 && value.translation.width > 10 {
-                                        self.x = value.translation.width
-                                        self.y = value.translation.height
-                                        self.degree = -6
-                                    } else if value.translation.width < -50 && value.translation.width < -10 {
-                                        self.x = value.translation.width
-                                        self.y = value.translation.height
-                                        self.degree = 6
-                                    } else {
-                                        self.x = value.translation.width
-                                        self.y = value.translation.height
-                                        self.degree = 0
-                                    }
-                                }
-                            })
-                            .onEnded({ (value) in
-                                self.dragAnimation(x: value.translation.width, y: value.translation.height, direction: value.location.x, start: value.startLocation, end: value.location)
-                            }))
                         .onReceive(imageLoader.didChange) { data in
                             self.data = data
                             if self.data.hasValueAt(index: self.displyed) {
@@ -215,8 +190,34 @@ struct Card: View {
         .offset(x: self.x, y: self.y)
         .rotationEffect(.init(degrees: self.degree))
         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
+        .allowsHitTesting(showInfo ? false : true)
         .animation(inAnimation ? Animation.linear.speed(speed) : .none)
         .transition(.move(edge: .bottom))
+        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
+            .onChanged({ (value) in
+                if value.startLocation != value.location {
+                    self.speed = 5.0
+                    if self.switchingImage == false {
+                        self.inAnimation = true
+                    }
+                    if value.translation.width > 50 && value.translation.width > 10 {
+                        self.x = value.translation.width
+                        self.y = value.translation.height
+                        self.degree = -6
+                    } else if value.translation.width < -50 && value.translation.width < -10 {
+                        self.x = value.translation.width
+                        self.y = value.translation.height
+                        self.degree = 6
+                    } else {
+                        self.x = value.translation.width
+                        self.y = value.translation.height
+                        self.degree = 0
+                    }
+                }
+            })
+            .onEnded({ (value) in
+                self.dragAnimation(x: value.translation.width, y: value.translation.height, direction: value.location.x, start: value.startLocation, end: value.location)
+            }))
     }
     
     
