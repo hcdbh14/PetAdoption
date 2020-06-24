@@ -9,8 +9,8 @@ enum barItem {
 }
 
 struct MainScreen: View {
-    @State private var staticIndex = 0
     @State private var imageIndex = 0
+    @State private var staticIndex = 0
     @State private var scaleAnimation = false
     @State private var selected = barItem.first
     @EnvironmentObject var mainVM: MainVM
@@ -55,21 +55,6 @@ struct MainScreen: View {
         ////                        self.mainVM.getDogsFromDB()
         ////                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])
         //                }
-    }
-}
-
-
-struct ButtomBar: View {
-    
-    var body : some View {
-        Path{ path in
-            path.move(to: CGPoint(x: 0, y: 0))
-            path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: 0))
-            path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: 55))
-            path.addLine(to: CGPoint(x: 0, y: 55))
-            
-        }.fill(Color.offWhite)
-            .rotationEffect(.init(degrees: 180))
     }
 }
 

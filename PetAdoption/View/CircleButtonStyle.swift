@@ -11,13 +11,17 @@ struct CircleButtonStyle: ButtonStyle {
     
     let isBig: Bool
     let buttonType: ButtonType
+    @Binding var isEnabled: Bool
     @EnvironmentObject var mainVM: MainVM
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding(isBig ?  25 :  15)
             .contentShape(Circle())
+            .allowsHitTesting(isEnabled)
             .onTapGesture {
+                self.isEnabled = false
+
                 switch self.buttonType {
                 case .pick:
                     self.mainVM.decision = .picked
@@ -26,7 +30,9 @@ struct CircleButtonStyle: ButtonStyle {
                 default:
                     return
                 }
-                print("pressed")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.isEnabled = true
+                }
         }
         .background(
             Group {
