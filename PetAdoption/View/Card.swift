@@ -39,11 +39,10 @@ struct Card: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                         .cornerRadius(5)
-                        .allowsHitTesting(inAnimation ? false : true)
+                        .allowsHitTesting(x == 0 ? true : false)
                         .animation(.none)
                         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                             .onChanged({ (value) in
-                                
                                 if value.startLocation != value.location {
                                     self.speed = 5.0
                                     if self.switchingImage == false {
