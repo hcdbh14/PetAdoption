@@ -158,8 +158,12 @@ struct Card: View {
                             .padding(.leading, 5)
                             
                             Spacer()
+                            
+                            Text("נקבה")
+                                .font(.system(size: 20))
+                                .foregroundColor(.black)
                             Text(dogName)
-                                .font(.system(size: 30))
+                                .font(.system(size: 28))
                                 .foregroundColor(.black)
                                 .fontWeight(.heavy)
                                 .padding(.trailing, 10)
