@@ -131,39 +131,33 @@ struct Card: View {
                         .animation(.none)
                         .padding(.top, -40)
                         .transition(.move(edge: .bottom))
-//                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
-//                            .onEnded({ (value) in
-//                                self.moveToImage(direction: value.location.x)
-//                            }))
+                        //                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                        //                            .onEnded({ (value) in
+                        //                                self.moveToImage(direction: value.location.x)
+                        //                            }))
                         .onReceive(imageLoader.didChange) { data in
                             self.data = data
                             if self.data.hasValueAt(index: self.displyed) {
                                 self.image = UIImage(data: data[self.displyed]) ?? UIImage()
                             }}
-
-                    VStack(alignment: .trailing, spacing: 3) {
-    
+                    
+                    VStack(alignment: .trailing, spacing: 5) {
+                        
                         HStack (alignment: .bottom) {
                             
                             Button(action: {
-                             self.timedInfoAnimation()
+                                self.timedInfoAnimation()
                                 
                             }) {
-                                    Image(systemName: "arrowshape.turn.up.left.fill")
+                                Image(systemName: "arrowshape.turn.up.left.fill")
                                     .frame(width: 25, height: 25, alignment: .center)
                                     .font(.system(size: 24, weight: .semibold))
                                     .foregroundColor(.orange)
                             }
                             .buttonStyle(SimpleCircleButtonStyle(isBig: true))
                             .padding(.leading, 5)
-
+                            
                             Spacer()
-                            
-                            Text("גור נקבה")
-                                .font(.system(size: 24))
-                                .foregroundColor(.black)
-                                .fontWeight(.regular)
-                            
                             Text(dogName)
                                 .font(.system(size: 30))
                                 .foregroundColor(.black)
@@ -171,23 +165,40 @@ struct Card: View {
                                 .padding(.trailing, 10)
                         }
                         
-                        Text("לוולאדור")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.black)
-                            .padding(.trailing, 10)
-                        Text("ראשון לציון")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.black)
-                            .padding(.trailing, 10)
+                        HStack {
+                            Text("גור")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.black)
+                            Image("cake").resizable()
+                                .frame(width: 16 , height : 16)
+                                .padding(.trailing, 10)
+                        }
+                        HStack {
+                            Text("לוולאדור")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.black)
+                            
+                            Image("paw").resizable()
+                                .frame(width: 16 , height : 16)
+                                .padding(.trailing, 10)
+                        }
+                        
+                        HStack {
+                            
+                            Text("ראשון לציון")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.black)
+                            
+                            Image(systemName: "mappin.and.ellipse")
+                                .foregroundColor(.gray)
+                                .padding(.trailing, 10)
+                            
+                        }
+                        
                     }
+                    Text("testtesttesttesttesttesttesttesttesttesttest").frame(width: 100, height: 100)
+                        .foregroundColor(.black)
                     
-                    Text("test").onAppear() { print("test") }
-                    Text("test").frame(width: 100, height: 100)
-                    Text("test").frame(width: 100, height: 100)
-                    Text("test").frame(width: 100, height: 100)
-                    Text("test").frame(width: 100, height: 100)
-                    Text("test").frame(width: 100, height: 100)
-                    Text("test").frame(width: 100, height: 100)
                     
                 }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height)
                     .background(Color.offWhite)
@@ -201,27 +212,27 @@ struct Card: View {
         .animation(inAnimation ? Animation.linear.speed(speed) : .none)
         .transition(.move(edge: .bottom))
         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
-            .onChanged({ (value) in
-                if value.startLocation != value.location {
-                    self.speed = 5.0
-                    if self.switchingImage == false {
-                        self.inAnimation = true
-                    }
-                    if value.translation.width > 50 && value.translation.width > 10 {
-                        self.x = value.translation.width
-                        self.y = value.translation.height
-                        self.degree = -6
-                    } else if value.translation.width < -50 && value.translation.width < -10 {
-                        self.x = value.translation.width
-                        self.y = value.translation.height
-                        self.degree = 6
-                    } else {
-                        self.x = value.translation.width
-                        self.y = value.translation.height
-                        self.degree = 0
-                    }
+        .onChanged({ (value) in
+            if value.startLocation != value.location {
+                self.speed = 5.0
+                if self.switchingImage == false {
+                    self.inAnimation = true
                 }
-            })
+                if value.translation.width > 50 && value.translation.width > 10 {
+                    self.x = value.translation.width
+                    self.y = value.translation.height
+                    self.degree = -6
+                } else if value.translation.width < -50 && value.translation.width < -10 {
+                    self.x = value.translation.width
+                    self.y = value.translation.height
+                    self.degree = 6
+                } else {
+                    self.x = value.translation.width
+                    self.y = value.translation.height
+                    self.degree = 0
+                }
+            }
+        })
             .onEnded({ (value) in
                 self.dragAnimation(x: value.translation.width, y: value.translation.height, direction: value.location.x, start: value.startLocation, end: value.location)
             }))
