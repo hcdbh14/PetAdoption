@@ -26,6 +26,7 @@
 		EDF777DE24684EB400154110 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDF777DD24684EB400154110 /* Preview Assets.xcassets */; };
 		EDF777E124684EB400154110 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDF777DF24684EB400154110 /* LaunchScreen.storyboard */; };
 		EDF94DED247E3C2E0094F5B6 /* BackCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF94DEC247E3C2E0094F5B6 /* BackCard.swift */; };
+		EDFF409024A658CA0008F3E5 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFF408F24A658CA0008F3E5 /* HostingController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		EDF777E024684EB400154110 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EDF777E224684EB400154110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDF94DEC247E3C2E0094F5B6 /* BackCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackCard.swift; sourceTree = "<group>"; };
+		EDFF408F24A658CA0008F3E5 /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 				EDF777E224684EB400154110 /* Info.plist */,
 				EDD53A022483B805004EB14F /* Extensions */,
 				EDF777DC24684EB400154110 /* Preview Content */,
+				EDFF408F24A658CA0008F3E5 /* HostingController.swift */,
 			);
 			path = PetAdoption;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDFF409024A658CA0008F3E5 /* HostingController.swift in Sources */,
 				EDF777D524684EB100154110 /* AppDelegate.swift in Sources */,
 				EDD53A062483B88D004EB14F /* Array.swift in Sources */,
 				ED8B167224994BB300AF7B33 /* Color.swift in Sources */,

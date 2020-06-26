@@ -23,11 +23,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let contentView = MainScreen()
         let mainVM = MainVM()
 
-        // Use a UIHostingController as window root view controller.
+        
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView
-                .environmentObject(mainVM))
+            // The HostingController is a custom class created by Kenny Kurochkin in order to change the font color of the IOS status bar code
+            window.rootViewController = HostingController(rootView: AnyView(contentView
+                .environmentObject(mainVM)))
             self.window = window
             window.makeKeyAndVisible()
         }

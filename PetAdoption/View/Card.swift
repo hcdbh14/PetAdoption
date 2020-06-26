@@ -131,7 +131,7 @@ struct Card: View {
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4)
                         .cornerRadius(1)
                         .animation(.none)
-                        .padding(.top, -40)
+                        .padding(.top, -42)
                         .transition(.move(edge: .bottom))
                         //                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
                         //                            .onEnded({ (value) in
