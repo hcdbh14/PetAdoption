@@ -131,10 +131,10 @@ struct Card: View {
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4)
                         .animation(.none)
                         .transition(.move(edge: .bottom))
-                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                            .onEnded({ (value) in
-                                self.moveToImage(direction: value.location.x)
-                            }))
+//                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
+//                            .onEnded({ (value) in
+//                                self.moveToImage(direction: value.location.x)
+//                            }))
                         .onReceive(imageLoader.didChange) { data in
                             self.data = data
                             if self.data.hasValueAt(index: self.displyed) {
@@ -142,12 +142,21 @@ struct Card: View {
                             }}
                     
                     VStack(alignment: .trailing, spacing: 3) {
+    
                         HStack (alignment: .bottom) {
-                            Image(systemName: "info.circle.fill")
-                                .font(.system(size: 24, weight: .semibold))
-                                .foregroundColor(.white)
-                                .padding(.leading, 20)
                             
+                            Button(action: {
+                             self.timedInfoAnimation()
+                                
+                            }) {
+                                    Image(systemName: "arrowshape.turn.up.left.fill")
+                                    .frame(width: 25, height: 25, alignment: .center)
+                                    .font(.system(size: 24, weight: .semibold))
+                                    .foregroundColor(.orange)
+                            }
+                            .buttonStyle(SimpleCircleButtonStyle(isBig: true))
+                            .padding(.leading, 5)
+
                             Spacer()
                             
                             Text("גור נקבה")
@@ -160,8 +169,6 @@ struct Card: View {
                                 .foregroundColor(.black)
                                 .fontWeight(.heavy)
                                 .padding(.trailing, 10)
-                        }.onTapGesture {
-                            self.timedInfoAnimation()
                         }
                         
                         Text("לוולאדור")
