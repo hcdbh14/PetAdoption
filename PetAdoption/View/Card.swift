@@ -33,8 +33,7 @@ struct Card: View {
         ZStack(alignment: .bottomTrailing) {
             if showInfo == false {
                 VStack {
-                    Image(uiImage: image)
-                        .resizable()
+                    Image(uiImage: image).resizable()
                         .background(Color.gray)
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
@@ -124,12 +123,13 @@ struct Card: View {
             
             if showInfo {
                 ScrollView {
-                    Image(uiImage: image)
-                        .resizable()
+                    Image(uiImage: image).resizable()
                         .background(Color.gray)
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4)
+                        .cornerRadius(1)
                         .animation(.none)
+                        .padding(.top, -40)
                         .transition(.move(edge: .bottom))
 //                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
 //                            .onEnded({ (value) in
@@ -140,7 +140,7 @@ struct Card: View {
                             if self.data.hasValueAt(index: self.displyed) {
                                 self.image = UIImage(data: data[self.displyed]) ?? UIImage()
                             }}
-                    
+
                     VStack(alignment: .trailing, spacing: 3) {
     
                         HStack (alignment: .bottom) {
