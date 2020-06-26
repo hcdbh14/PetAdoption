@@ -4,6 +4,7 @@ struct Card: View {
     private let age: Int
     private var imageCount: Int
     private let dogName: String
+    private let dogDesc: String
     @State private var speed = 1.0
     @State private var x: CGFloat = 0
     @State private var y: CGFloat = 0
@@ -18,7 +19,7 @@ struct Card: View {
     @ObservedObject private var imageLoader: ImageLoader
     @ObservedObject private var mainVM: MainVM
     
-    init(imageURL: [String], displayed: Binding<Int>, imageCount: Int, dogName: String, age: Int, scaleTrigger: Binding<Bool>, mainVM: MainVM) {
+    init(imageURL: [String], displayed: Binding<Int>, imageCount: Int, dogName: String, age: Int, dogDesc: String, scaleTrigger: Binding<Bool>, mainVM: MainVM) {
         self.mainVM = mainVM
         imageLoader = ImageLoader(urlString: imageURL)
         self.imageCount = imageCount
@@ -26,6 +27,7 @@ struct Card: View {
         self._scaleAnimation = scaleTrigger
         self.dogName = dogName
         self.age = age
+        self.dogDesc = dogDesc
         UIScrollView.appearance().bounces = false
     }
     
@@ -200,9 +202,9 @@ struct Card: View {
                         }
                         
                     }
-                    Text("testtesttesttesttesttesttesttesttesttesttest").frame(width: 100, height: 100)
+                    Text(dogDesc).frame(width: UIScreen.main.bounds.width - 50, alignment: .trailing)
                         .foregroundColor(.black)
-                    
+                        .environment(\.layoutDirection, .rightToLeft)
                     
                 }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height)
                     .background(Color.offWhite)

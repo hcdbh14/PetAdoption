@@ -1,7 +1,10 @@
 import Foundation
 
 struct Dog: Decodable {
-    var age: Int
-    var images: [String]
-    var name: String
+    let age: Int
+    let images: [String]
+    let name: String
+    let desc: String
+//    let gender: Int
 }
+
