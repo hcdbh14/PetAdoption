@@ -9,6 +9,8 @@ enum barItem {
 }
 
 struct MainScreen: View {
+    @State private var showNewDogScreen = false
+    @State private var isBarHidden = false
     @State private var imageIndex = 0
     @State private var staticIndex = 0
     @State private var scaleAnimation = false
@@ -16,13 +18,14 @@ struct MainScreen: View {
     @EnvironmentObject var mainVM: MainVM
     
     var body: some View {
-        
+        NavigationView {
         VStack {
-            
             HStack {
                 Image(systemName: "person").padding(.leading, 10).foregroundColor(.black)
                 Spacer()
+                 NavigationLink (destination: NewDogScreen(isBarHidden: $isBarHidden), isActive: $showNewDogScreen) {
                 Image(systemName: "person").padding(.trailing, 10).foregroundColor(.black)
+                }
             }.padding(.top, 50)
                Spacer()
 
@@ -50,7 +53,9 @@ struct MainScreen: View {
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20)
             .background(Color.offWhite)
             .onAppear(perform: mainVM.getDogsFromDB)
-        
+            .navigationBarTitle("")
+        .navigationBarHidden(isBarHidden ? false : true)
+        }
         //                    .onAppear() {
         ////                        self.mainVM.getDogsFromDB()
         ////                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])
