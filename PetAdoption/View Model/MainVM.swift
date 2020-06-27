@@ -1,7 +1,7 @@
 import SwiftUI
 import Combine
 import FirebaseStorage
-import FirebaseDatabase
+import FirebaseFirestore
 
 enum Decision {
     case picked
@@ -12,7 +12,7 @@ enum Decision {
 class MainVM: ObservableObject {
     var dogsList: [Dog] = []
     private var firstLaunch = false
-    private let ref = Database.database().reference()
+    private let db = Firestore.firestore()
     @Published var count = 1
     @Published var frontImage: [String] = []
     @Published var imageURLS: [Int: [String]] = [:]
@@ -30,23 +30,20 @@ class MainVM: ObservableObject {
     
     func getDogsFromDB() {
         
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let json = snapshot.value as? [String: Any]  {
-                do {
-                    for i in json.values {
-                        let data = try JSONSerialization.data(withJSONObject: i, options: [])
-                        let decoder = JSONDecoder()
-                        let dogObject = try decoder.decode(Dog.self, from: data)
-                        self.dogsList.append(dogObject)
+        db.collection("Cards_Data").getDocuments( completion: { (snapshot, error) in
+            
+            if error == nil {
+                for document in snapshot!.documents {
+                    for i in document.data() {
+                        
+                        if let dog = Dog(data: i.value as! [String : Any]) {
+                            self.dogsList.append(dog)
+                        }
                     }
-                    self.getImageURLS()
-                } catch {
-                    print("error: \(error)")
                 }
+                self.getImageURLS()
             }
-        }) { (error) in
-            print(error.localizedDescription)
-        }
+        })
     }
     
     
