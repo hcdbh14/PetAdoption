@@ -24,8 +24,8 @@ struct NewDogScreen: View {
             }
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 180)
             .background(Color.offWhite.edgesIgnoringSafeArea([.all]))
-               .navigationBarTitle(Text("פרסום מודעה")
-                  .foregroundColor(.black)
-                  .font(.title), displayMode: .inline)
+            .navigationBarTitle(Text("פרסום מודעה")
+                .foregroundColor(.black)
+                .font(.title), displayMode: .inline)
     }
 }
