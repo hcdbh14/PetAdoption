@@ -22,6 +22,11 @@ class MainVM: ObservableObject {
         }
     }
     
+    init() {
+        getDogsFromDB()
+        print("initalized")
+    }
+    
     func pushNewImage() {
         let removed = imageURLS.removeValue(forKey: count)
         frontImage = removed ?? []

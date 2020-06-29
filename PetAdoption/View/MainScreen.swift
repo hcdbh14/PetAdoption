@@ -19,42 +19,41 @@ struct MainScreen: View {
     
     var body: some View {
         NavigationView {
-        VStack {
-            HStack {
-                Image(systemName: "person").padding(.leading, 10).foregroundColor(.black)
-                Spacer()
-                 NavigationLink (destination: NewDogScreen(isBarHidden: $isBarHidden), isActive: $showNewDogScreen) {
-                Image(systemName: "person").padding(.trailing, 10).foregroundColor(.black)
-                }
-            }.padding(.top, 50)
-               Spacer()
-
-            
-            ZStack {
-                if  mainVM.frontImage.isEmpty == false {
-                    if mainVM.imageURLS.isEmpty == false {
-                        BackCard(imageURL: mainVM.imageURLS[mainVM.count] ?? [], scaleTrigger: $scaleAnimation)
+            VStack {
+                HStack {
+                    Image(systemName: "person").padding(.leading, 10).foregroundColor(.black)
+                    Spacer()
+                    NavigationLink (destination: NewDogScreen(isBarHidden: $isBarHidden), isActive: $showNewDogScreen) {
+                        Image(systemName: "person").padding(.trailing, 10).foregroundColor(.black)
                     }
-                    
-                    Card(imageURL: mainVM.frontImage, displayed: $imageIndex, imageCount: mainVM.frontImage.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, dogDesc: mainVM.dogsList[mainVM.count - 1].desc, scaleTrigger: $scaleAnimation, mainVM: mainVM)
-                        .animation(.default)
-                }
-            }.zIndex(2)
-            
-           Spacer()
-            ZStack(alignment: .top) {
-                BarButtons()
-                    .padding(.bottom, UIScreen.main.bounds.height / 10)
-                    .padding(.horizontal, 22)
-                    .background(ButtomBar())
-            }.zIndex(1)
-        }
+                }.padding(.top, 50)
+                Spacer()
+                
+                
+                ZStack {
+                    if  mainVM.frontImage.isEmpty == false {
+                        if mainVM.imageURLS.isEmpty == false {
+                            BackCard(imageURL: mainVM.imageURLS[mainVM.count] ?? [], scaleTrigger: $scaleAnimation)
+                        }
+                        
+                        Card(imageURL: mainVM.frontImage, displayed: $imageIndex, imageCount: mainVM.frontImage.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, dogDesc: mainVM.dogsList[mainVM.count - 1].desc, scaleTrigger: $scaleAnimation, mainVM: mainVM)
+                            .animation(.default)
+                    }
+                }.zIndex(2)
+                
+                Spacer()
+                ZStack(alignment: .top) {
+                    BarButtons()
+                        .padding(.bottom, UIScreen.main.bounds.height / 10)
+                        .padding(.horizontal, 22)
+                        .background(ButtomBar())
+                }.zIndex(1)
+            }
             .edgesIgnoringSafeArea(.bottom)
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20)
             .background(Color.offWhite)
-            .onAppear(perform: mainVM.getDogsFromDB)
             .navigationBarTitle("")
-        .navigationBarHidden(isBarHidden ? false : true)
+            .navigationBarHidden(isBarHidden ? false : true)
         }
         //                    .onAppear() {
         ////                        self.mainVM.getDogsFromDB()
