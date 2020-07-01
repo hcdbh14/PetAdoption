@@ -27,7 +27,7 @@ struct MainScreen: View {
                     NavigationLink (destination: NewDogScreen(isBarHidden: $isBarHidden), isActive: $showNewDogScreen) {
                         Image("dog").resizable()
                             .offset(y: scaleAnimation ? -15 : 0)
-                            .animation(Animation.interpolatingSpring(stiffness: 170, damping: 2).repeatCount(1).delay(0.03))
+                            .animation(scaleAnimation ? Animation.easeOut(duration: 0.42).repeatCount( 2, autoreverses: true) : .none)
                             .frame(width: 25, height: 25)
                             .padding(.trailing, 10)
                     }
