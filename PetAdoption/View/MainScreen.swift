@@ -25,7 +25,7 @@ struct MainScreen: View {
                     Image(systemName: "person").padding(.leading, 10).foregroundColor(.black)
                     .animation(.default)
                     Spacer()
-                    Text("\(imageIndex)")
+                    Text(self.mainVM.localDB.savedDogsCount)
                         .foregroundColor(.black)
                         .animation(.default)
                     NavigationLink (destination: NewDogScreen(isBarHidden: $isBarHidden), isActive: $showNewDogScreen) {
@@ -34,8 +34,6 @@ struct MainScreen: View {
                             .padding(.trailing, 10)
                             .animation(.default)
                     }
-                
-                
             }.padding(.top, 50)
             Spacer()
             

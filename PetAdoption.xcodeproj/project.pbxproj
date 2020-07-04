@@ -13,6 +13,8 @@
 		ED5A628024770AF70081DF00 /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5A627F24770AF70081DF00 /* MainVM.swift */; };
 		ED825A382478185C00ACA8E6 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED825A372478185C00ACA8E6 /* Dog.swift */; };
 		ED84EC5424B09F8000E25B2F /* LocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED84EC5324B09F8000E25B2F /* LocalDB.swift */; };
+		ED84EC5624B0A79900E25B2F /* SavedDogsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED84EC5524B0A79900E25B2F /* SavedDogsVM.swift */; };
+		ED84EC5824B0B26A00E25B2F /* SavedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED84EC5724B0B26A00E25B2F /* SavedCard.swift */; };
 		ED8B167224994BB300AF7B33 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8B167124994BB300AF7B33 /* Color.swift */; };
 		ED8B167424994BF000AF7B33 /* LinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8B167324994BF000AF7B33 /* LinearGradient.swift */; };
 		ED8B167624994C7100AF7B33 /* CircleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8B167524994C7100AF7B33 /* CircleButtonStyle.swift */; };
@@ -40,6 +42,8 @@
 		ED5A627F24770AF70081DF00 /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
 		ED825A372478185C00ACA8E6 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		ED84EC5324B09F8000E25B2F /* LocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDB.swift; sourceTree = "<group>"; };
+		ED84EC5524B0A79900E25B2F /* SavedDogsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDogsVM.swift; sourceTree = "<group>"; };
+		ED84EC5724B0B26A00E25B2F /* SavedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCard.swift; sourceTree = "<group>"; };
 		ED8B167124994BB300AF7B33 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		ED8B167324994BF000AF7B33 /* LinearGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradient.swift; sourceTree = "<group>"; };
 		ED8B167524994C7100AF7B33 /* CircleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonStyle.swift; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 				ED8B167524994C7100AF7B33 /* CircleButtonStyle.swift */,
 				ED44E24424A265F900B77D3D /* BarButtons.swift */,
 				EDF4CB0D24A71FF900060F37 /* NewDogScreen.swift */,
+				ED84EC5724B0B26A00E25B2F /* SavedCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -105,6 +110,7 @@
 		ED49A3762476DB7100A87257 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				ED84EC5524B0A79900E25B2F /* SavedDogsVM.swift */,
 				ED5A627F24770AF70081DF00 /* MainVM.swift */,
 				ED84EC5324B09F8000E25B2F /* LocalDB.swift */,
 			);
@@ -296,9 +302,11 @@
 				EDF4CB0E24A71FF900060F37 /* NewDogScreen.swift in Sources */,
 				EDF777D524684EB100154110 /* AppDelegate.swift in Sources */,
 				EDD53A062483B88D004EB14F /* Array.swift in Sources */,
+				ED84EC5824B0B26A00E25B2F /* SavedCard.swift in Sources */,
 				ED8B167224994BB300AF7B33 /* Color.swift in Sources */,
 				ED84EC5424B09F8000E25B2F /* LocalDB.swift in Sources */,
 				ED825A382478185C00ACA8E6 /* Dog.swift in Sources */,
+				ED84EC5624B0A79900E25B2F /* SavedDogsVM.swift in Sources */,
 				ED8B167624994C7100AF7B33 /* CircleButtonStyle.swift in Sources */,
 				ED8B167424994BF000AF7B33 /* LinearGradient.swift in Sources */,
 				ED5A628024770AF70081DF00 /* MainVM.swift in Sources */,
