@@ -14,8 +14,12 @@ struct NewDogScreen: View {
     }
     
     var body: some View {
-        VStack {
-            Text("hello")
+        HStack {
+            Image("dog").resizable()
+                .frame(width: (UIScreen.main.bounds.width / 2) - 10, height: UIScreen.main.bounds.height / 4)
+            
+            Image("dog").resizable()
+                .frame(width: (UIScreen.main.bounds.width / 2) - 10, height: UIScreen.main.bounds.height / 4)
                 .onAppear() {
                     self.isBarHidden = true
             }

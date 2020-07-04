@@ -13,6 +13,7 @@ class MainVM: ObservableObject {
     var dogsList: [Dog] = []
     private var firstLaunch = false
     private let db = Firestore.firestore()
+    @Published var localDB = LocalDB()
     @Published var count = 1
     @Published var frontImage: [String] = []
     @Published var imageURLS: [Int: [String]] = [:]
@@ -77,6 +78,7 @@ class MainVM: ObservableObject {
                 }
             }
         }
+
     }
 }
 

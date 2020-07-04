@@ -23,14 +23,18 @@ struct MainScreen: View {
             VStack {
                 HStack {
                     Image(systemName: "person").padding(.leading, 10).foregroundColor(.black)
+                    .animation(.default)
                     Spacer()
+                    Text("\(imageIndex)")
+                        .foregroundColor(.black)
+                        .animation(.default)
                     NavigationLink (destination: NewDogScreen(isBarHidden: $isBarHidden), isActive: $showNewDogScreen) {
                         Image("dog").resizable()
-                            .offset(y: scaleAnimation ? -15 : 0)
-                            .animation(scaleAnimation ? Animation.easeOut(duration: 0.42).repeatCount( 2, autoreverses: true) : .none)
                             .frame(width: 25, height: 25)
                             .padding(.trailing, 10)
+                            .animation(.default)
                     }
+                
                 
             }.padding(.top, 50)
             Spacer()

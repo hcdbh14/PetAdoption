@@ -298,8 +298,8 @@ struct Card: View {
                 withAnimation(.easeIn(duration : 0.6)) {
                     self.scaleAnimation = true
                 }
+                self.mainVM.localDB.saveDogURL(self.mainVM.imageURLS[self.mainVM.count] ?? [])
                 self.mainVM.pushNewImage()
-                
                 moveToNextCard()
                 
             } else {

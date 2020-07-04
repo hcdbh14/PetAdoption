@@ -12,6 +12,7 @@
 		ED49A37B2476DBEF00A87257 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49A37A2476DBEF00A87257 /* Card.swift */; };
 		ED5A628024770AF70081DF00 /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5A627F24770AF70081DF00 /* MainVM.swift */; };
 		ED825A382478185C00ACA8E6 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED825A372478185C00ACA8E6 /* Dog.swift */; };
+		ED84EC5424B09F8000E25B2F /* LocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED84EC5324B09F8000E25B2F /* LocalDB.swift */; };
 		ED8B167224994BB300AF7B33 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8B167124994BB300AF7B33 /* Color.swift */; };
 		ED8B167424994BF000AF7B33 /* LinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8B167324994BF000AF7B33 /* LinearGradient.swift */; };
 		ED8B167624994C7100AF7B33 /* CircleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8B167524994C7100AF7B33 /* CircleButtonStyle.swift */; };
@@ -38,6 +39,7 @@
 		ED49A37A2476DBEF00A87257 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		ED5A627F24770AF70081DF00 /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
 		ED825A372478185C00ACA8E6 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
+		ED84EC5324B09F8000E25B2F /* LocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDB.swift; sourceTree = "<group>"; };
 		ED8B167124994BB300AF7B33 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		ED8B167324994BF000AF7B33 /* LinearGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradient.swift; sourceTree = "<group>"; };
 		ED8B167524994C7100AF7B33 /* CircleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonStyle.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				ED5A627F24770AF70081DF00 /* MainVM.swift */,
+				ED84EC5324B09F8000E25B2F /* LocalDB.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				EDF777D524684EB100154110 /* AppDelegate.swift in Sources */,
 				EDD53A062483B88D004EB14F /* Array.swift in Sources */,
 				ED8B167224994BB300AF7B33 /* Color.swift in Sources */,
+				ED84EC5424B09F8000E25B2F /* LocalDB.swift in Sources */,
 				ED825A382478185C00ACA8E6 /* Dog.swift in Sources */,
 				ED8B167624994C7100AF7B33 /* CircleButtonStyle.swift in Sources */,
 				ED8B167424994BF000AF7B33 /* LinearGradient.swift in Sources */,
