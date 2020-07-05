@@ -17,7 +17,7 @@ struct Card: View {
     @State private var image: UIImage = UIImage()
     @ObservedObject private var mainVM: MainVM
     
-    init(imageURL: [String], displayed: Binding<Int>, imageCount: Int, dogName: String, age: Int, dogDesc: String, scaleTrigger: Binding<Bool>, mainVM: MainVM) {
+    init(displayed: Binding<Int>, imageCount: Int, dogName: String, age: Int, dogDesc: String, scaleTrigger: Binding<Bool>, mainVM: MainVM) {
         self.mainVM = mainVM
         self.imageCount = imageCount
         self._displyed = displayed

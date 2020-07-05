@@ -6,7 +6,7 @@ struct BackCard: View {
     @State private var image: UIImage = UIImage()
     @ObservedObject private var mainVM: MainVM
     
-    init(imageURL: [String], scaleTrigger: Binding<Bool>, mainVM: MainVM) {
+    init(scaleTrigger: Binding<Bool>, mainVM: MainVM) {
         self.mainVM = mainVM
         self._scaleAnimation = scaleTrigger
     }

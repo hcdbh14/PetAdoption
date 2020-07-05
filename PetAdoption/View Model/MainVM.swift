@@ -37,9 +37,11 @@ class MainVM: ObservableObject {
     func pushNewImage() {
         
         if dogsList.hasValueAt(index: count) {
-            count += 1
-            frontImages = backImages
-            loadImages()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.count += 1
+                self.frontImages = self.backImages
+                self.loadImages()
+            }
         } else {
             print(backImages)
             frontImages = []
