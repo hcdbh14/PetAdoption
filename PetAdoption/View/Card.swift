@@ -56,6 +56,9 @@ struct Card: View {
                             withAnimation(.easeIn(duration : 0.6)) {
                                 self.scaleAnimation = true
                             }
+                            if self.mainVM.frontImages.hasValueAt(index: self.displyed) {
+                                self.image = UIImage(data: self.mainVM.frontImages[self.displyed]) ?? UIImage()
+                            }
                             self.mainVM.pushNewImage()
                             self.moveToNextCard()
                         })
@@ -206,7 +209,7 @@ struct Card: View {
         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
         .onChanged({ (value) in
             if value.startLocation != value.location {
-                self.speed = 5.0
+                self.speed = 10.0
                 if self.switchingImage == false {
                     self.inAnimation = true
                 }
@@ -284,7 +287,7 @@ struct Card: View {
                 withAnimation(.easeIn(duration : 0.6)) {
                     self.scaleAnimation = true
                 }
-                self.mainVM.localDB.saveDogURL(self.mainVM.imageURLS[self.mainVM.count] ?? [])
+                self.mainVM.localDB.saveDogURL(self.mainVM.dogsList[self.mainVM.count].images)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                     self.displyed = 0
                 }
@@ -330,7 +333,7 @@ struct Card: View {
     func moveToNextCard() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             withAnimation (.none) {
-                self.displyed = 0
+                self.mainVM.backImageLoaded = false
                 self.switchingImage = false
                 self.inAnimation = false
                 self.scaleAnimation = false

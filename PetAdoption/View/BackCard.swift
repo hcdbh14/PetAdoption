@@ -3,7 +3,6 @@ import SwiftUI
 struct BackCard: View {
     
     @Binding private var scaleAnimation: Bool
-    @State private var image: UIImage = UIImage()
     @ObservedObject private var mainVM: MainVM
     
     init(scaleTrigger: Binding<Bool>, mainVM: MainVM) {
@@ -26,7 +25,12 @@ struct BackCard: View {
     
     private func populateImage()  -> UIImage {
         if self.mainVM.dogsList.hasValueAt(index: self.mainVM.count) {
-            return UIImage(data: self.mainVM.backImages[0]) ?? UIImage()
+            if mainVM.backImageLoaded {
+                return UIImage(data: self.mainVM.backImages[0]) ?? UIImage()
+            } else {
+                 return UIImage()
+            }
+            
         } else {
             return UIImage()
         }
