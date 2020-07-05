@@ -35,11 +35,16 @@ class MainVM: ObservableObject {
     }
     
     func pushNewImage() {
-        //        let removed = imageURLS.removeValue(forKey: count)
-        //        frontImage = removed ?? []
-        count += 1
-        frontImages = backImages
-        loadImages()
+        
+        if dogsList.hasValueAt(index: count) {
+            count += 1
+            frontImages = backImages
+            loadImages()
+        } else {
+            print(backImages)
+            frontImages = []
+            backImages = []
+        }
     }
     
     func getDogsFromDB() {
@@ -101,16 +106,18 @@ class MainVM: ObservableObject {
             })
         }
         
-        backImageLoader = ImageLoader(urlString: dogsList[count].images)
-        backSub = backImageLoader?.didChange.sink(receiveValue: { value in
-            if self.frontImages.isEmpty == false {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+        if dogsList.hasValueAt(index: count) {
+            backImageLoader = ImageLoader(urlString: dogsList[count].images)
+            backSub = backImageLoader?.didChange.sink(receiveValue: { value in
+                if self.frontImages.isEmpty == false {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                        self.backImages = value
+                    }
+                } else {
                     self.backImages = value
                 }
-            } else {
-                self.backImages = value
-            }
-        })
+            })
+        }
     }
 }
 

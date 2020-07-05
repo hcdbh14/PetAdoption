@@ -15,17 +15,20 @@ struct BackCard: View {
     var body: some View {
         
         ZStack(alignment: .bottomLeading) {
-            Image(uiImage: UIImage(data: self.mainVM.backImages[0]) ?? UIImage())
+            Image(uiImage: populateImage())
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                 .cornerRadius(20)
                 .scaleEffect(scaleAnimation ? 1 : 0.9)
-//                .onReceive(imageLoader.didChange) { data in
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                        self.image = UIImage(data: data[0]) ?? UIImage()
-//                    }
-//            }
+        }
+    }
+    
+    private func populateImage()  -> UIImage {
+        if self.mainVM.dogsList.hasValueAt(index: self.mainVM.count) {
+            return UIImage(data: self.mainVM.backImages[0]) ?? UIImage()
+        } else {
+            return UIImage()
         }
     }
 }

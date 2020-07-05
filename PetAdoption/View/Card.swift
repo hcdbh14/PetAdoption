@@ -32,33 +32,33 @@ struct Card: View {
         ZStack(alignment: .bottomTrailing) {
             if showInfo == false {
                 VStack {
-                    Image(uiImage: UIImage(data: self.mainVM.frontImages[displyed]) ?? UIImage()).resizable()
+                    Image(uiImage: populateImage()).resizable()
                         .background(Color.gray)
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                         .cornerRadius(5)
                         .allowsHitTesting(x == 0 ? true : false)
                         .animation(.none)
-                    .onReceive(mainVM.userDecided, perform: { decision in
-                        self.inAnimation = true
-                        switch decision {
-                        case .picked:
-                            self.decideHeightDirection(y: -100)
-                            self.x = 500
-                        case .rejected:
-                            self.decideHeightDirection(y: -100)
-                            self.x = -500
-                        case .notDecided:
-                            self.decideHeightDirection(y: 0)
-                        }
-                        self.degree = -15
-                        self.switchingImage = true
-                        withAnimation(.easeIn(duration : 0.6)) {
-                            self.scaleAnimation = true
-                        }
-                        self.mainVM.pushNewImage()
-                        self.moveToNextCard()
-                    }) 
+                        .onReceive(mainVM.userDecided, perform: { decision in
+                            self.inAnimation = true
+                            switch decision {
+                            case .picked:
+                                self.decideHeightDirection(y: -100)
+                                self.x = 500
+                            case .rejected:
+                                self.decideHeightDirection(y: -100)
+                                self.x = -500
+                            case .notDecided:
+                                self.decideHeightDirection(y: 0)
+                            }
+                            self.degree = -15
+                            self.switchingImage = true
+                            withAnimation(.easeIn(duration : 0.6)) {
+                                self.scaleAnimation = true
+                            }
+                            self.mainVM.pushNewImage()
+                            self.moveToNextCard()
+                        })
                 }
                 
                 HStack {
@@ -124,10 +124,10 @@ struct Card: View {
                         .animation(.none)
                         .padding(.top, -42)
                         .transition(.move(edge: .bottom))
-                        //                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                        //                            .onEnded({ (value) in
-                        //                                self.moveToImage(direction: value.location.x)
-                        //                            }))
+                    //                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                    //                            .onEnded({ (value) in
+                    //                                self.moveToImage(direction: value.location.x)
+                    //                            }))
                     
                     VStack(alignment: .trailing, spacing: 5) {
                         
@@ -285,7 +285,9 @@ struct Card: View {
                     self.scaleAnimation = true
                 }
                 self.mainVM.localDB.saveDogURL(self.mainVM.imageURLS[self.mainVM.count] ?? [])
-                self.image = UIImage()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                    self.displyed = 0
+                }
                 self.mainVM.pushNewImage()
                 moveToNextCard()
                 
@@ -303,7 +305,9 @@ struct Card: View {
                 withAnimation(.easeIn(duration : 0.6)) {
                     self.scaleAnimation = true
                 }
-                self.image = UIImage()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                    self.displyed = 0
+                }
                 self.mainVM.pushNewImage()
                 moveToNextCard()
             } else {
@@ -330,11 +334,21 @@ struct Card: View {
                 self.switchingImage = false
                 self.inAnimation = false
                 self.scaleAnimation = false
-                self.image = UIImage(data: self.mainVM.frontImages[self.displyed]) ?? UIImage()
+                if self.mainVM.frontImages.hasValueAt(index: self.displyed) {
+                    self.image = UIImage(data: self.mainVM.frontImages[self.displyed]) ?? UIImage()
+                }
                 self.x = 0
                 self.y = 0
                 self.degree = 0
             }
+        }
+    }
+    
+    private func populateImage()  -> UIImage {
+        if self.mainVM.frontImages.hasValueAt(index: self.displyed) {
+            return UIImage(data: self.mainVM.frontImages[displyed]) ?? UIImage()
+        } else {
+            return UIImage()
         }
     }
 }
