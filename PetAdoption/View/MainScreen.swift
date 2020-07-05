@@ -39,12 +39,13 @@ struct MainScreen: View {
             
             
             ZStack {
-                if  mainVM.frontImage.isEmpty == false {
-                    if mainVM.imageURLS.isEmpty == false {
-                        BackCard(imageURL: mainVM.imageURLS[mainVM.count] ?? [], scaleTrigger: $scaleAnimation, mainVM: mainVM)
-                    }
-                    
-                    Card(imageURL: mainVM.frontImage, displayed: $imageIndex, imageCount: mainVM.frontImage.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, dogDesc: mainVM.dogsList[mainVM.count - 1].desc, scaleTrigger: $scaleAnimation, mainVM: mainVM)
+                if  mainVM.frontImages.isEmpty == false {
+//                    if mainVM.imageURLS.isEmpty == false {
+//                        BackCard(imageURL: mainVM.imageURLS[mainVM.count] ?? [], scaleTrigger: $scaleAnimation, mainVM: mainVM)
+//                    }
+//
+                    Card(imageURL: mainVM.frontImage, displayed: $imageIndex,
+                         imageCount: mainVM.dogsList[mainVM.count - 1].images.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, dogDesc: mainVM.dogsList[mainVM.count - 1].desc, scaleTrigger: $scaleAnimation, mainVM: mainVM)
                         .animation(.default)
                 }
             }.zIndex(2)

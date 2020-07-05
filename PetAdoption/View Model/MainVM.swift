@@ -13,6 +13,12 @@ class MainVM: ObservableObject {
     var dogsList: [Dog] = []
     private var firstLaunch = false
     private let db = Firestore.firestore()
+    private var sub: AnyCancellable?
+    private var backSub: AnyCancellable?
+    @Published var frontImages: [Data] = []
+    @Published var backImages: [Data] = []
+    private var imageLoader: ImageLoader?
+    private var backImageLoader: ImageLoader?
     @Published var localDB = LocalDB()
     @Published var count = 1
     @Published var frontImage: [String] = []
@@ -47,7 +53,7 @@ class MainVM: ObservableObject {
                         }
                     }
                 }
-                self.getImageURLS()
+                self.loadImages()
             }
         })
     }
@@ -73,12 +79,28 @@ class MainVM: ObservableObject {
                             self.frontImage = self.imageURLS.removeValue(forKey: 0) ?? []
                             self.firstLaunch = true
                         }
+//                        print(url)
                         self.imageURLS[index]?.append("\(url!)")
                     }
                 }
             }
         }
-
+        
+    }
+    
+    func loadImages() {
+        print(dogsList[count - 1].name)
+       imageLoader = ImageLoader(urlString: dogsList[count - 1].images)
+//       backImageLoader = ImageLoader(urlString: dogsList[count].images)
+        
+        sub = imageLoader?.didChange.sink(receiveValue: { value in
+            self.frontImages = value
+            print(value)
+        })
+        
+        backSub = backImageLoader?.didChange.sink(receiveValue: { value in
+            self.backImages.append(contentsOf: value)
+        })
     }
 }
 

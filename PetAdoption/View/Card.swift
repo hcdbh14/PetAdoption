@@ -15,12 +15,10 @@ struct Card: View {
     @State private var switchingImage = false
     @Binding private var scaleAnimation: Bool
     @State private var image: UIImage = UIImage()
-    @ObservedObject private var imageLoader: ImageLoader
     @ObservedObject private var mainVM: MainVM
     
     init(imageURL: [String], displayed: Binding<Int>, imageCount: Int, dogName: String, age: Int, dogDesc: String, scaleTrigger: Binding<Bool>, mainVM: MainVM) {
         self.mainVM = mainVM
-        imageLoader = ImageLoader(urlString: imageURL)
         self.imageCount = imageCount
         self._displyed = displayed
         self._scaleAnimation = scaleTrigger
@@ -34,18 +32,13 @@ struct Card: View {
         ZStack(alignment: .bottomTrailing) {
             if showInfo == false {
                 VStack {
-                    Image(uiImage: image).resizable()
+                    Image(uiImage: UIImage(data: self.mainVM.frontImages[displyed]) ?? UIImage()).resizable()
                         .background(Color.gray)
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                         .cornerRadius(5)
                         .allowsHitTesting(x == 0 ? true : false)
                         .animation(.none)
-                        .onReceive(imageLoader.didChange) { data in
-                            if self.imageLoader.data.hasValueAt(index: self.displyed) {
-                                self.image = UIImage(data: data[self.displyed]) ?? UIImage()
-                            }
-                    }
                     .onReceive(mainVM.userDecided, perform: { decision in
                         self.inAnimation = true
                         switch decision {
@@ -135,10 +128,6 @@ struct Card: View {
                         //                            .onEnded({ (value) in
                         //                                self.moveToImage(direction: value.location.x)
                         //                            }))
-                        .onReceive(imageLoader.didChange) { data in
-                            if self.imageLoader.data.hasValueAt(index: self.displyed) {
-                                self.image = UIImage(data: data[self.displyed]) ?? UIImage()
-                            }}
                     
                     VStack(alignment: .trailing, spacing: 5) {
                         
@@ -248,10 +237,10 @@ struct Card: View {
             if self.displyed == self.imageCount - 1 || self.switchingImage {
                 return
             } else {
-                if self.imageLoader.data.hasValueAt(index: self.displyed + 1) {
+                if self.mainVM.frontImages.hasValueAt(index: self.displyed + 1) {
                     self.inAnimation = false
                     self.displyed += 1
-                    self.image = UIImage(data: self.imageLoader.data[self.displyed]) ?? UIImage()
+                    self.image = UIImage(data: self.mainVM.frontImages[self.displyed]) ?? UIImage()
                 } else {
                     self.displyed += 1
                     self.image = UIImage()
@@ -261,10 +250,10 @@ struct Card: View {
             if self.displyed == 0 || self.switchingImage  {
                 return
             } else {
-                if self.imageLoader.data.hasValueAt(index: self.displyed - 1) {
+                if self.mainVM.frontImages.hasValueAt(index: self.displyed - 1) {
                     self.inAnimation = false
                     self.displyed -= 1
-                    self.image = UIImage(data: self.imageLoader.data[self.displyed]) ?? UIImage()
+                    self.image = UIImage(data: self.mainVM.frontImages[self.displyed]) ?? UIImage()
                 } else {
                     self.displyed -= 1
                     self.image = UIImage()
@@ -341,7 +330,7 @@ struct Card: View {
                 self.switchingImage = false
                 self.inAnimation = false
                 self.scaleAnimation = false
-                self.image = UIImage(data: self.imageLoader.data[self.displyed]) ?? UIImage()
+                self.image = UIImage(data: self.mainVM.frontImages[self.displyed]) ?? UIImage()
                 self.x = 0
                 self.y = 0
                 self.degree = 0
