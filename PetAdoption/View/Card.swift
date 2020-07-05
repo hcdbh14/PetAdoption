@@ -11,7 +11,6 @@ struct Card: View {
     @Binding private var displyed: Int
     @State private var showInfo = false
     @State private var inAnimation = false
-    @State private var data: [Data] = []
     @State private var degree: Double = 0
     @State private var switchingImage = false
     @Binding private var scaleAnimation: Bool
@@ -43,8 +42,7 @@ struct Card: View {
                         .allowsHitTesting(x == 0 ? true : false)
                         .animation(.none)
                         .onReceive(imageLoader.didChange) { data in
-                            self.data = data
-                            if self.data.hasValueAt(index: self.displyed) {
+                            if self.imageLoader.data.hasValueAt(index: self.displyed) {
                                 self.image = UIImage(data: data[self.displyed]) ?? UIImage()
                             }
                     }
@@ -138,8 +136,7 @@ struct Card: View {
                         //                                self.moveToImage(direction: value.location.x)
                         //                            }))
                         .onReceive(imageLoader.didChange) { data in
-                            self.data = data
-                            if self.data.hasValueAt(index: self.displyed) {
+                            if self.imageLoader.data.hasValueAt(index: self.displyed) {
                                 self.image = UIImage(data: data[self.displyed]) ?? UIImage()
                             }}
                     
@@ -251,10 +248,10 @@ struct Card: View {
             if self.displyed == self.imageCount - 1 || self.switchingImage {
                 return
             } else {
-                if self.data.hasValueAt(index: self.displyed + 1) {
+                if self.imageLoader.data.hasValueAt(index: self.displyed + 1) {
                     self.inAnimation = false
                     self.displyed += 1
-                    self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
+                    self.image = UIImage(data: self.imageLoader.data[self.displyed]) ?? UIImage()
                 } else {
                     self.displyed += 1
                     self.image = UIImage()
@@ -264,10 +261,10 @@ struct Card: View {
             if self.displyed == 0 || self.switchingImage  {
                 return
             } else {
-                if self.data.hasValueAt(index: self.displyed - 1) {
+                if self.imageLoader.data.hasValueAt(index: self.displyed - 1) {
                     self.inAnimation = false
                     self.displyed -= 1
-                    self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
+                    self.image = UIImage(data: self.imageLoader.data[self.displyed]) ?? UIImage()
                 } else {
                     self.displyed -= 1
                     self.image = UIImage()
@@ -344,7 +341,7 @@ struct Card: View {
                 self.switchingImage = false
                 self.inAnimation = false
                 self.scaleAnimation = false
-                self.image = UIImage(data: self.data[self.displyed]) ?? UIImage()
+                self.image = UIImage(data: self.imageLoader.data[self.displyed]) ?? UIImage()
                 self.x = 0
                 self.y = 0
                 self.degree = 0
