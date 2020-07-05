@@ -35,9 +35,11 @@ class MainVM: ObservableObject {
     }
     
     func pushNewImage() {
-        let removed = imageURLS.removeValue(forKey: count)
-        frontImage = removed ?? []
+        //        let removed = imageURLS.removeValue(forKey: count)
+        //        frontImage = removed ?? []
         count += 1
+        frontImages = backImages
+        loadImages()
     }
     
     func getDogsFromDB() {
@@ -53,6 +55,7 @@ class MainVM: ObservableObject {
                         }
                     }
                 }
+                //                self.getImageURLS()
                 self.loadImages()
             }
         })
@@ -79,7 +82,7 @@ class MainVM: ObservableObject {
                             self.frontImage = self.imageURLS.removeValue(forKey: 0) ?? []
                             self.firstLaunch = true
                         }
-//                        print(url)
+                        print(url!)
                         self.imageURLS[index]?.append("\(url!)")
                     }
                 }
@@ -89,17 +92,24 @@ class MainVM: ObservableObject {
     }
     
     func loadImages() {
-        print(dogsList[count - 1].name)
-       imageLoader = ImageLoader(urlString: dogsList[count - 1].images)
-//       backImageLoader = ImageLoader(urlString: dogsList[count].images)
         
-        sub = imageLoader?.didChange.sink(receiveValue: { value in
-            self.frontImages = value
-            print(value)
-        })
+        if frontImages.isEmpty {
+            imageLoader = ImageLoader(urlString: dogsList[count - 1].images)
+            sub = imageLoader?.didChange.sink(receiveValue: { value in
+                self.frontImages = value
+                print(value)
+            })
+        }
         
+        backImageLoader = ImageLoader(urlString: dogsList[count].images)
         backSub = backImageLoader?.didChange.sink(receiveValue: { value in
-            self.backImages.append(contentsOf: value)
+            if self.frontImages.isEmpty == false {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    self.backImages = value
+                }
+            } else {
+                self.backImages = value
+            }
         })
     }
 }

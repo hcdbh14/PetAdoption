@@ -4,12 +4,10 @@ struct BackCard: View {
     
     @Binding private var scaleAnimation: Bool
     @State private var image: UIImage = UIImage()
-    @ObservedObject var imageLoader: ImageLoader
     @ObservedObject private var mainVM: MainVM
     
     init(imageURL: [String], scaleTrigger: Binding<Bool>, mainVM: MainVM) {
         self.mainVM = mainVM
-        imageLoader = ImageLoader(urlString: imageURL)
         self._scaleAnimation = scaleTrigger
     }
     
@@ -17,17 +15,17 @@ struct BackCard: View {
     var body: some View {
         
         ZStack(alignment: .bottomLeading) {
-            Image(uiImage: image)
+            Image(uiImage: UIImage(data: self.mainVM.backImages[0]) ?? UIImage())
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                 .cornerRadius(20)
                 .scaleEffect(scaleAnimation ? 1 : 0.9)
-                .onReceive(imageLoader.didChange) { data in
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self.image = UIImage(data: data[0]) ?? UIImage()
-                    }
-            }
+//                .onReceive(imageLoader.didChange) { data in
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                        self.image = UIImage(data: data[0]) ?? UIImage()
+//                    }
+//            }
         }
     }
 }
