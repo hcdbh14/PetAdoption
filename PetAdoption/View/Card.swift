@@ -37,6 +37,7 @@ struct Card: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                         .cornerRadius(5)
+                        .fixedSize()
                         .allowsHitTesting(x == 0 ? true : false)
                         .animation(.none)
                         .onReceive(mainVM.userDecided, perform: { decision in
