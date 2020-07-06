@@ -56,6 +56,9 @@ struct Card: View {
                             withAnimation(.easeIn(duration : 0.6)) {
                                 self.scaleAnimation = true
                             }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                 self.displyed = 0
+                             }
                             if self.mainVM.frontImages.hasValueAt(index: self.displyed) {
                                 self.image = UIImage(data: self.mainVM.frontImages[self.displyed]) ?? UIImage()
                             }
