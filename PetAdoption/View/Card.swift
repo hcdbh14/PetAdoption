@@ -5,10 +5,10 @@ struct Card: View {
     private var imageCount: Int
     private let dogName: String
     private let dogDesc: String
+    @State private var isImageReady = false
     @State private var speed = 1.0
     @State private var x: CGFloat = 0
     @State private var y: CGFloat = 0
-    @Binding private var displyed: Int
     @State private var showInfo = false
     @State private var inAnimation = false
     @State private var degree: Double = 0
@@ -17,10 +17,9 @@ struct Card: View {
     @State private var image: UIImage = UIImage()
     @ObservedObject private var mainVM: MainVM
     
-    init(displayed: Binding<Int>, imageCount: Int, dogName: String, age: Int, dogDesc: String, scaleTrigger: Binding<Bool>, mainVM: MainVM) {
+    init(imageCount: Int, dogName: String, age: Int, dogDesc: String, scaleTrigger: Binding<Bool>, mainVM: MainVM) {
         self.mainVM = mainVM
         self.imageCount = imageCount
-        self._displyed = displayed
         self._scaleAnimation = scaleTrigger
         self.dogName = dogName
         self.age = age
@@ -32,7 +31,7 @@ struct Card: View {
         ZStack(alignment: .bottomTrailing) {
             if showInfo == false {
                 VStack {
-                    Image(uiImage: populateImage()).resizable()
+                    Image(uiImage: image).resizable()
                         .background(Color.gray)
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
@@ -40,6 +39,9 @@ struct Card: View {
                         .fixedSize()
                         .allowsHitTesting(x == 0 ? true : false)
                         .animation(.none)
+                        .onReceive(mainVM.isImageReady, perform:  { answer in
+                            populateImage()
+                        })
                         .onReceive(mainVM.userDecided, perform: { decision in
                             self.inAnimation = true
                             switch decision {
@@ -58,14 +60,17 @@ struct Card: View {
                                 self.scaleAnimation = true
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                                 self.displyed = 0
+                                 self.mainVM.imageIndex = 0
                              }
-                            if self.mainVM.frontImages.hasValueAt(index: self.displyed) {
-                                self.image = UIImage(data: self.mainVM.frontImages[self.displyed]) ?? UIImage()
+                            if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
+                                self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
                             }
                             self.mainVM.pushNewImage()
                             self.moveToNextCard()
                         })
+                        .onAppear() {
+                            populateImage()
+                        }
                 }
                 
                 HStack {
@@ -73,7 +78,7 @@ struct Card: View {
                     ForEach (0...imageCount - 1,id: \.self) { i in
                         Rectangle()
                             .fill(Color.clear)
-                            .background((self.displyed == i ? Color.orange : Color.gray).cornerRadius(20))
+                            .background((self.mainVM.imageIndex == i ? Color.orange : Color.gray).cornerRadius(20))
                             .frame(width: (UIScreen.main.bounds.width / CGFloat(self.imageCount)) - 30, height: 10)
                             .opacity(self.imageCount == 1 ? 0 : 0.7)
                     }
@@ -123,7 +128,7 @@ struct Card: View {
             
             if showInfo {
                 ScrollView {
-                    Image(uiImage: populateImage()).resizable()
+                    Image(uiImage: image).resizable()
                         .background(Color.gray)
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4)
@@ -241,28 +246,28 @@ struct Card: View {
     private func moveToImage(direction: CGFloat) {
         if direction > 180 {
             
-            if self.displyed == self.imageCount - 1 || self.switchingImage {
+            if self.mainVM.imageIndex == self.imageCount - 1 || self.switchingImage {
                 return
             } else {
-                if self.mainVM.frontImages.hasValueAt(index: self.displyed + 1) {
+                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex + 1) {
                     self.inAnimation = false
-                    self.displyed += 1
-                    self.image = UIImage(data: self.mainVM.frontImages[self.displyed]) ?? UIImage()
+                    self.mainVM.imageIndex += 1
+                    self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
                 } else {
-                    self.displyed += 1
+                    self.mainVM.imageIndex += 1
                     self.image = UIImage()
                 }
             }
         } else {
-            if self.displyed == 0 || self.switchingImage  {
+            if self.mainVM.imageIndex == 0 || self.switchingImage  {
                 return
             } else {
-                if self.mainVM.frontImages.hasValueAt(index: self.displyed - 1) {
+                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex - 1) {
                     self.inAnimation = false
-                    self.displyed -= 1
-                    self.image = UIImage(data: self.mainVM.frontImages[self.displyed]) ?? UIImage()
+                    self.mainVM.imageIndex -= 1
+                    self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
                 } else {
-                    self.displyed -= 1
+                    self.mainVM.imageIndex -= 1
                     self.image = UIImage()
                 }
             }
@@ -295,7 +300,7 @@ struct Card: View {
                     self.mainVM.localDB.saveDogURL(self.mainVM.dogsList[self.mainVM.count - 1].images)
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                    self.displyed = 0
+                    self.mainVM.imageIndex = 0
                 }
                 self.mainVM.pushNewImage()
                 moveToNextCard()
@@ -315,7 +320,7 @@ struct Card: View {
                     self.scaleAnimation = true
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                    self.displyed = 0
+                    self.mainVM.imageIndex = 0
                 }
                 self.mainVM.pushNewImage()
                 moveToNextCard()
@@ -342,8 +347,8 @@ struct Card: View {
                 self.switchingImage = false
                 self.inAnimation = false
                 self.scaleAnimation = false
-                if self.mainVM.frontImages.hasValueAt(index: self.displyed) {
-                    self.image = UIImage(data: self.mainVM.frontImages[self.displyed]) ?? UIImage()
+                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
+                    self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
                 }
                 self.x = 0
                 self.y = 0
@@ -352,11 +357,11 @@ struct Card: View {
         }
     }
     
-    private func populateImage()  -> UIImage {
-        if self.mainVM.frontImages.hasValueAt(index: self.displyed) {
-            return UIImage(data: self.mainVM.frontImages[displyed]) ?? UIImage()
+    private func populateImage() {
+        if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
+            image = UIImage(data: self.mainVM.frontImages[mainVM.imageIndex]) ?? UIImage()
         } else {
-            return UIImage()
+            image = UIImage()
         }
     }
 }

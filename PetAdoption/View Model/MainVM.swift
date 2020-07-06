@@ -10,9 +10,9 @@ enum Decision {
 }
 
 class MainVM: ObservableObject {
-    
+    @Published  var imageIndex = 0
     var dogsList: [Dog] = []
-    private var firstLaunch = false
+    var firstLaunch = false
     private var sub: AnyCancellable?
     private var backSub: AnyCancellable?
     private var imageLoader: ImageLoader?
@@ -24,6 +24,7 @@ class MainVM: ObservableObject {
     @Published var frontImages: [Data] = []
     @Published var backImages: [Data] = []
     @Published var frontImage: [String] = []
+    @Published var isImageReady = PassthroughSubject<Bool, Never>()
     @Published var userDecided = PassthroughSubject<Decision, Never>()
     @Published var decision: Decision = Decision.notDecided { didSet {
         userDecided.send(decision)
@@ -81,7 +82,13 @@ class MainVM: ObservableObject {
             
             imageLoader = ImageLoader(urlString: dogsList[count - 1].images)
             sub = imageLoader?.didChange.sink(receiveValue: { value in
-                self.frontImages = value
+                
+                if self.frontImages.hasValueAt(index: self.imageIndex) == false {
+                    self.frontImages = value
+                    self.isImageReady.send(true)
+                } else {
+                    self.frontImages = value
+                }
             })
         }
         

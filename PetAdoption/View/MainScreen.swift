@@ -12,7 +12,6 @@ struct MainScreen: View {
     
     @State private var showNewDogScreen = false
     @State private var isBarHidden = false
-    @State private var imageIndex = 0
     @State private var staticIndex = 0
     @State private var scaleAnimation = false
     @State private var selected = barItem.first
@@ -44,8 +43,7 @@ struct MainScreen: View {
                             BackCard(scaleTrigger: $scaleAnimation, mainVM: mainVM)
                         }
                         
-                        Card(displayed: $imageIndex,
-                             imageCount: mainVM.dogsList[mainVM.count - 1].images.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, dogDesc: mainVM.dogsList[mainVM.count - 1].desc, scaleTrigger: $scaleAnimation, mainVM: mainVM)
+                        Card(imageCount: mainVM.dogsList[mainVM.count - 1].images.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, dogDesc: mainVM.dogsList[mainVM.count - 1].desc, scaleTrigger: $scaleAnimation, mainVM: mainVM)
                             .animation(.default)
                     }
                 }.zIndex(2)
