@@ -14,7 +14,7 @@ struct BackCard: View {
     var body: some View {
         
         ZStack(alignment: .bottomLeading) {
-            Image(uiImage: populateImage())
+            Image(uiImage: self.mainVM.backImageLoaded ?  populateImage() : UIImage())
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)

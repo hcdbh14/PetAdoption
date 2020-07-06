@@ -290,7 +290,9 @@ struct Card: View {
                 withAnimation(.easeIn(duration : 0.6)) {
                     self.scaleAnimation = true
                 }
-                self.mainVM.localDB.saveDogURL(self.mainVM.dogsList[self.mainVM.count].images)
+                DispatchQueue.global().async {
+                    self.mainVM.localDB.saveDogURL(self.mainVM.dogsList[self.mainVM.count - 1].images)
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                     self.displyed = 0
                 }
