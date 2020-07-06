@@ -123,7 +123,7 @@ struct Card: View {
             
             if showInfo {
                 ScrollView {
-                    Image(uiImage: image).resizable()
+                    Image(uiImage: populateImage()).resizable()
                         .background(Color.gray)
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4)
