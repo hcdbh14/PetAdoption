@@ -30,7 +30,6 @@ struct BackCard: View {
             } else {
                  return UIImage()
             }
-            
         } else {
             return UIImage()
         }

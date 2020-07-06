@@ -338,7 +338,6 @@ struct Card: View {
     func moveToNextCard() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             withAnimation (.none) {
-                self.mainVM.backImageLoaded = false
                 self.switchingImage = false
                 self.inAnimation = false
                 self.scaleAnimation = false

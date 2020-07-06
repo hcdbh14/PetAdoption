@@ -42,8 +42,12 @@ class MainVM: ObservableObject {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.count += 1
                 self.frontImages = self.backImages
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                    self.backImageLoaded = false
+                }
                 self.loadImages()
             }
+            
         } else {
             frontImages = []
             backImages = []
