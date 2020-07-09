@@ -29,7 +29,9 @@ struct MainScreen: View {
                                 self.showMenu = true
                             }
                         }) {
-                            Image(systemName: "person").padding(.leading, 10).foregroundColor(.black)
+                            Image("settings").resizable()
+                                .frame(width: 25, height: 25)
+                                .padding(.leading, 10).foregroundColor(.gray)
                                 .animation(.default)
                         }
                         

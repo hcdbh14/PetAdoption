@@ -220,7 +220,7 @@ struct Card: View {
         .gesture(showInfo ? nil : DragGesture(minimumDistance: 0, coordinateSpace: .global)
                     .onChanged({ (value) in
                         if value.startLocation != value.location {
-                            self.speed = 10.0
+                            self.speed = 5.0
                             if self.switchingImage == false {
                                 self.inAnimation = true
                             }
@@ -344,18 +344,16 @@ struct Card: View {
     }
     
     func moveToNextCard() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-            withAnimation (.none) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.81) {
                 self.switchingImage = false
-                self.inAnimation = false
                 self.scaleAnimation = false
-                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
-                    self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
-                }
+                self.inAnimation = false
                 self.x = 0
                 self.y = 0
                 self.degree = 0
-            }
+                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
+                    self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
+                }
         }
     }
     
@@ -368,15 +366,17 @@ struct Card: View {
     }
     
     private func decideAnimation() -> Animation {
-        if inAnimation {
-            return Animation.linear.speed(speed)
-        } else if showMenu {
-            return .spring()
-        } else if scaleAnimation {
-            return Animation.linear(duration: 0)
-        }
-        else {
-            return .spring()
+        DispatchQueue.global().sync {
+            if inAnimation {
+                return Animation.linear.speed(speed)
+            } else if showMenu {
+                return .spring()
+            } else if scaleAnimation {
+                return Animation.linear(duration: 0)
+            }
+            else {
+                return .spring()
+            }
         }
     }
 }
