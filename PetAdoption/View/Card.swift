@@ -10,6 +10,7 @@ struct Card: View {
     @State private var x: CGFloat = 0
     @State private var y: CGFloat = 0
     @State private var showInfo = false
+    @Binding private var showMenu: Bool
     @State private var inAnimation = false
     @State private var degree: Double = 0
     @State private var switchingImage = false
@@ -17,10 +18,11 @@ struct Card: View {
     @State private var image: UIImage = UIImage()
     @ObservedObject private var mainVM: MainVM
     
-    init(imageCount: Int, dogName: String, age: Int, dogDesc: String, scaleTrigger: Binding<Bool>, mainVM: MainVM) {
+    init(imageCount: Int, dogName: String, age: Int, dogDesc: String, scaleTrigger: Binding<Bool>, showMenu: Binding<Bool>, mainVM: MainVM) {
         self.mainVM = mainVM
         self.imageCount = imageCount
         self._scaleAnimation = scaleTrigger
+        self._showMenu = showMenu
         self.dogName = dogName
         self.age = age
         self.dogDesc = dogDesc
@@ -60,8 +62,8 @@ struct Card: View {
                                 self.scaleAnimation = true
                             }
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                                 self.mainVM.imageIndex = 0
-                             }
+                                self.mainVM.imageIndex = 0
+                            }
                             if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
                                 self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
                             }
@@ -205,41 +207,41 @@ struct Card: View {
                         .environment(\.layoutDirection, .rightToLeft)
                     
                 }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height)
-                    .background(Color.offWhite)
-                    .padding(.top, 40)
+                .animation(.none)
+                .background(Color.offWhite)
+                .padding(.top, 60)
             }
         }
         .offset(x: self.x, y: self.y)
         .rotationEffect(.init(degrees: self.degree))
         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
-        .allowsHitTesting(showInfo ? false : true)
-        .animation(inAnimation ? Animation.linear.speed(speed) : .none)
+        .animation(decideAnimation())
         .transition(.move(edge: .bottom))
-        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
-        .onChanged({ (value) in
-            if value.startLocation != value.location {
-                self.speed = 10.0
-                if self.switchingImage == false {
-                    self.inAnimation = true
-                }
-                if value.translation.width > 50 && value.translation.width > 10 {
-                    self.x = value.translation.width
-                    self.y = value.translation.height
-                    self.degree = -6
-                } else if value.translation.width < -50 && value.translation.width < -10 {
-                    self.x = value.translation.width
-                    self.y = value.translation.height
-                    self.degree = 6
-                } else {
-                    self.x = value.translation.width
-                    self.y = value.translation.height
-                    self.degree = 0
-                }
-            }
-        })
-            .onEnded({ (value) in
-                self.dragAnimation(x: value.translation.width, y: value.translation.height, direction: value.location.x, start: value.startLocation, end: value.location)
-            }))
+        .gesture(showInfo ? nil : DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                    .onChanged({ (value) in
+                        if value.startLocation != value.location {
+                            self.speed = 10.0
+                            if self.switchingImage == false {
+                                self.inAnimation = true
+                            }
+                            if value.translation.width > 50 && value.translation.width > 10 {
+                                self.x = value.translation.width
+                                self.y = value.translation.height
+                                self.degree = -6
+                            } else if value.translation.width < -50 && value.translation.width < -10 {
+                                self.x = value.translation.width
+                                self.y = value.translation.height
+                                self.degree = 6
+                            } else {
+                                self.x = value.translation.width
+                                self.y = value.translation.height
+                                self.degree = 0
+                            }
+                        }
+                    })
+                    .onEnded({ (value) in
+                        self.dragAnimation(x: value.translation.width, y: value.translation.height, direction: value.location.x, start: value.startLocation, end: value.location)
+                    }))
     }
     
     
@@ -362,6 +364,19 @@ struct Card: View {
             image = UIImage(data: self.mainVM.frontImages[mainVM.imageIndex]) ?? UIImage()
         } else {
             image = UIImage()
+        }
+    }
+    
+    private func decideAnimation() -> Animation {
+        if inAnimation {
+            return Animation.linear.speed(speed)
+        } else if showMenu {
+            return .spring()
+        } else if scaleAnimation {
+            return Animation.linear(duration: 0)
+        }
+        else {
+            return .spring()
         }
     }
 }
