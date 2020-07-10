@@ -42,7 +42,7 @@ struct Card: View {
                         .allowsHitTesting(x == 0 ? true : false)
                         .animation(.none)
                         .onReceive(mainVM.isImageReady, perform:  { answer in
-                            populateImage()
+                            self.populateImage()
                         })
                         .onReceive(mainVM.userDecided, perform: { decision in
                             self.inAnimation = true
@@ -71,7 +71,7 @@ struct Card: View {
                             self.moveToNextCard()
                         })
                         .onAppear() {
-                            populateImage()
+                            self.populateImage()
                         }
                 }
                 

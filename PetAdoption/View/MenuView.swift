@@ -35,7 +35,7 @@ struct MenuView: View {
             }
             Spacer()
         }
-        .frame(width: UIScreen.main.bounds.width / 2, alignment: .leading)
+        .frame(width: UIScreen.main.bounds.width / 1.2, alignment: .leading)
         .background(Color.black
         .edgesIgnoringSafeArea(.all)
         )

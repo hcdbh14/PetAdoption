@@ -74,7 +74,7 @@ struct MainScreen: View {
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20)
                 .background(Color.offWhite)
                 .edgesIgnoringSafeArea(.bottom)
-                .offset(x: self.showMenu ?UIScreen.main.bounds.width / 2 : 0)
+                .offset(x: self.showMenu ?UIScreen.main.bounds.width / 1.2 : 0)
                 .disabled(showMenu ? true : false)
             }
             
