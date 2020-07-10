@@ -11,7 +11,7 @@ struct MenuView: View {
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "person")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.white)
                     .imageScale(.large)
                     .onTapGesture {
                         withAnimation {
@@ -20,23 +20,23 @@ struct MenuView: View {
                         
                     }
                 Text("Profile")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.white)
                     .font(.headline)
             }
             .padding(.top, 100)
             
             HStack {
                 Image(systemName: "envelope")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.white)
                     .imageScale(.large)
                 Text("Messages")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.white)
                     .font(.headline)
             }
             Spacer()
         }
         .frame(width: UIScreen.main.bounds.width / 1.2, alignment: .leading)
-        .background(Color.black
+        .background(Color("test")
         .edgesIgnoringSafeArea(.all)
         )
     }
