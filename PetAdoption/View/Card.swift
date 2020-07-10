@@ -6,7 +6,7 @@ struct Card: View {
     private let dogName: String
     private let dogDesc: String
     @State private var isImageReady = false
-    @State private var speed = 1.0
+    @State private var speed = 0.5
     @State private var x: CGFloat = 0
     @State private var y: CGFloat = 0
     @State private var showInfo = false
@@ -46,6 +46,7 @@ struct Card: View {
                         })
                         .onReceive(mainVM.userDecided, perform: { decision in
                             self.inAnimation = true
+                             self.speed = 0.5
                             switch decision {
                             case .picked:
                                 self.decideHeightDirection(y: -100)
@@ -219,8 +220,8 @@ struct Card: View {
         .transition(.move(edge: .bottom))
         .gesture(showInfo ? nil : DragGesture(minimumDistance: 0, coordinateSpace: .global)
                     .onChanged({ (value) in
+                            self.speed = 5
                         if value.startLocation != value.location {
-                            self.speed = 5.0
                             if self.switchingImage == false {
                                 self.inAnimation = true
                             }
@@ -240,6 +241,7 @@ struct Card: View {
                         }
                     })
                     .onEnded({ (value) in
+                        self.speed = 0.5
                         self.dragAnimation(x: value.translation.width, y: value.translation.height, direction: value.location.x, start: value.startLocation, end: value.location)
                     }))
     }
@@ -287,8 +289,7 @@ struct Card: View {
     
     
     private func dragAnimation(x: CGFloat, y: CGFloat, direction: CGFloat, start: CGPoint, end: CGPoint) {
-        speed = 1.0
-        
+
         if x > 0 {
             if x > 50 {
                 self.x = 500
@@ -311,6 +312,7 @@ struct Card: View {
                 self.x = 0
                 self.y = 0
                 self.degree = 0
+                self.inAnimation = false
             }
         } else {
             if x < -50 {
@@ -330,6 +332,7 @@ struct Card: View {
                 self.x = 0
                 self.y = 0
                 self.degree = 0
+                self.inAnimation = false
             }
         }
         if start == end { self.moveToImage(direction: direction) }
@@ -344,7 +347,7 @@ struct Card: View {
     }
     
     func moveToNextCard() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.81) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 self.switchingImage = false
                 self.scaleAnimation = false
                 self.inAnimation = false
@@ -368,7 +371,7 @@ struct Card: View {
     private func decideAnimation() -> Animation {
         DispatchQueue.global().sync {
             if inAnimation {
-                return Animation.linear.speed(speed)
+                return Animation.interactiveSpring().speed(speed)
             } else if showMenu {
                 return .spring()
             } else if scaleAnimation {
