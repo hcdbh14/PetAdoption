@@ -10,15 +10,16 @@ struct MenuView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Image(systemName: "person")
-                    .foregroundColor(.white)
-                    .imageScale(.large)
-                    .onTapGesture {
-                        withAnimation {
-                            self.showMenu = false
-                        }
-                        
+                Button(action: {
+                    withAnimation {
+                        self.showMenu = false
                     }
+                    
+                }) {
+                    Image(systemName: "person")
+                        .foregroundColor(.white)
+                        .imageScale(.large)
+                }
                 Text("Profile")
                     .foregroundColor(.white)
                     .font(.headline)
@@ -36,8 +37,15 @@ struct MenuView: View {
             Spacer()
         }
         .frame(width: UIScreen.main.bounds.width / 1.2, alignment: .leading)
-        .background(Color("test")
+        .background(Color("test"))
         .edgesIgnoringSafeArea(.all)
-        )
+        .gesture(DragGesture().onEnded {
+            if $0.translation.width < -100 {
+                withAnimation {
+                    self.showMenu = false
+                }
+            }
+        })
+       
     }
 }
