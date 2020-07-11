@@ -14,7 +14,7 @@ struct MenuView: View {
             }
 
         }
-        .frame(width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height, alignment: .leading)
+        .frame(width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height - 100, alignment: .leading)
         .background(Color("test"))
         .edgesIgnoringSafeArea(.all)
         .gesture(DragGesture().onEnded {
