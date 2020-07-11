@@ -16,8 +16,10 @@ struct BackCard: View {
         ZStack(alignment: .bottomLeading) {
             Image(uiImage: self.mainVM.backImageLoaded ?  populateImage() : UIImage())
                 .resizable()
-                .aspectRatio(contentMode: .fill)
+                .scaledToFit()
                 .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
+                .background(Color.black)
+                .fixedSize()
                 .cornerRadius(20)
                 .animation(.none)
         }.animation(scaleAnimation ? .spring() : .none)

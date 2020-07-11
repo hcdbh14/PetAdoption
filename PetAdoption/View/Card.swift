@@ -34,9 +34,9 @@ struct Card: View {
             if showInfo == false {
                 VStack {
                     Image(uiImage: image).resizable()
-                        .background(Color.gray)
-                        .aspectRatio(contentMode: .fill)
+                        .scaledToFit()
                         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
+                        .background(Color.black)
                         .cornerRadius(5)
                         .fixedSize()
                         .allowsHitTesting(x == 0 ? true : false)
