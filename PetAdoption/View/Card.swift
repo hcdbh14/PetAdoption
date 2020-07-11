@@ -86,7 +86,7 @@ struct Card: View {
                             .opacity(self.imageCount == 1 ? 0 : 0.7)
                     }
                     Spacer()
-                }.padding(.bottom, UIScreen.main.bounds.height / 1.45)
+                }.padding(.bottom, UIScreen.main.bounds.height / 1.47)
                 VStack(alignment: .trailing, spacing: 3) {
                     
                     HStack (alignment: .center) {
