@@ -10,42 +10,19 @@ struct MenuView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Button(action: {
-                    withAnimation {
-                        self.showMenu = false
-                    }
-                    
-                }) {
-                    Image(systemName: "person")
-                        .foregroundColor(.white)
-                        .imageScale(.large)
-                }
-                Text("Profile")
-                    .foregroundColor(.white)
-                    .font(.headline)
+                Text("איזה חיה אתם מחפשים?").foregroundColor(.white)
             }
-            .padding(.top, 100)
-            
-            HStack {
-                Image(systemName: "envelope")
-                    .foregroundColor(.white)
-                    .imageScale(.large)
-                Text("Messages")
-                    .foregroundColor(.white)
-                    .font(.headline)
-            }
-            Spacer()
+
         }
-        .frame(width: UIScreen.main.bounds.width / 1.2, alignment: .leading)
+        .frame(width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height, alignment: .leading)
         .background(Color("test"))
         .edgesIgnoringSafeArea(.all)
         .gesture(DragGesture().onEnded {
-            if $0.translation.width < -100 {
+            if $0.translation.width > -100 {
                 withAnimation {
                     self.showMenu = false
                 }
             }
         })
-       
     }
 }

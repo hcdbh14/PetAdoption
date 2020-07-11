@@ -242,8 +242,9 @@ struct Card: View {
                     })
                     .onEnded({ (value) in
                         self.speed = 0.5
-                        self.dragAnimation(x: value.translation.width, y: value.translation.height, direction: value.location.x, start: value.startLocation, end: value.location)
+                        self.dragFinished(x: value.translation.width, y: value.translation.height, direction: value.location.x, start: value.startLocation, end: value.location)
                     }))
+            .environment(\.layoutDirection, .leftToRight)
     }
     
     
@@ -288,7 +289,7 @@ struct Card: View {
     }
     
     
-    private func dragAnimation(x: CGFloat, y: CGFloat, direction: CGFloat, start: CGPoint, end: CGPoint) {
+    private func dragFinished(x: CGFloat, y: CGFloat, direction: CGFloat, start: CGPoint, end: CGPoint) {
 
         if x > 0 {
             if x > 50 {
@@ -346,7 +347,7 @@ struct Card: View {
         }
     }
     
-    func moveToNextCard() {
+    private func moveToNextCard() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                 self.switchingImage = false
                 self.scaleAnimation = false

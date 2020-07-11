@@ -67,6 +67,7 @@ struct MainScreen: View {
                             .padding(.bottom, UIScreen.main.bounds.height / 10)
                             .padding(.horizontal, 22)
                             .background(ButtomBar())
+                            .environment(\.layoutDirection, .leftToRight)
                     }.zIndex(1)
                     .animation(.default)
                 }
@@ -84,7 +85,7 @@ struct MainScreen: View {
                     .transition(.move(edge: .leading))
                     .zIndex(3)
             }
-        }
+        } .environment(\.layoutDirection, .rightToLeft)
 
         //                    .onAppear() {
         ////                        self.mainVM.getDogsFromDB()

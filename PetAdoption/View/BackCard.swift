@@ -19,9 +19,9 @@ struct BackCard: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                 .cornerRadius(20)
-                .animation(scaleAnimation ? .spring() : .none)
-                .scaleEffect(scaleAnimation ? 1 : 0.9)
-        }
+                .animation(.none)
+        }.animation(scaleAnimation ? .spring() : .none)
+        .scaleEffect(scaleAnimation ? 1 : 0.9)
     }
     
     private func populateImage()  -> UIImage {
