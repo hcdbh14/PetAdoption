@@ -10,12 +10,16 @@ struct MenuView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("איזה חיה אתם מחפשים?").foregroundColor(.white)
+                Text("הגדרות")
+                    .foregroundColor(.white)
+                    .padding(.top, 20)
+                    .padding(.leading, 10)
+                    .font(.system(size: 34))
             }
 
         }
-        .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .leading)
-        .background(Color("test"))
+        .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
+        .background(Color("offBlack"))
         .edgesIgnoringSafeArea(.all)
         .gesture(DragGesture().onEnded {
             if $0.translation.width > -100 {
