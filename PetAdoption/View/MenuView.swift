@@ -12,13 +12,13 @@ struct MenuView: View {
             HStack {
                 Text("הגדרות")
                     .foregroundColor(.white)
-                    .padding(.top, 20)
-                    .padding(.leading, 10)
+                    .padding(.top, 30)
+                    .padding(.leading, 15)
                     .font(.system(size: 34))
             }
-            line
+            line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
 
-        }.padding(.leading, 20)
+        }
         .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
         .background(Color("offBlack"))
         .edgesIgnoringSafeArea(.all)
@@ -35,7 +35,6 @@ struct MenuView: View {
 private var line: some View {
     VStack {
         Divider()
-            .frame(width: UIScreen.main.bounds.width  / 1.5, height: 1)
             .background(Color.orange)
     }
 }
