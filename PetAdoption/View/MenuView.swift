@@ -16,8 +16,9 @@ struct MenuView: View {
                     .padding(.leading, 10)
                     .font(.system(size: 34))
             }
+            line
 
-        }
+        }.padding(.leading, 20)
         .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
         .background(Color("offBlack"))
         .edgesIgnoringSafeArea(.all)
@@ -28,5 +29,13 @@ struct MenuView: View {
                 }
             }
         })
+    }
+}
+
+private var line: some View {
+    VStack {
+        Divider()
+            .frame(width: UIScreen.main.bounds.width  / 1.5, height: 1)
+            .background(Color.orange)
     }
 }
