@@ -26,7 +26,7 @@ struct MainScreen: View {
                     HStack {
                         Button(action: {
                             withAnimation {
-                                self.showMenu = true
+                                self.showMenu.toggle()
                             }
                         }) {
                             Image("settings").resizable()
@@ -41,7 +41,7 @@ struct MainScreen: View {
                             .foregroundColor(.black)
                             .animation(.default)
                         NavigationLink (destination: NewDogScreen(isBarHidden: $isBarHidden), isActive: $showNewDogScreen) {
-                            Image("dog").resizable()
+                            Image("dogy").resizable()
                                 .frame(width: 25, height: 25)
                                 .padding(.trailing, 10)
                                 .animation(.default)
@@ -59,6 +59,7 @@ struct MainScreen: View {
                             Card(imageCount: mainVM.dogsList[mainVM.count - 1].images.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, dogDesc: mainVM.dogsList[mainVM.count - 1].desc, scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM)
                         }
                     }.zIndex(2)
+                    .disabled(showMenu ? true : false)
                      .animation(.spring())
                     
                     Spacer()
@@ -69,6 +70,7 @@ struct MainScreen: View {
                             .background(ButtomBar())
                             .environment(\.layoutDirection, .leftToRight)
                     }.zIndex(1)
+                    .disabled(showMenu ? true : false)
                     .animation(.default)
                 }
                 .navigationBarTitle("")
@@ -77,7 +79,7 @@ struct MainScreen: View {
                 .background(Color.offWhite)
                 .edgesIgnoringSafeArea(.bottom)
                 .offset(x: self.showMenu ?UIScreen.main.bounds.width / 1.2 : 0)
-                .disabled(showMenu ? true : false)
+               
             }
             
             if showMenu {
@@ -85,7 +87,14 @@ struct MainScreen: View {
                     .transition(.move(edge: .leading))
                     .zIndex(3)
             }
-        } .environment(\.layoutDirection, .rightToLeft)
+        }.environment(\.layoutDirection, .rightToLeft)
+        .gesture(DragGesture().onEnded {
+            if $0.translation.width > -100 {
+                withAnimation {
+                    self.showMenu = false
+                }
+            }
+        })
 
         //                    .onAppear() {
         ////                        self.mainVM.getDogsFromDB()
