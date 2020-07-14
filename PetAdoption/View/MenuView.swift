@@ -9,6 +9,7 @@ struct MenuView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
+            
                 Text("הגדרות")
                     .foregroundColor(.white)
                     .padding(.top, 30)
@@ -28,15 +29,26 @@ struct MenuView: View {
             
             HStack (spacing: 40) {
                 Spacer()
+                VStack {
                 Image("dog").resizable()
                     .frame(width: 40, height: 40)
                     .foregroundColor(.white)
+                Text("כלבים").foregroundColor(.white)
+                }
+                
+                VStack {
                 Image("cat").resizable()
                     .frame(width: 40, height: 40)
                     .foregroundColor(.white)
+                    Text("חתולים").foregroundColor(.white)
+                }
+                
+                VStack {
                 Image("dogAndCat").resizable()
                     .frame(width: 60, height: 40)
                     .foregroundColor(.white)
+                    Text("הכל").foregroundColor(.white)
+                }
                 Spacer()
             }.padding(.leading, -30)
         }
