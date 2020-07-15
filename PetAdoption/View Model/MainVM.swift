@@ -42,10 +42,14 @@ class MainVM: ObservableObject {
         if dogsList.hasValueAt(index: count) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.count += 1
+                if self.frontImages.hasValueAt(index: 0) && self.backImages.hasValueAt(index: 0) {
                 if self.frontImages[0] != self.backImages[0] {
                     self.frontImages = self.backImages
                 } else {
                     self.frontImages = []
+                }
+                } else {
+                     self.frontImages = []
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
