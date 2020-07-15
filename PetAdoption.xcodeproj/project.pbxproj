@@ -115,7 +115,6 @@
 			children = (
 				ED84EC5524B0A79900E25B2F /* SavedDogsVM.swift */,
 				ED5A627F24770AF70081DF00 /* MainVM.swift */,
-				ED84EC5324B09F8000E25B2F /* LocalDB.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -125,6 +124,7 @@
 			children = (
 				EDDB49E0247708250068026C /* ImageLoader.swift */,
 				ED825A372478185C00ACA8E6 /* Dog.swift */,
+				ED84EC5324B09F8000E25B2F /* LocalDB.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
