@@ -7,7 +7,9 @@ enum SearchBy {
 }
 
 struct MenuView: View {
+    
     @Binding var showMenu: Bool
+    @State var SearchChoice = SearchBy.all
     
     init(showMenu: Binding<Bool>) {
         self._showMenu = showMenu
@@ -39,21 +41,24 @@ struct MenuView: View {
                 Image("dog").resizable()
                     .frame(width: 40, height: 40)
                     .foregroundColor(.white)
-                Text("כלבים").foregroundColor(.white)
+                    Text("כלבים")
+                        .foregroundColor(SearchChoice == .dog ? .orange : .white)
                 }
                 
                 VStack {
                 Image("cat").resizable()
                     .frame(width: 40, height: 40)
                     .foregroundColor(.white)
-                    Text("חתולים").foregroundColor(.white)
+                    Text("חתולים")
+                        .foregroundColor(SearchChoice == .cat ? .orange : .white)
                 }
                 
                 VStack {
                 Image("dogAndCat").resizable()
                     .frame(width: 60, height: 40)
                     .foregroundColor(.white)
-                    Text("הכל").foregroundColor(.white)
+                    Text("הכל")
+                       .foregroundColor(SearchChoice == .all ? .orange : .white)
                 }
                 Spacer()
             }.padding(.leading, -30)
