@@ -43,6 +43,9 @@ struct MenuView: View {
                     .foregroundColor(.white)
                     Text("כלבים")
                         .foregroundColor(SearchChoice == .dog ? .orange : .white)
+                     
+                }.onTapGesture {
+                    self.SearchChoice = .dog
                 }
                 
                 VStack {
@@ -51,6 +54,8 @@ struct MenuView: View {
                     .foregroundColor(.white)
                     Text("חתולים")
                         .foregroundColor(SearchChoice == .cat ? .orange : .white)
+                }.onTapGesture {
+                    self.SearchChoice = .cat
                 }
                 
                 VStack {
@@ -59,6 +64,8 @@ struct MenuView: View {
                     .foregroundColor(.white)
                     Text("הכל")
                        .foregroundColor(SearchChoice == .all ? .orange : .white)
+                }.onTapGesture {
+                    self.SearchChoice = .all
                 }
                 Spacer()
             }.padding(.leading, -30)
