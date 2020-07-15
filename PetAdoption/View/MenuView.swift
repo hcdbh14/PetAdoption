@@ -1,5 +1,11 @@
 import SwiftUI
 
+enum SearchBy {
+    case all
+    case dog
+    case cat
+}
+
 struct MenuView: View {
     @Binding var showMenu: Bool
     
