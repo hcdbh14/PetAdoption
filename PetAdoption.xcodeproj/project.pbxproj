@@ -11,6 +11,7 @@
 		ED44E24524A265F900B77D3D /* BarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED44E24424A265F900B77D3D /* BarButtons.swift */; };
 		ED49A37B2476DBEF00A87257 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49A37A2476DBEF00A87257 /* Card.swift */; };
 		ED5A628024770AF70081DF00 /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5A627F24770AF70081DF00 /* MainVM.swift */; };
+		ED781B1D24BF34380045F1DE /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED781B1C24BF34380045F1DE /* Settings.swift */; };
 		ED825A382478185C00ACA8E6 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED825A372478185C00ACA8E6 /* Dog.swift */; };
 		ED84EC5424B09F8000E25B2F /* LocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED84EC5324B09F8000E25B2F /* LocalDB.swift */; };
 		ED84EC5624B0A79900E25B2F /* SavedDogsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED84EC5524B0A79900E25B2F /* SavedDogsVM.swift */; };
@@ -41,6 +42,7 @@
 		ED44E24424A265F900B77D3D /* BarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtons.swift; sourceTree = "<group>"; };
 		ED49A37A2476DBEF00A87257 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		ED5A627F24770AF70081DF00 /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
+		ED781B1C24BF34380045F1DE /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		ED825A372478185C00ACA8E6 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		ED84EC5324B09F8000E25B2F /* LocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDB.swift; sourceTree = "<group>"; };
 		ED84EC5524B0A79900E25B2F /* SavedDogsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDogsVM.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				EDDB49E0247708250068026C /* ImageLoader.swift */,
 				ED825A372478185C00ACA8E6 /* Dog.swift */,
 				ED84EC5324B09F8000E25B2F /* LocalDB.swift */,
+				ED781B1C24BF34380045F1DE /* Settings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				ED44E24524A265F900B77D3D /* BarButtons.swift in Sources */,
 				EDD53A042483B856004EB14F /* URLSession.swift in Sources */,
 				EDF777D924684EB100154110 /* MainScreen.swift in Sources */,
+				ED781B1D24BF34380045F1DE /* Settings.swift in Sources */,
 				EDDB49E1247708250068026C /* ImageLoader.swift in Sources */,
 				ED49A37B2476DBEF00A87257 /* Card.swift in Sources */,
 			);

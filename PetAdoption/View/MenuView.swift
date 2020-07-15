@@ -1,15 +1,9 @@
 import SwiftUI
 
-enum SearchBy {
-    case all
-    case dog
-    case cat
-}
-
 struct MenuView: View {
     
     @Binding var showMenu: Bool
-    @State var SearchChoice = SearchBy.all
+    @ObservedObject var settings = Settings()
     
     init(showMenu: Binding<Bool>) {
         self._showMenu = showMenu
@@ -42,10 +36,10 @@ struct MenuView: View {
                     .frame(width: 40, height: 40)
                     .foregroundColor(.white)
                     Text("כלבים")
-                        .foregroundColor(SearchChoice == .dog ? .orange : .white)
+                        .foregroundColor(settings.searchBy == SearchBy.dog.rawValue ? .orange : .white)
                      
                 }.onTapGesture {
-                    self.SearchChoice = .dog
+                    self.settings.updateSettings(SearchBy.dog.rawValue)
                 }
                 
                 VStack {
@@ -53,9 +47,9 @@ struct MenuView: View {
                     .frame(width: 40, height: 40)
                     .foregroundColor(.white)
                     Text("חתולים")
-                        .foregroundColor(SearchChoice == .cat ? .orange : .white)
+                        .foregroundColor(settings.searchBy == SearchBy.cat.rawValue ? .orange : .white)
                 }.onTapGesture {
-                    self.SearchChoice = .cat
+                      self.settings.updateSettings(SearchBy.cat.rawValue)
                 }
                 
                 VStack {
@@ -63,9 +57,9 @@ struct MenuView: View {
                     .frame(width: 60, height: 40)
                     .foregroundColor(.white)
                     Text("הכל")
-                       .foregroundColor(SearchChoice == .all ? .orange : .white)
+                       .foregroundColor(settings.searchBy == SearchBy.all.rawValue ? .orange : .white)
                 }.onTapGesture {
-                    self.SearchChoice = .all
+                      self.settings.updateSettings(SearchBy.all.rawValue)
                 }
                 Spacer()
             }.padding(.leading, -30)
