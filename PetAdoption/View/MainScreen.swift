@@ -10,6 +10,7 @@ enum barItem {
 
 struct MainScreen: View {
     
+    @State var showPostPetScreen = false
     @State private var showMenu = false
     @State private var showNewDogScreen = false
     @State private var isBarHidden = false
@@ -83,12 +84,12 @@ struct MainScreen: View {
             }
             
             if showMenu {
-                MenuView(showMenu: $showMenu)
+                MenuView(showMenu: $showMenu, showPostPetScreen: $showPostPetScreen)
                     .transition(.move(edge: .leading))
                     .zIndex(3)
             }
         }.environment(\.layoutDirection, .rightToLeft)
-        .gesture(DragGesture().onEnded {
+            .gesture(showPostPetScreen ? nil : DragGesture().onEnded {
             if $0.translation.width > -100 {
                 withAnimation {
                     self.showMenu = false
