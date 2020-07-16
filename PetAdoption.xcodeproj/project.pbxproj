@@ -12,6 +12,7 @@
 		ED49A37B2476DBEF00A87257 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49A37A2476DBEF00A87257 /* Card.swift */; };
 		ED5A628024770AF70081DF00 /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5A627F24770AF70081DF00 /* MainVM.swift */; };
 		ED781B1D24BF34380045F1DE /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED781B1C24BF34380045F1DE /* Settings.swift */; };
+		ED781B2024C025080045F1DE /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED781B1F24C025080045F1DE /* CheckboxField.swift */; };
 		ED825A382478185C00ACA8E6 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED825A372478185C00ACA8E6 /* Dog.swift */; };
 		ED84EC5424B09F8000E25B2F /* LocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED84EC5324B09F8000E25B2F /* LocalDB.swift */; };
 		ED84EC5624B0A79900E25B2F /* SavedDogsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED84EC5524B0A79900E25B2F /* SavedDogsVM.swift */; };
@@ -43,6 +44,7 @@
 		ED49A37A2476DBEF00A87257 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		ED5A627F24770AF70081DF00 /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
 		ED781B1C24BF34380045F1DE /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		ED781B1F24C025080045F1DE /* CheckboxField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
 		ED825A372478185C00ACA8E6 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		ED84EC5324B09F8000E25B2F /* LocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDB.swift; sourceTree = "<group>"; };
 		ED84EC5524B0A79900E25B2F /* SavedDogsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDogsVM.swift; sourceTree = "<group>"; };
@@ -100,11 +102,10 @@
 		ED49A3752476DB6C00A87257 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				ED781B1E24C024E40045F1DE /* Minor Views */,
 				EDF777D824684EB100154110 /* MainScreen.swift */,
 				ED49A37A2476DBEF00A87257 /* Card.swift */,
 				EDF94DEC247E3C2E0094F5B6 /* BackCard.swift */,
-				ED8B167524994C7100AF7B33 /* CircleButtonStyle.swift */,
-				ED44E24424A265F900B77D3D /* BarButtons.swift */,
 				EDF4CB0D24A71FF900060F37 /* NewDogScreen.swift */,
 				ED84EC5724B0B26A00E25B2F /* SavedCard.swift */,
 				ED95BCEA24B7690000C88716 /* MenuView.swift */,
@@ -130,6 +131,16 @@
 				ED781B1C24BF34380045F1DE /* Settings.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		ED781B1E24C024E40045F1DE /* Minor Views */ = {
+			isa = PBXGroup;
+			children = (
+				ED8B167524994C7100AF7B33 /* CircleButtonStyle.swift */,
+				ED44E24424A265F900B77D3D /* BarButtons.swift */,
+				ED781B1F24C025080045F1DE /* CheckboxField.swift */,
+			);
+			path = "Minor Views";
 			sourceTree = "<group>";
 		};
 		EDD53A022483B805004EB14F /* Extensions */ = {
@@ -309,6 +320,7 @@
 				EDF777D524684EB100154110 /* AppDelegate.swift in Sources */,
 				EDD53A062483B88D004EB14F /* Array.swift in Sources */,
 				ED84EC5824B0B26A00E25B2F /* SavedCard.swift in Sources */,
+				ED781B2024C025080045F1DE /* CheckboxField.swift in Sources */,
 				ED95BCEB24B7690000C88716 /* MenuView.swift in Sources */,
 				ED8B167224994BB300AF7B33 /* Color.swift in Sources */,
 				ED84EC5424B09F8000E25B2F /* LocalDB.swift in Sources */,
