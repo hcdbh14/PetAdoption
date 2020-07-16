@@ -66,7 +66,7 @@ struct MenuView: View {
             
             Text("באיזה אזור לחפש?")
                 .foregroundColor(.white)
-                .padding(.top, 20)
+                .padding(.top, 30)
                 .padding(.leading, 15)
                 .font(.system(size: 24))
             line.frame(width: UIScreen.main.bounds.width  / 1.4, height: 1)
@@ -75,6 +75,7 @@ struct MenuView: View {
             HStack {
             CheckboxField(id: "hey", label: "צפון", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
                      CheckboxField(id: "hey", label: "מרכז", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
+                              CheckboxField(id: "hey", label: "דרום", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
             }
         }
         .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
