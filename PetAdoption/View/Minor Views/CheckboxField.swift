@@ -6,7 +6,7 @@ struct CheckboxField: View {
     let size: CGFloat
     let color: Color
     let textSize: Int
-    let callback: (Int, Bool)->()
+    let callback: (Int)->()
     let marked: Bool
     @State var isMarked: Bool = false
     
@@ -17,7 +17,7 @@ struct CheckboxField: View {
         color: Color = Color.orange,
         textSize: Int = 14,
         marked: Bool,
-        callback: @escaping (Int, Bool)->()
+        callback: @escaping (Int)->()
     ) {
         self.id = id
         self.label = label
@@ -33,7 +33,7 @@ struct CheckboxField: View {
         Button(action:{
             print(isMarked)
             self.isMarked.toggle()
-            self.callback(self.id, self.isMarked)
+            self.callback(self.id)
         }) {
             HStack(alignment: .center, spacing: 10) {
                 Image(systemName: self.isMarked ? "checkmark.square" : "square")

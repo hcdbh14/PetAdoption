@@ -4,6 +4,11 @@ struct MenuView: View {
     
     @Binding var showMenu: Bool
     @ObservedObject var settings = Settings()
+    private var line: some View {
+        VStack {
+            Divider().background(Color.orange)
+        }
+    }
     
     init(showMenu: Binding<Bool>) {
         self._showMenu = showMenu
@@ -105,16 +110,8 @@ struct MenuView: View {
         .edgesIgnoringSafeArea(.all)
     }
     
-    func checkboxSelected(id: Int, isMarked: Bool) {
+    func checkboxSelected(id: Int) {
             settings.updateArea(id)
-        print("\(id) is marked: \(isMarked)")
-    }
-    
-    private var line: some View {
-        VStack {
-            Divider()
-                .background(Color.orange)
-        }
     }
 }
 
