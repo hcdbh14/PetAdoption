@@ -12,71 +12,93 @@ struct MenuView: View {
     var body: some View {
         VStack(alignment: .leading) {
             
+            VStack {
                 Text("הגדרות")
                     .foregroundColor(.white)
                     .padding(.top, 30)
                     .padding(.leading, 15)
                     .font(.system(size: 34))
+                
+                line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
+            }
             
-            line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
-            
-            Text("איזה חיות להציג?")
-                .foregroundColor(.white)
-                .padding(.top, 20)
-                .padding(.leading, 15)
-                .font(.system(size: 24))
-            
-            line.frame(width: UIScreen.main.bounds.width  / 1.4, height: 1)
-                .padding(.leading, 15)
+            VStack {
+                Text("איזה חיות להציג?")
+                    .foregroundColor(.white)
+                    .padding(.top, 20)
+                    .padding(.leading, 15)
+                    .font(.system(size: 24))
+                
+                line.frame(width: UIScreen.main.bounds.width  / 1.4, height: 1)
+                    .padding(.leading, 15)
+            }
             
             HStack (spacing: 40) {
                 Spacer()
                 VStack {
-                Image("dog").resizable()
-                    .frame(width: 40, height: 40)
-                    .foregroundColor(.white)
+                    Image("dog").resizable()
+                        .frame(width: 40, height: 40)
+                        .foregroundColor(.white)
                     Text("כלבים")
                         .foregroundColor(settings.searchBy == SearchBy.dog.rawValue ? .orange : .white)
-                     
+                    
                 }.onTapGesture {
                     self.settings.updateSettings(SearchBy.dog.rawValue)
                 }
                 
                 VStack {
-                Image("cat").resizable()
-                    .frame(width: 40, height: 40)
-                    .foregroundColor(.white)
+                    Image("cat").resizable()
+                        .frame(width: 40, height: 40)
+                        .foregroundColor(.white)
                     Text("חתולים")
                         .foregroundColor(settings.searchBy == SearchBy.cat.rawValue ? .orange : .white)
                 }.onTapGesture {
-                      self.settings.updateSettings(SearchBy.cat.rawValue)
+                    self.settings.updateSettings(SearchBy.cat.rawValue)
                 }
                 
                 VStack {
-                Image("dogAndCat").resizable()
-                    .frame(width: 60, height: 40)
-                    .foregroundColor(.white)
+                    Image("dogAndCat").resizable()
+                        .frame(width: 60, height: 40)
+                        .foregroundColor(.white)
                     Text("הכל")
-                       .foregroundColor(settings.searchBy == SearchBy.all.rawValue ? .orange : .white)
+                        .foregroundColor(settings.searchBy == SearchBy.all.rawValue ? .orange : .white)
                 }.onTapGesture {
-                      self.settings.updateSettings(SearchBy.all.rawValue)
+                    self.settings.updateSettings(SearchBy.all.rawValue)
                 }
                 Spacer()
             }.padding(.leading, -30)
             
-            Text("באיזה אזור לחפש?")
-                .foregroundColor(.white)
-                .padding(.top, 30)
-                .padding(.leading, 15)
-                .font(.system(size: 24))
-            line.frame(width: UIScreen.main.bounds.width  / 1.4, height: 1)
-                .padding(.leading, 15)
+            VStack {
+                Text("באיזה אזור לחפש?")
+                    .foregroundColor(.white)
+                    .padding(.top, 30)
+                    .padding(.leading, 15)
+                    .font(.system(size: 24))
+                line.frame(width: UIScreen.main.bounds.width  / 1.4, height: 1)
+                    .padding(.leading, 15)
+            }
             
             HStack {
-            CheckboxField(id: "hey", label: "צפון", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
-                     CheckboxField(id: "hey", label: "מרכז", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
-                              CheckboxField(id: "hey", label: "דרום", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
+                CheckboxField(id: "hey", label: "צפון", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
+                CheckboxField(id: "hey", label: "מרכז", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
+                CheckboxField(id: "hey", label: "דרום", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
             }
+            VStack {
+                Text("באיזה גיל?")
+                    .foregroundColor(.white)
+                    .padding(.top, 30)
+                    .padding(.leading, 15)
+                    .font(.system(size: 24))
+                line.frame(width: UIScreen.main.bounds.width  / 1.4, height: 1)
+                    .padding(.leading, 15)
+            }
+            
+            HStack {
+                CheckboxField(id: "hey", label: "גור", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
+                CheckboxField(id: "hey", label: "צעיר", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
+                CheckboxField(id: "hey", label: "בוגר", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
+            }
+            
         }
         .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
         .background(Color("offBlack"))
@@ -91,9 +113,9 @@ private var line: some View {
     }
 }
 
-    func checkboxSelected(id: String, isMarked: Bool) {
-        print("\(id) is marked: \(isMarked)")
-    }
+func checkboxSelected(id: String, isMarked: Bool) {
+    print("\(id) is marked: \(isMarked)")
+}
 
 
 import SwiftUI
@@ -114,7 +136,7 @@ struct CheckboxField: View {
         color: Color = Color.orange,
         textSize: Int = 14,
         callback: @escaping (String, Bool)->()
-        ) {
+    ) {
         self.id = id
         self.label = label
         self.size = size
@@ -135,7 +157,7 @@ struct CheckboxField: View {
                     .resizable()
                     .foregroundColor(Color.orange)
                     .frame(width: self.size, height: self.size)
-                  
+                
                 Text(label)
                     .font(Font.system(size: size))
                 Spacer()
