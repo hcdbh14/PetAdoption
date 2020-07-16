@@ -31,7 +31,6 @@ struct CheckboxField: View {
     
     var body: some View {
         Button(action:{
-            print(isMarked)
             self.isMarked.toggle()
             self.callback(self.id)
         }) {
@@ -48,8 +47,8 @@ struct CheckboxField: View {
         }
         .foregroundColor(Color.white)
         .onAppear() {
-            if marked {
-                isMarked = true
+            if self.marked {
+                self.isMarked = true
             }
         }
     }
