@@ -12,7 +12,7 @@ struct MenuView: View {
     var body: some View {
         VStack(alignment: .leading) {
             
-            VStack {
+             VStack(alignment: .leading) {
                 Text("הגדרות")
                     .foregroundColor(.white)
                     .padding(.top, 30)
