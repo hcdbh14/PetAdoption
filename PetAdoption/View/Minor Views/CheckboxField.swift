@@ -7,13 +7,16 @@ struct CheckboxField: View {
     let color: Color
     let textSize: Int
     let callback: (Int, Bool)->()
+    let marked: Bool
+    @State var isMarked: Bool = false
     
     init(
         id: Int,
-        label:String,
+        label: String,
         size: CGFloat = 10,
         color: Color = Color.orange,
         textSize: Int = 14,
+        marked: Bool,
         callback: @escaping (Int, Bool)->()
     ) {
         self.id = id
@@ -22,12 +25,13 @@ struct CheckboxField: View {
         self.color = color
         self.textSize = textSize
         self.callback = callback
+        self.marked = marked
     }
     
-    @State var isMarked: Bool = false
     
     var body: some View {
         Button(action:{
+            print(isMarked)
             self.isMarked.toggle()
             self.callback(self.id, self.isMarked)
         }) {
@@ -43,5 +47,10 @@ struct CheckboxField: View {
             }.foregroundColor(self.color)
         }
         .foregroundColor(Color.white)
+        .onAppear() {
+            if marked {
+                isMarked = true
+            }
+        }
     }
 }
