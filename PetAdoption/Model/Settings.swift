@@ -6,9 +6,16 @@ enum SearchBy: Int {
     case cat = 2
 }
 
+enum AreaInIsrael: Int {
+    case north = 0
+    case centeral = 1
+    case south = 2
+}
+
 class Settings: ObservableObject {
     
     @Published var searchBy = UserDefaults.standard.integer(forKey: "searchBy")
+    @Published var areas = UserDefaults.standard.array(forKey: "areas")
     
     func updateSettings(_ choice: Int) {
         UserDefaults.standard.set(choice, forKey: "searchBy")

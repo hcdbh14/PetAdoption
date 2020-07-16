@@ -79,9 +79,9 @@ struct MenuView: View {
             }
             
             HStack {
-                CheckboxField(id: "hey", label: "צפון", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
-                CheckboxField(id: "hey", label: "מרכז", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
-                CheckboxField(id: "hey", label: "דרום", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
+                CheckboxField(id: 0, label: "צפון", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
+                CheckboxField(id: 1, label: "מרכז", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
+                CheckboxField(id: 2, label: "דרום", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
             }
             VStack(alignment: .leading) {
                 Text("איזה גיל?")
@@ -94,9 +94,9 @@ struct MenuView: View {
             }
             
             HStack {
-                CheckboxField(id: "hey", label: "גור", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
-                CheckboxField(id: "hey", label: "צעיר", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
-                CheckboxField(id: "hey", label: "בוגר", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
+                CheckboxField(id: 0, label: "גור", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
+                CheckboxField(id: 1, label: "צעיר", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
+                CheckboxField(id: 2, label: "בוגר", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
             }
             
         }
@@ -105,7 +105,8 @@ struct MenuView: View {
         .edgesIgnoringSafeArea(.all)
     }
     
-    func checkboxSelected(id: String, isMarked: Bool) {
+    func checkboxSelected(id: Int, isMarked: Bool) {
+        
         print("\(id) is marked: \(isMarked)")
     }
     

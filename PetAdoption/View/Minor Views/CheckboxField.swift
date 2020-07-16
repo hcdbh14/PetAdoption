@@ -1,20 +1,20 @@
 import SwiftUI
 
 struct CheckboxField: View {
-    let id: String
+    let id: Int
     let label: String
     let size: CGFloat
     let color: Color
     let textSize: Int
-    let callback: (String, Bool)->()
+    let callback: (Int, Bool)->()
     
     init(
-        id: String,
+        id: Int,
         label:String,
         size: CGFloat = 10,
         color: Color = Color.orange,
         textSize: Int = 14,
-        callback: @escaping (String, Bool)->()
+        callback: @escaping (Int, Bool)->()
     ) {
         self.id = id
         self.label = label
