@@ -106,7 +106,7 @@ struct MenuView: View {
     }
     
     func checkboxSelected(id: Int, isMarked: Bool) {
-        
+            settings.updateArea(id)
         print("\(id) is marked: \(isMarked)")
     }
     
