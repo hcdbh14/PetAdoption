@@ -22,7 +22,7 @@ struct MenuView: View {
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
             }
             
-            VStack {
+            VStack(alignment: .leading) {
                 Text("איזה חיות להציג?")
                     .foregroundColor(.white)
                     .padding(.top, 20)
@@ -46,7 +46,7 @@ struct MenuView: View {
                     self.settings.updateSettings(SearchBy.dog.rawValue)
                 }
                 
-                VStack {
+                VStack(alignment: .leading) {
                     Image("cat").resizable()
                         .frame(width: 40, height: 40)
                         .foregroundColor(.white)
@@ -56,7 +56,7 @@ struct MenuView: View {
                     self.settings.updateSettings(SearchBy.cat.rawValue)
                 }
                 
-                VStack {
+                VStack(alignment: .leading) {
                     Image("dogAndCat").resizable()
                         .frame(width: 60, height: 40)
                         .foregroundColor(.white)
@@ -68,7 +68,7 @@ struct MenuView: View {
                 Spacer()
             }.padding(.leading, -30)
             
-            VStack {
+            VStack(alignment: .leading) {
                 Text("באיזה אזור לחפש?")
                     .foregroundColor(.white)
                     .padding(.top, 30)
@@ -83,8 +83,8 @@ struct MenuView: View {
                 CheckboxField(id: "hey", label: "מרכז", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
                 CheckboxField(id: "hey", label: "דרום", size: 20, color: .white, textSize: 20, callback: checkboxSelected)
             }
-            VStack {
-                Text("באיזה גיל?")
+            VStack(alignment: .leading) {
+                Text("איזה גיל?")
                     .foregroundColor(.white)
                     .padding(.top, 30)
                     .padding(.leading, 15)
