@@ -156,7 +156,7 @@ struct MenuView: View {
                 }
             }
             .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: .infinity, alignment: .topLeading)
-            .background(Color.yellow)
+            .background(Color("offWhite"))
             .edgesIgnoringSafeArea(.all)
             .offset(x: 0, y: self.showPostPetScreen ? 0 : UIScreen.main.bounds.height)
         }
