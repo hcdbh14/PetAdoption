@@ -141,19 +141,7 @@ struct MenuView: View {
             .edgesIgnoringSafeArea(.all)
             
             ZStack {
-                HStack {
-               
-                    VStack {
-                      Spacer()
-                        Button(action: {
-                            withAnimation {
-                                self.showPostPetScreen.toggle()
-                            }
-                        }, label:  { Text("dismiss")})
-                       Spacer()
-                    }
-                   
-                }
+                LoginScreen(showPostPetScreen: $showPostPetScreen)
             }
             .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: .infinity, alignment: .topLeading)
             .background(Color("offWhite"))
