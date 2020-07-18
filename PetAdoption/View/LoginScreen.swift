@@ -15,15 +15,18 @@ struct LoginScreen: View {
     var body: some View {
         Group {
             VStack(alignment: .center) {
-            Spacer()
+                Spacer()
                 Button(action: closeLoginScreen) {
                     Text("close")
                 }
-            if (session.session != nil) {
-               PostNewDog()
-            } else {
-               SignInView()
-            }
+                if (session.session != nil) {
+                    PostNewDog()
+                    Button(action: signOut) {
+                        Text("log out")
+                    }
+                } else {
+                    SignInView()
+                }
                 Spacer()
             }
         }.onAppear(perform: getUser)
@@ -44,9 +47,13 @@ struct LoginScreen: View {
     }
     
     func closeLoginScreen() {
-         withAnimation {
-        showPostPetScreen = false
+        withAnimation {
+            showPostPetScreen = false
         }
+    }
+    
+    func signOut() {
+        session.signOut()
     }
 }
 
@@ -143,11 +150,11 @@ struct SignUpView: View {
         VStack {
             Text("Create Account")
                 .font(.system(size: 32, weight: .heavy))
-                TextField("Email address", text: $email)
-                    .background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color("offBlack"), lineWidth: 1))
-                
-                SecureField("Password", text: $password)
-                    .background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color("offBlack"), lineWidth: 1))
+            TextField("Email address", text: $email)
+                .background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color("offBlack"), lineWidth: 1))
+            
+            SecureField("Password", text: $password)
+                .background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color("offBlack"), lineWidth: 1))
             
             Button(action: signUp) {
                 Text("Sign up")
@@ -156,9 +163,9 @@ struct SignUpView: View {
                     .foregroundColor(Color.black)
                 
             }
-            }
         }
     }
+}
 
 
 
