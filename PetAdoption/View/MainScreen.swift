@@ -41,7 +41,7 @@ struct MainScreen: View {
                         Text(self.mainVM.localDB.savedDogsCount)
                             .foregroundColor(.black)
                             .animation(.default)
-                        NavigationLink (destination: NewDogScreen(isBarHidden: $isBarHidden), isActive: $showNewDogScreen) {
+                        NavigationLink (destination: SavedDogsScreen(isBarHidden: $isBarHidden), isActive: $showNewDogScreen) {
                             Image("dogy").resizable()
                                 .frame(width: 25, height: 25)
                                 .padding(.trailing, 10)

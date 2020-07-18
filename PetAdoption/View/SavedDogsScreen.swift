@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct NewDogScreen: View {
+struct SavedDogsScreen: View {
     @State var localDB = LocalDB()
     @Binding var isBarHidden: Bool
     
