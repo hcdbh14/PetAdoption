@@ -140,6 +140,7 @@ struct SignUpView: View {
             if let error = error {
                 self.error = error.localizedDescription
             } else {
+                self.session.verifyEmail()
                 self.email = ""
                 self.password = ""
             }

@@ -40,6 +40,14 @@ class SessionStore: ObservableObject {
     }
     
     
+    func verifyEmail() {
+        Auth.auth().currentUser?.sendEmailVerification { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     func unbind() {
         if let handle = handle {
             Auth.auth().removeStateDidChangeListener(handle)
