@@ -94,10 +94,21 @@ struct SignInView: View {
                     Image(systemName: "envelope.fill")
                         .foregroundColor(.gray)
                     TextField("Email", text: $email)
-                }.modifier(TextFieldModifier())
+                }.frame(height: 15)
+                .modifier(TextFieldModifier())
+                .padding(10)
                 
-                SecureField("Password", text: $password)
-                    .background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color("offBlack"), lineWidth: 1))
+                
+                HStack(spacing: 15) {
+                    Image(systemName: "lock.fill")
+                        .foregroundColor(.gray)
+                    SecureField("Password", text: $password)
+                }.frame(height: 15)
+                .modifier(TextFieldModifier())
+                .padding(10)
+                
+                
+            
             }
             Button(action: signIn) {
                 Text("Sign in")
@@ -198,12 +209,15 @@ struct VerifyEmailView: View {
 struct TextFieldModifier: ViewModifier {
     func body(content: Content) -> some View {
         
-        content.background(Color("offLightWhite"))
+        content.padding(20)
+            .background(Color("offLightWhite"))
             .cornerRadius(15)
             .overlay(
                 RoundedRectangle(cornerRadius: 15)
                     .stroke(Color.black.opacity(0.05), lineWidth: 4)
                     .shadow(color: Color.black.opacity(0.2), radius: 6, x: 5, y: 5)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .shadow(color: Color.black.opacity(0.2), radius: 6, x: -5, y: -5)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
             )
     }
