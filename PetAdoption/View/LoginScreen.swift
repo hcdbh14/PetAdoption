@@ -86,9 +86,6 @@ struct SignInView: View {
     }
     var body: some View {
         VStack {
-            Text("Welcome back!")
-            Text("Sign in to continue")
-            
             VStack {
                 HStack(spacing: 15) {
                     Image(systemName: "envelope.fill")
@@ -96,7 +93,7 @@ struct SignInView: View {
                     TextField("Email", text: $email)
                 }.frame(height: 15)
                 .modifier(TextFieldModifier())
-                .padding(10)
+                .padding(15)
                 
                 
                 HStack(spacing: 15) {
@@ -105,18 +102,21 @@ struct SignInView: View {
                     SecureField("Password", text: $password)
                 }.frame(height: 15)
                 .modifier(TextFieldModifier())
-                .padding(10)
+                .padding(15)
                 
                 
             
             }
             Button(action: signIn) {
-                Text("Sign in")
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .frame(height: 50)
-                    .foregroundColor(Color.black)
+                Text("Login")
+                    .foregroundColor(Color.black.opacity(0.7))
+                    .padding(.vertical)
+                    .frame(width: UIScreen.main.bounds.width - 150)
                 
-            }
+            }.buttonStyle(ButtonModifier())
+            
+            Text("(OR)")
+                .foregroundColor(.gray)
             
             Button(action: toggleSignUp) {
                 Text("Sign Up")
@@ -206,6 +206,8 @@ struct VerifyEmailView: View {
     }
 }
 
+
+
 struct TextFieldModifier: ViewModifier {
     func body(content: Content) -> some View {
         
@@ -220,5 +222,29 @@ struct TextFieldModifier: ViewModifier {
                     .shadow(color: Color.black.opacity(0.2), radius: 6, x: -5, y: -5)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
             )
+    }
+}
+
+
+struct ButtonModifier: ButtonStyle {
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .background(Color("offLightWhite"))
+            .cornerRadius(15)
+            .overlay(
+                VStack {
+                    if configuration.isPressed {
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color.black.opacity(0.05), lineWidth: 4)
+                            .shadow(color: Color.black.opacity(0.2), radius: 3, x: 5, y: 5)
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                            .shadow(color: Color.black.opacity(0.2), radius: 3, x: -5, y: -5)
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                    }
+                }
+            )
+            .shadow(color: Color.black.opacity(configuration.isPressed ? 0 : 0.2), radius: 5, x: 5, y: 5)
+            .shadow(color: Color.white.opacity(configuration.isPressed ? 0 : 0.7), radius: 5, x: 5, y: 5)
     }
 }
