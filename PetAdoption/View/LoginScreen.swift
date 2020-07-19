@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LoginScreen: View {
     
+    @State var isEmailVerified = false
     @Binding var showPostPetScreen: Bool
     @EnvironmentObject var session: SessionStore
     func getUser() {
@@ -19,13 +20,15 @@ struct LoginScreen: View {
                 Button(action: closeLoginScreen) {
                     Text("close")
                 }
-                if (session.session != nil) {
+                if (session.session != nil && isEmailVerified) {
                     PostNewDog()
                     Button(action: signOut) {
                         Text("log out")
                     }
+                } else if (session.session != nil && isEmailVerified == false) {
+                    VerifyEmailView()
                 } else {
-                    SignInView()
+                    SignInView(isEmailVerified: $isEmailVerified)
                 }
                 Spacer()
             }
@@ -60,11 +63,17 @@ struct LoginScreen: View {
 
 struct SignInView: View {
     
+    
     @State var email: String = ""
     @State var password: String = ""
     @State var error: String = ""
     @State var showSignUpScreen = false
+    @Binding var isEmailVerified: Bool
     @EnvironmentObject var session : SessionStore
+    
+    init(isEmailVerified: Binding<Bool>) {
+        self._isEmailVerified = isEmailVerified
+    }
     
     func signIn() {
         session.signIn(email: email, password: password) { (result, error) in
@@ -73,12 +82,8 @@ struct SignInView: View {
             } else {
                 self.email = ""
                 self.password = ""
-                let isEmailVerified = result?.user.isEmailVerified ?? false
-                if isEmailVerified == false {
-                    print("email not verified")
-                }
+                isEmailVerified = result?.user.isEmailVerified ?? false
             }
-            
         }
     }
     
@@ -174,11 +179,22 @@ struct SignUpView: View {
 
 
 
-struct AuthView: View {
+struct VerifyEmailView: View {
+    
+    @EnvironmentObject var session: SessionStore
+    
     var body: some View {
+        
         VStack {
-            SignInView()
+        Text("weve send a conformation mail")
+            Button(action: signOut) {
+                Text("log out")
+            }
+        
         }
     }
     
+    func signOut() {
+        session.signOut()
+    }
 }
