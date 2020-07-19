@@ -73,6 +73,10 @@ struct SignInView: View {
             } else {
                 self.email = ""
                 self.password = ""
+                let isEmailVerified = result?.user.isEmailVerified ?? false
+                if isEmailVerified == false {
+                    print("email not verified")
+                }
             }
             
         }
