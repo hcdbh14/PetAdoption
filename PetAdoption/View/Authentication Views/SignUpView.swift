@@ -37,6 +37,7 @@ struct SignUpView: View {
                 
                 Text("הרשמה")
                     .font(.system(size: 36, weight: .heavy))
+                    .foregroundColor(Color("lightPurple"))
                     .padding(.leading, 25)
                     .padding(.trailing, 100)
                 

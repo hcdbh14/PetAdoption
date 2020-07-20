@@ -19,15 +19,20 @@ struct LoginScreen: View {
     var body: some View {
         Group {
             VStack(alignment: .leading) {
-                
                 HStack {
                     Button(action: closeLoginScreen) {
-                        Text("חזור")
-                            .padding(25)
+                        HStack {
+                            Image(systemName: "chevron.right")
+                            Text("חזור")
+                        }
                     }
+                    .foregroundColor(Color("lightPurple"))
+                    .padding(.top, 35)
+                    .padding(.leading, 25)
+                    .padding(.bottom, 20)
                     Spacer()
-                }.padding(.bottom, 20)
-          
+                }
+                
                 if (session.session != nil && isEmailVerified) {
                     PostNewDog(showSignUpScreen: $isEmailVerified)
                     
@@ -39,7 +44,7 @@ struct LoginScreen: View {
                 Spacer()
             }
         }.onAppear(perform: getUser)
-    
+        
         
         //        HStack {
         //
