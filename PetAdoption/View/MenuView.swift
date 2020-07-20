@@ -141,16 +141,6 @@ struct MenuView: View {
             .background(Color("offBlack"))
             .edgesIgnoringSafeArea(.all)
             
-            ZStack {
-                LoginScreen(showPostPetScreen: $showPostPetScreen)
-            }
-            .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: .infinity, alignment: .topLeading)
-            .background(Color("offLightWhite"))
-            .edgesIgnoringSafeArea(.all)
-            .offset(x: 0, y: self.showPostPetScreen ? 0 : UIScreen.main.bounds.height)
-            .onTapGesture {
-                UIApplication.shared.endEditing()
-            }
         }.animation(Animation.spring())
         .background(Color("offWhite"))
         .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)

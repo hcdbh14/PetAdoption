@@ -97,6 +97,18 @@ struct MainScreen: View {
                     .transition(.move(edge: .leading))
                     .zIndex(3)
             }
+            
+            ZStack {
+                LoginScreen(showPostPetScreen: $showPostPetScreen)
+            }
+            .zIndex(4)
+            .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: .infinity, alignment: .topLeading)
+            .background(Color("offLightWhite"))
+            .edgesIgnoringSafeArea(.all)
+            .offset(x: 0, y: self.showPostPetScreen ? 0 : UIScreen.main.bounds.height)
+            .onTapGesture {
+                UIApplication.shared.endEditing()
+            }
         }.environment(\.layoutDirection, .rightToLeft)
         .gesture(showPostPetScreen ? nil : DragGesture().onEnded {
             if $0.translation.width > -100 {
