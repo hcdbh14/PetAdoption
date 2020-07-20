@@ -33,11 +33,25 @@ struct SignUpView: View {
     
     var body: some View {
         VStack(spacing: 8) {
+            HStack {
+                
+                Text("הרשמה")
+                    .font(.system(size: 36, weight: .heavy))
+                    .padding(.leading, 25)
+                    .padding(.trailing, 100)
+                
+                Text("כבר רשום?")
+                Text("כניסה")
+                    .bold()
+                    .underline()
+                Spacer()
+            }
+
             
             HStack(spacing: 15) {
                 Image(systemName: "person.fill")
                     .foregroundColor(.gray)
-                TextField("Name", text: $fullName)
+                TextField("שם מלא", text: $fullName)
             }.frame(height: 15)
             .modifier(TextFieldModifier())
             .padding(15)
@@ -45,7 +59,7 @@ struct SignUpView: View {
             HStack(spacing: 15) {
                 Image(systemName: "envelope.fill")
                     .foregroundColor(.gray)
-                TextField("Email", text: $email)
+                TextField("אימייל", text: $email)
             }.frame(height: 15)
             .modifier(TextFieldModifier())
             .padding(15)
@@ -54,7 +68,7 @@ struct SignUpView: View {
             HStack(spacing: 15) {
                 Image(systemName: "lock.fill")
                     .foregroundColor(.gray)
-                SecureField("Password", text: $password)
+                SecureField("סיסמה", text: $password)
             }.frame(height: 15)
             .modifier(TextFieldModifier())
             .padding(15)

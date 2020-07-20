@@ -18,11 +18,16 @@ struct LoginScreen: View {
     
     var body: some View {
         Group {
-            VStack(alignment: .center) {
-                Spacer()
-                Button(action: closeLoginScreen) {
-                    Text("close")
-                }
+            VStack(alignment: .leading) {
+                
+                HStack {
+                    Button(action: closeLoginScreen) {
+                        Text("חזור")
+                            .padding(25)
+                    }
+                    Spacer()
+                }.padding(.bottom, 20)
+          
                 if (session.session != nil && isEmailVerified) {
                     PostNewDog(showSignUpScreen: $isEmailVerified)
                     
