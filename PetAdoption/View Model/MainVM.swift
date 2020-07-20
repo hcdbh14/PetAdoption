@@ -28,7 +28,7 @@ class MainVM: ObservableObject {
     @Published var userDecided = PassthroughSubject<Decision, Never>()
     @Published var decision: Decision = Decision.notDecided { didSet {
         userDecided.send(decision)
-        }
+    }
     }
     
     init() {
@@ -38,29 +38,28 @@ class MainVM: ObservableObject {
     
     
     func pushNewImage() {
-        
-        if dogsList.hasValueAt(index: count) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                self.count += 1
-                if self.frontImages.hasValueAt(index: 0) && self.backImages.hasValueAt(index: 0) {
-                if self.frontImages[0] != self.backImages[0] {
-                    self.frontImages = self.backImages
-                } else {
-                    self.frontImages = []
+        withAnimation(.none) {
+            if dogsList.hasValueAt(index: count) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    self.count += 1
+                    if self.frontImages.hasValueAt(index: 0) && self.backImages.hasValueAt(index: 0) {
+                        if self.frontImages[0] != self.backImages[0] {
+                            self.frontImages = self.backImages
+                        } else {
+                            self.frontImages = []
+                        }
+                    } else {
+                        self.frontImages = []
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                        self.backImageLoaded = false
+                    }
+                    self.loadImages()
                 }
-                } else {
-                     self.frontImages = []
-                }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                    self.backImageLoaded = false
-                }
-                self.loadImages()
+            } else {
+                frontImages = []
+                backImages = []
             }
-            
-        } else {
-            frontImages = []
-            backImages = []
         }
     }
     
