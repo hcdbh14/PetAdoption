@@ -74,7 +74,7 @@ struct MainScreen: View {
                     }.zIndex(1)
                     .background(Color.offWhite)
                     .disabled(showMenu ? true : false)
-                    .animation(.linear)
+                    .animation(.easeOut)
                 }
                 .navigationBarTitle("")
                 .navigationBarHidden(isBarHidden ? false : true)
@@ -89,7 +89,6 @@ struct MainScreen: View {
             
             if showMenu {
                 MenuView(showMenu: $showMenu, showPostPetScreen: $showPostPetScreen)
-                    .animation(.linear)
                     .transition(.move(edge: .leading))
                     .zIndex(3)
             }

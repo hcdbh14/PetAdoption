@@ -374,7 +374,7 @@ struct Card: View {
             if inAnimation {
                 return Animation.interactiveSpring().speed(speed)
             } else if showMenu {
-                return .spring()
+                return .easeOut
             } else if scaleAnimation {
                 return Animation.linear(duration: 0)
             }

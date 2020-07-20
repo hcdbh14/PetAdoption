@@ -151,6 +151,8 @@ struct MenuView: View {
                 UIApplication.shared.endEditing()
             }
         }.animation(.easeOut)
+        .background(Color("offWhite"))
+         .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
     }
     
     func checkboxSelected(id: Int) {
