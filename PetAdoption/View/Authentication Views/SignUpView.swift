@@ -87,10 +87,11 @@ struct SignUpView: View {
             .padding(15)
             
             Button(action: signUp) {
-                Text("Sign up")
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .frame(height: 50)
-                    .foregroundColor(Color.black)
+                Text("המשך")
+                    .frame(width: UIScreen.main.bounds.width - 100, height: 50)
+                    .foregroundColor(.white)
+                    .background(LinearGradient(Color("lightPink"), Color("lightPurple")))
+                    .cornerRadius(30)
             }
         }
     }
