@@ -161,6 +161,7 @@ struct SignUpView: View {
             if let error = error {
                 self.error = error.localizedDescription
             } else {
+                session.saveUserData(email: self.email, name: "test")
                 self.session.verifyEmail()
                 self.email = ""
                 self.password = ""
