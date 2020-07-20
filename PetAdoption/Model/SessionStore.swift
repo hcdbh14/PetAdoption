@@ -31,9 +31,9 @@ class SessionStore: ObservableObject {
         Auth.auth().signIn(withEmail: email, password: password, completion: handler)
     }
     
-    func saveUserData(email: String, name: String) {
+    func saveUserData(email: String, fullName: String) {
         
-        db.collection("Users_Data").document("FcGH2Jl2nOQZOr6O7vf1").setData([email: email ,name: name])
+        db.collection("Users_Data").document("FcGH2Jl2nOQZOr6O7vf1").setData([email: email ,fullName: fullName])
     }
     
     
