@@ -145,10 +145,10 @@ struct SignInView: View {
 
 
 struct SignUpView: View {
-    
+    @State var name: String = ""
+    @State var error: String = ""
     @State var email: String = ""
     @State var password: String = ""
-    @State var error: String = ""
     @Binding var showSignUpScreen: Bool
     @EnvironmentObject var session: SessionStore
     
@@ -161,8 +161,9 @@ struct SignUpView: View {
             if let error = error {
                 self.error = error.localizedDescription
             } else {
-                session.saveUserData(email: self.email, name: "test")
+                session.saveUserData(email: self.email, name: self.name)
                 self.session.verifyEmail()
+                self.name = ""
                 self.email = ""
                 self.password = ""
             }
@@ -170,20 +171,38 @@ struct SignUpView: View {
     }
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 8) {
             
-            TextField("Email address", text: $email)
-                .background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color("offBlack"), lineWidth: 1))
+            HStack(spacing: 15) {
+                Image(systemName: "person.fill")
+                    .foregroundColor(.gray)
+                TextField("Name", text: $name)
+            }.frame(height: 15)
+            .modifier(TextFieldModifier())
+            .padding(15)
             
-            SecureField("Password", text: $password)
-                .background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color("offBlack"), lineWidth: 1))
+            HStack(spacing: 15) {
+                Image(systemName: "envelope.fill")
+                    .foregroundColor(.gray)
+                TextField("Email", text: $email)
+            }.frame(height: 15)
+            .modifier(TextFieldModifier())
+            .padding(15)
+            
+            
+            HStack(spacing: 15) {
+                Image(systemName: "lock.fill")
+                    .foregroundColor(.gray)
+                SecureField("Password", text: $password)
+            }.frame(height: 15)
+            .modifier(TextFieldModifier())
+            .padding(15)
             
             Button(action: signUp) {
                 Text("Sign up")
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .frame(height: 50)
                     .foregroundColor(Color.black)
-                
             }
         }
     }
