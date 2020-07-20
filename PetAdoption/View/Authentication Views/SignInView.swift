@@ -26,7 +26,7 @@ struct SignInView: View {
             } else {
                 self.email = ""
                 self.password = ""
-                isEmailVerified = result?.user.isEmailVerified ?? false
+                self.isEmailVerified = result?.user.isEmailVerified ?? false
             }
         }
     }
