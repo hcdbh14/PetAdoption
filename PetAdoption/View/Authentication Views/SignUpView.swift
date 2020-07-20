@@ -17,6 +17,11 @@ struct SignUpView: View {
         self._showRegistration = showRegistration
     }
     
+    func moveToLogin() {
+        showLogin = true
+        showRegistration = false
+    }
+    
     func signUp() {
         session.signUp(email: email, password: password) { (result, error) in
             if let error = error {
@@ -39,15 +44,19 @@ struct SignUpView: View {
                     .font(.system(size: 36, weight: .heavy))
                     .foregroundColor(Color("lightPurple"))
                     .padding(.leading, 25)
-                    .padding(.trailing, 100)
-                
-                Text("כבר רשום?")
-                Text("כניסה")
-                    .bold()
-                    .underline()
                 Spacer()
+                
+                HStack {
+                    Button(action: moveToLogin) {
+                        Text("כבר רשום?")
+                        Text("כניסה")
+                            .bold()
+                            .underline()
+                    }
+                }.foregroundColor(Color("lightPurple"))
+                .padding(.trailing, 25)
             }
-
+            
             
             HStack(spacing: 15) {
                 Image(systemName: "person.fill")
