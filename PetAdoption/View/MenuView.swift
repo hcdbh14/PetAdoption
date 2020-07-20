@@ -147,6 +147,9 @@ struct MenuView: View {
             .background(Color("offLightWhite"))
             .edgesIgnoringSafeArea(.all)
             .offset(x: 0, y: self.showPostPetScreen ? 0 : UIScreen.main.bounds.height)
+            .onTapGesture {
+                UIApplication.shared.endEditing()
+            }
         }
     }
     

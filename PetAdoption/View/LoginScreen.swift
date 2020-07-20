@@ -31,6 +31,7 @@ struct LoginScreen: View {
                 Spacer()
             }
         }.onAppear(perform: getUser)
+    
         
         //        HStack {
         //
@@ -48,6 +49,9 @@ struct LoginScreen: View {
     }
     
     func closeLoginScreen() {
+        
+        UIApplication.shared.endEditing()
+        
         withAnimation {
             showPostPetScreen = false
         }
@@ -105,7 +109,7 @@ struct SignInView: View {
                 .padding(15)
                 
                 
-            
+                
             }
             Button(action: signIn) {
                 Text("Login")
@@ -121,7 +125,7 @@ struct SignInView: View {
             Button(action: toggleSignUp) {
                 Text("Sign Up")
                     .frame(minWidth: 0, maxWidth: .infinity)
-                    .frame(height: 50)
+                    .frame(height: 50) 
                     .foregroundColor(Color.black)
             }
             
@@ -166,7 +170,7 @@ struct SignUpView: View {
     
     var body: some View {
         VStack(spacing: 15) {
-
+            
             TextField("Email address", text: $email)
                 .background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color("offBlack"), lineWidth: 1))
             
