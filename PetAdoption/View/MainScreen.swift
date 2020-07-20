@@ -27,7 +27,7 @@ struct MainScreen: View {
                 VStack {
                     HStack {
                         Button(action: {
-                            if menuDeinit {
+                            if self.menuDeinit {
                                 withAnimation {
                                     self.menuDeinit = false
                                     self.showMenu.toggle()
