@@ -2,6 +2,9 @@ import SwiftUI
 
 struct SignInView: View {
     
+    @Binding var showLogin: Bool
+    @Binding var showRegistration: Bool
+    
     @State var email: String = ""
     @State var password: String = ""
     @State var error: String = ""
@@ -9,7 +12,10 @@ struct SignInView: View {
     @Binding var isEmailVerified: Bool
     @EnvironmentObject var session : SessionStore
     
-    init(isEmailVerified: Binding<Bool>) {
+    init(isEmailVerified: Binding<Bool>, showLogin: Binding<Bool>, showRegistration: Binding<Bool>) {
+        
+        self._showLogin = showLogin
+        self._showRegistration = showRegistration
         self._isEmailVerified = isEmailVerified
     }
     
@@ -70,7 +76,7 @@ struct SignInView: View {
             }
             
             if showSignUpScreen {
-                SignUpView(showSignUpScreen: $showSignUpScreen)
+                SignUpView(showLogin: $showLogin, showRegistration: $showRegistration)
             }
             
             if (error != "") {

@@ -2,15 +2,19 @@ import SwiftUI
 
 struct SignUpView: View {
     
+    @Binding var showLogin: Bool
+    @Binding var showRegistration: Bool
+    
     @State var error: String = ""
     @State var email: String = ""
     @State var password: String = ""
     @State var fullName: String = ""
-    @Binding var showSignUpScreen: Bool
     @EnvironmentObject var session: SessionStore
     
-    init(showSignUpScreen: Binding<Bool>) {
-        self._showSignUpScreen = showSignUpScreen
+    init(showLogin: Binding<Bool>, showRegistration: Binding<Bool>) {
+        
+        self._showLogin = showLogin
+        self._showRegistration = showRegistration
     }
     
     func signUp() {

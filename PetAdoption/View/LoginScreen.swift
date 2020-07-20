@@ -2,6 +2,9 @@ import SwiftUI
 
 struct LoginScreen: View {
     
+    @State var showLogin = false
+    @State var showRegistration = false
+    
     @State var isEmailVerified = false
     @Binding var showPostPetScreen: Bool
     @EnvironmentObject var session: SessionStore
@@ -26,7 +29,7 @@ struct LoginScreen: View {
                 } else if (session.session != nil && isEmailVerified == false) {
                     VerifyEmailView()
                 } else {
-                    SignInView(isEmailVerified: $isEmailVerified)
+                    SignUpView(showLogin: $showLogin, showRegistration: $showRegistration)
                 }
                 Spacer()
             }
