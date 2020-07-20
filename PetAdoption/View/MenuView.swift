@@ -150,7 +150,7 @@ struct MenuView: View {
             .onTapGesture {
                 UIApplication.shared.endEditing()
             }
-        }
+        }.animation(.easeOut)
     }
     
     func checkboxSelected(id: Int) {

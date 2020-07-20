@@ -33,7 +33,7 @@ struct MainScreen: View {
                             Image("settings").resizable()
                                 .frame(width: 25, height: 25)
                                 .padding(.leading, 10).foregroundColor(.gray)
-                                .animation(.default)
+                                .animation(.easeOut)
                         }
                         
                         
@@ -45,7 +45,7 @@ struct MainScreen: View {
                             Image("dogy").resizable()
                                 .frame(width: 25, height: 25)
                                 .padding(.trailing, 10)
-                                .animation(.default)
+                                .animation(.easeOut)
                         }
                     }.padding(.top, 50)
                     Spacer()
@@ -60,6 +60,7 @@ struct MainScreen: View {
                             Card(imageCount: mainVM.dogsList[mainVM.count - 1].images.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, dogDesc: mainVM.dogsList[mainVM.count - 1].desc, scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM)
                         }
                     }.zIndex(2)
+                    .background(Color.offWhite)
                     .disabled(showMenu ? true : false)
                      .animation(.spring())
                     
@@ -71,20 +72,24 @@ struct MainScreen: View {
                             .background(ButtomBar())
                             .environment(\.layoutDirection, .leftToRight)
                     }.zIndex(1)
+                    .background(Color.offWhite)
                     .disabled(showMenu ? true : false)
-                    .animation(.default)
+                    .animation(.linear)
                 }
                 .navigationBarTitle("")
                 .navigationBarHidden(isBarHidden ? false : true)
+                .animation(.easeOut)
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20)
                 .background(Color.offWhite)
                 .edgesIgnoringSafeArea(.bottom)
                 .offset(x: self.showMenu ?UIScreen.main.bounds.width / 1.2 : 0)
                
-            }
+            }.background(Color.offWhite)
+            .animation(.easeOut)
             
             if showMenu {
                 MenuView(showMenu: $showMenu, showPostPetScreen: $showPostPetScreen)
+                    .animation(.linear)
                     .transition(.move(edge: .leading))
                     .zIndex(3)
             }
