@@ -10,6 +10,7 @@ enum barItem {
 
 struct MainScreen: View {
     
+    @State var menuDeinit = true
     @State var showPostPetScreen = false
     @State private var showMenu = false
     @State private var showNewDogScreen = false
@@ -26,8 +27,11 @@ struct MainScreen: View {
                 VStack {
                     HStack {
                         Button(action: {
-                            withAnimation {
-                                self.showMenu.toggle()
+                            if menuDeinit {
+                                withAnimation {
+                                    self.menuDeinit = false
+                                    self.showMenu.toggle()
+                                }
                             }
                         }) {
                             Image("settings").resizable()
@@ -62,7 +66,7 @@ struct MainScreen: View {
                     }.zIndex(2)
                     .background(Color.offWhite)
                     .disabled(showMenu ? true : false)
-                     .animation(.spring())
+                    .animation(.spring())
                     
                     Spacer()
                     ZStack(alignment: .top) {
@@ -83,25 +87,25 @@ struct MainScreen: View {
                 .background(Color.offWhite)
                 .edgesIgnoringSafeArea(.bottom)
                 .offset(x: self.showMenu ?UIScreen.main.bounds.width / 1.2 : 0)
-               
+                
             }.background(Color.offWhite)
             .animation(.spring())
             
             if showMenu {
-                MenuView(showMenu: $showMenu, showPostPetScreen: $showPostPetScreen)
+                MenuView(showMenu: $showMenu, showPostPetScreen: $showPostPetScreen, menuDeinit: $menuDeinit)
                     .animation(.spring())
                     .transition(.move(edge: .leading))
                     .zIndex(3)
             }
         }.environment(\.layoutDirection, .rightToLeft)
-            .gesture(showPostPetScreen ? nil : DragGesture().onEnded {
+        .gesture(showPostPetScreen ? nil : DragGesture().onEnded {
             if $0.translation.width > -100 {
                 withAnimation {
                     self.showMenu = false
                 }
             }
         })
-
+        
         //                    .onAppear() {
         ////                        self.mainVM.getDogsFromDB()
         ////                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MenuView: View {
-    
+    @Binding var menuDeinit: Bool
     @Binding var showPostPetScreen: Bool
     @Binding var showMenu: Bool
     @ObservedObject var settings = Settings()
@@ -11,8 +11,9 @@ struct MenuView: View {
         }
     }
     
-    init(showMenu: Binding<Bool>, showPostPetScreen: Binding<Bool>) {
+    init(showMenu: Binding<Bool>, showPostPetScreen: Binding<Bool>, menuDeinit: Binding<Bool>) {
         self._showMenu = showMenu
+        self._menuDeinit = menuDeinit
         self._showPostPetScreen = showPostPetScreen
     }
     
@@ -152,7 +153,10 @@ struct MenuView: View {
             }
         }.animation(Animation.spring())
         .background(Color("offWhite"))
-         .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
+        .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
+        .onDisappear() {
+            self.menuDeinit = true
+        }
     }
     
     func checkboxSelected(id: Int) {
