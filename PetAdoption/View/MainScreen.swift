@@ -33,7 +33,7 @@ struct MainScreen: View {
                             Image("settings").resizable()
                                 .frame(width: 25, height: 25)
                                 .padding(.leading, 10).foregroundColor(.gray)
-                                .animation(.easeOut)
+                                .animation(.spring())
                         }
                         
                         
@@ -45,7 +45,7 @@ struct MainScreen: View {
                             Image("dogy").resizable()
                                 .frame(width: 25, height: 25)
                                 .padding(.trailing, 10)
-                                .animation(.easeOut)
+                                .animation(.spring())
                         }
                     }.padding(.top, 50)
                     Spacer()
@@ -74,21 +74,22 @@ struct MainScreen: View {
                     }.zIndex(1)
                     .background(Color.offWhite)
                     .disabled(showMenu ? true : false)
-                    .animation(.easeOut)
+                    .animation(.spring())
                 }
                 .navigationBarTitle("")
                 .navigationBarHidden(isBarHidden ? false : true)
-                .animation(.easeOut)
+                .animation(.spring())
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20)
                 .background(Color.offWhite)
                 .edgesIgnoringSafeArea(.bottom)
                 .offset(x: self.showMenu ?UIScreen.main.bounds.width / 1.2 : 0)
                
             }.background(Color.offWhite)
-            .animation(.easeOut)
+            .animation(.spring())
             
             if showMenu {
                 MenuView(showMenu: $showMenu, showPostPetScreen: $showPostPetScreen)
+                    .animation(.spring())
                     .transition(.move(edge: .leading))
                     .zIndex(3)
             }

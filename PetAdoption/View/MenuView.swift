@@ -150,7 +150,7 @@ struct MenuView: View {
             .onTapGesture {
                 UIApplication.shared.endEditing()
             }
-        }.animation(.easeOut)
+        }.animation(Animation.spring())
         .background(Color("offWhite"))
          .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
     }
