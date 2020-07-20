@@ -60,16 +60,18 @@ struct SignUpView: View {
             
             HStack(spacing: 15) {
                 Image(systemName: "person.fill")
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("lightBlue"))
                 TextField("שם מלא", text: $fullName)
+                    .foregroundColor(.black)
             }.frame(height: 15)
             .modifier(TextFieldModifier())
             .padding(15)
             
             HStack(spacing: 15) {
                 Image(systemName: "envelope.fill")
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("lightBlue"))
                 TextField("אימייל", text: $email)
+                    .foregroundColor(.black)
             }.frame(height: 15)
             .modifier(TextFieldModifier())
             .padding(15)
@@ -77,8 +79,9 @@ struct SignUpView: View {
             
             HStack(spacing: 15) {
                 Image(systemName: "lock.fill")
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("lightBlue"))
                 SecureField("סיסמה", text: $password)
+                    .foregroundColor(.black)
             }.frame(height: 15)
             .modifier(TextFieldModifier())
             .padding(15)
