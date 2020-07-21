@@ -10,7 +10,6 @@ enum barItem {
 
 struct MainScreen: View {
     
-    @State var menuDeinit = true
     @State var showPostPetScreen = false
     @State private var showMenu = false
     @State private var showNewDogScreen = false
@@ -27,12 +26,7 @@ struct MainScreen: View {
                 VStack {
                     HStack {
                         Button(action: {
-                            if self.menuDeinit || self.showMenu {
-                                withAnimation {
-                                    self.menuDeinit = false
                                     self.showMenu.toggle()
-                                }
-                            }
                         }) {
                             Image("settings").resizable()
                                 .frame(width: 25, height: 25)
@@ -92,7 +86,7 @@ struct MainScreen: View {
             .animation(.spring())
             
             if showMenu {
-                MenuView(showMenu: $showMenu, showPostPetScreen: $showPostPetScreen, menuDeinit: $menuDeinit)
+                SettingsView(showMenu: $showMenu, showPostPetScreen: $showPostPetScreen)
                     .animation(.spring())
                     .transition(.move(edge: .leading))
                     .zIndex(3)
