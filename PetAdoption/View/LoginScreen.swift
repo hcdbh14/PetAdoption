@@ -26,7 +26,7 @@ struct LoginScreen: View {
                             Text("חזור")
                         }
                     }
-                    .foregroundColor(Color("lightPurple"))
+                    .foregroundColor(Color("orange"))
                     .padding(.top, 35)
                     .padding(.leading, 25)
                     .padding(.bottom, 20)

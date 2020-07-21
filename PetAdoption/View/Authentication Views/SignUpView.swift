@@ -42,25 +42,27 @@ struct SignUpView: View {
                 
                 Text("הרשמה")
                     .font(.system(size: 36, weight: .heavy))
-                    .foregroundColor(Color("lightPurple"))
+                    .foregroundColor(Color("orange"))
                     .padding(.leading, 25)
                 Spacer()
                 
                 HStack {
                     Button(action: moveToLogin) {
                         Text("כבר רשום?")
+                        .font(.system(size: 18, weight: .semibold))
+                            
                         Text("כניסה")
-                            .bold()
+                          .font(.system(size: 18, weight: .bold))
                             .underline()
                     }
-                }.foregroundColor(Color("lightPurple"))
+                }.foregroundColor(Color("orange"))
                 .padding(.trailing, 25)
             }
             
             
             HStack(spacing: 15) {
                 Image(systemName: "person.fill")
-                    .foregroundColor(Color("lightBlue"))
+                    .foregroundColor(Color.gray)
                 TextField("שם מלא", text: $fullName)
                     .foregroundColor(.black)
             }.frame(height: 15)
@@ -69,7 +71,7 @@ struct SignUpView: View {
             
             HStack(spacing: 15) {
                 Image(systemName: "envelope.fill")
-                    .foregroundColor(Color("lightBlue"))
+                    .foregroundColor(Color.gray)
                 TextField("אימייל", text: $email)
                     .foregroundColor(.black)
             }.frame(height: 15)
@@ -79,7 +81,7 @@ struct SignUpView: View {
             
             HStack(spacing: 15) {
                 Image(systemName: "lock.fill")
-                    .foregroundColor(Color("lightBlue"))
+                    .foregroundColor(Color.gray)
                 SecureField("סיסמה", text: $password)
                     .foregroundColor(.black)
             }.frame(height: 15)
@@ -90,8 +92,9 @@ struct SignUpView: View {
                 Text("המשך")
                     .frame(width: UIScreen.main.bounds.width - 100, height: 50)
                     .foregroundColor(.white)
-                    .background(LinearGradient(Color("lightPink"), Color("lightPurple")))
+                    .background(Color("orange"))
                     .cornerRadius(30)
+                    .shadow(radius: 5)
             }
         }
     }
