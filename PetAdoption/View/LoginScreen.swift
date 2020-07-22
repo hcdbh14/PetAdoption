@@ -19,6 +19,7 @@ struct LoginScreen: View {
     var body: some View {
         Group {
             VStack(alignment: .leading) {
+                
                 HStack {
                     Button(action: closeLoginScreen) {
                         HStack {
@@ -27,9 +28,9 @@ struct LoginScreen: View {
                         }
                     }
                     .foregroundColor(Color("orange"))
-                    .padding(.top, 35)
+                    .padding(.top, 60)
                     .padding(.leading, 25)
-                    .padding(.bottom, 20)
+//                    .padding(.bottom, 20)
                     Spacer()
                 }
                 

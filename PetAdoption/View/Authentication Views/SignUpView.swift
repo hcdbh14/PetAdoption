@@ -38,6 +38,16 @@ struct SignUpView: View {
     
     var body: some View {
         VStack(spacing: 8) {
+            
+            ZStack {
+      
+            Image("bird").resizable()
+                       .renderingMode(.template)
+                       .frame(width: 100, height: 100)
+                       .foregroundColor(.orange)
+        
+            }.frame(width: UIScreen.main.bounds.width, alignment: .trailing)
+            
             HStack {
                 
                 Text("הרשמה")
@@ -131,6 +141,18 @@ struct SignUpView: View {
                     .cornerRadius(30)
                     .shadow(radius: 5)
             }
+               Spacer()
+            HStack {
+            
+            Image("cuteDog").resizable()
+                       .renderingMode(.template)
+                       .frame(width: 200, height: 200)
+                       .foregroundColor(.orange)
+                .opacity(0.8)
+                    Spacer()
+            }.frame(width: UIScreen.main.bounds.width)
+                .padding(.bottom, -10)
+       
         }
     }
 }
