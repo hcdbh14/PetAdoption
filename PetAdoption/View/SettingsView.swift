@@ -1,15 +1,17 @@
 import SwiftUI
 
+ var line: some View {
+    VStack {
+        Divider().background(Color.orange)
+    }
+}
+
 struct SettingsView: View {
     
     @Binding var showPostPetScreen: Bool
     @Binding var showMenu: Bool
     @ObservedObject var settings = Settings()
-    private var line: some View {
-        VStack {
-            Divider().background(Color.orange)
-        }
-    }
+
     
     init(showMenu: Binding<Bool>, showPostPetScreen: Binding<Bool>) {
         self._showMenu = showMenu
@@ -131,10 +133,6 @@ struct SettingsView: View {
                     }.padding(.leading, 15)
                         .padding(.top, 25)
                 }
-                
-                
-                
-                
             }
             .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
             .background(Color("offBlack"))

@@ -3,13 +3,13 @@ import SwiftUI
 struct SignUpView: View {
     
     @Binding var showLogin: Bool
-    @Binding var showRegistration: Bool
-    
     @State var error: String = ""
     @State var email: String = ""
     @State var password: String = ""
     @State var fullName: String = ""
+    @Binding var showRegistration: Bool
     @EnvironmentObject var session: SessionStore
+    @Environment (\.colorScheme) var colorScheme: ColorScheme
     
     init(showLogin: Binding<Bool>, showRegistration: Binding<Bool>) {
         
@@ -42,51 +42,86 @@ struct SignUpView: View {
                 
                 Text("הרשמה")
                     .font(.system(size: 36, weight: .heavy))
-                    .foregroundColor(Color("orange"))
+                    .foregroundColor(.white)
                     .padding(.leading, 25)
                 Spacer()
                 
                 HStack {
                     Button(action: moveToLogin) {
                         Text("כבר רשום?")
-                        .font(.system(size: 18, weight: .semibold))
-                            
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.white)
                         Text("כניסה")
-                          .font(.system(size: 18, weight: .bold))
+                            .font(.system(size: 18, weight: .bold))
                             .underline()
+                            .foregroundColor(.orange)
                     }
-                }.foregroundColor(Color("orange"))
+                }
                 .padding(.trailing, 25)
             }
             
+            VStack {
+                HStack(spacing: 15) {
+                    Image(systemName: "person.fill")
+                        .foregroundColor(Color.gray)
+                    
+                    if colorScheme == .light {
+                        TextField("שם מלא", text: $fullName)
+                            .colorInvert()
+                    } else {
+                        TextField("שם מלא", text: $fullName)
+                    }
+                    
+                    
+                }.frame(height: 15)
+                    .padding(.leading, 25)
+                //            .modifier(TextFieldModifier())
+                
+                line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
+            }     .padding(15)
             
-            HStack(spacing: 15) {
-                Image(systemName: "person.fill")
-                    .foregroundColor(Color.gray)
-                TextField("שם מלא", text: $fullName)
-                    .foregroundColor(.black)
-            }.frame(height: 15)
-            .modifier(TextFieldModifier())
-            .padding(15)
             
-            HStack(spacing: 15) {
-                Image(systemName: "envelope.fill")
-                    .foregroundColor(Color.gray)
-                TextField("אימייל", text: $email)
-                    .foregroundColor(.black)
-            }.frame(height: 15)
-            .modifier(TextFieldModifier())
-            .padding(15)
+            VStack {
+                HStack(spacing: 15) {
+                    
+                    Image(systemName: "envelope.fill")
+                        .foregroundColor(Color.gray)
+                    
+                    if colorScheme == .light {
+                        TextField("אימייל", text: $email)
+                            .colorInvert()
+                    } else {
+                        TextField("אימייל", text: $email)
+                    }
+                    
+                    
+                }.frame(height: 15)
+                    .padding(.leading, 25)
+                //            .modifier(TextFieldModifier())
+                
+                line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
+            } .padding(15)
             
             
-            HStack(spacing: 15) {
-                Image(systemName: "lock.fill")
-                    .foregroundColor(Color.gray)
-                SecureField("סיסמה", text: $password)
-                    .foregroundColor(.black)
-            }.frame(height: 15)
-            .modifier(TextFieldModifier())
-            .padding(15)
+            VStack {
+                HStack(spacing: 15) {
+                    Image(systemName: "lock.fill")
+                        .foregroundColor(Color.gray)
+                    if colorScheme == .light {
+                        SecureField("סיסמה", text: $password)
+                            .colorInvert()
+                    } else {
+                        SecureField("סיסמה", text: $password)
+                    }
+                    
+                    
+                    
+                }.frame(height: 15)
+                    .padding(.leading, 25)
+                //            .modifier(TextFieldModifier())
+                
+                line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
+            }  .padding(15)
             
             Button(action: signUp) {
                 Text("המשך")
@@ -99,3 +134,4 @@ struct SignUpView: View {
         }
     }
 }
+

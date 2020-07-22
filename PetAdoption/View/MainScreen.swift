@@ -97,7 +97,7 @@ struct MainScreen: View {
             }
             .zIndex(4)
             .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: .infinity, alignment: .topLeading)
-            .background(Color("offLightWhite"))
+            .background(Color("offBlack"))
             .edgesIgnoringSafeArea(.all)
             .offset(x: 0, y: self.showPostPetScreen ? 0 : UIScreen.main.bounds.height)
             .onTapGesture {
