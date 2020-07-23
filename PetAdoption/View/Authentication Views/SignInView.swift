@@ -4,11 +4,9 @@ struct SignInView: View {
     
     @Binding var showLogin: Bool
     @Binding var showRegistration: Bool
-    
     @State var email: String = ""
     @State var password: String = ""
     @State var error: String = ""
-    @State var showSignUpScreen = false
     @Binding var isEmailVerified: Bool
     @EnvironmentObject var session : SessionStore
     
@@ -32,7 +30,8 @@ struct SignInView: View {
     }
     
     func toggleSignUp() {
-        self.showSignUpScreen = true
+        self.showLogin = false
+        self.showRegistration = true
     }
     var body: some View {
         VStack {
@@ -75,7 +74,7 @@ struct SignInView: View {
                     .foregroundColor(Color.black)
             }
             
-            if showSignUpScreen {
+            if showRegistration {
                 SignUpView(showLogin: $showLogin, showRegistration: $showRegistration)
             }
             

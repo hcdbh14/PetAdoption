@@ -39,6 +39,8 @@ struct LoginScreen: View {
                     
                 } else if (session.session != nil && isEmailVerified == false) {
                     VerifyEmailView()
+                } else if (showLogin) {
+                    SignInView(isEmailVerified: $isEmailVerified, showLogin: $showLogin, showRegistration: $showRegistration)
                 } else {
                     SignUpView(showLogin: $showLogin, showRegistration: $showRegistration)
                 }
