@@ -39,14 +39,14 @@ struct SignUpView: View {
     var body: some View {
         VStack(spacing: 8) {
             
-            ZStack {
-      
-            Image("bird").resizable()
-                       .renderingMode(.template)
-                       .frame(width: 100, height: 100)
-                       .foregroundColor(.orange)
-        
-            }.frame(width: UIScreen.main.bounds.width, alignment: .trailing)
+//            ZStack {
+//
+//            Image("bone").resizable()
+//                       .renderingMode(.template)
+//                       .frame(width: 100, height: 100)
+//                       .foregroundColor(.orange)
+//
+//            }.frame(width: UIScreen.main.bounds.width, alignment: .trailing)
             
             HStack {
                 
@@ -56,18 +56,7 @@ struct SignUpView: View {
                     .padding(.leading, 25)
                 Spacer()
                 
-                HStack {
-                    Button(action: moveToLogin) {
-                        Text("כבר רשום?")
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(.white)
-                        Text("כניסה")
-                            .font(.system(size: 18, weight: .bold))
-                            .underline()
-                            .foregroundColor(.orange)
-                    }
-                }
-                .padding(.trailing, 25)
+
             }
             
             VStack {
@@ -140,16 +129,29 @@ struct SignUpView: View {
                     .background(Color("orange"))
                     .cornerRadius(30)
                     .shadow(radius: 5)
+            }.padding(15)
+            
+            HStack {
+                Button(action: moveToLogin) {
+                    Text("כבר רשום?")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white)
+                    Text("כניסה")
+                        .font(.system(size: 16, weight: .bold))
+                        .underline()
+                        .foregroundColor(.orange)
+                }
             }
+            .padding(.trailing, 25)
                Spacer()
             HStack {
-            
+                Spacer()
             Image("cuteDog").resizable()
                        .renderingMode(.template)
                        .frame(width: 200, height: 200)
                        .foregroundColor(.orange)
                 .opacity(0.8)
-                    Spacer()
+                   
             }.frame(width: UIScreen.main.bounds.width)
                 .padding(.bottom, -10)
        
