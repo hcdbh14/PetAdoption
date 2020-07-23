@@ -39,14 +39,16 @@ struct SignUpView: View {
     var body: some View {
         VStack(spacing: 8) {
             
-//            ZStack {
-//
-//            Image("bone").resizable()
-//                       .renderingMode(.template)
-//                       .frame(width: 100, height: 100)
-//                       .foregroundColor(.orange)
-//
-//            }.frame(width: UIScreen.main.bounds.width, alignment: .trailing)
+            ZStack {
+
+            Image("bone").resizable()
+                       .renderingMode(.template)
+                       .frame(width: 80, height: 80)
+                        .opacity(0.8)
+                       .foregroundColor(.orange)
+
+            }.frame(width: UIScreen.main.bounds.width, alignment: .trailing)
+            .padding(.bottom, -40)
             
             HStack {
                 
@@ -143,17 +145,18 @@ struct SignUpView: View {
                 }
             }
             .padding(.trailing, 25)
-               Spacer()
+      Spacer()
+            
             HStack {
-                Spacer()
             Image("cuteDog").resizable()
                        .renderingMode(.template)
                        .frame(width: 200, height: 200)
                        .foregroundColor(.orange)
                 .opacity(0.8)
+                Spacer()
                    
             }.frame(width: UIScreen.main.bounds.width)
-                .padding(.bottom, -10)
+                .padding(.bottom, -15)
        
         }
     }
