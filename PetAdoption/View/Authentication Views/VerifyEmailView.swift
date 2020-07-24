@@ -11,7 +11,6 @@ struct VerifyEmailView: View {
             Button(action: signOut) {
                 Text("log out")
             }
-            
         }
     }
     

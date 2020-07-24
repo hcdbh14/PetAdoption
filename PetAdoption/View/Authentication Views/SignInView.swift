@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SignInView: View {
     
+    @State var triggerFade = true
     @State var email: String = ""
     @State var password: String = ""
     @State var error: String = ""
@@ -17,22 +18,6 @@ struct SignInView: View {
         self._isEmailVerified = isEmailVerified
     }
     
-    func signIn() {
-        session.signIn(email: email, password: password) { (result, error) in
-            if let error = error {
-                self.error = error.localizedDescription
-            } else {
-                self.email = ""
-                self.password = ""
-                self.isEmailVerified = result?.user.isEmailVerified ?? false
-            }
-        }
-    }
-    
-    func moveToSignUp() {
-        self.showLogin = false
-        self.showRegistration = true
-    }
     var body: some View {
         VStack {
             VStack {
@@ -41,8 +26,8 @@ struct SignInView: View {
                         .foregroundColor(.gray)
                     TextField("Email", text: $email)
                 }.frame(height: 15)
-                .modifier(TextFieldModifier())
-                .padding(15)
+                    .modifier(TextFieldModifier())
+                    .padding(15)
                 
                 
                 HStack(spacing: 15) {
@@ -50,8 +35,8 @@ struct SignInView: View {
                         .foregroundColor(.gray)
                     SecureField("Password", text: $password)
                 }.frame(height: 15)
-                .modifier(TextFieldModifier())
-                .padding(15)
+                    .modifier(TextFieldModifier())
+                    .padding(15)
                 
                 
                 
@@ -84,6 +69,32 @@ struct SignInView: View {
                     .foregroundColor(.red)
                     .padding()
             }
+        }.opacity(triggerFade ? 0 : 1)
+            .onAppear() {
+                withAnimation {
+                    self.triggerFade = false
+                }
+        }
+    }
+    
+    
+    func signIn() {
+        session.signIn(email: email, password: password) { (result, error) in
+            if let error = error {
+                self.error = error.localizedDescription
+            } else {
+                self.email = ""
+                self.password = ""
+                self.isEmailVerified = result?.user.isEmailVerified ?? false
+            }
+        }
+    }
+    
+    func moveToSignUp() {
+        withAnimation { triggerFade = true }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.showLogin = false
+            self.showRegistration = true
         }
     }
 }
