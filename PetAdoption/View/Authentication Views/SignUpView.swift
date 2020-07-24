@@ -60,9 +60,7 @@ struct SignUpView: View {
                             .colorInvert()
                     } else {
                         TextField("אימייל", text: $email)
-                    }
-                    
-                    
+                    } 
                 }.frame(height: 15)
                     .padding(.leading, 25)
                 //            .modifier(TextFieldModifier())
@@ -81,9 +79,7 @@ struct SignUpView: View {
                     } else {
                         SecureField("סיסמה", text: $password)
                     }
-                    
-                    
-                    
+
                 }.frame(height: 15)
                     .padding(.leading, 25)
                 //            .modifier(TextFieldModifier())

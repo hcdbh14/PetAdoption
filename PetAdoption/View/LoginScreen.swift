@@ -13,8 +13,8 @@ struct LoginScreen: View {
     }
     
     var body: some View {
-        Group {
-            VStack(alignment: .leading) {
+        VStack(alignment: .leading) {
+                
                 
                 HStack {
                     Button(action: closeLoginScreen) {
@@ -28,8 +28,6 @@ struct LoginScreen: View {
                     .padding(.leading, 25)
                     Spacer()
                 }
-                Spacer()
-                
                 ZStack {
                     Image("bone").resizable()
                         .renderingMode(.template)
@@ -62,8 +60,7 @@ struct LoginScreen: View {
                     
                 }.frame(width: UIScreen.main.bounds.width)
                     .padding(.bottom, -15)
-            }
-        }.onAppear(perform: startSession)
+            }.onAppear(perform: startSession)
     }
     
     

@@ -93,7 +93,8 @@ struct SignInView: View {
                 }
             }
             .padding(.trailing, 25)
-           
+             .padding(.bottom, 62)
+        
             
             if (error != "") {
                 Text(error)
