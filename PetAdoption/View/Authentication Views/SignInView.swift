@@ -10,6 +10,7 @@ struct SignInView: View {
     @Binding var isEmailVerified: Bool
     @Binding var showRegistration: Bool
     @EnvironmentObject var session : SessionStore
+    @Environment (\.colorScheme) var colorScheme: ColorScheme
     
     init(isEmailVerified: Binding<Bool>, showLogin: Binding<Bool>, showRegistration: Binding<Bool>) {
         
@@ -19,49 +20,83 @@ struct SignInView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 8) {
+            
+            HStack {
+                Text("כניסה")
+                    .font(.system(size: 36, weight: .heavy))
+                    .foregroundColor(.white)
+                    .padding(.leading, 25)
+                Spacer()
+            }
+            
             VStack {
                 HStack(spacing: 15) {
+                    
                     Image(systemName: "envelope.fill")
-                        .foregroundColor(.gray)
-                    TextField("Email", text: $email)
+                        .foregroundColor(Color.gray)
+                    
+                    if colorScheme == .light {
+                        TextField("אימייל", text: $email)
+                            .colorInvert()
+                    } else {
+                        TextField("אימייל", text: $email)
+                    }
+                    
+                    
                 }.frame(height: 15)
-                    .modifier(TextFieldModifier())
-                    .padding(15)
+                    .padding(.leading, 25)
+                //            .modifier(TextFieldModifier())
                 
-                
+                line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
+            } .padding(15)
+            
+            
+            VStack {
                 HStack(spacing: 15) {
                     Image(systemName: "lock.fill")
-                        .foregroundColor(.gray)
-                    SecureField("Password", text: $password)
+                        .foregroundColor(Color.gray)
+                    if colorScheme == .light {
+                        SecureField("סיסמה", text: $password)
+                            .colorInvert()
+                    } else {
+                        SecureField("סיסמה", text: $password)
+                    }
+                    
+                    
+                    
                 }.frame(height: 15)
-                    .modifier(TextFieldModifier())
-                    .padding(15)
+                    .padding(.leading, 25)
+                //            .modifier(TextFieldModifier())
                 
-                
-                
-            }
+                line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
+            }.padding(15)
+            
             Button(action: signIn) {
-                Text("Login")
-                    .foregroundColor(Color.black.opacity(0.7))
-                    .padding(.vertical)
-                    .frame(width: UIScreen.main.bounds.width - 150)
-                
-            }.buttonStyle(ButtonModifier())
+                Text("כניסה")
+                    .frame(width: UIScreen.main.bounds.width - 100, height: 50)
+                    .foregroundColor(.white)
+                    .background(Color("orange"))
+                    .cornerRadius(30)
+                    .shadow(radius: 5)
+            }.padding(15)
             
-            Text("(OR)")
-                .foregroundColor(.gray)
             
-            Button(action: moveToSignUp) {
-                Text("Sign Up")
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                    .frame(height: 50)
-                    .foregroundColor(Color.black)
+            
+            
+            HStack {
+                Button(action: moveToSignUp) {
+                    Text("לא רשום?")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white)
+                    Text("הרשמה")
+                        .font(.system(size: 16, weight: .bold))
+                        .underline()
+                        .foregroundColor(.orange)
+                }
             }
-            
-            if showRegistration {
-                SignUpView(showLogin: $showLogin, showRegistration: $showRegistration)
-            }
+            .padding(.trailing, 25)
+            Spacer()
             
             if (error != "") {
                 Text(error)

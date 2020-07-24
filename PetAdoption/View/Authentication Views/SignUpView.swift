@@ -21,17 +21,12 @@ struct SignUpView: View {
     var body: some View {
         VStack(spacing: 8) {
             
-
-            
             HStack {
-                
                 Text("הרשמה")
                     .font(.system(size: 36, weight: .heavy))
                     .foregroundColor(.white)
                     .padding(.leading, 25)
                 Spacer()
-                
-                
             }
             
             VStack {
@@ -52,7 +47,7 @@ struct SignUpView: View {
                 //            .modifier(TextFieldModifier())
                 
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
-            }     .padding(15)
+            }.padding(15)
             
             
             VStack {
@@ -95,7 +90,7 @@ struct SignUpView: View {
                 //            .modifier(TextFieldModifier())
                 
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
-            }  .padding(15)
+            }.padding(15)
             
             Button(action: signUp) {
                 Text("המשך")
