@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SignUpView: View {
     
+    @State var triggerFade = true
     @Binding var showLogin: Bool
     @State var error: String = ""
     @State var email: String = ""
@@ -17,38 +18,19 @@ struct SignUpView: View {
         self._showRegistration = showRegistration
     }
     
-    func moveToLogin() {
-        showLogin = true
-        showRegistration = false
-    }
-    
-    func signUp() {
-        session.signUp(email: email, password: password) { (result, error) in
-            if let error = error {
-                self.error = error.localizedDescription
-            } else {
-                self.session.saveUserData(email: self.email, fullName: self.fullName)
-                self.session.verifyEmail()
-                self.fullName = ""
-                self.email = ""
-                self.password = ""
-            }
-        }
-    }
-    
     var body: some View {
         VStack(spacing: 8) {
             
             ZStack {
-
-            Image("bone").resizable()
-                       .renderingMode(.template)
-                       .frame(width: 80, height: 80)
-                        .opacity(0.8)
-                       .foregroundColor(.orange)
-
+                
+                Image("bone").resizable()
+                    .renderingMode(.template)
+                    .frame(width: 80, height: 80)
+                    .opacity(0.8)
+                    .foregroundColor(.orange)
+                
             }.frame(width: UIScreen.main.bounds.width, alignment: .trailing)
-            .padding(.bottom, -40)
+                .padding(.bottom, -40)
             
             HStack {
                 
@@ -58,7 +40,7 @@ struct SignUpView: View {
                     .padding(.leading, 25)
                 Spacer()
                 
-
+                
             }
             
             VStack {
@@ -145,19 +127,46 @@ struct SignUpView: View {
                 }
             }
             .padding(.trailing, 25)
-      Spacer()
+            Spacer()
             
             HStack {
-            Image("cuteDog").resizable()
-                       .renderingMode(.template)
-                       .frame(width: 200, height: 200)
-                       .foregroundColor(.orange)
-                .opacity(0.8)
+                Image("cuteDog").resizable()
+                    .renderingMode(.template)
+                    .frame(width: 200, height: 200)
+                    .foregroundColor(.orange)
+                    .opacity(0.8)
                 Spacer()
-                   
+                
             }.frame(width: UIScreen.main.bounds.width)
                 .padding(.bottom, -15)
-       
+            
+        }.opacity(triggerFade ? 0 : 1)
+            .onAppear() {
+                withAnimation {
+                    self.triggerFade = false
+                }
+        }
+    }
+    
+    func moveToLogin() {
+        withAnimation { triggerFade = true }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.showLogin = true
+            self.showRegistration = false
+        }
+    }
+    
+    func signUp() {
+        session.signUp(email: email, password: password) { (result, error) in
+            if let error = error {
+                self.error = error.localizedDescription
+            } else {
+                self.session.saveUserData(email: self.email, fullName: self.fullName)
+                self.session.verifyEmail()
+                self.fullName = ""
+                self.email = ""
+                self.password = ""
+            }
         }
     }
 }

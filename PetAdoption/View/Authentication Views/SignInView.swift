@@ -2,12 +2,12 @@ import SwiftUI
 
 struct SignInView: View {
     
-    @Binding var showLogin: Bool
-    @Binding var showRegistration: Bool
     @State var email: String = ""
     @State var password: String = ""
     @State var error: String = ""
+    @Binding var showLogin: Bool
     @Binding var isEmailVerified: Bool
+    @Binding var showRegistration: Bool
     @EnvironmentObject var session : SessionStore
     
     init(isEmailVerified: Binding<Bool>, showLogin: Binding<Bool>, showRegistration: Binding<Bool>) {
@@ -29,7 +29,7 @@ struct SignInView: View {
         }
     }
     
-    func toggleSignUp() {
+    func moveToSignUp() {
         self.showLogin = false
         self.showRegistration = true
     }
@@ -67,7 +67,7 @@ struct SignInView: View {
             Text("(OR)")
                 .foregroundColor(.gray)
             
-            Button(action: toggleSignUp) {
+            Button(action: moveToSignUp) {
                 Text("Sign Up")
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .frame(height: 50)
