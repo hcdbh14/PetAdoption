@@ -4,14 +4,10 @@ struct LoginScreen: View {
     
     @State var showLogin = false
     @State var showRegistration = false
-    
     @State var isEmailVerified = false
     @Binding var showPostPetScreen: Bool
     @EnvironmentObject var session: SessionStore
-    func getUser() {
-        session.listen()
-        
-    }
+    
     init(showPostPetScreen: Binding<Bool>) {
         self._showPostPetScreen = showPostPetScreen
     }
@@ -30,9 +26,9 @@ struct LoginScreen: View {
                     .foregroundColor(Color("orange"))
                     .padding(.top, 60)
                     .padding(.leading, 25)
-//                    .padding(.bottom, 20)
                     Spacer()
                 }
+                Spacer()
                 
                 ZStack {
                     Image("bone").resizable()
@@ -42,7 +38,7 @@ struct LoginScreen: View {
                         .foregroundColor(.orange)
                     
                 }.frame(width: UIScreen.main.bounds.width, alignment: .trailing)
-                    .padding(.bottom, -40)
+                .padding(.bottom, -40)
                 
                 if (session.session != nil && isEmailVerified) {
                     PostNewDog(showSignUpScreen: $isEmailVerified)
@@ -54,6 +50,7 @@ struct LoginScreen: View {
                 } else {
                     SignUpView(showLogin: $showLogin, showRegistration: $showRegistration)
                 }
+                
                 Spacer()
                 HStack {
                     Image("cuteDog").resizable()
@@ -66,23 +63,14 @@ struct LoginScreen: View {
                 }.frame(width: UIScreen.main.bounds.width)
                     .padding(.bottom, -15)
             }
-        }.onAppear(perform: getUser)
-        
-        
-        //        HStack {
-        //
-        //            VStack {
-        //                Spacer()
-        //                Button(action: {
-        //                    withAnimation {
-        //                        self.showPostPetScreen.toggle()
-        //                    }
-        //                }, label:  { Text("dismiss")})
-        //                Spacer()
-        //            }
-        //
-        //        }
+        }.onAppear(perform: startSession)
     }
+    
+    
+    func startSession() {
+        session.listen()
+    }
+    
     
     func closeLoginScreen() {
         
@@ -91,49 +79,5 @@ struct LoginScreen: View {
         withAnimation {
             showPostPetScreen = false
         }
-    }
-}
-
-
-
-
-struct TextFieldModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        
-        content.padding(20)
-            .background(Color("offLightWhite"))
-            .cornerRadius(15)
-            .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.black.opacity(0.05), lineWidth: 4)
-                    .shadow(color: Color.black.opacity(0.2), radius: 6, x: 5, y: 5)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .shadow(color: Color.black.opacity(0.2), radius: 6, x: -5, y: -5)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-            )
-    }
-}
-
-
-struct ButtonModifier: ButtonStyle {
-    
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .background(Color("offLightWhite"))
-            .cornerRadius(15)
-            .overlay(
-                VStack {
-                    if configuration.isPressed {
-                        RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color.black.opacity(0.05), lineWidth: 4)
-                            .shadow(color: Color.black.opacity(0.2), radius: 3, x: 5, y: 5)
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                            .shadow(color: Color.black.opacity(0.2), radius: 3, x: -5, y: -5)
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                    }
-                }
-            )
-            .shadow(color: Color.black.opacity(configuration.isPressed ? 0 : 0.2), radius: 5, x: 5, y: 5)
-            .shadow(color: Color.white.opacity(configuration.isPressed ? 0 : 0.7), radius: 5, x: 5, y: 5)
     }
 }

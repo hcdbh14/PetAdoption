@@ -21,7 +21,7 @@ struct SignInView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            
+
             HStack {
                 Text("כניסה")
                     .font(.system(size: 36, weight: .heavy))
@@ -81,9 +81,6 @@ struct SignInView: View {
                     .shadow(radius: 5)
             }.padding(15)
             
-            
-            
-            
             HStack {
                 Button(action: moveToSignUp) {
                     Text("לא רשום?")
@@ -96,7 +93,7 @@ struct SignInView: View {
                 }
             }
             .padding(.trailing, 25)
-            Spacer()
+           
             
             if (error != "") {
                 Text(error)
