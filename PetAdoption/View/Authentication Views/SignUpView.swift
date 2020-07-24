@@ -109,6 +109,13 @@ struct SignUpView: View {
             }
             .padding(.trailing, 25)
             
+            if (error != "") {
+                Text(error)
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.red)
+                    .padding()
+            }
+            
         }.opacity(triggerFade ? 0 : 1)
             .onAppear() {
                 withAnimation {
@@ -128,7 +135,9 @@ struct SignUpView: View {
     func signUp() {
         session.signUp(email: email, password: password) { (result, error) in
             if let error = error {
-                self.error = error.localizedDescription
+               let errorHandler = ErrorTranslater()
+                self.error = errorHandler.signUpErrors(error.localizedDescription)
+              
             } else {
                 self.session.saveUserData(email: self.email, fullName: self.fullName)
                 self.session.verifyEmail()
