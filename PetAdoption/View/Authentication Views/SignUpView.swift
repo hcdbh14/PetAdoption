@@ -35,16 +35,27 @@ struct SignUpView: View {
                     
                     if colorScheme == .light {
                         TextField("שם מלא", text: $fullName)
+                            .onReceive(fullName.publisher.collect()) {
+                                if fullName.count > 28 {
+                                    self.error = "ניתן להקליד עד 28 תווים בלבד בשדה שם"
+                                }
+                                self.fullName = String($0.prefix(28))
+                            }
                             .colorInvert()
                     } else {
                         TextField("שם מלא", text: $fullName)
+                            .onReceive(email.publisher.collect()) {
+                                if fullName.count > 28 {
+                                    self.error = "ניתן להקליד עד 28 תווים בלבד בשדה שם"
+                                }
+                                self.fullName = String($0.prefix(28))
+                            }
                     }
                     
                     
                 }.frame(height: 15)
                 .padding(.leading, 25)
-                //            .modifier(TextFieldModifier())
-                
+
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
             }.padding(15)
             
@@ -69,8 +80,6 @@ struct SignUpView: View {
                     } 
                 }.frame(height: 15)
                 .padding(.leading, 25)
-                //            .modifier(TextFieldModifier())
-                
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
             } .padding(15)
             
@@ -101,8 +110,7 @@ struct SignUpView: View {
                     
                 }.frame(height: 15)
                 .padding(.leading, 25)
-                //            .modifier(TextFieldModifier())
-                
+
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
             }.padding(15)
             
@@ -151,6 +159,11 @@ struct SignUpView: View {
     }
     
     func signUp() {
+        
+        if fullName.count < 5 {
+            error = "השם שהוזן לא תקין"
+            return
+        }
         session.signUp(email: email, password: password) { (result, error) in
             if let error = error {
                 print(error.localizedDescription)
