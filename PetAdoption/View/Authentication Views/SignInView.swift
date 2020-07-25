@@ -91,17 +91,16 @@ struct SignInView: View {
                         .underline()
                         .foregroundColor(.orange)
                 }
-            }
-            .padding(.trailing, 25)
+            }.frame(width: UIScreen.main.bounds.width, alignment: .center)
              .padding(.bottom, 62)
         
             
-            if (error != "") {
-                Text(error)
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(.red)
-                    .padding()
-            }
+            Text(error)
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(.red)
+                .frame(width: UIScreen.main.bounds.width, alignment: .center)
+
+            
         }.opacity(triggerFade ? 0 : 1)
             .onAppear() {
                 withAnimation {
