@@ -149,8 +149,12 @@ struct SignInView: View {
         }
         
         session.signIn(email: email, password: password) { (result, error) in
+            
             if let error = error {
-                self.error = error.localizedDescription
+                print(error.localizedDescription)
+                let errorHandler = ErrorTranslater()
+                self.error = errorHandler.signInErrors(error.localizedDescription)
+                
             } else {
                 self.email = ""
                 self.password = ""

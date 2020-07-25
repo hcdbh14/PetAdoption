@@ -22,4 +22,23 @@ struct ErrorTranslater {
             return errorDescription
         }
     }
+    
+    
+    func signInErrors(_ errorDescription: String) -> String {
+        
+        switch errorDescription {
+        
+        case "The email address is badly formatted.":
+            return "כתובת מייל שהוזן לא תקין"
+        
+        case "There is no user record corresponding to this identifier. The user may have been deleted.":
+            return "סיסמה או מייל לא נכונים"
+            
+        case "The password is invalid or the user does not have a password.":
+            return "סיסמה או מייל לא נכונים"
+            
+        default:
+            return errorDescription
+        }
+    }
 }
