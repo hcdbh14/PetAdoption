@@ -55,6 +55,13 @@ class SessionStore: ObservableObject {
         }
     }
     
+    
+    func checkIfEmailVerified() -> Bool {
+        Auth.auth().currentUser?.reload()
+        return Auth.auth().currentUser?.isEmailVerified ?? false
+ 
+    }
+    
     func unbind() {
         if let handle = handle {
             Auth.auth().removeStateDidChangeListener(handle)

@@ -19,6 +19,10 @@ struct VerifyEmailView: View {
             Button(action: signOut) {
                 Text("log out")
             }
+            
+            Button(action: checkIfEmailVerified) {
+                    Text("check")
+            }
         }.opacity(triggerFade ? 0 : 1)
         .onAppear() {
             withAnimation {
@@ -31,5 +35,9 @@ struct VerifyEmailView: View {
         withAnimation { triggerFade = true }
         emailVerification = false
         session.signOut()
+    }
+    
+    func checkIfEmailVerified() {
+        print(session.checkIfEmailVerified())
     }
 }
