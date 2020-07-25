@@ -15,7 +15,7 @@ struct VerifyEmailView: View {
         VStack {
             Text("weve send a conformation mail")
             Button(action: signOut) {
-                Text("log out")
+                Text("log out").foregroundColor(.white)
             }
         }.opacity(triggerFade ? 0 : 1)
         .onAppear() {
@@ -26,6 +26,7 @@ struct VerifyEmailView: View {
     }
     
     func signOut() {
+        withAnimation { triggerFade = true }
         emailVerification = false
         session.signOut()
     }

@@ -203,16 +203,17 @@ struct SignUpView: View {
                 self.error = errorHandler.signUpErrors(error.localizedDescription)
                 
             } else {
-                    triggerFadeAnimation()
+                self.session.verifyEmail()
+                self.session.saveUserData(email: self.email, fullName: self.fullName)
+                triggerFadeAnimation()
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.session.saveUserData(email: self.email, fullName: self.fullName)
-                    self.session.verifyEmail()
                     self.emailVerification = true
                     self.fullName = ""
                     self.email = ""
                     self.password = ""
-                    }
                 }
             }
         }
+    }
 }
