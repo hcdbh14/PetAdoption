@@ -3,10 +3,12 @@ import SwiftUI
 struct VerifyEmailView: View {
     
     @State var triggerFade = true
+    @Binding var showPostPet: Bool
     @Binding var emailVerification: Bool
     @EnvironmentObject var session: SessionStore
     
-    init(emailVerification: Binding<Bool>) {
+    init(emailVerification: Binding<Bool>, showPostPet: Binding<Bool>) {
+        self._showPostPet = showPostPet
         self._emailVerification = emailVerification
     }
     
