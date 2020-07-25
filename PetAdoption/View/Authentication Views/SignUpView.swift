@@ -3,6 +3,7 @@ import SwiftUI
 struct SignUpView: View {
     
     @State var triggerFade = true
+    @Binding var emailVerification: Bool
     @Binding var showLogin: Bool
     @State var error: String = ""
     @State var email: String = ""
@@ -12,10 +13,11 @@ struct SignUpView: View {
     @EnvironmentObject var session: SessionStore
     @Environment (\.colorScheme) var colorScheme: ColorScheme
     
-    init(showLogin: Binding<Bool>, showRegistration: Binding<Bool>) {
+    init(showLogin: Binding<Bool>, showRegistration: Binding<Bool>, emailVerification: Binding<Bool>) {
         
         self._showLogin = showLogin
         self._showRegistration = showRegistration
+        self._emailVerification = emailVerification
     }
     
     var body: some View {
@@ -150,8 +152,12 @@ struct SignUpView: View {
         }
     }
     
-    func moveToLogin() {
+    private func triggerFadeAnimation() {
         withAnimation { triggerFade = true }
+    }
+    
+    func moveToLogin() {
+        triggerFadeAnimation()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.showLogin = true
             self.showRegistration = false
@@ -197,13 +203,16 @@ struct SignUpView: View {
                 self.error = errorHandler.signUpErrors(error.localizedDescription)
                 
             } else {
-                self.session.saveUserData(email: self.email, fullName: self.fullName)
-                self.session.verifyEmail()
-                self.fullName = ""
-                self.email = ""
-                self.password = ""
+                    triggerFadeAnimation()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.session.saveUserData(email: self.email, fullName: self.fullName)
+                    self.session.verifyEmail()
+                    self.emailVerification = true
+                    self.fullName = ""
+                    self.email = ""
+                    self.password = ""
+                    }
+                }
             }
         }
-    }
 }
-

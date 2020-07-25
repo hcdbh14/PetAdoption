@@ -7,16 +7,16 @@ struct SignInView: View {
     @State var password: String = ""
     @State var error: String = ""
     @Binding var showLogin: Bool
-    @Binding var isEmailVerified: Bool
+    @Binding var emailVerification: Bool
     @Binding var showRegistration: Bool
     @EnvironmentObject var session : SessionStore
     @Environment (\.colorScheme) var colorScheme: ColorScheme
     
-    init(isEmailVerified: Binding<Bool>, showLogin: Binding<Bool>, showRegistration: Binding<Bool>) {
+    init(emailVerification: Binding<Bool>, showLogin: Binding<Bool>, showRegistration: Binding<Bool>) {
         
         self._showLogin = showLogin
         self._showRegistration = showRegistration
-        self._isEmailVerified = isEmailVerified
+        self._emailVerification = emailVerification
     }
     
     var body: some View {
@@ -156,9 +156,12 @@ struct SignInView: View {
                 self.error = errorHandler.signInErrors(error.localizedDescription)
                 
             } else {
-                self.email = ""
-                self.password = ""
-                self.isEmailVerified = result?.user.isEmailVerified ?? false
+                withAnimation { triggerFade = true }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.email = ""
+                    self.password = ""
+                    self.emailVerification = result?.user.isEmailVerified ?? false
+                }
             }
         }
     }
