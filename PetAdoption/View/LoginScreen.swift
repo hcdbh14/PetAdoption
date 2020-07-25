@@ -3,7 +3,6 @@ import SwiftUI
 struct LoginScreen: View {
     
     @State var showLogin = false
-    @State var showRegistration = false
     @State var EmailVerification = false
     @Binding var showPostPetScreen: Bool
     @EnvironmentObject var session: SessionStore
@@ -38,17 +37,17 @@ struct LoginScreen: View {
             }.frame(width: UIScreen.main.bounds.width, alignment: .trailing)
             .padding(.bottom, -40)
             
-            if (session.session != nil && EmailVerification) {
+            if (session.session != nil && EmailVerification == false) {
                 PostNewDog(showSignUpScreen: $EmailVerification)
                 
             } else if (session.session != nil && EmailVerification) {
                 VerifyEmailView(emailVerification: $EmailVerification)
                 
             } else if (showLogin) {
-                SignInView(emailVerification: $EmailVerification, showLogin: $showLogin, showRegistration: $showRegistration)
+                SignInView(emailVerification: $EmailVerification, showLogin: $showLogin)
                 
             } else {
-                SignUpView(showLogin: $showLogin, showRegistration: $showRegistration, emailVerification: $EmailVerification)
+                SignUpView(showLogin: $showLogin, emailVerification: $EmailVerification)
             }
             
             Spacer()

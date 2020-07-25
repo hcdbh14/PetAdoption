@@ -9,14 +9,12 @@ struct SignUpView: View {
     @State var email: String = ""
     @State var password: String = ""
     @State var fullName: String = ""
-    @Binding var showRegistration: Bool
     @EnvironmentObject var session: SessionStore
     @Environment (\.colorScheme) var colorScheme: ColorScheme
     
-    init(showLogin: Binding<Bool>, showRegistration: Binding<Bool>, emailVerification: Binding<Bool>) {
+    init(showLogin: Binding<Bool>, emailVerification: Binding<Bool>) {
         
         self._showLogin = showLogin
-        self._showRegistration = showRegistration
         self._emailVerification = emailVerification
     }
     
@@ -160,7 +158,6 @@ struct SignUpView: View {
         triggerFadeAnimation()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.showLogin = true
-            self.showRegistration = false
         }
     }
     
