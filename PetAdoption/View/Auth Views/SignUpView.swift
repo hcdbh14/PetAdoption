@@ -36,7 +36,7 @@ struct SignUpView: View {
                     if colorScheme == .light {
                         TextField("שם מלא", text: $fullName)
                             .onReceive(fullName.publisher.collect()) {
-                                if fullName.count > 28 {
+                                if self.fullName.count > 28 {
                                     self.error = "ניתן להקליד עד 28 תווים בלבד בשדה שם"
                                 }
                                 self.fullName = String($0.prefix(28))
@@ -45,7 +45,7 @@ struct SignUpView: View {
                     } else {
                         TextField("שם מלא", text: $fullName)
                             .onReceive(email.publisher.collect()) {
-                                if fullName.count > 28 {
+                                if self.fullName.count > 28 {
                                     self.error = "ניתן להקליד עד 28 תווים בלבד בשדה שם"
                                 }
                                 self.fullName = String($0.prefix(28))
@@ -92,7 +92,7 @@ struct SignUpView: View {
                         SecureField("סיסמה", text: $password)
                             .colorInvert()
                             .onReceive(password.publisher.collect()) {
-                                if password.count > 18 {
+                                if self.password.count > 18 {
                                     self.error = "ניתן להקליד עד 18 תווים בלבד בשדה סיסמה"
                                 }
                                 self.password = String($0.prefix(18))
@@ -101,7 +101,7 @@ struct SignUpView: View {
                         SecureField("סיסמה", text: $password)
                             
                             .onReceive(password.publisher.collect()) {
-                                if password.count > 18 {
+                                if self.password.count > 18 {
                                     self.error = "ניתן להקליד עד 18 תווים בלבד בשדה סיסמה"
                                 }
                                 self.password = String($0.prefix(18))
@@ -202,7 +202,7 @@ struct SignUpView: View {
             } else {
                 self.session.verifyEmail()
                 self.session.saveUserData(email: self.email, fullName: self.fullName)
-                triggerFadeAnimation()
+                self.triggerFadeAnimation()
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.emailVerification = true

@@ -62,7 +62,7 @@ struct SignInView: View {
                     if colorScheme == .light {
                         SecureField("סיסמה", text: $password)
                             .onReceive(password.publisher.collect()) {
-                                if password.count > 18 {
+                                if self.password.count > 18 {
                                     self.error = "ניתן להקליד עד 18 תווים בלבד בשדה סיסמה"
                                 }
                                 self.password = String($0.prefix(18))
@@ -72,7 +72,7 @@ struct SignInView: View {
                     } else {
                         SecureField("סיסמה", text: $password)
                             .onReceive(password.publisher.collect()) {
-                                if password.count > 18 {
+                                if self.password.count > 18 {
                                     self.error = "ניתן להקליד עד 18 תווים בלבד בשדה סיסמה"
                                 }
                                 self.password = String($0.prefix(18))
@@ -154,7 +154,7 @@ struct SignInView: View {
                 self.error = errorHandler.signInErrors(error.localizedDescription)
                 
             } else {
-                withAnimation { triggerFade = true }
+                withAnimation { self.triggerFade = true }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.email = ""
                     self.password = ""
