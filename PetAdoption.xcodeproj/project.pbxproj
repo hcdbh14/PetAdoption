@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		2E721F0523C023B9B9351CE0 /* Pods_PetAdoption.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E302403B879AB37660643957 /* Pods_PetAdoption.framework */; };
 		ED0708F524C20CBB005AD1BB /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0708F424C20CBB005AD1BB /* SessionStore.swift */; };
-		ED0708F724C20F76005AD1BB /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0708F624C20F76005AD1BB /* LoginScreen.swift */; };
+		ED0708F724C20F76005AD1BB /* AuthViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0708F624C20F76005AD1BB /* AuthViewManager.swift */; };
 		ED3B871824C5E9E1008479F8 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3B871724C5E9E1008479F8 /* SignUpView.swift */; };
 		ED3B871A24C5EA08008479F8 /* VerifyEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3B871924C5EA08008479F8 /* VerifyEmailView.swift */; };
 		ED3B871C24C5EA3B008479F8 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3B871B24C5EA3B008479F8 /* SignInView.swift */; };
@@ -49,7 +49,7 @@
 		E302403B879AB37660643957 /* Pods_PetAdoption.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetAdoption.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBA9FDD9453FF6AA2833B046 /* Pods-PetAdoption.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetAdoption.release.xcconfig"; path = "Target Support Files/Pods-PetAdoption/Pods-PetAdoption.release.xcconfig"; sourceTree = "<group>"; };
 		ED0708F424C20CBB005AD1BB /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
-		ED0708F624C20F76005AD1BB /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
+		ED0708F624C20F76005AD1BB /* AuthViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewManager.swift; sourceTree = "<group>"; };
 		ED3B871724C5E9E1008479F8 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		ED3B871924C5EA08008479F8 /* VerifyEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailView.swift; sourceTree = "<group>"; };
 		ED3B871B24C5EA3B008479F8 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -115,20 +115,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		ED3B871624C5E9B5008479F8 /* Authentication Views */ = {
+		ED3B871624C5E9B5008479F8 /* Auth Views */ = {
 			isa = PBXGroup;
 			children = (
 				ED3B871724C5E9E1008479F8 /* SignUpView.swift */,
 				ED3B871924C5EA08008479F8 /* VerifyEmailView.swift */,
 				ED3B871B24C5EA3B008479F8 /* SignInView.swift */,
 			);
-			path = "Authentication Views";
+			path = "Auth Views";
 			sourceTree = "<group>";
 		};
 		ED49A3752476DB6C00A87257 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				ED3B871624C5E9B5008479F8 /* Authentication Views */,
+				ED3B871624C5E9B5008479F8 /* Auth Views */,
 				ED781B1E24C024E40045F1DE /* Minor Views */,
 				EDF777D824684EB100154110 /* MainScreen.swift */,
 				ED49A37A2476DBEF00A87257 /* Card.swift */,
@@ -136,7 +136,7 @@
 				EDF4CB0D24A71FF900060F37 /* SavedDogsScreen.swift */,
 				ED84EC5724B0B26A00E25B2F /* SavedCard.swift */,
 				ED95BCEA24B7690000C88716 /* SettingsView.swift */,
-				ED0708F624C20F76005AD1BB /* LoginScreen.swift */,
+				ED0708F624C20F76005AD1BB /* AuthViewManager.swift */,
 				EDFF76C624C3679600BD256B /* PostNewDog.swift */,
 			);
 			path = View;
@@ -354,7 +354,7 @@
 				EDF4CB0E24A71FF900060F37 /* SavedDogsScreen.swift in Sources */,
 				EDF777D524684EB100154110 /* AppDelegate.swift in Sources */,
 				EDD53A062483B88D004EB14F /* Array.swift in Sources */,
-				ED0708F724C20F76005AD1BB /* LoginScreen.swift in Sources */,
+				ED0708F724C20F76005AD1BB /* AuthViewManager.swift in Sources */,
 				ED3B871C24C5EA3B008479F8 /* SignInView.swift in Sources */,
 				ED84EC5824B0B26A00E25B2F /* SavedCard.swift in Sources */,
 				ED781B2024C025080045F1DE /* CheckboxField.swift in Sources */,

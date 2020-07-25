@@ -93,7 +93,7 @@ struct MainScreen: View {
             }
             
             ZStack {
-                LoginScreen(showPostPetScreen: $showPostPetScreen)
+                AuthViewManager(showPostPetScreen: $showPostPetScreen)
             }
             .zIndex(4)
             .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: .infinity, alignment: .topLeading)

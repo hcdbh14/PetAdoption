@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct LoginScreen: View {
+struct AuthViewManager: View {
     
     @State var showLogin = false
     @State var showPostPet = false
