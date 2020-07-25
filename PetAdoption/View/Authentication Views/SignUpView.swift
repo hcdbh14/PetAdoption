@@ -55,7 +55,7 @@ struct SignUpView: View {
                     
                 }.frame(height: 15)
                 .padding(.leading, 25)
-
+                
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
             }.padding(15)
             
@@ -110,7 +110,7 @@ struct SignUpView: View {
                     
                 }.frame(height: 15)
                 .padding(.leading, 25)
-
+                
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
             }.padding(15)
             

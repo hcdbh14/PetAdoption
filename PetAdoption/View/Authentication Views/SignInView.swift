@@ -21,7 +21,7 @@ struct SignInView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-
+            
             HStack {
                 Text("כניסה")
                     .font(.system(size: 36, weight: .heavy))
@@ -38,15 +38,20 @@ struct SignInView: View {
                     
                     if colorScheme == .light {
                         TextField("אימייל", text: $email)
+                            .onReceive(email.publisher.collect()) {
+                                self.email = String($0.prefix(254))
+                            }
                             .colorInvert()
                     } else {
                         TextField("אימייל", text: $email)
+                            .onReceive(email.publisher.collect()) {
+                                self.email = String($0.prefix(254))
+                            }
                     }
                     
                     
                 }.frame(height: 15)
-                    .padding(.leading, 25)
-                //            .modifier(TextFieldModifier())
+                .padding(.leading, 25)
                 
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
             } .padding(15)
@@ -58,16 +63,28 @@ struct SignInView: View {
                         .foregroundColor(Color.gray)
                     if colorScheme == .light {
                         SecureField("סיסמה", text: $password)
+                            .onReceive(password.publisher.collect()) {
+                                if password.count > 18 {
+                                    self.error = "ניתן להקליד עד 18 תווים בלבד בשדה סיסמה"
+                                }
+                                self.password = String($0.prefix(18))
+                            }
+                            
                             .colorInvert()
                     } else {
                         SecureField("סיסמה", text: $password)
+                            .onReceive(password.publisher.collect()) {
+                                if password.count > 18 {
+                                    self.error = "ניתן להקליד עד 18 תווים בלבד בשדה סיסמה"
+                                }
+                                self.password = String($0.prefix(18))
+                            }
                     }
                     
                     
                     
                 }.frame(height: 15)
-                    .padding(.leading, 25)
-                //            .modifier(TextFieldModifier())
+                .padding(.leading, 25)
                 
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
             }.padding(15)
@@ -92,25 +109,45 @@ struct SignInView: View {
                         .foregroundColor(.orange)
                 }
             }.frame(width: UIScreen.main.bounds.width, alignment: .center)
-             .padding(.bottom, 62)
-        
             
             Text(error)
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundColor(.red)
                 .frame(width: UIScreen.main.bounds.width, alignment: .center)
-
+                .padding(.bottom, 62)
+            
             
         }.opacity(triggerFade ? 0 : 1)
-            .onAppear() {
-                withAnimation {
-                    self.triggerFade = false
-                }
+        .onAppear() {
+            withAnimation {
+                self.triggerFade = false
+            }
         }
     }
     
     
     func signIn() {
+        
+        if email.isEmpty {
+            error = "לא הוזן כתובת מייל"
+            return
+        }
+        
+        if !email.contains("@") || !email.contains(".") {
+            error = "כתובת מייל שהוזן לא תקין"
+            return
+        }
+        
+        if password.isEmpty {
+            error = "לא הוזן סיסמה"
+            return
+        }
+        
+        if password.count < 6 {
+            error = "סיסמה אמורה להיות 6 תווים לפחות"
+            return
+        }
+        
         session.signIn(email: email, password: password) { (result, error) in
             if let error = error {
                 self.error = error.localizedDescription
