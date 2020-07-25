@@ -160,10 +160,36 @@ struct SignUpView: View {
     
     func signUp() {
         
-        if fullName.count < 5 {
-            error = "השם שהוזן לא תקין"
+        if fullName.isEmpty {
+            error = "לא הוזן שם מלא"
             return
         }
+        
+        if fullName.count < 5 {
+            error = "השם מלא אמור להכיל 5 תווים לפחות"
+            return
+        }
+        
+        if email.isEmpty {
+            error = "לא הוזן כתובת מייל"
+            return
+        }
+        
+        if !email.contains("@") || !email.contains(".") {
+            error = "כתובת מייל שהוזן לא תקין"
+            return
+        }
+        
+        if password.isEmpty {
+            error = "לא הוזן סיסמה"
+            return
+        }
+        
+        if password.count < 6 {
+            error = "סיסמה אמורה להיות 6 תווים לפחות"
+            return
+        }
+        
         session.signUp(email: email, password: password) { (result, error) in
             if let error = error {
                 print(error.localizedDescription)
