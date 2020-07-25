@@ -42,7 +42,7 @@ struct SignUpView: View {
                     
                     
                 }.frame(height: 15)
-                    .padding(.leading, 25)
+                .padding(.leading, 25)
                 //            .modifier(TextFieldModifier())
                 
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
@@ -58,11 +58,17 @@ struct SignUpView: View {
                     if colorScheme == .light {
                         TextField("אימייל", text: $email)
                             .colorInvert()
+                            .onReceive(email.publisher.collect()) {
+                                self.email = String($0.prefix(254))
+                            }
                     } else {
                         TextField("אימייל", text: $email)
+                            .onReceive(email.publisher.collect()) {
+                                self.email = String($0.prefix(254))
+                            }
                     } 
                 }.frame(height: 15)
-                    .padding(.leading, 25)
+                .padding(.leading, 25)
                 //            .modifier(TextFieldModifier())
                 
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
@@ -76,12 +82,25 @@ struct SignUpView: View {
                     if colorScheme == .light {
                         SecureField("סיסמה", text: $password)
                             .colorInvert()
+                            .onReceive(password.publisher.collect()) {
+                                if password.count > 18 {
+                                    self.error = "ניתן להקליד עד 18 תווים בלבד בשדה סיסמה"
+                                }
+                                self.password = String($0.prefix(18))
+                            }
                     } else {
                         SecureField("סיסמה", text: $password)
+                            
+                            .onReceive(password.publisher.collect()) {
+                                if password.count > 18 {
+                                    self.error = "ניתן להקליד עד 18 תווים בלבד בשדה סיסמה"
+                                }
+                                self.password = String($0.prefix(18))
+                            }
                     }
-
+                    
                 }.frame(height: 15)
-                    .padding(.leading, 25)
+                .padding(.leading, 25)
                 //            .modifier(TextFieldModifier())
                 
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
@@ -108,18 +127,18 @@ struct SignUpView: View {
                 }
             }.frame(width: UIScreen.main.bounds.width, alignment: .center)
             
-
-                Text(error)
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(.red)
-                    .frame(width: UIScreen.main.bounds.width, alignment: .center)
-
+            
+            Text(error)
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(.red)
+                .frame(width: UIScreen.main.bounds.width, alignment: .center)
+            
             
         }.opacity(triggerFade ? 0 : 1)
-            .onAppear() {
-                withAnimation {
-                    self.triggerFade = false
-                }
+        .onAppear() {
+            withAnimation {
+                self.triggerFade = false
+            }
         }
     }
     
@@ -137,7 +156,7 @@ struct SignUpView: View {
                 print(error.localizedDescription)
                 let errorHandler = ErrorTranslater()
                 self.error = errorHandler.signUpErrors(error.localizedDescription)
-              
+                
             } else {
                 self.session.saveUserData(email: self.email, fullName: self.fullName)
                 self.session.verifyEmail()
