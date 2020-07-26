@@ -5,6 +5,7 @@ struct AuthViewManager: View {
     @State var showLogin = false
     @State var showPostPet = false
     @State var EmailVerification = false
+    @State var showForgotPassword = false
     @Binding var showPostPetScreen: Bool
     @EnvironmentObject var session: SessionStore
     
@@ -14,8 +15,6 @@ struct AuthViewManager: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            
-            
             HStack {
                 Button(action: closeLoginScreen) {
                     HStack {
@@ -36,7 +35,7 @@ struct AuthViewManager: View {
                     .foregroundColor(.orange)
                 
             }.frame(width: UIScreen.main.bounds.width, alignment: .trailing)
-            .padding(.bottom, -40)
+                .padding(.bottom, -40)
             
             if (session.session != nil && EmailVerification == false && showPostPet) {
                 PostNewDog(showSignUpScreen: $EmailVerification)
@@ -45,8 +44,9 @@ struct AuthViewManager: View {
                 VerifyEmailView(emailVerification: $EmailVerification, showPostPet: $showPostPet)
                 
             } else if (showLogin) {
-                SignInView(emailVerification: $EmailVerification, showLogin: $showLogin)
-                
+                SignInView(emailVerification: $EmailVerification, showLogin: $showLogin, forgotPassword: $showForgotPassword)
+            } else if (showForgotPassword) {
+                ForgotPasswordView()
             } else {
                 SignUpView(showLogin: $showLogin, emailVerification: $EmailVerification)
             }
@@ -61,8 +61,8 @@ struct AuthViewManager: View {
                 Spacer()
                 
             }.frame(width: UIScreen.main.bounds.width)
-            .padding(.leading, -20)
-            .padding(.bottom, -15)
+                .padding(.leading, -20)
+                .padding(.bottom, -15)
         }.onAppear(perform: startSession)
     }
     

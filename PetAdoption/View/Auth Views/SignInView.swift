@@ -8,13 +8,15 @@ struct SignInView: View {
     @State var error: String = ""
     @Binding var showLogin: Bool
     @Binding var emailVerification: Bool
+    @Binding var showForgotPassword: Bool
     @State var waitingForResponse = false
     @EnvironmentObject var session : SessionStore
     @Environment (\.colorScheme) var colorScheme: ColorScheme
     
-    init(emailVerification: Binding<Bool>, showLogin: Binding<Bool>) {
+    init(emailVerification: Binding<Bool>, showLogin: Binding<Bool>, forgotPassword: Binding<Bool> ) {
         
         self._showLogin = showLogin
+        self._showForgotPassword = forgotPassword
         self._emailVerification = emailVerification
     }
     
@@ -79,14 +81,16 @@ struct SignInView: View {
                                 self.password = String($0.prefix(18))
                         }
                     }
-                    
-                    
-                    
                 }.frame(height: 15)
                     .padding(.leading, 25)
-                
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
             }.padding(15)
+            
+            Button(action: moveToForgotPassword) {
+                Text("שכחתי סיסמה")
+                .foregroundColor(.orange)
+                .font(.system(size: 16, weight: .semibold))
+            }
             
             Button(action: signIn) {
                 if waitingForResponse {
@@ -182,6 +186,14 @@ struct SignInView: View {
         withAnimation { triggerFade = true }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.showLogin = false
+        }
+    }
+    
+    func moveToForgotPassword() {
+        withAnimation { triggerFade = true }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.showLogin = false
+            self.showForgotPassword = true
         }
     }
 }

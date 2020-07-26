@@ -8,7 +8,7 @@ class SessionStore: ObservableObject {
     var handle: AuthStateDidChangeListenerHandle?
     var didChange = PassthroughSubject<SessionStore, Never>()
     @Published var session: User? {didSet {self.didChange.send(self) }}
-  
+    
     func listen() {
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if let user = user {
@@ -36,6 +36,14 @@ class SessionStore: ObservableObject {
         db.collection("Users_Data").document("FcGH2Jl2nOQZOr6O7vf1").setData([email: email ,fullName: fullName])
     }
     
+    func passwordReset(email: String) {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     
     func signOut() {
         do {
@@ -59,7 +67,7 @@ class SessionStore: ObservableObject {
     func checkIfEmailVerified() -> Bool {
         Auth.auth().currentUser?.reload()
         return Auth.auth().currentUser?.isEmailVerified ?? false
- 
+        
     }
     
     func unbind() {

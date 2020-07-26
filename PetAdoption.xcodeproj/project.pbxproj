@@ -10,6 +10,7 @@
 		2E721F0523C023B9B9351CE0 /* Pods_PetAdoption.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E302403B879AB37660643957 /* Pods_PetAdoption.framework */; };
 		ED00EC7424CD66B30048AE56 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED00EC7324CD66B30048AE56 /* ActivityIndicator.swift */; };
 		ED00EC7624CD66DA0048AE56 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED00EC7524CD66DA0048AE56 /* View.swift */; };
+		ED00EC7824CD6ED80048AE56 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED00EC7724CD6ED80048AE56 /* ForgotPasswordView.swift */; };
 		ED0708F524C20CBB005AD1BB /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0708F424C20CBB005AD1BB /* SessionStore.swift */; };
 		ED0708F724C20F76005AD1BB /* AuthViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0708F624C20F76005AD1BB /* AuthViewManager.swift */; };
 		ED3B871824C5E9E1008479F8 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3B871724C5E9E1008479F8 /* SignUpView.swift */; };
@@ -52,6 +53,7 @@
 		EBA9FDD9453FF6AA2833B046 /* Pods-PetAdoption.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetAdoption.release.xcconfig"; path = "Target Support Files/Pods-PetAdoption/Pods-PetAdoption.release.xcconfig"; sourceTree = "<group>"; };
 		ED00EC7324CD66B30048AE56 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		ED00EC7524CD66DA0048AE56 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		ED00EC7724CD6ED80048AE56 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		ED0708F424C20CBB005AD1BB /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 		ED0708F624C20F76005AD1BB /* AuthViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewManager.swift; sourceTree = "<group>"; };
 		ED3B871724C5E9E1008479F8 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				ED3B871724C5E9E1008479F8 /* SignUpView.swift */,
 				ED3B871924C5EA08008479F8 /* VerifyEmailView.swift */,
 				ED3B871B24C5EA3B008479F8 /* SignInView.swift */,
+				ED00EC7724CD6ED80048AE56 /* ForgotPasswordView.swift */,
 			);
 			path = "Auth Views";
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED00EC7624CD66DA0048AE56 /* View.swift in Sources */,
+				ED00EC7824CD6ED80048AE56 /* ForgotPasswordView.swift in Sources */,
 				ED3B871A24C5EA08008479F8 /* VerifyEmailView.swift in Sources */,
 				ED4CB75424C5DDFF00BF20B2 /* UIApplication.swift in Sources */,
 				ED0708F524C20CBB005AD1BB /* SessionStore.swift in Sources */,
