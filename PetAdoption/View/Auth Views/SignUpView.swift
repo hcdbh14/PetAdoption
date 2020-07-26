@@ -168,7 +168,7 @@ struct SignUpView: View {
     
     func moveToLogin() {
         triggerFadeAnimation()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.showLogin = true
         }
     }
@@ -219,7 +219,7 @@ struct SignUpView: View {
                 self.session.saveUserData(email: self.email, fullName: self.fullName)
                 self.triggerFadeAnimation()
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                     self.emailVerification = true
                     self.fullName = ""
                     self.email = ""
