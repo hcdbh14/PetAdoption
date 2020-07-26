@@ -46,7 +46,7 @@ struct AuthViewManager: View {
             } else if (showLogin) {
                 SignInView(emailVerification: $EmailVerification, showLogin: $showLogin, forgotPassword: $showForgotPassword)
             } else if (showForgotPassword) {
-                ForgotPasswordView()
+                ForgotPasswordView(showLogin: $showLogin, forgotPassword: $showForgotPassword)
             } else {
                 SignUpView(showLogin: $showLogin, emailVerification: $EmailVerification)
             }
