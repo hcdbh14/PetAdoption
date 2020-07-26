@@ -6,6 +6,9 @@ struct ErrorTranslater {
         
         switch errorDescription {
         
+        case "Network error (such as timeout, interrupted connection or unreachable host) has occurred.":
+            return "לא נמצא חיבור לאינטרנט"
+            
         case "The password must be 6 characters long or more.":
             return "סיסמה אמורה להיות 6 תווים לפחות"
         

@@ -3,12 +3,13 @@ import SwiftUI
 struct SignUpView: View {
     
     @State var triggerFade = true
-    @Binding var emailVerification: Bool
     @Binding var showLogin: Bool
     @State var error: String = ""
     @State var email: String = ""
     @State var password: String = ""
     @State var fullName: String = ""
+    @State var waitingForResponse = false
+    @Binding var emailVerification: Bool
     @EnvironmentObject var session: SessionStore
     @Environment (\.colorScheme) var colorScheme: ColorScheme
     
@@ -115,13 +116,26 @@ struct SignUpView: View {
             }.padding(15)
             
             Button(action: signUp) {
+                if waitingForResponse {
+                                            
+                    ActivityIndicator(isAnimating: true)
+                        .configure { $0.color = .white }
+                } else {
                 Text("המשך")
                     .frame(width: UIScreen.main.bounds.width - 100, height: 50)
                     .foregroundColor(.white)
                     .background(Color("orange"))
                     .cornerRadius(30)
                     .shadow(radius: 5)
-            }.padding(15)
+                    .padding(15)
+
+                }
+            }.frame(width: UIScreen.main.bounds.width - 100, height: 50)
+            .foregroundColor(.white)
+            .background(Color("orange"))
+            .cornerRadius(30)
+            .shadow(radius: 5)
+            .padding(15)
             
             HStack {
                 Button(action: moveToLogin) {
@@ -193,11 +207,14 @@ struct SignUpView: View {
             return
         }
         
+        waitingForResponse = true
+        
         session.signUp(email: email, password: password) { (result, error) in
             if let error = error {
                 print(error.localizedDescription)
                 let errorHandler = ErrorTranslater()
                 self.error = errorHandler.signUpErrors(error.localizedDescription)
+                self.waitingForResponse = false
                 
             } else {
                 self.session.verifyEmail()
@@ -212,5 +229,26 @@ struct SignUpView: View {
                 }
             }
         }
+    }
+}
+
+
+
+struct ActivityIndicator: UIViewRepresentable {
+    
+    typealias UIView = UIActivityIndicatorView
+    var isAnimating: Bool
+    var configuration = { (indicator: UIView) in }
+    
+    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIView { UIView() }
+    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<Self>) {
+        isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
+        configuration(uiView)
+    }
+}
+
+extension View where Self == ActivityIndicator {
+    func configure(_ configuration: @escaping (Self.UIView)->Void) -> Self {
+        Self.init(isAnimating: self.isAnimating, configuration: configuration)
     }
 }
