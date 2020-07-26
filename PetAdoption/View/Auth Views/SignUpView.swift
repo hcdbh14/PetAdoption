@@ -44,7 +44,7 @@ struct SignUpView: View {
                             .colorInvert()
                     } else {
                         TextField("שם מלא", text: $fullName)
-                            .onReceive(email.publisher.collect()) {
+                            .onReceive(fullName.publisher.collect()) {
                                 if self.fullName.count > 28 {
                                     self.error = "ניתן להקליד עד 28 תווים בלבד בשדה שם"
                                 }
