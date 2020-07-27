@@ -49,7 +49,6 @@ class MainVM: ObservableObject {
                             self.frontImages = []
                         }
                     } else {
-                        self.backImages = []
                         self.frontImages = []
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
