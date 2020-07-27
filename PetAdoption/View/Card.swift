@@ -216,6 +216,7 @@ struct Card: View {
         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
         .animation(decideAnimation())
         .transition(.move(edge: .bottom))
+        .disabled(self.mainVM.frontImage.hasValueAt(index: 0) == false)
         .gesture(showInfo ? nil : DragGesture(minimumDistance: 0, coordinateSpace: .global)
                     .onChanged({ (value) in
                             self.speed = 5
