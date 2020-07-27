@@ -25,6 +25,7 @@ class MainVM: ObservableObject {
     @Published var backImages: [Data] = []
     @Published var frontImage: [String] = []
     @Published var isImageReady = PassthroughSubject<Bool, Never>()
+    @Published var isBackImageReady = PassthroughSubject<Bool, Never>()
     @Published var userDecided = PassthroughSubject<Decision, Never>()
     @Published var decision: Decision = Decision.notDecided { didSet {
         userDecided.send(decision)
@@ -105,9 +106,10 @@ class MainVM: ObservableObject {
             backImageLoader = ImageLoader(urlString: dogsList[count].images)
             backSub = backImageLoader?.didChange.sink(receiveValue: { value in
                 if self.frontImages.isEmpty == false {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                         self.backImages = value
                         self.backImageLoaded = true
+                        self.isBackImageReady.send(true)
                     }
                 } else {
                     self.backImages = value

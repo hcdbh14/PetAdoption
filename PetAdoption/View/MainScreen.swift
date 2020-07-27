@@ -109,11 +109,6 @@ struct MainScreen: View {
                 }
             }
         })
-        
-        //                    .onAppear() {
-        ////                        self.mainVM.getDogsFromDB()
-        ////                        self.mainVM.ref.childByAutoId().setValue(["name": "Tom", "age": 5, "images": ["pug.jpg", "doggie2.jpg"]])
-        //                }
     }
 }
 
