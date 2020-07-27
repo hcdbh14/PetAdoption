@@ -58,7 +58,7 @@ struct ForgotPasswordView: View {
                         .foregroundColor(.orange)
                         .font(.system(size: 14, weight: .semibold))
 
-                }
+                }.padding(.leading, 20)
                       Spacer()
                 
                 Button(action: resetPassword) {
@@ -68,7 +68,7 @@ struct ForgotPasswordView: View {
                     Image(systemName: "arrow.left").resizable()
                         .frame(width: 15, height: 15)
                         .foregroundColor(.orange)
-                }
+                }.padding(.trailing, 20)
             }
         }.opacity(triggerFade ? 0 : 1)
             .onAppear() {
