@@ -3,6 +3,7 @@ import SwiftUI
 struct ForgotPasswordView: View {
     
     @Binding var showLogin: Bool
+    @State var error: String = ""
     @Binding var showForgotPassword: Bool
     @State var email: String = "kennnkuro15@gmail.com"
     @State var triggerFade = true
@@ -57,9 +58,9 @@ struct ForgotPasswordView: View {
                     Text("חזרה למסך כניסה")
                         .foregroundColor(.orange)
                         .font(.system(size: 14, weight: .semibold))
-
+                    
                 }.padding(.leading, 20)
-                      Spacer()
+                Spacer()
                 
                 Button(action: resetPassword) {
                     Text("הנפקת סיסמה חדשה")
@@ -70,6 +71,13 @@ struct ForgotPasswordView: View {
                         .foregroundColor(.orange)
                 }.padding(.trailing, 20)
             }
+            
+            Text(error)
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(.red)
+                .frame(width: UIScreen.main.bounds.width, alignment: .center)
+                .padding(.top, 40)
+            
         }.opacity(triggerFade ? 0 : 1)
             .onAppear() {
                 withAnimation {
@@ -80,7 +88,27 @@ struct ForgotPasswordView: View {
     
     
     func resetPassword() {
-        session.passwordReset(email: email)
+        
+        if email.isEmpty {
+            error = "לא הוזן כתובת מייל"
+            return
+        }
+        
+        if !email.contains("@") || !email.contains(".") {
+            error = "כתובת מייל שהוזן לא תקין"
+            return
+        }
+        
+        session.passwordReset(email: email) { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+                let errorHandler = ErrorTranslater()
+                self.error = errorHandler.signUpErrors(error.localizedDescription)
+                
+            } else {
+                print("send")
+            }
+        }
     }
     
     
@@ -92,4 +120,3 @@ struct ForgotPasswordView: View {
         }
     }
 }
-

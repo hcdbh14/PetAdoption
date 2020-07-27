@@ -36,12 +36,8 @@ class SessionStore: ObservableObject {
         db.collection("Users_Data").document("FcGH2Jl2nOQZOr6O7vf1").setData([email: email ,fullName: fullName])
     }
     
-    func passwordReset(email: String) {
-        Auth.auth().sendPasswordReset(withEmail: email) { error in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-        }
+    func passwordReset(email: String, handler: @escaping SendPasswordResetCallback) {
+        Auth.auth().sendPasswordReset(withEmail: email, completion: handler)
     }
     
     
