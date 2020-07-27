@@ -61,7 +61,7 @@ struct AuthViewManager: View {
                 Spacer()
                 
             }.frame(width: UIScreen.main.bounds.width)
-            .padding(.leading, -20)
+                .padding(.leading, -20)
         }.onAppear(perform: startSession)
     }
     

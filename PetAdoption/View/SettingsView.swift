@@ -131,7 +131,7 @@ struct SettingsView: View {
                             .frame(width: 25, height: 25)
                             .foregroundColor(.orange)
                     }.padding(.leading, 15)
-                        .padding(.top, 25)
+                    .padding(.top, 25)
                 }
             }
             .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)

@@ -21,7 +21,7 @@ struct SignInView: View {
     }
     
     var body: some View {
-        VStack {
+       VStack(spacing: 8) {
             
             HStack {
                 Text("כניסה")
@@ -129,7 +129,7 @@ struct SignInView: View {
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundColor(.red)
                 .frame(width: UIScreen.main.bounds.width, height: 16, alignment: .center)
-                .padding(.bottom, 48)
+                .padding(.bottom, 20)
             
         }.opacity(triggerFade ? 0 : 1)
             .onAppear() {

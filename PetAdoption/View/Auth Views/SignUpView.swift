@@ -20,7 +20,7 @@ struct SignUpView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 8) {
             HStack {
                 Text("הרשמה")
                     .font(.system(size: 36, weight: .heavy))
@@ -151,10 +151,10 @@ struct SignUpView: View {
             
 
             Text(error)
-                .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(.red)
+            .font(.system(size: 14, weight: .semibold))
+            .foregroundColor(.red)
             .frame(width: UIScreen.main.bounds.width, height: 16, alignment: .center)
-            .padding(.top, 15)
+            .padding(.bottom, -5)
             
             
         }.opacity(triggerFade ? 0 : 1)
