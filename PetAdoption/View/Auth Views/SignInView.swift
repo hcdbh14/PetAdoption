@@ -21,7 +21,7 @@ struct SignInView: View {
     }
     
     var body: some View {
-        VStack(spacing: 8) {
+        VStack {
             
             HStack {
                 Text("כניסה")
@@ -88,8 +88,8 @@ struct SignInView: View {
             
             Button(action: moveToForgotPassword) {
                 Text("שכחתי סיסמה")
-                .foregroundColor(.orange)
-                .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.orange)
+                    .font(.system(size: 16, weight: .semibold))
             }
             
             Button(action: signIn) {
@@ -128,8 +128,8 @@ struct SignInView: View {
             Text(error)
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundColor(.red)
-                .frame(width: UIScreen.main.bounds.width, alignment: .center)
-                .padding(.bottom, 24)
+                .frame(width: UIScreen.main.bounds.width, height: 16, alignment: .center)
+                .padding(.bottom, 48)
             
         }.opacity(triggerFade ? 0 : 1)
             .onAppear() {
@@ -170,7 +170,6 @@ struct SignInView: View {
                 let errorHandler = ErrorTranslater()
                 self.error = errorHandler.signInErrors(error.localizedDescription)
                 self.waitingForResponse = false
-                
             } else {
                 withAnimation { self.triggerFade = true }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
