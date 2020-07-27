@@ -27,7 +27,7 @@ struct BackCard: View {
     }
     
     private func populateImage()  -> UIImage {
-        if self.mainVM.dogsList.hasValueAt(index: self.mainVM.count) {
+        if self.mainVM.backImages.hasValueAt(index: self.mainVM.count) {
             if mainVM.backImageLoaded {
                 return UIImage(data: self.mainVM.backImages[0]) ?? UIImage()
             } else {

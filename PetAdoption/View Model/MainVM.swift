@@ -47,6 +47,7 @@ class MainVM: ObservableObject {
                             self.frontImages = self.backImages
                         } else {
                             self.frontImages = []
+                            self.backImages = []
                         }
                     } else {
                         self.frontImages = []
