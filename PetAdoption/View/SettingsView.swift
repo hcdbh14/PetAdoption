@@ -54,6 +54,7 @@ struct SettingsView: View {
                                 .foregroundColor(settings.searchBy == SearchBy.dog.rawValue ?.orange : .gray)
                             Text("כלבים")
                                 .foregroundColor(settings.searchBy == SearchBy.dog.rawValue ? .orange : .white)
+                                .frame(width: 40)
                             
                         }
                     }
@@ -67,6 +68,7 @@ struct SettingsView: View {
                                 .foregroundColor(settings.searchBy == SearchBy.cat.rawValue ? .orange : .gray)
                             Text("חתולים")
                                 .foregroundColor(settings.searchBy == SearchBy.cat.rawValue ? .orange : .white)
+                                .frame(width: 50)
                         }
                     }
                     
@@ -79,10 +81,11 @@ struct SettingsView: View {
                                 .foregroundColor(settings.searchBy == SearchBy.all.rawValue ? .orange : .gray)
                             Text("הכל")
                                 .foregroundColor(settings.searchBy == SearchBy.all.rawValue ? .orange : .white)
+                                .frame(width: 40)
                         }
                     }
                     Spacer()
-                }.padding(.leading, -30)
+                }.padding(.leading, -20)
                 
                 VStack(alignment: .leading) {
                     Text("באיזה אזור לחפש?")

@@ -87,6 +87,7 @@ struct MainScreen: View {
                 SettingsView(showMenu: $showMenu, showPostPetScreen: $showPostPetScreen)
                     .animation(.spring())
                     .transition(.move(edge: .leading))
+                    .offset(x: self.showMenu ? 0 : UIScreen.main.bounds.width / 1.2)
                     .zIndex(3)
             }
             
