@@ -85,12 +85,9 @@ struct ForgotPasswordView: View {
                         .frame(width: UIScreen.main.bounds.width, alignment: .center)
                     
                 }
-            }
+            }.frame(height: 50)
             .padding(.top, 40)
-            .padding(.bottom, 170)
-            
-            
-            
+            .padding(.bottom, 139)
         }.opacity(triggerFade ? 0 : 1)
             .onAppear() {
                 withAnimation {
