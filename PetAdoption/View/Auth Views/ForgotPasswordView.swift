@@ -7,6 +7,7 @@ struct ForgotPasswordView: View {
     @Binding var showForgotPassword: Bool
     @State var email: String = "kennnkuro15@gmail.com"
     @State var triggerFade = true
+    @State var waitingForResponse = false
     @EnvironmentObject var session : SessionStore
     @Environment (\.colorScheme) var colorScheme: ColorScheme
     
@@ -72,11 +73,19 @@ struct ForgotPasswordView: View {
                 }.padding(.trailing, 20)
             }
             
-            Text(error)
-                .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(.red)
-                .frame(width: UIScreen.main.bounds.width, alignment: .center)
-                .padding(.top, 40)
+            if waitingForResponse {
+                ActivityIndicator(isAnimating: true)
+                    .configure { $0.color = .white }
+                    .padding(.top, 40)
+            } else {
+                Text(error)
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.red)
+                    .frame(width: UIScreen.main.bounds.width, alignment: .center)
+                    .padding(.top, 40)
+            }
+            
+            
             
         }.opacity(triggerFade ? 0 : 1)
             .onAppear() {
@@ -98,6 +107,7 @@ struct ForgotPasswordView: View {
             error = "כתובת מייל שהוזן לא תקין"
             return
         }
+        waitingForResponse = true
         
         session.passwordReset(email: email) { (error) in
             if let error = error {
@@ -108,6 +118,7 @@ struct ForgotPasswordView: View {
             } else {
                 print("send")
             }
+            self.waitingForResponse = false
         }
     }
     
