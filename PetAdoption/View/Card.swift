@@ -2,7 +2,6 @@ import SwiftUI
 
 struct Card: View {
     private let age: Int
-    private var imageCount: Int
     private let dogName: String
     private let dogDesc: String
     @State private var isImageReady = false
@@ -18,9 +17,8 @@ struct Card: View {
     @State private var image: UIImage = UIImage()
     @ObservedObject private var mainVM: MainVM
     
-    init(imageCount: Int, dogName: String, age: Int, dogDesc: String, scaleTrigger: Binding<Bool>, showMenu: Binding<Bool>, mainVM: MainVM) {
+    init(dogName: String, age: Int, dogDesc: String, scaleTrigger: Binding<Bool>, showMenu: Binding<Bool>, mainVM: MainVM) {
         self.mainVM = mainVM
-        self.imageCount = imageCount
         self._scaleAnimation = scaleTrigger
         self._showMenu = showMenu
         self.dogName = dogName
@@ -78,12 +76,12 @@ struct Card: View {
                 
                 HStack {
                     Spacer()
-                    ForEach (0...imageCount - 1,id: \.self) { i in
+                    ForEach (0...self.mainVM.dogsList[self.mainVM.count - 1].images.count - 1,id: \.self) { i in
                         Rectangle()
                             .fill(Color.clear)
                             .background((self.mainVM.imageIndex == i ? Color.orange : Color.gray).cornerRadius(20))
-                            .frame(width: (UIScreen.main.bounds.width / CGFloat(self.imageCount)) - 30, height: 10)
-                            .opacity(self.imageCount == 1 ? 0 : 0.7)
+                            .frame(width: (UIScreen.main.bounds.width / CGFloat(self.self.mainVM.dogsList[self.mainVM.count - 1].images.count)) - 30, height: 10)
+                            .opacity(self.self.mainVM.dogsList[self.mainVM.count - 1].images.count == 1 ? 0 : 0.7)
                     }
                     Spacer()
                 }.padding(.bottom, UIScreen.main.bounds.height / 1.47)
@@ -251,7 +249,7 @@ struct Card: View {
     private func moveToImage(direction: CGFloat) {
         if direction > 180 {
             
-            if self.mainVM.imageIndex == self.imageCount - 1 || self.switchingImage {
+            if self.mainVM.imageIndex == self.self.mainVM.dogsList[self.mainVM.count - 1].images.count - 1 || self.switchingImage {
                 return
             } else {
                 if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex + 1) {

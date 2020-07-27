@@ -50,12 +50,10 @@ struct MainScreen: View {
                     
                     
                     ZStack {
-                        if  mainVM.frontImages.isEmpty == false {
-                            if mainVM.backImages.isEmpty == false {
+                        if  mainVM.dogsList.isEmpty == false {
                                 BackCard(scaleTrigger: $scaleAnimation, mainVM: mainVM)
-                            }
                             
-                            Card(imageCount: mainVM.dogsList[mainVM.count - 1].images.count, dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, dogDesc: mainVM.dogsList[mainVM.count - 1].desc, scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM)
+                            Card(dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, dogDesc: mainVM.dogsList[mainVM.count - 1].desc, scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM)
                         }
                     }.zIndex(2)
                     .background(Color.offWhite)
