@@ -71,6 +71,7 @@ struct ForgotPasswordView: View {
                         .frame(width: 15, height: 15)
                         .foregroundColor(.orange)
                 }.padding(.trailing, 20)
+                .disabled(waitingForResponse)
             }
             
             if waitingForResponse {
@@ -113,7 +114,7 @@ struct ForgotPasswordView: View {
             if let error = error {
                 print(error.localizedDescription)
                 let errorHandler = ErrorTranslater()
-                self.error = errorHandler.signUpErrors(error.localizedDescription)
+                self.error = errorHandler.passwordResetErrors(error.localizedDescription)
                 
             } else {
                 print("send")

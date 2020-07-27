@@ -67,6 +67,5 @@ struct ErrorTranslater {
         default:
             return errorDescription
         }
-        
     }
 }
