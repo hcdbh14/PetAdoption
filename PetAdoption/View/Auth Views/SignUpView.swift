@@ -133,6 +133,7 @@ struct SignUpView: View {
             .background(Color("orange"))
             .cornerRadius(30)
             .shadow(radius: 5)
+            .disabled(waitingForResponse)
             .padding(15)
             
             HStack {
