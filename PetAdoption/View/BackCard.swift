@@ -24,13 +24,17 @@ struct BackCard: View {
                 .cornerRadius(20)
                 .animation(.none)
                 .onReceive(mainVM.reloadBackImage, perform:  { answer in
-                    self.populateImage()
+                    self.populateImage(answer)
                 })
         }.animation(scaleAnimation ? .spring() : .none)
         .scaleEffect(scaleAnimation ? 1 : 0.9)
     }
     
-    private func populateImage() {
+    private func populateImage(_ isImageReady: Bool) {
+        if isImageReady == false {
+            image = UIImage()
+            return
+        }
         
         if self.mainVM.backImages.hasValueAt(index: 0)   {
             image = UIImage(data: self.mainVM.backImages[0]) ?? UIImage()

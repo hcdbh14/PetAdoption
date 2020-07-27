@@ -20,7 +20,6 @@ class MainVM: ObservableObject {
     private var backImageLoader: ImageLoader?
     @Published var count = 1
     @Published var localDB = LocalDB()
-    @Published var backImageLoaded = false
     @Published var frontImages: [Data] = []
     @Published var backImages: [Data] = []
     @Published var frontImage: [String] = []
@@ -54,9 +53,8 @@ class MainVM: ObservableObject {
                         self.frontImages = []
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                        self.backImageLoaded = false
+                        self.reloadBackImage.send(false)
                     }
-                    self.reloadBackImage.send(true)
                     self.loadImages()
                 }
             } else {
@@ -109,7 +107,6 @@ class MainVM: ObservableObject {
                 if self.frontImages.isEmpty == false {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                         self.backImages = value
-                        self.backImageLoaded = true
                         self.reloadBackImage.send(true)
                     }
                 } else {
