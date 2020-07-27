@@ -31,6 +31,7 @@ struct Card: View {
         ZStack(alignment: .bottomTrailing) {
             if showInfo == false {
                 VStack {
+                    
                     Image(uiImage: image).resizable()
                         .scaledToFit()
                         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
@@ -45,7 +46,7 @@ struct Card: View {
                         })
                         .onReceive(mainVM.userDecided, perform: { decision in
                             self.inAnimation = true
-                             self.speed = 0.5
+                            self.speed = 0.5
                             switch decision {
                             case .picked:
                                 self.decideHeightDirection(y: -100)
@@ -72,7 +73,7 @@ struct Card: View {
                         })
                         .onAppear() {
                             self.populateImage()
-                        }
+                    }
                 }
                 
                 HStack {
@@ -81,11 +82,14 @@ struct Card: View {
                         Rectangle()
                             .fill(Color.clear)
                             .background((self.mainVM.imageIndex == i ? Color.orange : Color.gray).cornerRadius(20))
-                            .frame(width: (UIScreen.main.bounds.width / CGFloat(self.self.mainVM.dogsList[self.mainVM.count - 1].images.count)) - 30, height: 10)
-                            .opacity(self.self.mainVM.dogsList[self.mainVM.count - 1].images.count == 1 ? 0 : 0.7)
+                            .frame(width: (UIScreen.main.bounds.width / CGFloat(self.mainVM.dogsList[self.mainVM.count - 1].images.count)) - 30, height: 10)
+                            .opacity(self.mainVM.dogsList[self.mainVM.count - 1].images.count == 1 ? 0 : 0.7)
                     }
                     Spacer()
                 }.padding(.bottom, UIScreen.main.bounds.height / 1.47)
+                
+                
+                
                 VStack(alignment: .trailing, spacing: 3) {
                     
                     HStack (alignment: .center) {
@@ -127,6 +131,13 @@ struct Card: View {
                     self.timedInfoAnimation()
                 }
             }
+            ZStack {
+                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) == false {
+                    ActivityIndicator(isAnimating: true)
+                        .configure { $0.color = .orange }
+                }
+                
+            }.frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4, alignment: .center)
             
             if showInfo {
                 ScrollView {
@@ -207,9 +218,9 @@ struct Card: View {
                         .environment(\.layoutDirection, .rightToLeft)
                     
                 }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height)
-                .animation(.none)
-                .background(Color.offWhite)
-                .padding(.top, 60)
+                    .animation(.none)
+                    .background(Color.offWhite)
+                    .padding(.top, 60)
             }
         }
         .offset(x: self.x, y: self.y)
@@ -219,31 +230,31 @@ struct Card: View {
         .transition(.move(edge: .bottom))
         .allowsHitTesting(isImageReady ? true : false)
         .gesture(showInfo ? nil : DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                    .onChanged({ (value) in
-                            self.speed = 5
-                        if value.startLocation != value.location {
-                            if self.switchingImage == false {
-                                self.inAnimation = true
-                            }
-                            if value.translation.width > 50 && value.translation.width > 10 {
-                                self.x = value.translation.width
-                                self.y = value.translation.height
-                                self.degree = -6
-                            } else if value.translation.width < -50 && value.translation.width < -10 {
-                                self.x = value.translation.width
-                                self.y = value.translation.height
-                                self.degree = 6
-                            } else {
-                                self.x = value.translation.width
-                                self.y = value.translation.height
-                                self.degree = 0
-                            }
-                        }
-                    })
-                    .onEnded({ (value) in
-                        self.speed = 0.5
-                        self.dragFinished(x: value.translation.width, y: value.translation.height, direction: value.location.x, start: value.startLocation, end: value.location)
-                    }))
+        .onChanged({ (value) in
+            self.speed = 5
+            if value.startLocation != value.location {
+                if self.switchingImage == false {
+                    self.inAnimation = true
+                }
+                if value.translation.width > 50 && value.translation.width > 10 {
+                    self.x = value.translation.width
+                    self.y = value.translation.height
+                    self.degree = -6
+                } else if value.translation.width < -50 && value.translation.width < -10 {
+                    self.x = value.translation.width
+                    self.y = value.translation.height
+                    self.degree = 6
+                } else {
+                    self.x = value.translation.width
+                    self.y = value.translation.height
+                    self.degree = 0
+                }
+            }
+        })
+            .onEnded({ (value) in
+                self.speed = 0.5
+                self.dragFinished(x: value.translation.width, y: value.translation.height, direction: value.location.x, start: value.startLocation, end: value.location)
+            }))
             .environment(\.layoutDirection, .leftToRight)
     }
     
@@ -290,7 +301,7 @@ struct Card: View {
     
     
     private func dragFinished(x: CGFloat, y: CGFloat, direction: CGFloat, start: CGPoint, end: CGPoint) {
-
+        
         if x > 0 {
             if x > 50 {
                 self.x = 500
@@ -349,15 +360,15 @@ struct Card: View {
     
     private func moveToNextCard() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                self.switchingImage = false
-                self.scaleAnimation = false
-                self.inAnimation = false
-                self.x = 0
-                self.y = 0
-                self.degree = 0
-                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
-                    self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
-                }
+            self.switchingImage = false
+            self.scaleAnimation = false
+            self.inAnimation = false
+            self.x = 0
+            self.y = 0
+            self.degree = 0
+            if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
+                self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
+            }
         }
     }
     
