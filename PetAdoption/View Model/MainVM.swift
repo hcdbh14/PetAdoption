@@ -56,6 +56,7 @@ class MainVM: ObservableObject {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                         self.backImageLoaded = false
                     }
+                    self.isBackImageReady.send(true)
                     self.loadImages()
                 }
             } else {
@@ -106,7 +107,7 @@ class MainVM: ObservableObject {
             backImageLoader = ImageLoader(urlString: dogsList[count].images)
             backSub = backImageLoader?.didChange.sink(receiveValue: { value in
                 if self.frontImages.isEmpty == false {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                         self.backImages = value
                         self.backImageLoaded = true
                         self.isBackImageReady.send(true)
