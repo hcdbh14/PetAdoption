@@ -129,8 +129,7 @@ struct SignInView: View {
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundColor(.red)
                 .frame(width: UIScreen.main.bounds.width, alignment: .center)
-                .padding(.bottom, 62)
-            
+                .padding(.bottom, 24)
             
         }.opacity(triggerFade ? 0 : 1)
             .onAppear() {

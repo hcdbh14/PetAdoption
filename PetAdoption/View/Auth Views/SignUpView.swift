@@ -134,7 +134,7 @@ struct SignUpView: View {
             .cornerRadius(30)
             .shadow(radius: 5)
             .disabled(waitingForResponse)
-            .padding(15)
+            .padding(10)
             
             HStack {
                 Button(action: moveToLogin) {
