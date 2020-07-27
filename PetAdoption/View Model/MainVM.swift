@@ -47,6 +47,7 @@ class MainVM: ObservableObject {
                             self.frontImages = self.backImages
                         } else {
                             self.frontImages = []
+                            self.reloadFrontImage.send(false)
                         }
                     } else {
                         self.frontImages = []
@@ -97,6 +98,7 @@ class MainVM: ObservableObject {
                     self.reloadFrontImage.send(true)
                 } else {
                     self.frontImages = value
+                     self.reloadFrontImage.send(true)
                 }
             })
         }

@@ -217,7 +217,7 @@ struct Card: View {
         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
         .animation(decideAnimation())
         .transition(.move(edge: .bottom))
-        .disabled(isImageReady == false)
+        .allowsHitTesting(isImageReady ? true : false)
         .gesture(showInfo ? nil : DragGesture(minimumDistance: 0, coordinateSpace: .global)
                     .onChanged({ (value) in
                             self.speed = 5
@@ -365,10 +365,12 @@ struct Card: View {
         
         if self.isImageReady == false {
             image = UIImage()
+            return
         }
         
         if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
             image = UIImage(data: self.mainVM.frontImages[mainVM.imageIndex]) ?? UIImage()
+            self.isImageReady = true
         } else {
             image = UIImage()
         }
