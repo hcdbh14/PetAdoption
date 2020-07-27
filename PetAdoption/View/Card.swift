@@ -40,7 +40,7 @@ struct Card: View {
                         .allowsHitTesting(x == 0 ? true : false)
                         .animation(.none)
                         .onReceive(mainVM.reloadFrontImage, perform:  { answer in
-                            self.populateImage()
+                            self.populateImage(answer)
                         })
                         .onReceive(mainVM.userDecided, perform: { decision in
                             self.inAnimation = true
@@ -70,7 +70,7 @@ struct Card: View {
                             self.moveToNextCard()
                         })
                         .onAppear() {
-                            self.populateImage()
+                            self.populateImage(true)
                         }
                 }
                 
@@ -360,7 +360,10 @@ struct Card: View {
         }
     }
     
-    private func populateImage() {
+    private func populateImage(_ isImageReady: Bool)  {
+        if isImageReady == false {
+            image = UIImage()
+        }
         if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
             image = UIImage(data: self.mainVM.frontImages[mainVM.imageIndex]) ?? UIImage()
         } else {
@@ -369,6 +372,7 @@ struct Card: View {
     }
     
     private func decideAnimation() -> Animation {
+        
         DispatchQueue.global().sync {
             if inAnimation {
                 return Animation.interactiveSpring().speed(speed)

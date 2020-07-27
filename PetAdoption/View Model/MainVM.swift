@@ -50,6 +50,7 @@ class MainVM: ObservableObject {
                         }
                     } else {
                         self.frontImages = []
+                        self.reloadFrontImage.send(false)
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                         self.reloadBackImage.send(false)
