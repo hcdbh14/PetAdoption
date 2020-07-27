@@ -20,7 +20,7 @@ struct SettingsView: View {
     
     var body: some View {
         ZStack(alignment: .leading) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 9) {
                 
                 VStack(alignment: .leading) {
                     Text("הגדרות")
