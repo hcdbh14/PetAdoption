@@ -14,7 +14,7 @@ struct VerifyEmailView: View {
     
     var body: some View {
         
-        VStack {
+        VStack(spacing: 8) {
             Text("weve send a conformation mail").foregroundColor(.white)
             Button(action: signOut) {
                 Text("log out")
@@ -23,6 +23,8 @@ struct VerifyEmailView: View {
             Button(action: checkIfEmailVerified) {
                     Text("check")
             }
+            
+            
         }.opacity(triggerFade ? 0 : 1)
         .onAppear() {
             withAnimation {

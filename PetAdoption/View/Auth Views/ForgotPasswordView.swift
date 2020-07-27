@@ -17,7 +17,7 @@ struct ForgotPasswordView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 8) {
             HStack {
                 Text("הכניסו כתובת מייל")
                     .font(.system(size: 30, weight: .heavy))
@@ -71,20 +71,23 @@ struct ForgotPasswordView: View {
                         .frame(width: 15, height: 15)
                         .foregroundColor(.orange)
                 }.padding(.trailing, 20)
-                .disabled(waitingForResponse)
+                    .disabled(waitingForResponse)
             }
-            
-            if waitingForResponse {
-                ActivityIndicator(isAnimating: true)
-                    .configure { $0.color = .white }
-                    .padding(.top, 40)
-            } else {
-                Text(error)
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(.red)
-                    .frame(width: UIScreen.main.bounds.width, alignment: .center)
-                    .padding(.top, 40)
+            HStack {
+                if waitingForResponse {
+                    ActivityIndicator(isAnimating: true)
+                        .configure { $0.color = .white }
+                    
+                } else {
+                    Text(error)
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(.red)
+                        .frame(width: UIScreen.main.bounds.width, alignment: .center)
+                    
+                }
             }
+            .padding(.top, 40)
+            .padding(.bottom, 170)
             
             
             
