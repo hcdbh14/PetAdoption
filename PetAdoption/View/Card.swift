@@ -39,7 +39,7 @@ struct Card: View {
                         .fixedSize()
                         .allowsHitTesting(x == 0 ? true : false)
                         .animation(.none)
-                        .onReceive(mainVM.isImageReady, perform:  { answer in
+                        .onReceive(mainVM.reloadFrontImage, perform:  { answer in
                             self.populateImage()
                         })
                         .onReceive(mainVM.userDecided, perform: { decision in

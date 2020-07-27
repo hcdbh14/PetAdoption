@@ -23,7 +23,7 @@ struct BackCard: View {
                 .fixedSize()
                 .cornerRadius(20)
                 .animation(.none)
-                .onReceive(mainVM.isBackImageReady, perform:  { answer in
+                .onReceive(mainVM.reloadBackImage, perform:  { answer in
                     self.populateImage()
                 })
         }.animation(scaleAnimation ? .spring() : .none)

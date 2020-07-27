@@ -24,8 +24,8 @@ class MainVM: ObservableObject {
     @Published var frontImages: [Data] = []
     @Published var backImages: [Data] = []
     @Published var frontImage: [String] = []
-    @Published var isImageReady = PassthroughSubject<Bool, Never>()
-    @Published var isBackImageReady = PassthroughSubject<Bool, Never>()
+    @Published var reloadFrontImage = PassthroughSubject<Bool, Never>()
+    @Published var reloadBackImage = PassthroughSubject<Bool, Never>()
     @Published var userDecided = PassthroughSubject<Decision, Never>()
     @Published var decision: Decision = Decision.notDecided { didSet {
         userDecided.send(decision)
@@ -56,7 +56,7 @@ class MainVM: ObservableObject {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                         self.backImageLoaded = false
                     }
-                    self.isBackImageReady.send(true)
+                    self.reloadBackImage.send(true)
                     self.loadImages()
                 }
             } else {
@@ -96,7 +96,7 @@ class MainVM: ObservableObject {
                 
                 if self.frontImages.hasValueAt(index: self.imageIndex) == false {
                     self.frontImages = value
-                    self.isImageReady.send(true)
+                    self.reloadFrontImage.send(true)
                 } else {
                     self.frontImages = value
                 }
@@ -110,7 +110,7 @@ class MainVM: ObservableObject {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                         self.backImages = value
                         self.backImageLoaded = true
-                        self.isBackImageReady.send(true)
+                        self.reloadBackImage.send(true)
                     }
                 } else {
                     self.backImages = value
