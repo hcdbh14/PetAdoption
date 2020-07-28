@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ForgotPasswordView: View {
     
+    @State var mailSend = false
     @Binding var showLogin: Bool
     @State var error: String = ""
     @Binding var showForgotPassword: Bool
@@ -78,7 +79,13 @@ struct ForgotPasswordView: View {
                     ActivityIndicator(isAnimating: true)
                         .configure { $0.color = .white }
                     
-                } else {
+                } else if mailSend {
+                    Text("נשלח מייל לאיפוס סיסמה")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(.green)
+                        .frame(width: UIScreen.main.bounds.width, alignment: .center)
+                }
+                else {
                     Text(error)
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.red)
@@ -86,8 +93,8 @@ struct ForgotPasswordView: View {
                     
                 }
             }.frame(height: 50)
-            .padding(.top, 40)
-            .padding(.bottom, 139)
+                .padding(.top, 40)
+                .padding(.bottom, 139)
         }.opacity(triggerFade ? 0 : 1)
             .onAppear() {
                 withAnimation {
@@ -98,6 +105,8 @@ struct ForgotPasswordView: View {
     
     
     func resetPassword() {
+        
+        mailSend = false
         
         if email.isEmpty {
             error = "לא הוזן כתובת מייל"
@@ -118,6 +127,7 @@ struct ForgotPasswordView: View {
                 
             } else {
                 self.error = ""
+                self.mailSend = true
             }
             self.waitingForResponse = false
         }
