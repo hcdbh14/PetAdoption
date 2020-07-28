@@ -5,7 +5,7 @@ struct ForgotPasswordView: View {
     @Binding var showLogin: Bool
     @State var error: String = ""
     @Binding var showForgotPassword: Bool
-    @State var email: String = "kennnkuro15@gmail.com"
+    @State var email: String = ""
     @State var triggerFade = true
     @State var waitingForResponse = false
     @EnvironmentObject var session : SessionStore
@@ -117,7 +117,7 @@ struct ForgotPasswordView: View {
                 self.error = errorHandler.passwordResetErrors(error.localizedDescription)
                 
             } else {
-                print("send")
+                self.error = ""
             }
             self.waitingForResponse = false
         }
