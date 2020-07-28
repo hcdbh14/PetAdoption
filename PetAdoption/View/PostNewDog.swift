@@ -11,15 +11,12 @@ struct PostNewDog: View {
     }
     var body: some View {
         VStack {
-        Text("Welcome back user!")
-            Button(action: signOut) {
-                Text("log out")
-            }
+        Text("וואלה ברכות, הצלחת להיכנס לחשבון כמו מלכה")
+            .font(.system(size: 30, weight: .heavy))
+            .foregroundColor(.white)
+            .padding(.leading, 25)
+            .padding(.top, 25)
         }
-    }
-    
-    func signOut() {
-        session.signOut()
     }
 }
 

@@ -53,7 +53,7 @@ struct AuthViewManager: View {
                 VerifyEmailView(emailVerification: $EmailVerification, showPostPet: $showPostPet)
                 
             } else if (showLogin) {
-                SignInView(emailVerification: $EmailVerification, showLogin: $showLogin, forgotPassword: $showForgotPassword)
+                SignInView(emailVerification: $EmailVerification, showLogin: $showLogin, forgotPassword: $showForgotPassword, showPostPet: $showPostPet)
             } else if (showForgotPassword) {
                 ForgotPasswordView(showLogin: $showLogin, forgotPassword: $showForgotPassword)
             } else {
@@ -83,6 +83,7 @@ struct AuthViewManager: View {
     func signOut() {
         session.signOut()
         showLogin = true
+        showPostPet = false
     }
     
     func closeLoginScreen() {

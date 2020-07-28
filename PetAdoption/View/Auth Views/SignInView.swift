@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SignInView: View {
     
+    @Binding var showPostPet: Bool
     @State var triggerFade = true
     @State var email: String = ""
     @State var password: String = ""
@@ -13,15 +14,16 @@ struct SignInView: View {
     @EnvironmentObject var session : SessionStore
     @Environment (\.colorScheme) var colorScheme: ColorScheme
     
-    init(emailVerification: Binding<Bool>, showLogin: Binding<Bool>, forgotPassword: Binding<Bool> ) {
+    init(emailVerification: Binding<Bool>, showLogin: Binding<Bool>, forgotPassword: Binding<Bool>, showPostPet: Binding<Bool>) {
         
         self._showLogin = showLogin
+        self._showPostPet = showPostPet
         self._showForgotPassword = forgotPassword
         self._emailVerification = emailVerification
     }
     
     var body: some View {
-       VStack(spacing: 8) {
+        VStack(spacing: 8) {
             
             HStack {
                 Text("כניסה")
@@ -175,7 +177,13 @@ struct SignInView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.email = ""
                     self.password = ""
-                    self.emailVerification = result?.user.isEmailVerified ?? false
+                    if result?.user.isEmailVerified ?? false {
+                        self.emailVerification = false
+                        self.showPostPet = true
+                    } else {
+                        self.emailVerification = true
+                    }
+                    
                 }
             }
         }

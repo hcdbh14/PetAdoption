@@ -62,8 +62,6 @@ struct VerifyEmailView: View {
                 .foregroundColor(.red)
                 .frame(width: UIScreen.main.bounds.width, height: 16, alignment: .center)
                      .padding(.bottom, 133)
-            
-            
         }.opacity(triggerFade ? 0 : 1)
             .onAppear() {
                 withAnimation {
@@ -87,7 +85,8 @@ struct VerifyEmailView: View {
                 self.emailVerified = Auth.auth().currentUser?.isEmailVerified ?? false
                 
                 if self.emailVerified {
-                    print("nice")
+                    self.emailVerification = false
+                    self.showPostPet = true
                 } else {
                     self.error = "החשבון עדין לא מאומת"
                 }
