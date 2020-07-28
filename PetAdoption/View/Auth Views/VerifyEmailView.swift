@@ -29,6 +29,13 @@ struct VerifyEmailView: View {
                 Spacer()
             }
             
+            
+            Button(action: sendMailAgain) {
+                Text("לא קיבלתי מייל, שלחו שוב")
+                    .foregroundColor(.orange)
+                    .font(.system(size: 16, weight: .semibold))
+            }
+            
             Button(action: checkIfEmailVerified) {
                 if waitingForResponse {
                     
@@ -63,6 +70,10 @@ struct VerifyEmailView: View {
                     self.triggerFade = false
                 }
         }
+    }
+    
+    func sendMailAgain() {
+        self.session.verifyEmail()
     }
     
     func checkIfEmailVerified() {
