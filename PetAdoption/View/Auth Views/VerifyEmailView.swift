@@ -42,7 +42,7 @@ struct VerifyEmailView: View {
                     ActivityIndicator(isAnimating: true)
                         .configure { $0.color = .white }
                 } else {
-                    Text("קיבלתי את המייל וסיימתי את האימות")
+                    Text("קיבלתי את המייל ואישרתי")
                         .frame(width: UIScreen.main.bounds.width - 100, height: 50)
                         .foregroundColor(.white)
                         .background(Color("orange"))
