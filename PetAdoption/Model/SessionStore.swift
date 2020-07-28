@@ -60,10 +60,8 @@ class SessionStore: ObservableObject {
     }
     
     
-    func checkIfEmailVerified() -> Bool {
-        Auth.auth().currentUser?.reload()
-        return Auth.auth().currentUser?.isEmailVerified ?? false
-        
+    func checkIfEmailVerified(handler: @escaping SendPasswordResetCallback) {
+        Auth.auth().currentUser?.reload(completion: handler)
     }
     
     func unbind() {
