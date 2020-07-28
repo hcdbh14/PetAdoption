@@ -15,28 +15,27 @@ struct VerifyEmailView: View {
     var body: some View {
         
         VStack(spacing: 8) {
-            Text("weve send a conformation mail").foregroundColor(.white)
-            Button(action: signOut) {
-                Text("log out")
+            
+            
+            HStack {
+                Text("נשלח מייל לאימות החשבון")
+                    .font(.system(size: 30, weight: .heavy))
+                    .foregroundColor(.white)
+                    .padding(.leading, 25)
+                Spacer()
             }
             
             Button(action: checkIfEmailVerified) {
-                    Text("check")
+                Text("check")
             }
             
             
         }.opacity(triggerFade ? 0 : 1)
-        .onAppear() {
-            withAnimation {
-                self.triggerFade = false
-            }
+            .onAppear() {
+                withAnimation {
+                    self.triggerFade = false
+                }
         }
-    }
-    
-    func signOut() {
-        withAnimation { triggerFade = true }
-        emailVerification = false
-        session.signOut()
     }
     
     func checkIfEmailVerified() {

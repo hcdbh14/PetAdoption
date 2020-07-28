@@ -26,6 +26,14 @@ struct AuthViewManager: View {
                 .padding(.top, 60)
                 .padding(.leading, 25)
                 Spacer()
+                
+                if session.session != nil {
+                    Button(action: signOut) {
+                        Text("התנתקות")
+                            .foregroundColor(Color("orange"))
+                         .padding(.top, 60)
+                    }
+                }
             }
             ZStack {
                 Image("bone").resizable()
@@ -62,6 +70,7 @@ struct AuthViewManager: View {
                 
             }.frame(width: UIScreen.main.bounds.width)
                 .padding(.leading, -20)
+            
         }.onAppear(perform: startSession)
     }
     
@@ -70,6 +79,10 @@ struct AuthViewManager: View {
         session.listen()
     }
     
+    func signOut() {
+        session.signOut()
+        showLogin = true
+    }
     
     func closeLoginScreen() {
         
