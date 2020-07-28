@@ -20,12 +20,12 @@ struct VerifyEmailView: View {
         
         VStack(spacing: 8) {
             
-            Spacer()
             HStack {
                 Text("נשלח מייל לאימות החשבון")
                     .font(.system(size: 30, weight: .heavy))
                     .foregroundColor(.white)
                     .padding(.leading, 25)
+                    .padding(.top, 50)
                 Spacer()
             }
             
@@ -61,7 +61,7 @@ struct VerifyEmailView: View {
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundColor(.red)
                 .frame(width: UIScreen.main.bounds.width, height: 16, alignment: .center)
-                .padding(.bottom, -5)
+                     .padding(.bottom, 133)
             
             
         }.opacity(triggerFade ? 0 : 1)

@@ -32,6 +32,7 @@ struct AuthViewManager: View {
                         Text("התנתקות")
                             .foregroundColor(Color("orange"))
                          .padding(.top, 60)
+                        .padding(.trailing, 25)
                     }
                 }
             }
