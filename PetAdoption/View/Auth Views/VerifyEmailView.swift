@@ -50,6 +50,11 @@ struct VerifyEmailView: View {
                 .disabled(waitingForResponse)
                 .padding(15)
             
+            Text(error)
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(.red)
+                .frame(width: UIScreen.main.bounds.width, height: 16, alignment: .center)
+                .padding(.bottom, -5)
             
             
         }.opacity(triggerFade ? 0 : 1)
@@ -61,11 +66,21 @@ struct VerifyEmailView: View {
     }
     
     func checkIfEmailVerified() {
+        waitingForResponse = true
+        
         session.checkIfEmailVerified() { (error) in
             if let error = error {
                 print(error.localizedDescription)
+                self.waitingForResponse = false
             } else {
                 self.emailVerified = Auth.auth().currentUser?.isEmailVerified ?? false
+                
+                if self.emailVerified {
+                    print("nice")
+                } else {
+                    self.error = "החשבון עדין לא מאומת"
+                }
+                self.waitingForResponse = false
             }
         }
     }
