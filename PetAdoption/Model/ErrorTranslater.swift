@@ -31,6 +31,9 @@ struct ErrorTranslater {
         
         switch errorDescription {
             
+        case "Too many unsuccessful login attempts. Please try again later.":
+            return "יותר מדי ניסיונות אנא נסו שוב מאוחר יותר"
+            
         case "Network error (such as timeout, interrupted connection or unreachable host) has occurred.":
             return "לא נמצא חיבור לאינטרנט"
             

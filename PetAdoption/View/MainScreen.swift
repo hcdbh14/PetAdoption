@@ -112,8 +112,3 @@ struct MainScreen: View {
         })
     }
 }
-
-
-
-
-
