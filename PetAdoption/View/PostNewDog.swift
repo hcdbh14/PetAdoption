@@ -19,5 +19,3 @@ struct PostNewDog: View {
         }
     }
 }
-
-
