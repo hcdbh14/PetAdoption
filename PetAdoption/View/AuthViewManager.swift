@@ -6,15 +6,16 @@ struct AuthViewManager: View {
     @State var showPostPet = false
     @State var EmailVerification = false
     @State var showForgotPassword = false
-    @Binding var showPostPetScreen: Bool
+    @Binding var showAuthScreen: Bool
     @EnvironmentObject var session: SessionStore
     
     init(showPostPetScreen: Binding<Bool>) {
-        self._showPostPetScreen = showPostPetScreen
+        self._showAuthScreen = showPostPetScreen
     }
     
     var body: some View {
         VStack(alignment: .leading) {
+            
             HStack {
                 Button(action: closeLoginScreen) {
                     HStack {
@@ -37,6 +38,7 @@ struct AuthViewManager: View {
                     }
                 }
             }
+            
             ZStack {
                 Image("bone").resizable()
                     .renderingMode(.template)
@@ -48,7 +50,7 @@ struct AuthViewManager: View {
                 .padding(.bottom, -40)
             
             if (session.session != nil && EmailVerification == false && showPostPet) {
-                PostNewDog(showSignUpScreen: $EmailVerification)
+                PostNewDog(showAuthScreen: $showAuthScreen, showPostPet: $showPostPet)
                 
             } else if (session.session != nil && EmailVerification) {
                 VerifyEmailView(emailVerification: $EmailVerification, showPostPet: $showPostPet)
@@ -93,7 +95,7 @@ struct AuthViewManager: View {
         UIApplication.shared.endEditing()
         
         withAnimation {
-            showPostPetScreen = false
+            showAuthScreen = false
         }
     }
 }
