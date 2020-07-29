@@ -23,6 +23,7 @@ struct AuthViewManager: View {
                     }
                 }
                 .foregroundColor(Color("orange"))
+                .opacity(showPostPet ? 0 : 1)
                 .padding(.top, 60)
                 .padding(.leading, 25)
                 Spacer()
@@ -31,8 +32,8 @@ struct AuthViewManager: View {
                     Button(action: signOut) {
                         Text("התנתקות")
                             .foregroundColor(Color("orange"))
-                         .padding(.top, 60)
-                        .padding(.trailing, 25)
+                            .padding(.top, 60)
+                            .padding(.trailing, 25)
                     }
                 }
             }
@@ -40,7 +41,7 @@ struct AuthViewManager: View {
                 Image("bone").resizable()
                     .renderingMode(.template)
                     .frame(width: 80, height: 80)
-                    .opacity(0.8)
+                    .opacity(showPostPet ? 0 : 0.8)
                     .foregroundColor(.orange)
                 
             }.frame(width: UIScreen.main.bounds.width, alignment: .trailing)
@@ -66,7 +67,7 @@ struct AuthViewManager: View {
                     .renderingMode(.template)
                     .frame(width: 200, height: 200)
                     .foregroundColor(.orange)
-                    .opacity(0.8)
+                    .opacity(showPostPet ? 0 : 0.8)
                 Spacer()
                 
             }.frame(width: UIScreen.main.bounds.width)

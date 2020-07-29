@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PostNewDog: View {
     
+        @State var triggerFade = true
     @Binding var showSignUpScreen: Bool
     @EnvironmentObject var session: SessionStore
     
@@ -16,6 +17,13 @@ struct PostNewDog: View {
             .foregroundColor(.white)
             .padding(.leading, 25)
             .padding(.top, 25)
-        }
+            .opacity(triggerFade ? 0 : 1)
+                .onAppear() {
+                    withAnimation {
+                        self.triggerFade = false
+                    }
+            }
+        }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            .background(Color("offWhite"))
     }
 }

@@ -178,8 +178,10 @@ struct SignInView: View {
                     self.email = ""
                     self.password = ""
                     if result?.user.isEmailVerified ?? false {
-                        self.emailVerification = false
-                        self.showPostPet = true
+                        withAnimation {
+                            self.emailVerification = false
+                            self.showPostPet = true
+                        }
                     } else {
                         self.emailVerification = true
                     }
