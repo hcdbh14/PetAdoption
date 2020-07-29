@@ -144,6 +144,8 @@ struct SignInView: View {
     
     func signIn() {
         
+        UIApplication.shared.endEditing()
+        
         if email.isEmpty {
             error = "לא הוזן כתובת מייל"
             return

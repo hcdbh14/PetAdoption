@@ -108,6 +108,8 @@ struct ForgotPasswordView: View {
         
         mailSend = false
         
+        UIApplication.shared.endEditing()
+        
         if email.isEmpty {
             error = "לא הוזן כתובת מייל"
             return

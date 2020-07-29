@@ -178,6 +178,8 @@ struct SignUpView: View {
     
     func signUp() {
         
+        UIApplication.shared.endEditing()
+        
         if fullName.isEmpty {
             error = "לא הוזן שם מלא"
             return
