@@ -32,7 +32,7 @@ struct PostNewDog: View {
                             .padding(.trailing, 15)
                     }
                 }
-            }.padding(.top, 10)
+            }.padding(.top, 30)
             
 
             
@@ -48,7 +48,7 @@ struct PostNewDog: View {
                     }
             }
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading)
-            .background(Color("offWhite"))
+            .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
         
     }
     
