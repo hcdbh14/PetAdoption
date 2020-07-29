@@ -95,7 +95,7 @@ struct MainScreen: View {
                 AuthViewManager(showPostPetScreen: $showPostPetScreen)
             }
             .zIndex(4)
-            .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: .infinity, alignment: .topLeading)
+            .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: UIScreen.main.bounds.height, alignment: .topLeading)
             .background(Color("offBlack"))
             .edgesIgnoringSafeArea(.all)
             .offset(x: 0, y: self.showPostPetScreen ? 0 : UIScreen.main.bounds.height)

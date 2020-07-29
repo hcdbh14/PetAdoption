@@ -22,7 +22,6 @@ struct PostNewDog: View {
                     }
                 }
                 .foregroundColor(Color("orange"))
-                .padding(.top, 60)
                 .padding(.leading, 25)
                 Spacer()
                 
@@ -30,24 +29,25 @@ struct PostNewDog: View {
                     Button(action: signOut) {
                         Text("התנתקות")
                             .foregroundColor(Color("orange"))
-                            .padding(.top, 60)
-                            .padding(.trailing, 25)
+                            .padding(.trailing, 15)
                     }
                 }
-            }
+            }.padding(.top, 10)
             
-        Text("וואלה ברכות, הצלחת להיכנס לחשבון כמו מלכה")
-            .font(.system(size: 30, weight: .heavy))
-            .foregroundColor(.black)
-            .padding(.leading, 25)
-            .padding(.top, 25)
-            .opacity(triggerFade ? 0 : 1)
+
+            
+            Text("וואלה ברכות, הצלחת להיכנס לחשבון כמו מלכה")
+                .font(.system(size: 30, weight: .heavy))
+                .foregroundColor(.black)
+                .padding(.leading, 25)
+                .padding(.top, 25)
+                .opacity(triggerFade ? 0 : 1)
                 .onAppear() {
                     withAnimation {
                         self.triggerFade = false
                     }
             }
-        }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading)
             .background(Color("offWhite"))
         
     }
