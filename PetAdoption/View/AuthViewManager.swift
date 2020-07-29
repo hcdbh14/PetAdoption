@@ -85,6 +85,7 @@ struct AuthViewManager: View {
         session.signOut()
         showLogin = true
         showPostPet = false
+        EmailVerification = false
     }
     
     func closeLoginScreen() {
