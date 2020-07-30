@@ -3,6 +3,9 @@ import SwiftUI
 struct PostNewDog: View {
     
     @State private var image: Image?
+    @State private var secondImage: Image?
+    @State private var thirdImage: Image?
+    @State private var fourthImage: Image?
     @State var triggerFade = true
     @Binding var showPostPet: Bool
     @Binding var showAuthScreen: Bool
@@ -69,13 +72,13 @@ struct PostNewDog: View {
                 Spacer()
             }
             
-            //            HStack {
-            //                Spacer()
-            //                imagePlacerHolder()
-            //                imagePlacerHolder()
-            //                imagePlacerHolder()
-            //                Spacer()
-            //            }
+                        HStack {
+                            Spacer()
+                            imagePlacerHolder(image: $secondImage)
+                            imagePlacerHolder(image: $thirdImage)
+                            imagePlacerHolder(image: $fourthImage)
+                            Spacer()
+                        }
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading)
         .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
@@ -138,8 +141,11 @@ struct imagePlacerHolder: View {
                     .foregroundColor(.gray)
             } else {
                 image?.resizable()
+                    .scaledToFit()
                     .frame(width: 100, height: 150)
+                    .background(Color.black)
                     .cornerRadius(10)
+                    .fixedSize()
             }
         }
         
