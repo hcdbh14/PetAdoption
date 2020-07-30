@@ -13,7 +13,7 @@ struct PostNewDog: View {
     }
     
     var body: some View {
-        VStack {
+        ScrollView {
             HStack {
                 Button(action: closeLoginScreen) {
                     HStack {
