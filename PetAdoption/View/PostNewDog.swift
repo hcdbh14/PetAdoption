@@ -48,19 +48,13 @@ struct PostNewDog: View {
                     }
             }
             HStack {
-                Image(uiImage: UIImage())
-                .frame(width: 100, height: 150)
-                    .background(Color("offGray"))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .strokeBorder(
-                            style: StrokeStyle(
-                                lineWidth: 2,
-                                dash: [15]
-                            )
-                        )
-                        .foregroundColor(.gray)
-                )
+               imagePlacerHolder()
+            }
+            
+            HStack {
+                 imagePlacerHolder()
+                 imagePlacerHolder()
+                 imagePlacerHolder()
             }
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading)
@@ -80,5 +74,26 @@ struct PostNewDog: View {
     func signOut() {
         session.signOut()
         showPostPet = false
+    }
+}
+
+
+struct imagePlacerHolder: View {
+    
+     var body: some View {
+        
+            Image(uiImage: UIImage())
+            .frame(width: 100, height: 150)
+                .background(Color("offGray"))
+            .overlay(
+                RoundedRectangle(cornerRadius: 8)
+                    .strokeBorder(
+                        style: StrokeStyle(
+                            lineWidth: 2,
+                            dash: [15]
+                        )
+                    )
+                    .foregroundColor(.gray)
+            )
     }
 }
