@@ -36,17 +36,33 @@ struct PostNewDog: View {
             
 
             
-            Text("וואלה ברכות, הצלחת להיכנס לחשבון כמו מלכה")
-                .font(.system(size: 30, weight: .heavy))
-                .foregroundColor(.black)
-                .padding(.leading, 25)
-                .padding(.top, 25)
-                .opacity(triggerFade ? 0 : 1)
-                .onAppear() {
+            HStack {
+                Text("תמונות")
+                    .font(.system(size: 30, weight: .heavy))
+                    .foregroundColor(.black)
+                    .padding(.leading, 25)
+                Spacer()
+            }.onAppear() {
                     withAnimation {
                         self.triggerFade = false
                     }
             }
+            HStack {
+                Image(uiImage: UIImage())
+                .frame(width: 100, height: 150)
+                    .background(Color("offGray"))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .strokeBorder(
+                            style: StrokeStyle(
+                                lineWidth: 2,
+                                dash: [15]
+                            )
+                        )
+                        .foregroundColor(.gray)
+                )
+            }
+            
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading)
             .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
         
