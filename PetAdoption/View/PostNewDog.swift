@@ -34,7 +34,7 @@ struct PostNewDog: View {
                 }
             }.padding(.top, 30)
             
-
+            
             
             HStack {
                 Text("תמונות")
@@ -43,15 +43,15 @@ struct PostNewDog: View {
                     .padding(.leading, 25)
                 Spacer()
             }.onAppear() {
-                    withAnimation {
-                        self.triggerFade = false
-                    }
+                withAnimation {
+                    self.triggerFade = false
+                }
             }
             HStack {
-                  Spacer()
+                Spacer()
                 Text("צריך לפחות תמונה אחת. התמונה שפה תהיה הראשונה שאנשים יראו")
-                .frame(width: 100, alignment: .trailing)
-                .foregroundColor(.black)
+                    .frame(width: 100, alignment: .trailing)
+                    .foregroundColor(.black)
                 
                 
                 Image(systemName: "arrow.left").resizable()
@@ -61,14 +61,14 @@ struct PostNewDog: View {
                     .foregroundColor(.gray)
                 
                 imagePlacerHolder()
-                  Spacer()
+                Spacer()
             }
             
             HStack {
                 Spacer()
-                 imagePlacerHolder()
-                 imagePlacerHolder()
-                 imagePlacerHolder()
+                imagePlacerHolder()
+                imagePlacerHolder()
+                imagePlacerHolder()
                 Spacer()
             }
             
@@ -93,22 +93,28 @@ struct PostNewDog: View {
 }
 
 
+
 struct imagePlacerHolder: View {
     
-     var body: some View {
+    var body: some View {
         
+        ZStack {
             Image(uiImage: UIImage())
-            .frame(width: 100, height: 150)
+                .frame(width: 100, height: 150)
                 .background(Color("offGray"))
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .strokeBorder(
-                        style: StrokeStyle(
-                            lineWidth: 2,
-                            dash: [15]
-                        )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .strokeBorder(
+                            style: StrokeStyle(
+                                lineWidth: 2,
+                                dash: [15]
+                            )
                     )
-                    .foregroundColor(.gray)
+                        .foregroundColor(.gray)
             )
+            Image(systemName: "plus.circle").resizable()
+                .frame(width: 25, height: 25)
+                .foregroundColor(.gray)
+        }
     }
 }
