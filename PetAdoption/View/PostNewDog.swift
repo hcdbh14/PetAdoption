@@ -48,13 +48,28 @@ struct PostNewDog: View {
                     }
             }
             HStack {
-               imagePlacerHolder()
+                  Spacer()
+                Text("צריך לפחות תמונה אחת. התמונה שפה תהיה הראשונה שאנשים יראו")
+                .frame(width: 100, alignment: .trailing)
+                .foregroundColor(.black)
+                
+                
+                Image(systemName: "arrow.left").resizable()
+                    .frame(width: 60, height: 40)
+                    .padding(.leading, 20)
+                    .padding(.trailing, 20)
+                    .foregroundColor(.gray)
+                
+                imagePlacerHolder()
+                  Spacer()
             }
             
             HStack {
+                Spacer()
                  imagePlacerHolder()
                  imagePlacerHolder()
                  imagePlacerHolder()
+                Spacer()
             }
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading)
