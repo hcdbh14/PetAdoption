@@ -62,30 +62,28 @@ struct PostNewDog: View {
                     .padding(.leading, 20)
                     .padding(.trailing, 20)
                     .foregroundColor(.gray)
-                if image != nil {
-                    image?.resizable().scaledToFit()
-                }
-                imagePlacerHolder().onTapGesture {
+                
+                imagePlacerHolder(image: $image).onTapGesture {
                     self.showingImagePicker = true
                 }
                 Spacer()
             }
             
-            HStack {
-                Spacer()
-                imagePlacerHolder()
-                imagePlacerHolder()
-                imagePlacerHolder()
-                Spacer()
-            }
-    
+            //            HStack {
+            //                Spacer()
+            //                imagePlacerHolder()
+            //                imagePlacerHolder()
+            //                imagePlacerHolder()
+            //                Spacer()
+            //            }
+            
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading)
-            .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
+        .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
         .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
             ImagePicker(image: self.$inputImage)
         }
-    
-   
+        
+        
     }
     
     func closeLoginScreen() {
@@ -112,26 +110,39 @@ struct PostNewDog: View {
 
 struct imagePlacerHolder: View {
     
+    @Binding var image: Image?
+    
+    init(image: Binding<Image?>) {
+        self._image = image
+    }
+    
     var body: some View {
         
         ZStack {
-            Image(uiImage: UIImage())
-                .frame(width: 100, height: 150)
-                .background(Color("offGray"))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .strokeBorder(
-                            style: StrokeStyle(
-                                lineWidth: 2,
-                                dash: [15]
+            if image == nil {
+                Image(uiImage: UIImage())
+                    .frame(width: 100, height: 150)
+                    .background(Color("offGray"))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .strokeBorder(
+                                style: StrokeStyle(
+                                    lineWidth: 2,
+                                    dash: [15]
+                                )
                             )
+                            .foregroundColor(.gray)
                     )
-                        .foregroundColor(.gray)
-            )
-            Image(systemName: "plus.circle").resizable()
-                .frame(width: 25, height: 25)
-                .foregroundColor(.gray)
+                Image(systemName: "plus.circle").resizable()
+                    .frame(width: 25, height: 25)
+                    .foregroundColor(.gray)
+            } else {
+                image?.resizable()
+                    .frame(width: 100, height: 150)
+                    .cornerRadius(10)
+            }
         }
+        
     }
 }
 
@@ -142,11 +153,11 @@ struct imagePlacerHolder: View {
 
 
 struct ImagePicker: UIViewControllerRepresentable {
-
+    
     
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         let parent: ImagePicker
-
+        
         init(_ parent: ImagePicker) {
             self.parent = parent
         }
@@ -159,7 +170,7 @@ struct ImagePicker: UIViewControllerRepresentable {
             parent.presentationMode.wrappedValue.dismiss()
         }
     }
-
+    
     @Environment(\.presentationMode) var presentationMode
     @Binding var image: UIImage?
     
@@ -168,7 +179,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         picker.delegate = context.coordinator
         return picker
     }
-
+    
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
         
     }
