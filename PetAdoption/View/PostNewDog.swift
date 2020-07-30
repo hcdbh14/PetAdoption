@@ -2,9 +2,12 @@ import SwiftUI
 
 struct PostNewDog: View {
     
+    @State private var image: Image?
     @State var triggerFade = true
     @Binding var showPostPet: Bool
     @Binding var showAuthScreen: Bool
+    @State private var inputImage: UIImage?
+    @State private var showingImagePicker = false
     @EnvironmentObject var session: SessionStore
     
     init(showAuthScreen: Binding<Bool>, showPostPet: Binding<Bool>) {
@@ -59,8 +62,12 @@ struct PostNewDog: View {
                     .padding(.leading, 20)
                     .padding(.trailing, 20)
                     .foregroundColor(.gray)
-                
-                imagePlacerHolder()
+                if image != nil {
+                    image?.resizable().scaledToFit()
+                }
+                imagePlacerHolder().onTapGesture {
+                    self.showingImagePicker = true
+                }
                 Spacer()
             }
             
@@ -71,10 +78,14 @@ struct PostNewDog: View {
                 imagePlacerHolder()
                 Spacer()
             }
-            
+    
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading)
             .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
-        
+        .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
+            ImagePicker(image: self.$inputImage)
+        }
+    
+   
     }
     
     func closeLoginScreen() {
@@ -89,6 +100,11 @@ struct PostNewDog: View {
     func signOut() {
         session.signOut()
         showPostPet = false
+    }
+    
+    func loadImage() {
+        guard let inputImage = inputImage else { return }
+        image = Image(uiImage: inputImage)
     }
 }
 
@@ -118,3 +134,53 @@ struct imagePlacerHolder: View {
         }
     }
 }
+
+
+
+
+
+
+
+struct ImagePicker: UIViewControllerRepresentable {
+
+    
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+        let parent: ImagePicker
+
+        init(_ parent: ImagePicker) {
+            self.parent = parent
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let uiImage = info[.originalImage] as?
+                UIImage {
+                parent.image = uiImage
+            }
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+    }
+
+    @State private var inputImage: UIImage?
+    @State private var showingImagePicker = false
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var image: UIImage?
+    
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
+        
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+}
+
+
+
+
+
+
