@@ -56,15 +56,14 @@ struct PostNewDog: View {
             HStack {
                 Spacer()
                 Text("צריך לפחות תמונה אחת. התמונה שפה תהיה הראשונה שאנשים יראו")
-                    .frame(width: 100, alignment: .trailing)
+                    .frame(width: UIScreen.main.bounds.width / 3.5, alignment: .trailing)
                     .foregroundColor(.black)
                 
-                
-                Image(systemName: "arrow.left").resizable()
-                    .frame(width: 60, height: 40)
-                    .padding(.leading, 20)
-                    .padding(.trailing, 20)
-                    .foregroundColor(.gray)
+                ZStack {
+                    Image(systemName: "arrow.left").resizable()
+                        .frame(width: 60,height: 40)
+                        .foregroundColor(.gray)
+                }.frame(width: UIScreen.main.bounds.width / 3.5)
                 
                 imagePlacerHolder(image: $image).onTapGesture {
                     self.showingImagePicker = true
@@ -72,13 +71,13 @@ struct PostNewDog: View {
                 Spacer()
             }
             
-                        HStack {
-                            Spacer()
-                            imagePlacerHolder(image: $secondImage)
-                            imagePlacerHolder(image: $thirdImage)
-                            imagePlacerHolder(image: $fourthImage)
-                            Spacer()
-                        }
+            HStack {
+                Spacer()
+                imagePlacerHolder(image: $secondImage)
+                imagePlacerHolder(image: $thirdImage)
+                imagePlacerHolder(image: $fourthImage)
+                Spacer()
+            }
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading)
         .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
@@ -124,7 +123,7 @@ struct imagePlacerHolder: View {
         ZStack {
             if image == nil {
                 Image(uiImage: UIImage())
-                    .frame(width: 100, height: 150)
+                    .frame(width: UIScreen.main.bounds.width / 3.5 , height: 150)
                     .background(Color("offGray"))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
@@ -142,7 +141,7 @@ struct imagePlacerHolder: View {
             } else {
                 image?.resizable()
                     .scaledToFit()
-                    .frame(width: 100, height: 150)
+                    .frame(width: UIScreen.main.bounds.width / 3.5 , height: 150)
                     .background(Color.black)
                     .cornerRadius(10)
                     .fixedSize()
