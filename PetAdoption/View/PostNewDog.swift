@@ -1,7 +1,16 @@
 import SwiftUI
 
+
+enum TextFieldCorrection {
+    
+    case correct
+    case needFixing
+    case empty
+}
+
 struct PostNewDog: View {
     
+    @State private var correctTextField = TextFieldCorrection.empty
     @State private var dogName = ""
     @State private var image: Image?
     @State private var secondImage: Image?
@@ -91,7 +100,17 @@ struct PostNewDog: View {
                 }
                 
                 ZStack {
-                    TextField("שם הכלב", text: $dogName)
+                    TextField("שם הכלב", text: $dogName, onEditingChanged: { (editingChanged) in
+                        if editingChanged {
+                            print("TextField focused")
+                        } else {
+                            if dogName.count > 2 {
+                                correctTextField = .correct
+                            } else {
+                                correctTextField = .empty
+                            }
+                        }
+                    })
                         .padding(.leading, 25)
                         .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
                         .background(Color("offPureWhite"))
@@ -102,7 +121,7 @@ struct PostNewDog: View {
                                         lineWidth: 1
                                     )
                                 )
-                                .foregroundColor(.gray))
+                                .foregroundColor(correctTextField == .correct ? .green : .gray))
                  
                 }
             }.padding(.top, 25)
