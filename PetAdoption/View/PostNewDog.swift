@@ -54,8 +54,8 @@ struct PostNewDog: View {
             
             HStack {
                 Text("תמונות")
-                    .font(.system(size: 30, weight: .heavy))
-                    .foregroundColor(.black)
+                    .font(.system(size: 24, weight: .semibold))
+                    .foregroundColor(Color("offBlack"))
                     .padding(.leading, 25)
                 Spacer()
             }.onAppear() {
@@ -92,9 +92,9 @@ struct PostNewDog: View {
             
             VStack {
                 HStack {
-                Text("שם הכלב")
+                Text("פרטי הכלב")
                     .font(.system(size: 24, weight: .semibold))
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("offBlack"))
                     .padding(.leading, 25)
                     Spacer()
                 }
@@ -104,24 +104,25 @@ struct PostNewDog: View {
                         if editingChanged {
                             print("TextField focused")
                         } else {
-                            if dogName.count > 2 {
+                            if dogName.isEmpty == false {
                                 correctTextField = .correct
                             } else {
                                 correctTextField = .empty
                             }
                         }
                     })
-                        .padding(.leading, 25)
+                    .padding(.leading, 5)
+                    .padding(.bottom, 25)
                         .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
-                        .background(Color("offPureWhite"))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .strokeBorder(
-                                    style: StrokeStyle(
-                                        lineWidth: 1
-                                    )
-                                )
-                                .foregroundColor(correctTextField == .correct ? .green : .gray))
+//                        .overlay(
+//                            RoundedRectangle(cornerRadius: 5)
+//                                .strokeBorder(
+//                                    style: StrokeStyle(
+//                                        lineWidth: 1
+//                                    )
+//                                )
+//                                .foregroundColor(correctTextField == .correct ? .green : .gray))
+                    Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
                  
                 }
             }.padding(.top, 25)
