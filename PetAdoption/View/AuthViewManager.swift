@@ -52,19 +52,19 @@ struct AuthViewManager: View {
                     .padding(.bottom, -40)
             }
             
-
+            if (session.session != nil && EmailVerification == false && showPostPet) {
                 PostNewDog(showAuthScreen: $showAuthScreen, showPostPet: $showPostPet)
-//                
-//if (session.session != nil && EmailVerification) {
-//                VerifyEmailView(emailVerification: $EmailVerification, showPostPet: $showPostPet)
-//                
-//            } else if (showLogin) {
-//                SignInView(emailVerification: $EmailVerification, showLogin: $showLogin, forgotPassword: $showForgotPassword, showPostPet: $showPostPet)
-//            } else if (showForgotPassword) {
-//                ForgotPasswordView(showLogin: $showLogin, forgotPassword: $showForgotPassword)
-//            } else {
-//                SignUpView(showLogin: $showLogin, emailVerification: $EmailVerification)
-//            }
+                
+            } else if (session.session != nil && EmailVerification) {
+                VerifyEmailView(emailVerification: $EmailVerification, showPostPet: $showPostPet)
+                
+            } else if (showLogin) {
+                SignInView(emailVerification: $EmailVerification, showLogin: $showLogin, forgotPassword: $showForgotPassword, showPostPet: $showPostPet)
+            } else if (showForgotPassword) {
+                ForgotPasswordView(showLogin: $showLogin, forgotPassword: $showForgotPassword)
+            } else {
+                SignUpView(showLogin: $showLogin, emailVerification: $EmailVerification)
+            }
             
             Spacer()
             HStack {
