@@ -98,7 +98,7 @@ struct PostNewDog: View {
                         .padding(.leading, 25)
                         .padding(.bottom, 25)
                     Spacer()
-                }
+                }.padding(.top, 25)
             }
             
             VStack {
@@ -114,17 +114,18 @@ struct PostNewDog: View {
                 }
             }
             
-            VStack {
+
                 HStack {
-                    Text("שם ה\(petType)")
+                    Text("פרטי ה\(petType)")
                         .font(.system(size: 24, weight: .semibold))
                         .foregroundColor(Color("offBlack"))
                         .padding(.leading, 25)
-                        .padding(.bottom, 25)
+                        .padding(.bottom, 15)
                     Spacer()
                 }
                 
                 ZStack {
+                    HStack {
                     TextField("הקלידו את השם כאן", text: $dogName, onEditingChanged: { (editingChanged) in
                         if editingChanged {
                             print("TextField focused")
@@ -136,9 +137,11 @@ struct PostNewDog: View {
                             }
                         }
                     })
-                    .padding(.leading, 5)
+                    .padding(.leading, 30)
                     .padding(.bottom, 25)
                     .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
+                        Spacer()
+                    }
                     //                        .overlay(
                     //                            RoundedRectangle(cornerRadius: 5)
                     //                                .strokeBorder(
@@ -148,9 +151,40 @@ struct PostNewDog: View {
                     //                                )
                     //                                .foregroundColor(correctTextField == .correct ? .green : .gray))
                     Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
-                    
+                                .padding(.leading, 25)
+                                .padding(.trailing, 40)
                 }
-            }.padding(.top, 25)
+                
+                HStack {
+                    Text("גזע")
+                        .font(.system(size: 20, weight: .regular))
+                        .foregroundColor(Color("offBlack"))
+                        .padding(.leading, 25)
+                        .padding(.bottom, 5)
+                    Spacer()
+                }
+                
+                ZStack {
+                    
+                    HStack {
+                        TextField("הקלידו את הגזע כאן", text: $dogName)
+                            .padding(.leading, 30)
+                            .padding(.bottom, 25)
+                            .frame(width: UIScreen.main.bounds.width  / 1 , height: 50)
+                        
+                        Spacer()
+                    }
+
+                    HStack {
+                        Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5).padding(.leading, 30)
+                        Spacer()
+                        Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 3, height: 0.5).padding(.trailing, 25)
+                    }
+                   
+                       
+                }
+                
+
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading)
         .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
