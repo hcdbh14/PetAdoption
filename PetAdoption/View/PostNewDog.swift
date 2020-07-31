@@ -9,7 +9,7 @@ enum TextFieldCorrection {
 }
 
 struct PostNewDog: View {
-    
+    @State private var petType = "כלב"
     @State private var correctTextField = TextFieldCorrection.empty
     @State private var dogName = ""
     @State private var image: Image?
@@ -87,20 +87,45 @@ struct PostNewDog: View {
                 imagePlacerHolder(image: $thirdImage)
                 imagePlacerHolder(image: $fourthImage)
                 Spacer()
-            }
-            
+            }.padding(.bottom, 25)
             
             VStack {
                 HStack {
-                Text("פרטי הכלב")
-                    .font(.system(size: 24, weight: .semibold))
-                    .foregroundColor(Color("offBlack"))
-                    .padding(.leading, 25)
+                    
+                    Text("איזה חיית מחמד?")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundColor(Color("offBlack"))
+                        .padding(.leading, 25)
+                        .padding(.bottom, 25)
+                    Spacer()
+                }
+            }
+            
+            VStack {
+                HStack {
+                    Spacer()
+                    Picker(selection: $petType, label: Text("בחרו סוג החייה")) {
+                        Text("כלב").tag("כלב")
+                        Text("חתול").tag("חתול")
+                        Text("אחר").tag("חיית מחמד")
+                    }.pickerStyle(SegmentedPickerStyle())
+                    .padding(.bottom, 25)
+                    Spacer()
+                }
+            }
+            
+            VStack {
+                HStack {
+                    Text("שם ה\(petType)")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundColor(Color("offBlack"))
+                        .padding(.leading, 25)
+                        .padding(.bottom, 25)
                     Spacer()
                 }
                 
                 ZStack {
-                    TextField("שם הכלב", text: $dogName, onEditingChanged: { (editingChanged) in
+                    TextField("הקלידו את השם כאן", text: $dogName, onEditingChanged: { (editingChanged) in
                         if editingChanged {
                             print("TextField focused")
                         } else {
@@ -113,17 +138,17 @@ struct PostNewDog: View {
                     })
                     .padding(.leading, 5)
                     .padding(.bottom, 25)
-                        .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
-//                        .overlay(
-//                            RoundedRectangle(cornerRadius: 5)
-//                                .strokeBorder(
-//                                    style: StrokeStyle(
-//                                        lineWidth: 1
-//                                    )
-//                                )
-//                                .foregroundColor(correctTextField == .correct ? .green : .gray))
+                    .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
+                    //                        .overlay(
+                    //                            RoundedRectangle(cornerRadius: 5)
+                    //                                .strokeBorder(
+                    //                                    style: StrokeStyle(
+                    //                                        lineWidth: 1
+                    //                                    )
+                    //                                )
+                    //                                .foregroundColor(correctTextField == .correct ? .green : .gray))
                     Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
-                 
+                    
                 }
             }.padding(.top, 25)
             
@@ -242,7 +267,6 @@ struct ImagePicker: UIViewControllerRepresentable {
         Coordinator(self)
     }
 }
-
 
 
 
