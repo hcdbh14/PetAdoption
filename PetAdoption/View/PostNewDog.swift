@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PostNewDog: View {
     
+    @State private var dogName = ""
     @State private var image: Image?
     @State private var secondImage: Image?
     @State private var thirdImage: Image?
@@ -78,6 +79,33 @@ struct PostNewDog: View {
                 imagePlacerHolder(image: $fourthImage)
                 Spacer()
             }
+            
+            
+            VStack {
+                HStack {
+                Text("שם הכלב")
+                    .font(.system(size: 24, weight: .semibold))
+                    .foregroundColor(.gray)
+                    .padding(.leading, 25)
+                    Spacer()
+                }
+                
+                ZStack {
+                    TextField("שם הכלב", text: $dogName)
+                        .padding(.leading, 25)
+                        .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
+                        .background(Color("offPureWhite"))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .strokeBorder(
+                                    style: StrokeStyle(
+                                        lineWidth: 1
+                                    )
+                                )
+                                .foregroundColor(.gray))
+                 
+                }
+            }.padding(.top, 25)
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading)
         .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
