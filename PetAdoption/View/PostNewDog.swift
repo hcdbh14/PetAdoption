@@ -1,5 +1,5 @@
 import SwiftUI
-
+import Combine
 
 enum TextFieldCorrection {
     
@@ -233,7 +233,34 @@ struct PostNewDog: View {
                             .padding(.bottom, 25)
                             .frame(width: UIScreen.main.bounds.width  / 2 , height: 50)
                         Spacer()
-                        TextField("הקלידו גיל משוערך", text: $petAge).frame(width: UIScreen.main.bounds.width  / 3.8, height: 0.5)
+                        TextField("הקלידו גיל", text: $petAge, onEditingChanged: { (editingChanged) in
+                            if editingChanged {
+                                print("TextField focused")
+                            } else {
+                                if petAge.isEmpty == false {
+                                    correctTextField = .correct
+                                    if self.petAge.count <= 2 {
+                                        self.petAgeError =  ""
+                                    }
+                                } else {
+                                    correctTextField = .empty
+                                }
+                            }
+                        })
+                        .onReceive(Just(petAge)) { newValue in
+                              let filtered = petAge.filter { "0123456789".contains($0) }
+                              if filtered != petAge {
+                                  self.petAge = filtered
+                              }
+                        }
+                        .onReceive(petAge.publisher.collect()) {
+                            if self.petAge.count > 2 {
+                                self.petAgeError =  "רק 2 ספרות"
+                            }
+                            self.petAge = String($0.prefix(2))
+                    }
+                        
+                            .frame(width: UIScreen.main.bounds.width  / 3.8, height: 0.5)
                             .keyboardType(.numberPad)
                             .padding(.bottom, 25)
                             .padding(.trailing, 20)
