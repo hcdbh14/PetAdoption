@@ -135,7 +135,7 @@ struct PostNewDog: View {
                         Text("חתול").tag("חתול")
                         Text("אחר").tag("חיית מחמד")
                     }.pickerStyle(SegmentedPickerStyle())
-                    .padding(.bottom, 25)
+                        .padding(.bottom, 25)
                     Spacer()
                 }
                 
@@ -166,28 +166,28 @@ struct PostNewDog: View {
                             if editingChanged {
                                 print("TextField focused")
                             } else {
-                                if petName.isEmpty == false {
-                                    correctTextField = .correct
+                                if self.petName.isEmpty == false {
+                                    self.correctTextField = .correct
                                     if self.petName.count <= 24 {
                                         self.petNameError =  ""
                                     }
                                 } else {
-                                    correctTextField = .empty
+                                    self.correctTextField = .empty
                                 }
                             }
                         })
-                        .onReceive(Just(petName)) { newValue in
-                            let filtered = petName.filter { self.allowedChars.contains($0) }
-                              if filtered != petName {
-                                  self.petName = filtered
-                              }
+                            .onReceive(Just(petName)) { newValue in
+                                let filtered = self.petName.filter { self.allowedChars.contains($0) }
+                                if filtered != self.petName {
+                                    self.petName = filtered
+                                }
                         }
                         .onReceive(petName.publisher.collect()) {
                             if self.petName.count > 24 {
-                                self.petNameError =  "שם ה\(petType) ארוך מדיי "
+                                self.petNameError =  "שם ה\(self.petType) ארוך מדיי "
                             }
                             self.petName = String($0.prefix(24))
-                    }
+                        }
                         .padding(.leading, 30)
                         .padding(.bottom, 25)
                         .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
@@ -197,13 +197,13 @@ struct PostNewDog: View {
                     Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
                         .padding(.leading, 25)
                         .padding(.trailing, 40)
-
+                    
                     Text(petNameError)
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(.red)
                         .frame(width: UIScreen.main.bounds.width, height: 16, alignment: .center)
                         .padding(.top, 10)
-                     
+                    
                     
                 }.padding(.bottom, 20)
                 
@@ -231,63 +231,63 @@ struct PostNewDog: View {
                             if editingChanged {
                                 print("TextField focused")
                             } else {
-                                if petRace.isEmpty == false {
-                                    correctTextField = .correct
+                                if self.petRace.isEmpty == false {
+                                    self.correctTextField = .correct
                                     if self.petRace.count <= 20 {
                                         self.petRaceError =  ""
                                     }
                                 } else {
-                                    correctTextField = .empty
+                                    self.correctTextField = .empty
                                 }
                             }
                         })
-                        .onReceive(Just(petRace)) { newValue in
-                            let filtered = petRace.filter { self.allowedChars.contains($0) }
-                              if filtered != petRace {
-                                  self.petRace = filtered
-                              }
+                            .onReceive(Just(petRace)) { newValue in
+                                let filtered = self.petRace.filter { self.allowedChars.contains($0) }
+                                if filtered != self.petRace {
+                                    self.petRace = filtered
+                                }
                         }
                         .onReceive(petRace.publisher.collect()) {
                             if self.petRace.count > 20 {
-                                self.petRaceError =  "גזע ה\(petType) ארוך מדיי "
+                                self.petRaceError =  "גזע ה\(self.petType) ארוך מדיי "
                             }
                             self.petRace = String($0.prefix(20))
-                    }
-                            .padding(.leading, 25)
-                            .padding(.bottom, 25)
-                            .frame(width: UIScreen.main.bounds.width  / 2 , height: 50)
+                        }
+                        .padding(.leading, 25)
+                        .padding(.bottom, 25)
+                        .frame(width: UIScreen.main.bounds.width  / 2 , height: 50)
                         Spacer()
                         TextField("הקלידו גיל", text: $petAge, onEditingChanged: { (editingChanged) in
                             if editingChanged {
                                 print("TextField focused")
                             } else {
-                                if petAge.isEmpty == false {
-                                    correctTextField = .correct
+                                if self.petAge.isEmpty == false {
+                                    self.correctTextField = .correct
                                     if self.petAge.count <= 2 {
                                         self.petAgeError =  ""
                                     }
                                 } else {
-                                    correctTextField = .empty
+                                    self.correctTextField = .empty
                                 }
                             }
                         })
-                        .onReceive(Just(petAge)) { newValue in
-                              let filtered = petAge.filter { "0123456789".contains($0) }
-                              if filtered != petAge {
-                                  self.petAge = filtered
-                              }
+                            .onReceive(Just(petAge)) { newValue in
+                                let filtered = self.petAge.filter { "0123456789".contains($0) }
+                                if filtered != self.petAge {
+                                    self.petAge = filtered
+                                }
                         }
                         .onReceive(petAge.publisher.collect()) {
                             if self.petAge.count > 2 {
                                 self.petAgeError =  "רק 2 ספרות"
                             }
                             self.petAge = String($0.prefix(2))
-                    }
-                        
-                            .frame(width: UIScreen.main.bounds.width  / 3.8, height: 0.5)
-                            .keyboardType(.numberPad)
-                            .padding(.bottom, 25)
-                            .padding(.trailing, 20)
+                        }
+                            
+                        .frame(width: UIScreen.main.bounds.width  / 3.8, height: 0.5)
+                        .keyboardType(.numberPad)
+                        .padding(.bottom, 25)
+                        .padding(.trailing, 20)
                     }
                     
                     HStack {
@@ -295,7 +295,7 @@ struct PostNewDog: View {
                         Spacer()
                         Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 3.8, height: 0.5).padding(.trailing, 30)
                     }
-
+                    
                     HStack {
                         Text(petRaceError)
                             .font(.system(size: 14, weight: .semibold))
@@ -303,10 +303,10 @@ struct PostNewDog: View {
                             .frame(width: UIScreen.main.bounds.width  / 2, height: 0.5)
                             .padding(.leading, 25)
                             .padding(.top, 15)
-                     
-
+                        
+                        
                         Spacer()
-
+                        
                         Text(petAgeError)
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.red)
@@ -320,9 +320,9 @@ struct PostNewDog: View {
             
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading).edgesIgnoringSafeArea(.bottom)
-        .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
-        .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
-            ImagePicker(image: self.$inputImage)
+            .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
+            .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
+                ImagePicker(image: self.$inputImage)
         }
         .offset(y: -self.value)
         .animation(.spring())
@@ -370,6 +370,6 @@ struct PostNewDog: View {
             
         case .fourth:
             fourthImage = Image(uiImage: inputImage)
+        }
     }
-}
 }
