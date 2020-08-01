@@ -16,6 +16,7 @@ struct PostNewDog: View {
     @State private var petAge = ""
     @State private var petRace = ""
     @State private var petName = ""
+    @State private var petNameError = ""
     @State private var image: Image?
     @State private var secondImage: Image?
     @State private var thirdImage: Image?
@@ -116,9 +117,9 @@ struct PostNewDog: View {
                     .padding(.bottom, 25)
                     Spacer()
                 }
-           
-            
-
+                
+                
+                
                 HStack {
                     Text("פרטי ה\(petType)")
                         .font(.system(size: 24, weight: .semibold))
@@ -127,33 +128,42 @@ struct PostNewDog: View {
                         .padding(.bottom, 30)
                     Spacer()
                 }
-            
-            
-            HStack {
-                Text("שם")
-                    .font(.system(size: 20, weight: .regular))
-                    .foregroundColor(Color("offBlack"))
-                    .padding(.leading, 25)
-                    .padding(.bottom, 5)
-                Spacer()
-            }
+                
+                
+                HStack {
+                    Text("שם")
+                        .font(.system(size: 20, weight: .regular))
+                        .foregroundColor(Color("offBlack"))
+                        .padding(.leading, 25)
+                        .padding(.bottom, 5)
+                    Spacer()
+                }
                 
                 ZStack {
                     HStack {
-                    TextField("הקלידו את השם כאן", text: $petName, onEditingChanged: { (editingChanged) in
-                        if editingChanged {
-                            print("TextField focused")
-                        } else {
-                            if petName.isEmpty == false {
-                                correctTextField = .correct
+                        TextField("הקלידו את השם כאן", text: $petName, onEditingChanged: { (editingChanged) in
+                            if editingChanged {
+                                print("TextField focused")
                             } else {
-                                correctTextField = .empty
+                                if petName.isEmpty == false {
+                                    correctTextField = .correct
+                                    if self.petName.count <= 24 {
+                                        self.petNameError =  ""
+                                    }
+                                } else {
+                                    correctTextField = .empty
+                                }
                             }
-                        }
-                    })
-                    .padding(.leading, 30)
-                    .padding(.bottom, 25)
-                    .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
+                        })
+                        .onReceive(petName.publisher.collect()) {
+                            if self.petName.count > 24 {
+                                self.petNameError =  "שם ה\(petType) ארוך מדיי "
+                            }
+                            self.petName = String($0.prefix(24))
+                    }
+                        .padding(.leading, 30)
+                        .padding(.bottom, 25)
+                        .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
                         Spacer()
                     }
                     //                        .overlay(
@@ -165,8 +175,16 @@ struct PostNewDog: View {
                     //                                )
                     //                                .foregroundColor(correctTextField == .correct ? .green : .gray))
                     Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
-                                .padding(.leading, 25)
-                                .padding(.trailing, 40)
+                        .padding(.leading, 25)
+                        .padding(.trailing, 40)
+
+                    Text(petNameError)
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(.red)
+                        .frame(width: UIScreen.main.bounds.width, height: 16, alignment: .center)
+                        .padding(.top, 10)
+                     
+                    
                 }.padding(.bottom, 20)
                 
                 HStack {
@@ -183,7 +201,7 @@ struct PostNewDog: View {
                         .foregroundColor(Color("offBlack"))
                         .padding(.trailing, UIScreen.main.bounds.width  / 3)
                         .padding(.bottom, 5)
-                  
+                    
                 }
                 
                 ZStack {
@@ -199,17 +217,16 @@ struct PostNewDog: View {
                             .padding(.bottom, 25)
                             .padding(.trailing, 20)
                     }
-
+                    
                     HStack {
                         Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5).padding(.leading, 25)
                         Spacer()
                         Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 3, height: 0.5).padding(.trailing, 30)
                     }
                 }
-                       
-                }
-                
-
+            }
+            
+            
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading).edgesIgnoringSafeArea(.bottom)
         .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
