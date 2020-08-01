@@ -10,7 +10,6 @@ enum TextFieldCorrection {
 
 struct PostNewDog: View {
     
-    let okayChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ אבגדהוזחטיכךלמםנןסעפףצץקרשת")
     @State var value : CGFloat = 0
     @State private var petType = "כלב"
     @State private var correctTextField = TextFieldCorrection.empty
@@ -160,7 +159,7 @@ struct PostNewDog: View {
                         })
                         .onReceive(petName.publisher.collect()) {
                             if self.petName.count > 24 {
-                                self.petNameError =  "שם ה\($petType) ארוך מדיי "
+                                self.petNameError =  "שם ה\(petType) ארוך מדיי "
                             }
                             self.petName = String($0.prefix(24))
                     }
@@ -202,7 +201,7 @@ struct PostNewDog: View {
                     Text("גיל")
                         .font(.system(size: 20, weight: .regular))
                         .foregroundColor(Color("offBlack"))
-                        .padding(.trailing, UIScreen.main.bounds.width  / 3)
+                        .padding(.trailing, UIScreen.main.bounds.width  / 3.8)
                         .padding(.bottom, 5)
                     
                 }
@@ -226,33 +225,33 @@ struct PostNewDog: View {
                         })
                         .onReceive(petRace.publisher.collect()) {
                             if self.petRace.count > 20 {
-                                self.petRaceError =  "גזע ה\($petType) ארוך מדיי "
+                                self.petRaceError =  "גזע ה\(petType) ארוך מדיי "
                             }
                             self.petRace = String($0.prefix(20))
                     }
                             .padding(.leading, 25)
                             .padding(.bottom, 25)
-                            .frame(width: UIScreen.main.bounds.width  / 3 , height: 50)
+                            .frame(width: UIScreen.main.bounds.width  / 2 , height: 50)
                         Spacer()
-                        TextField("הקלידו גיל משוערך", text: $petAge).frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5)
+                        TextField("הקלידו גיל משוערך", text: $petAge).frame(width: UIScreen.main.bounds.width  / 3.8, height: 0.5)
                             .keyboardType(.numberPad)
                             .padding(.bottom, 25)
                             .padding(.trailing, 20)
                     }
                     
                     HStack {
-                        Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5).padding(.leading, 25)
+                        Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 2, height: 0.5).padding(.leading, 25)
                         Spacer()
-                        Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 3, height: 0.5).padding(.trailing, 30)
+                        Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 3.8, height: 0.5).padding(.trailing, 30)
                     }
 
                     HStack {
                         Text(petRaceError)
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.red)
-                            .frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5)
+                            .frame(width: UIScreen.main.bounds.width  / 2, height: 0.5)
                             .padding(.leading, 25)
-                            .padding(.top, 10)
+                            .padding(.top, 15)
                      
 
                         Spacer()
@@ -260,9 +259,9 @@ struct PostNewDog: View {
                         Text(petAgeError)
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.red)
-                            .frame(width: UIScreen.main.bounds.width  / 3, height: 0.5)
+                            .frame(width: UIScreen.main.bounds.width  / 3.8, height: 0.5)
                             .padding(.trailing, 30)
-                            .padding(.top, 10)
+                            .padding(.top, 15)
                     }
                 }
             }
