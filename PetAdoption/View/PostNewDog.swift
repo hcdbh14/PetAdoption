@@ -38,6 +38,7 @@ struct PostNewDog: View {
     @State private var inputImage: UIImage?
     @State private var showingImagePicker = false
     @EnvironmentObject var session: SessionStore
+    @Environment (\.colorScheme) var colorScheme: ColorScheme
     
     init(showAuthScreen: Binding<Bool>, showPostPet: Binding<Bool>) {
         self._showPostPet = showPostPet
@@ -64,7 +65,7 @@ struct PostNewDog: View {
                             .padding(.trailing, 15)
                     }
                 }
-            }.padding(.top, 40)
+            }.padding(.top,  UIDevice.current.systemVersion != "14.0" ?  80 : 40)
             
             
             
@@ -320,7 +321,7 @@ struct PostNewDog: View {
             
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading).edgesIgnoringSafeArea(.bottom)
-            .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
+            .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + (UIDevice.current.systemVersion != "14.0" ? 20 : 0), alignment: .top).edgesIgnoringSafeArea(.bottom))
             .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
                 ImagePicker(image: self.$inputImage)
         }
