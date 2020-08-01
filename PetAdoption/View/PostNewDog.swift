@@ -13,7 +13,9 @@ struct PostNewDog: View {
     @State var value : CGFloat = 0
     @State private var petType = "כלב"
     @State private var correctTextField = TextFieldCorrection.empty
-    @State private var dogName = ""
+    @State private var petAge = ""
+    @State private var petRace = ""
+    @State private var petName = ""
     @State private var image: Image?
     @State private var secondImage: Image?
     @State private var thirdImage: Image?
@@ -138,11 +140,11 @@ struct PostNewDog: View {
                 
                 ZStack {
                     HStack {
-                    TextField("הקלידו את השם כאן", text: $dogName, onEditingChanged: { (editingChanged) in
+                    TextField("הקלידו את השם כאן", text: $petName, onEditingChanged: { (editingChanged) in
                         if editingChanged {
                             print("TextField focused")
                         } else {
-                            if dogName.isEmpty == false {
+                            if petName.isEmpty == false {
                                 correctTextField = .correct
                             } else {
                                 correctTextField = .empty
@@ -187,12 +189,12 @@ struct PostNewDog: View {
                 ZStack {
                     
                     HStack {
-                        TextField("הקלידו את הגזע כאן", text: $dogName)
+                        TextField("הקלידו את הגזע כאן", text: $petRace)
                             .padding(.leading, 25)
                             .padding(.bottom, 25)
                             .frame(width: UIScreen.main.bounds.width  / 3 , height: 50)
                         Spacer()
-                        TextField("הקלידו גיל משוערך", text: $dogName).frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5)
+                        TextField("הקלידו גיל משוערך", text: $petAge).frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5)
                             .keyboardType(.numberPad)
                             .padding(.bottom, 25)
                             .padding(.trailing, 20)
@@ -229,8 +231,6 @@ struct PostNewDog: View {
                 self.value = 0
             }
         }
-        
-        
     }
     
     func closeLoginScreen() {
