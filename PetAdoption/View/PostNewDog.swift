@@ -190,7 +190,8 @@ struct PostNewDog: View {
                             .padding(.bottom, 25)
                             .frame(width: UIScreen.main.bounds.width  / 3 , height: 50)
                         Spacer()
-                        TextField("בדיקה", text: $dogName).frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5)
+                        TextField("הקלידו גיל משוערך", text: $dogName).frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5)
+                            .keyboardType(.numberPad)
                             .padding(.bottom, 25)
                             .padding(.trailing, 20)
                     }
