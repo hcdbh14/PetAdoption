@@ -168,17 +168,22 @@ struct PostNewDog: View {
                     
                     HStack {
                         TextField("הקלידו את הגזע כאן", text: $dogName)
-                            .padding(.leading, 30)
+                            .padding(.leading, 25)
                             .padding(.bottom, 25)
-                            .frame(width: UIScreen.main.bounds.width  / 1 , height: 50)
-                        
+                            .frame(width: UIScreen.main.bounds.width  / 3 , height: 50)
                         Spacer()
+                        TextField("בדיקה", text: $dogName).frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5)
+                            .padding(.bottom, 25)
+                            .padding(.trailing, 20)
+
+                        
+                        
                     }
 
                     HStack {
-                        Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5).padding(.leading, 30)
+                        Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5).padding(.leading, 25)
                         Spacer()
-                        Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 3, height: 0.5).padding(.trailing, 25)
+                        Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 3, height: 0.5).padding(.trailing, 30)
                     }
                    
                        
