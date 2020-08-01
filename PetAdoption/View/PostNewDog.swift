@@ -10,11 +10,14 @@ enum TextFieldCorrection {
 
 struct PostNewDog: View {
     
+    let okayChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ אבגדהוזחטיכךלמםנןסעפףצץקרשת")
     @State var value : CGFloat = 0
     @State private var petType = "כלב"
     @State private var correctTextField = TextFieldCorrection.empty
     @State private var petAge = ""
+    @State private var petAgeError = ""
     @State private var petRace = ""
+    @State private var petRaceError = ""
     @State private var petName = ""
     @State private var petNameError = ""
     @State private var image: Image?
@@ -157,7 +160,7 @@ struct PostNewDog: View {
                         })
                         .onReceive(petName.publisher.collect()) {
                             if self.petName.count > 24 {
-                                self.petNameError =  "שם ה\(petType) ארוך מדיי "
+                                self.petNameError =  "שם ה\($petType) ארוך מדיי "
                             }
                             self.petName = String($0.prefix(24))
                     }
@@ -207,7 +210,26 @@ struct PostNewDog: View {
                 ZStack {
                     
                     HStack {
-                        TextField("הקלידו את הגזע כאן", text: $petRace)
+                        TextField("הקלידו את הגזע כאן", text: $petRace, onEditingChanged: { (editingChanged) in
+                            if editingChanged {
+                                print("TextField focused")
+                            } else {
+                                if petRace.isEmpty == false {
+                                    correctTextField = .correct
+                                    if self.petRace.count <= 20 {
+                                        self.petRaceError =  ""
+                                    }
+                                } else {
+                                    correctTextField = .empty
+                                }
+                            }
+                        })
+                        .onReceive(petRace.publisher.collect()) {
+                            if self.petRace.count > 20 {
+                                self.petRaceError =  "גזע ה\($petType) ארוך מדיי "
+                            }
+                            self.petRace = String($0.prefix(20))
+                    }
                             .padding(.leading, 25)
                             .padding(.bottom, 25)
                             .frame(width: UIScreen.main.bounds.width  / 3 , height: 50)
@@ -222,6 +244,25 @@ struct PostNewDog: View {
                         Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5).padding(.leading, 25)
                         Spacer()
                         Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 3, height: 0.5).padding(.trailing, 30)
+                    }
+
+                    HStack {
+                        Text(petRaceError)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.red)
+                            .frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5)
+                            .padding(.leading, 25)
+                            .padding(.top, 10)
+                     
+
+                        Spacer()
+
+                        Text(petAgeError)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.red)
+                            .frame(width: UIScreen.main.bounds.width  / 3, height: 0.5)
+                            .padding(.trailing, 30)
+                            .padding(.top, 10)
                     }
                 }
             }
