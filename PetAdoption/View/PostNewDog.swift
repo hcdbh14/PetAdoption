@@ -8,8 +8,16 @@ enum TextFieldCorrection {
     case empty
 }
 
+enum ChosenImage {
+    case first
+    case second
+    case third
+    case fourth
+}
+
 struct PostNewDog: View {
     
+    @State var chosenImage = ChosenImage.first
     private let allowedChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ אבגדהוזחטיכךלמםנןסעפףצץקרשת")
     @State var value : CGFloat = 0
     @State private var petType = "כלב"
@@ -84,6 +92,7 @@ struct PostNewDog: View {
                 }.frame(width: UIScreen.main.bounds.width / 3.5)
                 
                 imagePlacerHolder(image: $image).onTapGesture {
+                    self.chosenImage = .first
                     self.showingImagePicker = true
                 }
                 Spacer()
@@ -91,9 +100,18 @@ struct PostNewDog: View {
             
             HStack {
                 Spacer()
-                imagePlacerHolder(image: $secondImage)
-                imagePlacerHolder(image: $thirdImage)
-                imagePlacerHolder(image: $fourthImage)
+                imagePlacerHolder(image: $secondImage).onTapGesture {
+                    self.chosenImage = .second
+                    self.showingImagePicker = true
+                }
+                imagePlacerHolder(image: $thirdImage).onTapGesture {
+                    self.chosenImage = .third
+                    self.showingImagePicker = true
+                }
+                imagePlacerHolder(image: $fourthImage).onTapGesture {
+                    self.chosenImage = .fourth
+                    self.showingImagePicker = true
+                }
                 Spacer()
             }.padding(.bottom, 25)
             
@@ -175,14 +193,7 @@ struct PostNewDog: View {
                         .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
                         Spacer()
                     }
-                    //                        .overlay(
-                    //                            RoundedRectangle(cornerRadius: 5)
-                    //                                .strokeBorder(
-                    //                                    style: StrokeStyle(
-                    //                                        lineWidth: 1
-                    //                                    )
-                    //                                )
-                    //                                .foregroundColor(correctTextField == .correct ? .green : .gray))
+                    
                     Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
                         .padding(.leading, 25)
                         .padding(.trailing, 40)
@@ -346,98 +357,19 @@ struct PostNewDog: View {
     
     func loadImage() {
         guard let inputImage = inputImage else { return }
-        image = Image(uiImage: inputImage)
+        
+        switch chosenImage {
+        case .first:
+            image = Image(uiImage: inputImage)
+            
+        case .second:
+            secondImage = Image(uiImage: inputImage)
+            
+        case .third:
+            thirdImage = Image(uiImage: inputImage)
+            
+        case .fourth:
+            fourthImage = Image(uiImage: inputImage)
     }
 }
-
-
-
-struct imagePlacerHolder: View {
-    
-    @Binding var image: Image?
-    
-    init(image: Binding<Image?>) {
-        self._image = image
-    }
-    
-    var body: some View {
-        
-        ZStack {
-            if image == nil {
-                Image(uiImage: UIImage())
-                    .frame(width: UIScreen.main.bounds.width / 3.5 , height: 150)
-                    .background(Color("offGray"))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .strokeBorder(
-                                style: StrokeStyle(
-                                    lineWidth: 2,
-                                    dash: [15]
-                                )
-                            )
-                            .foregroundColor(.gray)
-                    )
-                Image(systemName: "plus.circle").resizable()
-                    .frame(width: 25, height: 25)
-                    .foregroundColor(.gray)
-            } else {
-                image?.resizable()
-                    .scaledToFit()
-                    .frame(width: UIScreen.main.bounds.width / 3.5 , height: 150)
-                    .background(Color.black)
-                    .cornerRadius(10)
-                    .fixedSize()
-            }
-        }
-        
-    }
 }
-
-
-
-
-
-
-
-struct ImagePicker: UIViewControllerRepresentable {
-    
-    
-    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-        let parent: ImagePicker
-        
-        init(_ parent: ImagePicker) {
-            self.parent = parent
-        }
-        
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let uiImage = info[.originalImage] as?
-                UIImage {
-                
-                parent.image = UIImage(data: uiImage.jpeg(.lowest) ?? Data())
-            }
-            parent.presentationMode.wrappedValue.dismiss()
-        }
-    }
-    
-    @Environment(\.presentationMode) var presentationMode
-    @Binding var image: UIImage?
-    
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
-        return picker
-    }
-    
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
-        
-    }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-}
-
-
-
-
-

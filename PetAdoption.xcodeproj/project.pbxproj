@@ -32,6 +32,8 @@
 		ED8B167424994BF000AF7B33 /* LinearGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8B167324994BF000AF7B33 /* LinearGradient.swift */; };
 		ED8B167624994C7100AF7B33 /* CircleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8B167524994C7100AF7B33 /* CircleButtonStyle.swift */; };
 		ED95BCEB24B7690000C88716 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED95BCEA24B7690000C88716 /* SettingsView.swift */; };
+		ED9A009324D55977004DA9F0 /* imagePlacerHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9A009224D55977004DA9F0 /* imagePlacerHolder.swift */; };
+		ED9A009524D559BF004DA9F0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9A009424D559BF004DA9F0 /* ImagePicker.swift */; };
 		EDD53A042483B856004EB14F /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD53A032483B856004EB14F /* URLSession.swift */; };
 		EDD53A062483B88D004EB14F /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD53A052483B88D004EB14F /* Array.swift */; };
 		EDDB49E1247708250068026C /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDB49E0247708250068026C /* ImageLoader.swift */; };
@@ -76,6 +78,8 @@
 		ED8B167324994BF000AF7B33 /* LinearGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradient.swift; sourceTree = "<group>"; };
 		ED8B167524994C7100AF7B33 /* CircleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButtonStyle.swift; sourceTree = "<group>"; };
 		ED95BCEA24B7690000C88716 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		ED9A009224D55977004DA9F0 /* imagePlacerHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagePlacerHolder.swift; sourceTree = "<group>"; };
+		ED9A009424D559BF004DA9F0 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		EDD53A032483B856004EB14F /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		EDD53A052483B88D004EB14F /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		EDDB49E0247708250068026C /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 			children = (
 				ED84EC5524B0A79900E25B2F /* SavedDogsVM.swift */,
 				ED5A627F24770AF70081DF00 /* MainVM.swift */,
+				ED9A009424D559BF004DA9F0 /* ImagePicker.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -180,6 +185,7 @@
 				ED44E24424A265F900B77D3D /* BarButtons.swift */,
 				ED781B1F24C025080045F1DE /* CheckboxField.swift */,
 				ED00EC7324CD66B30048AE56 /* ActivityIndicator.swift */,
+				ED9A009224D55977004DA9F0 /* imagePlacerHolder.swift */,
 			);
 			path = "Minor Views";
 			sourceTree = "<group>";
@@ -367,6 +373,7 @@
 				EDFF409024A658CA0008F3E5 /* HostingController.swift in Sources */,
 				EDF4CB0E24A71FF900060F37 /* SavedDogsScreen.swift in Sources */,
 				EDF777D524684EB100154110 /* AppDelegate.swift in Sources */,
+				ED9A009324D55977004DA9F0 /* imagePlacerHolder.swift in Sources */,
 				EDD53A062483B88D004EB14F /* Array.swift in Sources */,
 				ED0708F724C20F76005AD1BB /* AuthViewManager.swift in Sources */,
 				ED3B871C24C5EA3B008479F8 /* SignInView.swift in Sources */,
@@ -379,6 +386,7 @@
 				ED825A382478185C00ACA8E6 /* Dog.swift in Sources */,
 				ED84EC5624B0A79900E25B2F /* SavedDogsVM.swift in Sources */,
 				ED8B167624994C7100AF7B33 /* CircleButtonStyle.swift in Sources */,
+				ED9A009524D559BF004DA9F0 /* ImagePicker.swift in Sources */,
 				ED3B871824C5E9E1008479F8 /* SignUpView.swift in Sources */,
 				ED8B167424994BF000AF7B33 /* LinearGradient.swift in Sources */,
 				ED5BAEA424CB62F100536E7B /* ErrorTranslater.swift in Sources */,
