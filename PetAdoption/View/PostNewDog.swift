@@ -112,7 +112,7 @@ struct PostNewDog: View {
                     .padding(.bottom, 25)
                     Spacer()
                 }
-            }
+           
             
 
                 HStack {
@@ -120,9 +120,19 @@ struct PostNewDog: View {
                         .font(.system(size: 24, weight: .semibold))
                         .foregroundColor(Color("offBlack"))
                         .padding(.leading, 25)
-                        .padding(.bottom, 15)
+                        .padding(.bottom, 30)
                     Spacer()
                 }
+            
+            
+            HStack {
+                Text("שם")
+                    .font(.system(size: 20, weight: .regular))
+                    .foregroundColor(Color("offBlack"))
+                    .padding(.leading, 25)
+                    .padding(.bottom, 5)
+                Spacer()
+            }
                 
                 ZStack {
                     HStack {
@@ -153,7 +163,7 @@ struct PostNewDog: View {
                     Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
                                 .padding(.leading, 25)
                                 .padding(.trailing, 40)
-                }
+                }.padding(.bottom, 20)
                 
                 HStack {
                     Text("גזע")
@@ -161,7 +171,15 @@ struct PostNewDog: View {
                         .foregroundColor(Color("offBlack"))
                         .padding(.leading, 25)
                         .padding(.bottom, 5)
+                    
                     Spacer()
+                    
+                    Text("גיל")
+                        .font(.system(size: 20, weight: .regular))
+                        .foregroundColor(Color("offBlack"))
+                        .padding(.trailing, UIScreen.main.bounds.width  / 3)
+                        .padding(.bottom, 5)
+                  
                 }
                 
                 ZStack {
@@ -175,9 +193,6 @@ struct PostNewDog: View {
                         TextField("בדיקה", text: $dogName).frame(width: UIScreen.main.bounds.width  / 2.8, height: 0.5)
                             .padding(.bottom, 25)
                             .padding(.trailing, 20)
-
-                        
-                        
                     }
 
                     HStack {
@@ -185,7 +200,7 @@ struct PostNewDog: View {
                         Spacer()
                         Rectangle().background(Color.black).frame(width: UIScreen.main.bounds.width  / 3, height: 0.5).padding(.trailing, 30)
                     }
-                   
+                }
                        
                 }
                 
