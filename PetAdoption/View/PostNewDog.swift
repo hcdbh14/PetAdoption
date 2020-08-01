@@ -9,6 +9,8 @@ enum TextFieldCorrection {
 }
 
 struct PostNewDog: View {
+    
+    @State var value : CGFloat = 0
     @State private var petType = "כלב"
     @State private var correctTextField = TextFieldCorrection.empty
     @State private var dogName = ""
@@ -211,6 +213,21 @@ struct PostNewDog: View {
         .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
         .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
             ImagePicker(image: self.$inputImage)
+        }
+        .offset(y: -self.value)
+        .animation(.spring())
+        .onAppear {
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { (noti) in
+                let value = noti.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+                let height = value.height
+                
+                self.value = height
+            }
+            
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (noti) in
+                
+                self.value = 0
+            }
         }
         
         
