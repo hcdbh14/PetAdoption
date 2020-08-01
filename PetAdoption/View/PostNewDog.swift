@@ -48,7 +48,7 @@ struct PostNewDog: View {
                             .padding(.trailing, 15)
                     }
                 }
-            }.padding(.top, 30)
+            }.padding(.top, 40)
             
             
             
@@ -206,8 +206,8 @@ struct PostNewDog: View {
                 
 
             
-        }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading)
-        .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
+        }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading).edgesIgnoringSafeArea(.bottom)
+        .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .bottom).edgesIgnoringSafeArea(.bottom))
         .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
             ImagePicker(image: self.$inputImage)
         }
