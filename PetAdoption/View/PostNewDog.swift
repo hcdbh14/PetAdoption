@@ -10,6 +10,7 @@ enum TextFieldCorrection {
 
 struct PostNewDog: View {
     
+    private let allowedChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ אבגדהוזחטיכךלמםנןסעפףצץקרשת")
     @State var value : CGFloat = 0
     @State private var petType = "כלב"
     @State private var correctTextField = TextFieldCorrection.empty
@@ -157,6 +158,12 @@ struct PostNewDog: View {
                                 }
                             }
                         })
+                        .onReceive(Just(petName)) { newValue in
+                            let filtered = petName.filter { self.allowedChars.contains($0) }
+                              if filtered != petName {
+                                  self.petName = filtered
+                              }
+                        }
                         .onReceive(petName.publisher.collect()) {
                             if self.petName.count > 24 {
                                 self.petNameError =  "שם ה\(petType) ארוך מדיי "
@@ -223,6 +230,12 @@ struct PostNewDog: View {
                                 }
                             }
                         })
+                        .onReceive(Just(petRace)) { newValue in
+                            let filtered = petRace.filter { self.allowedChars.contains($0) }
+                              if filtered != petRace {
+                                  self.petRace = filtered
+                              }
+                        }
                         .onReceive(petRace.publisher.collect()) {
                             if self.petRace.count > 20 {
                                 self.petRaceError =  "גזע ה\(petType) ארוך מדיי "
