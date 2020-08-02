@@ -409,7 +409,7 @@ struct MultiLineTF : UIViewRepresentable {
         tview.isEditable = true
         tview.isUserInteractionEnabled = true
         tview.isScrollEnabled = false
-        tview.text = "type something"
+        tview.text = "הקלידו פה הערות/תאור/פרטים נוספים"
         tview.textColor = .gray
         tview.font = .systemFont(ofSize: 20)
         tview.delegate = context.coordinator
