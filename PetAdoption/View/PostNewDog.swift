@@ -329,10 +329,10 @@ struct PostNewDog: View {
                 
                 HStack {
                     
-                        MultiLineTF(txt: $description)
-                         .frame(width: UIScreen.main.bounds.width - 40, height: 200, alignment: .topLeading)
+                    MultiLineTF(txt: $description)
+                        .frame(width: UIScreen.main.bounds.width - 40, height: 200, alignment: .topLeading)
                         .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray))
-                    .environment(\.layoutDirection, .rightToLeft)
+                        .environment(\.layoutDirection, .rightToLeft)
                     
                 }.padding(20)
             }
@@ -416,9 +416,9 @@ struct MultiLineTF : UIViewRepresentable {
         return tview
     }
     
-        func updateUIView(_ uiView: UITextView, context: UIViewRepresentableContext<MultiLineTF>) {
-            
-        }
+    func updateUIView(_ uiView: UITextView, context: UIViewRepresentableContext<MultiLineTF>) {
+        
+    }
     
     
     class Coordinator : NSObject, UITextViewDelegate {
@@ -430,13 +430,20 @@ struct MultiLineTF : UIViewRepresentable {
         }
         
         func textViewDidChange(_ textView: UITextView) {
-            self.parent.txt = textView.text
+
         }
         
         func textViewDidBeginEditing(_ textView: UITextView) {
-            textView.text = ""
-            // for dark mode im using label text
-            textView.textColor = .label
+                        textView.text = ""
+                        // for dark mode im using label text
+                        textView.textColor = .label
+        }
+        
+        func textViewDidEndEditing(_ textView: UITextView) {
+            if textView.text == "" {
+                textView.text = "הקלידו פה הערות/תאור/פרטים נוספים"
+                textView.textColor = .gray
+            }
         }
     }
 }
