@@ -323,7 +323,7 @@ struct PostNewDog: View {
                         .font(.system(size: 24, weight: .semibold))
                         .foregroundColor(Color("offBlack"))
                         .padding(.leading, 25)
-                        .padding(.bottom, 30)
+                        .padding(.top, 30)
                     Spacer()
                 }
                 
