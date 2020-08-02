@@ -331,7 +331,9 @@ struct PostNewDog: View {
                     
 //                    TextField("הקלידו פה הערות/תאור/פרטים נוספים", text: $description)
                        
-                       MultilineTextField(text: $description)
+                       MultilineTextField("הקלידו פה הערות/תאור/פרטים נוספים", text: $description, onCommit: {
+                        print("Final text: \(self.description)")
+                       })
                          .frame(width: UIScreen.main.bounds.width - 40, height: 200, alignment: .topLeading)
                         .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray))
                     .environment(\.layoutDirection, .rightToLeft)
