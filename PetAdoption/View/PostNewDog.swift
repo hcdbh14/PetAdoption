@@ -423,9 +423,12 @@ struct MultilineTextField: View {
     var placeholderView: some View {
         Group {
             if shouldShowPlaceholder {
+                HStack {
                 Text(placeholder).foregroundColor(.gray)
                     .padding(.leading, 4)
                     .padding(.top, 8)
+                    Spacer()
+                }
             }
         }
     }
