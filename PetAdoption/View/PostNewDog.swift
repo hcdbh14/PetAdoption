@@ -411,8 +411,10 @@ struct MultiLineTF : UIViewRepresentable {
         tview.isScrollEnabled = false
         tview.text = "הקלידו פה הערות/תאור/פרטים נוספים"
         tview.textColor = .gray
-        tview.font = .systemFont(ofSize: 20)
+        tview.backgroundColor = UIColor(named: "offPureWhite")
+        tview.font = .systemFont(ofSize: 18)
         tview.delegate = context.coordinator
+        tview.textAlignment = .right
         return tview
     }
     
