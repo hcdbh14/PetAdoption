@@ -329,11 +329,7 @@ struct PostNewDog: View {
                 
                 HStack {
                     
-//                    TextField("הקלידו פה הערות/תאור/פרטים נוספים", text: $description)
-                       
-                       MultilineTextField("הקלידו פה הערות/תאור/פרטים נוספים", text: $description, onCommit: {
-                        print("Final text: \(self.description)")
-                       })
+                        MultiLineTF(txt: $description)
                          .frame(width: UIScreen.main.bounds.width - 40, height: 200, alignment: .topLeading)
                         .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray))
                     .environment(\.layoutDirection, .rightToLeft)
@@ -399,122 +395,48 @@ struct PostNewDog: View {
 }
 
 
-struct MultilineTextField: View {
-
-    private var placeholder: String
-    private var onCommit: (() -> Void)?
-    @State private var viewHeight: CGFloat = 40 //start with one line
-    @State private var shouldShowPlaceholder = false
-    @Binding private var text: String
+struct MultiLineTF : UIViewRepresentable {
     
-    private var internalText: Binding<String> {
-        Binding<String>(get: { self.text } ) {
-            self.text = $0
-            self.shouldShowPlaceholder = $0.isEmpty
-        }
-    }
-
-    var body: some View {
-        UITextViewWrapper(text: self.internalText, calculatedHeight: $viewHeight, onDone: onCommit)
-            .frame(minHeight: viewHeight, maxHeight: viewHeight)
-            .background(placeholderView, alignment: .topTrailing)
-    }
-
-    var placeholderView: some View {
-        Group {
-            if shouldShowPlaceholder {
-                HStack {
-                Text(placeholder).foregroundColor(.gray)
-                    .padding(.leading, 4)
-                    .padding(.top, 8)
-                    Spacer()
-                }
-            }
-        }
-    }
+    @Binding var txt : String
     
-    init (_ placeholder: String = "", text: Binding<String>, onCommit: (() -> Void)? = nil) {
-        self.placeholder = placeholder
-        self.onCommit = onCommit
-        self._text = text
-        self._shouldShowPlaceholder = State<Bool>(initialValue: self.text.isEmpty)
-    }
-
-}
-
-
-private struct UITextViewWrapper: UIViewRepresentable {
-    typealias UIViewType = UITextView
-
-    @Binding var text: String
-    @Binding var calculatedHeight: CGFloat
-    var onDone: (() -> Void)?
-
-    func makeUIView(context: UIViewRepresentableContext<UITextViewWrapper>) -> UITextView {
-        let textField = UITextView()
-        textField.delegate = context.coordinator
-
-        textField.isEditable = true
-        textField.font = UIFont.preferredFont(forTextStyle: .body)
-        textField.isSelectable = true
-        textField.isUserInteractionEnabled = true
-        textField.isScrollEnabled = false
-        textField.backgroundColor = UIColor.clear
-        if nil != onDone {
-            textField.returnKeyType = .done
-        }
-
-        textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        return textField
-    }
-
-    func updateUIView(_ uiView: UITextView, context: UIViewRepresentableContext<UITextViewWrapper>) {
-        if uiView.text != self.text {
-            uiView.text = self.text
-        }
-        if uiView.window != nil, !uiView.isFirstResponder {
-            uiView.becomeFirstResponder()
-        }
-        UITextViewWrapper.recalculateHeight(view: uiView, result: $calculatedHeight)
-    }
-
-    private static func recalculateHeight(view: UIView, result: Binding<CGFloat>) {
-        let newSize = view.sizeThatFits(CGSize(width: view.frame.size.width, height: CGFloat.greatestFiniteMagnitude))
-        if result.wrappedValue != newSize.height {
-            DispatchQueue.main.async {
-                result.wrappedValue = newSize.height // call in next render cycle.
-            }
-        }
-    }
-
     func makeCoordinator() -> Coordinator {
-        return Coordinator(text: $text, height: $calculatedHeight, onDone: onDone)
+        return MultiLineTF.Coordinator(parent: self)
     }
-
-    final class Coordinator: NSObject, UITextViewDelegate {
-        var text: Binding<String>
-        var calculatedHeight: Binding<CGFloat>
-        var onDone: (() -> Void)?
-
-        init(text: Binding<String>, height: Binding<CGFloat>, onDone: (() -> Void)? = nil) {
-            self.text = text
-            self.calculatedHeight = height
-            self.onDone = onDone
+    
+    func makeUIView(context: UIViewRepresentableContext<MultiLineTF>) -> UITextView {
+        
+        let tview = UITextView()
+        tview.isEditable = true
+        tview.isUserInteractionEnabled = true
+        tview.isScrollEnabled = false
+        tview.text = "type something"
+        tview.textColor = .gray
+        tview.font = .systemFont(ofSize: 20)
+        tview.delegate = context.coordinator
+        return tview
+    }
+    
+        func updateUIView(_ uiView: UITextView, context: UIViewRepresentableContext<MultiLineTF>) {
+            
         }
-
-        func textViewDidChange(_ uiView: UITextView) {
-            text.wrappedValue = uiView.text
-            UITextViewWrapper.recalculateHeight(view: uiView, result: calculatedHeight)
+    
+    
+    class Coordinator : NSObject, UITextViewDelegate {
+        
+        var parent : MultiLineTF
+        
+        init(parent : MultiLineTF) {
+            self.parent = parent
         }
-
-        func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-            if let onDone = self.onDone, text == "\n" {
-                textView.resignFirstResponder()
-                onDone()
-                return false
-            }
-            return true
+        
+        func textViewDidChange(_ textView: UITextView) {
+            self.parent.txt = textView.text
+        }
+        
+        func textViewDidBeginEditing(_ textView: UITextView) {
+            textView.text = ""
+            // for dark mode im using label text
+            textView.textColor = .label
         }
     }
-
 }
