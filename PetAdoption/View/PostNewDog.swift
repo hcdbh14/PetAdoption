@@ -333,7 +333,8 @@ struct PostNewDog: View {
                        
                        MultilineTextField(text: $description)
                          .frame(width: UIScreen.main.bounds.width - 40, height: 200, alignment: .topLeading)
-                                      .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray))
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray))
+                    .environment(\.layoutDirection, .rightToLeft)
                     
                 }.padding(20)
             }
@@ -414,7 +415,7 @@ struct MultilineTextField: View {
     var body: some View {
         UITextViewWrapper(text: self.internalText, calculatedHeight: $viewHeight, onDone: onCommit)
             .frame(minHeight: viewHeight, maxHeight: viewHeight)
-            .background(placeholderView, alignment: .topLeading)
+            .background(placeholderView, alignment: .topTrailing)
     }
 
     var placeholderView: some View {
