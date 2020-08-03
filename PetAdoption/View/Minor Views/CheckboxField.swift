@@ -38,10 +38,28 @@ struct CheckboxField: View {
             self.callback(self.id)
         }) {
             HStack(alignment: .center, spacing: 10) {
+                if onLightBackground {
+                    ZStack {
+                        if isMarked {
+                            
+                        Image(systemName: "checkmark" )
+                            .resizable()
+                            .foregroundColor(Color.black)
+                            .frame(width: self.size - 5, height: self.size - 5)
+                        }
+                        
+                        Image(systemName: "square")
+                            .resizable()
+                            .foregroundColor(Color.orange)
+                            .frame(width: self.size + 5, height: self.size + 5)
+                    }
+                    
+                } else {
                 Image(systemName: self.isMarked ? "checkmark.square" : "square")
                     .resizable()
                     .foregroundColor(Color.orange)
                     .frame(width: self.size, height: self.size)
+                }
                 
                 Text(label)
                     .font(Font.system(size: size,weight: onLightBackground ? .semibold : .regular))
