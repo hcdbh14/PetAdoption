@@ -26,7 +26,7 @@ enum ChosenImage {
 }
 
 struct PostNewDog: View {
-    
+    @State var SuiteableArray: [Int] = []
     @State var description = ""
     @State var chosenImage = ChosenImage.first
     private let allowedChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ אבגדהוזחטיכךלמםנןסעפףצץקרשת")
@@ -183,11 +183,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                            .onReceive(Just(petName)) { newValue in
-                                let filtered = self.petName.filter { self.allowedChars.contains($0) }
-                                if filtered != self.petName {
-                                    self.petName = filtered
-                                }
+                        .onReceive(Just(petName)) { newValue in
+                            let filtered = self.petName.filter { self.allowedChars.contains($0) }
+                            if filtered != self.petName {
+                                self.petName = filtered
+                            }
                         }
                         .onReceive(petName.publisher.collect()) {
                             if self.petName.count > 24 {
@@ -248,11 +248,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                            .onReceive(Just(petRace)) { newValue in
-                                let filtered = self.petRace.filter { self.allowedChars.contains($0) }
-                                if filtered != self.petRace {
-                                    self.petRace = filtered
-                                }
+                        .onReceive(Just(petRace)) { newValue in
+                            let filtered = self.petRace.filter { self.allowedChars.contains($0) }
+                            if filtered != self.petRace {
+                                self.petRace = filtered
+                            }
                         }
                         .onReceive(petRace.publisher.collect()) {
                             if self.petRace.count > 20 {
@@ -278,11 +278,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                            .onReceive(Just(petAge)) { newValue in
-                                let filtered = self.petAge.filter { "0123456789".contains($0) }
-                                if filtered != self.petAge {
-                                    self.petAge = filtered
-                                }
+                        .onReceive(Just(petAge)) { newValue in
+                            let filtered = self.petAge.filter { "0123456789".contains($0) }
+                            if filtered != self.petAge {
+                                self.petAge = filtered
+                            }
                         }
                         .onReceive(petAge.publisher.collect()) {
                             if self.petAge.count > 2 {
@@ -290,7 +290,7 @@ struct PostNewDog: View {
                             }
                             self.petAge = String($0.prefix(2))
                         }
-                            
+                        
                         .frame(width: UIScreen.main.bounds.width  / 3.8, height: 0.5)
                         .keyboardType(.numberPad)
                         .padding(.bottom, 25)
@@ -323,18 +323,28 @@ struct PostNewDog: View {
                     }
                 }
                 
-//                HStack {
-//                    Text("מתאים ל-")
-//                        .font(.system(size: 24, weight: .semibold))
-//                        .foregroundColor(Color("offBlack"))
-//                        .padding(.leading, 25)
-//                        .padding(.top, 30)
-//                    Spacer()
-//                }
-//
-//                HStack {
-//
-//                }
+                HStack {
+                    Text("מתאים ל-")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundColor(Color("offBlack"))
+                        .padding(.leading, 25)
+                        .padding(.top, 30)
+                    Spacer()
+                }
+                
+                VStack {
+                    HStack {
+                        CheckboxField(id: 0, label: "ילדים", size: 20, color: .gray, textSize: 20, marked: SuiteableArray.contains(0), callback: checkboxSelected)
+                        CheckboxField(id: 1, label: "מבוגרים", size: 20, color: .gray, textSize: 20, marked: SuiteableArray.contains(1), callback: checkboxSelected)
+                        CheckboxField(id: 2, label: "אלרגיים", size: 20, color: .gray, textSize: 20, marked: SuiteableArray.contains(2), callback: checkboxSelected)
+                    }.padding(.leading, 15)
+                    
+                    HStack {
+                        CheckboxField(id: 3, label: "לדירה", size: 20, color: .gray, textSize: 20, marked: SuiteableArray.contains(0), callback: checkboxSelected)
+                        CheckboxField(id: 4, label: "בית עם חצר", size: 20, color: .gray, textSize: 20, marked: SuiteableArray.contains(1), callback: checkboxSelected)
+                        CheckboxField(id: 5, label: "בית עם חתול", size: 20, color: .gray, textSize: 20, marked: SuiteableArray.contains(2), callback: checkboxSelected)
+                    }.padding(.leading, 15)
+                }
                 
                 HStack {
                     Text("מלל חופשי")
@@ -358,9 +368,9 @@ struct PostNewDog: View {
             
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading).edgesIgnoringSafeArea(.bottom)
-            .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + (UIDevice.current.systemVersion != "14.0" ? 20 : 0), alignment: .top).edgesIgnoringSafeArea(.bottom))
-            .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
-                ImagePicker(image: self.$inputImage)
+        .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + (UIDevice.current.systemVersion != "14.0" ? 20 : 0), alignment: .top).edgesIgnoringSafeArea(.bottom))
+        .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
+            ImagePicker(image: self.$inputImage)
         }
         .offset(y: -self.value)
         .animation(.spring())
@@ -375,6 +385,16 @@ struct PostNewDog: View {
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { (noti) in
                 
                 self.value = 0
+            }
+        }
+    }
+    
+    func checkboxSelected(id: Int) {
+        if SuiteableArray.contains(id) == false {
+            SuiteableArray.append(id)
+        } else {
+            if let itemToRemove = SuiteableArray.firstIndex(of: id) {
+                SuiteableArray.remove(at: itemToRemove)
             }
         }
     }
