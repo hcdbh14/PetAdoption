@@ -139,7 +139,7 @@ struct PostNewDog: View {
                 
                 
                 HStack {
-                    Text("פרטי ה\(petType)")
+                    Text("פרטי ה\(returnPetType())")
                         .font(.system(size: 24, weight: .semibold))
                         .foregroundColor(Color("offBlack"))
                         .padding(.leading, 25)
@@ -181,7 +181,7 @@ struct PostNewDog: View {
                         }
                         .onReceive(petName.publisher.collect()) {
                             if self.petName.count > 24 {
-                                self.petNameError =  "שם ה\(self.petType) ארוך מדיי "
+                                self.petNameError =  "שם ה\(returnPetType()) ארוך מדיי "
                             }
                             self.petName = String($0.prefix(24))
                         }
@@ -246,7 +246,7 @@ struct PostNewDog: View {
                         }
                         .onReceive(petRace.publisher.collect()) {
                             if self.petRace.count > 20 {
-                                self.petRaceError =  "גזע ה\(self.petType) ארוך מדיי "
+                                self.petRaceError =  "גזע ה\(returnPetType()) ארוך מדיי "
                             }
                             self.petRace = String($0.prefix(20))
                         }
@@ -385,6 +385,20 @@ struct PostNewDog: View {
             
         case .fourth:
             fourthImage = Image(uiImage: inputImage)
+        }
+    }
+    
+    func returnPetType()  -> String {
+        
+        switch petType {
+        case 0:
+            return "כלב"
+        case 1:
+            return "חתול"
+        case 2:
+            return "חיית מחמד"
+        default:
+            return "חיית מחמד"
         }
     }
 }
