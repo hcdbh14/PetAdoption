@@ -36,6 +36,8 @@
 		ED9A009524D559BF004DA9F0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9A009424D559BF004DA9F0 /* ImagePicker.swift */; };
 		EDD53A042483B856004EB14F /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD53A032483B856004EB14F /* URLSession.swift */; };
 		EDD53A062483B88D004EB14F /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD53A052483B88D004EB14F /* Array.swift */; };
+		EDD6C4EC24D84E65005E24EE /* MultiLineTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD6C4EB24D84E65005E24EE /* MultiLineTF.swift */; };
+		EDD6C4EE24D84E8B005E24EE /* SegmentedPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD6C4ED24D84E8B005E24EE /* SegmentedPicker.swift */; };
 		EDDB49E1247708250068026C /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDB49E0247708250068026C /* ImageLoader.swift */; };
 		EDF4CB0E24A71FF900060F37 /* SavedDogsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF4CB0D24A71FF900060F37 /* SavedDogsScreen.swift */; };
 		EDF52F2224817CF200EF5070 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDF52F2124817CF200EF5070 /* GoogleService-Info.plist */; };
@@ -82,6 +84,8 @@
 		ED9A009424D559BF004DA9F0 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		EDD53A032483B856004EB14F /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		EDD53A052483B88D004EB14F /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		EDD6C4EB24D84E65005E24EE /* MultiLineTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLineTF.swift; sourceTree = "<group>"; };
+		EDD6C4ED24D84E8B005E24EE /* SegmentedPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPicker.swift; sourceTree = "<group>"; };
 		EDDB49E0247708250068026C /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		EDF4CB0D24A71FF900060F37 /* SavedDogsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDogsScreen.swift; sourceTree = "<group>"; };
 		EDF52F2124817CF200EF5070 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 				ED781B1F24C025080045F1DE /* CheckboxField.swift */,
 				ED00EC7324CD66B30048AE56 /* ActivityIndicator.swift */,
 				ED9A009224D55977004DA9F0 /* imagePlacerHolder.swift */,
+				EDD6C4EB24D84E65005E24EE /* MultiLineTF.swift */,
+				EDD6C4ED24D84E8B005E24EE /* SegmentedPicker.swift */,
 			);
 			path = "Minor Views";
 			sourceTree = "<group>";
@@ -370,6 +376,8 @@
 				ED3B871A24C5EA08008479F8 /* VerifyEmailView.swift in Sources */,
 				ED4CB75424C5DDFF00BF20B2 /* UIApplication.swift in Sources */,
 				ED0708F524C20CBB005AD1BB /* SessionStore.swift in Sources */,
+				EDD6C4EC24D84E65005E24EE /* MultiLineTF.swift in Sources */,
+				EDD6C4EE24D84E8B005E24EE /* SegmentedPicker.swift in Sources */,
 				EDFF409024A658CA0008F3E5 /* HostingController.swift in Sources */,
 				EDF4CB0E24A71FF900060F37 /* SavedDogsScreen.swift in Sources */,
 				EDF777D524684EB100154110 /* AppDelegate.swift in Sources */,

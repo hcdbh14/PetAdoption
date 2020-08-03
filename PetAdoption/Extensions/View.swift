@@ -5,3 +5,9 @@ extension View where Self == ActivityIndicator {
         Self.init(isAnimating: self.isAnimating, configuration: configuration)
     }
 }
+
+extension View {
+    func eraseToAnyView() -> AnyView {
+        AnyView(self)
+    }
+}
