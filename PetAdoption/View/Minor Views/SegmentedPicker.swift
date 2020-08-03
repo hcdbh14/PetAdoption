@@ -1,8 +1,7 @@
 import SwiftUI
 
-
-
 struct SegmentedPicker: View {
+    
     private static let ActiveSegmentColor: Color = Color(.tertiarySystemBackground)
     private static let BackgroundColor: Color = Color(.secondarySystemBackground)
     private static let ShadowColor: Color = Color.black.opacity(0.2)

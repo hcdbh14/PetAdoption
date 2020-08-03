@@ -1,6 +1,16 @@
 import SwiftUI
 import Combine
 
+enum Suitablefor {
+    
+    case kids
+    case houseYard
+    case apartment
+    case adults
+    case houseWithCat
+    case allergic
+}
+
 enum TextFieldCorrection {
     
     case correct
@@ -124,7 +134,7 @@ struct PostNewDog: View {
                         .font(.system(size: 24, weight: .semibold))
                         .foregroundColor(Color("offBlack"))
                         .padding(.leading, 25)
-                        .padding(.bottom, 25)
+                        .padding(.bottom, 5)
                     Spacer()
                 }.padding(.top, 25)
             }
@@ -134,7 +144,7 @@ struct PostNewDog: View {
                     Spacer()
                     SegmentedPicker(items: ["כלב", "חתול", "אחר"], selection: $petType)
                     Spacer()
-                }
+                }.padding(.bottom, 25)
                 
                 
                 
@@ -312,6 +322,19 @@ struct PostNewDog: View {
                             .padding(.top, 15)
                     }
                 }
+                
+//                HStack {
+//                    Text("מתאים ל-")
+//                        .font(.system(size: 24, weight: .semibold))
+//                        .foregroundColor(Color("offBlack"))
+//                        .padding(.leading, 25)
+//                        .padding(.top, 30)
+//                    Spacer()
+//                }
+//
+//                HStack {
+//
+//                }
                 
                 HStack {
                     Text("מלל חופשי")
