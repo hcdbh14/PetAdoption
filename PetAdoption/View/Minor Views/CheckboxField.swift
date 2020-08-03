@@ -8,6 +8,7 @@ struct CheckboxField: View {
     let textSize: Int
     let callback: (Int)->()
     let marked: Bool
+    var onLightBackground: Bool
     @State var isMarked: Bool = false
     
     init(
@@ -17,6 +18,7 @@ struct CheckboxField: View {
         color: Color = Color.orange,
         textSize: Int = 14,
         marked: Bool,
+        onLightBackground: Bool? = nil,
         callback: @escaping (Int)->()
     ) {
         self.id = id
@@ -25,6 +27,7 @@ struct CheckboxField: View {
         self.color = color
         self.textSize = textSize
         self.callback = callback
+        self.onLightBackground = onLightBackground ?? false
         self.marked = marked
     }
     
@@ -41,7 +44,7 @@ struct CheckboxField: View {
                     .frame(width: self.size, height: self.size)
                 
                 Text(label)
-                    .font(Font.system(size: size))
+                    .font(Font.system(size: size,weight: onLightBackground ? .semibold : .regular))
                 Spacer()
             }.foregroundColor(self.color)
         }

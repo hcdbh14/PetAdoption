@@ -334,15 +334,15 @@ struct PostNewDog: View {
                 
                 VStack {
                     HStack {
-                        CheckboxField(id: 0, label: "ילדים", size: 20, color: .gray, textSize: 20, marked: SuiteableArray.contains(0), callback: checkboxSelected)
-                        CheckboxField(id: 1, label: "מבוגרים", size: 20, color: .gray, textSize: 20, marked: SuiteableArray.contains(1), callback: checkboxSelected)
-                        CheckboxField(id: 2, label: "אלרגיים", size: 20, color: .gray, textSize: 20, marked: SuiteableArray.contains(2), callback: checkboxSelected)
+                        CheckboxField(id: 0, label: "ילדים", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(0),onLightBackground: true ,callback: checkboxSelected)
+                        CheckboxField(id: 1, label: "מבוגרים", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(1),onLightBackground: true , callback: checkboxSelected)
+                        CheckboxField(id: 2, label: "אלרגיים", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(2),onLightBackground: true , callback: checkboxSelected)
                     }.padding(.leading, 15)
                     
                     HStack {
-                        CheckboxField(id: 3, label: "לדירה", size: 20, color: .gray, textSize: 20, marked: SuiteableArray.contains(0), callback: checkboxSelected)
-                        CheckboxField(id: 4, label: "בית עם חצר", size: 20, color: .gray, textSize: 20, marked: SuiteableArray.contains(1), callback: checkboxSelected)
-                        CheckboxField(id: 5, label: "בית עם חתול", size: 20, color: .gray, textSize: 20, marked: SuiteableArray.contains(2), callback: checkboxSelected)
+                        CheckboxField(id: 3, label: "לדירה", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(3),onLightBackground: true , callback: checkboxSelected)
+                        CheckboxField(id: 4, label: "בית עם חצר", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(4),onLightBackground: true , callback: checkboxSelected)
+                        CheckboxField(id: 5, label: "בית עם חתול", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(5),onLightBackground: true , callback: checkboxSelected)
                     }.padding(.leading, 15)
                 }
                 
