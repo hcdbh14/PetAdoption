@@ -406,12 +406,12 @@ struct PostNewDog: View {
                         .foregroundColor(Color("offBlack"))
                         .padding(.leading, 25)
                         .padding(.top, 30)
-                        .padding(.bottom, 5)
+                        .padding(.bottom, 30)
                     Spacer()
                 }
                 
                 HStack {
-                    Text("מספר")
+                    Text("מספר טלפון")
                         .font(.system(size: 20, weight: .regular))
                         .foregroundColor(Color("offBlack"))
                         .padding(.leading, 25)
@@ -427,7 +427,7 @@ struct PostNewDog: View {
                             } else {
                                 if self.phoneNumber.isEmpty == false {
                                     self.correctTextField = .correct
-                                    if self.phoneNumber.count <= 2 {
+                                    if self.phoneNumber.count <= 10 {
                                         self.phoneNumberError =  ""
                                     }
                                 } else {
@@ -442,10 +442,10 @@ struct PostNewDog: View {
                             }
                         }
                         .onReceive(phoneNumber.publisher.collect()) {
-                            if self.phoneNumber.count > 2 {
-                                self.phoneNumberError =  "רק 2 ספרות"
+                            if self.phoneNumber.count > 10 {
+                                self.phoneNumberError = "מספר טלפון ארוך מדיי"
                             }
-                            self.phoneNumber = String($0.prefix(2))
+                            self.phoneNumber = String($0.prefix(10))
                         }
 
                         .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
