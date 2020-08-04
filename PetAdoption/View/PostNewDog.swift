@@ -26,6 +26,7 @@ enum ChosenImage {
 }
 
 struct PostNewDog: View {
+    
     @State var SuiteableArray: [Int] = []
     @State var description = ""
     @State var chosenImage = ChosenImage.first
@@ -191,7 +192,7 @@ struct PostNewDog: View {
                         }
                         .onReceive(petName.publisher.collect()) {
                             if self.petName.count > 24 {
-                                self.petNameError =  "שם ה\(returnPetType()) ארוך מדיי "
+                                self.petNameError =  "שם ה\(self.returnPetType()) ארוך מדיי "
                             }
                             self.petName = String($0.prefix(24))
                         }
@@ -256,7 +257,7 @@ struct PostNewDog: View {
                         }
                         .onReceive(petRace.publisher.collect()) {
                             if self.petRace.count > 20 {
-                                self.petRaceError =  "גזע ה\(returnPetType()) ארוך מדיי "
+                                self.petRaceError =  "גזע ה\(self.returnPetType()) ארוך מדיי "
                             }
                             self.petRace = String($0.prefix(20))
                         }
@@ -322,7 +323,7 @@ struct PostNewDog: View {
                             .padding(.top, 15)
                     }
                 }
-                
+                        }
                 HStack {
                     Text("מתאים ל-")
                         .font(.system(size: 24, weight: .semibold))
@@ -332,6 +333,7 @@ struct PostNewDog: View {
                     Spacer()
                 }
                 
+            VStack {
                 VStack {
                     HStack {
                         CheckboxField(id: 0, label: "ילדים", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(0),onLightBackground: true ,callback: checkboxSelected)
@@ -345,6 +347,38 @@ struct PostNewDog: View {
                         CheckboxField(id: 5, label: "בית עם חתול", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(5),onLightBackground: true , callback: checkboxSelected)
                     }.padding(.leading, 15)
                 }
+                
+                
+                HStack {
+                    Text("מין")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundColor(Color("offBlack"))
+                        .padding(.leading, 25)
+                        .padding(.top, 30)
+                    Spacer()
+                }
+                
+                    HStack {
+                        Spacer()
+                        SegmentedPicker(items: ["זכר", "נקבה"], selection: $petType)
+                        Spacer()
+                    }.padding(.bottom, 25)
+                    
+                
+                HStack {
+                    Text("גודל")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundColor(Color("offBlack"))
+                        .padding(.leading, 25)
+                        .padding(.top, 30)
+                    Spacer()
+                }
+                
+                HStack {
+                    Spacer()
+                    SegmentedPicker(items: ["קטן", "בינוני", "גדול"], selection: $petType)
+                    Spacer()
+                }.padding(.bottom, 25)
                 
                 HStack {
                     Text("מלל חופשי")
