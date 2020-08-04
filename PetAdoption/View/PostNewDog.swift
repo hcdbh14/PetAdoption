@@ -27,6 +27,8 @@ enum ChosenImage {
 
 struct PostNewDog: View {
     
+    @State var phoneNumber = ""
+    @State var phoneNumberError = ""
     @State var SuiteableArray: [Int] = []
     @State var description = ""
     @State var chosenImage = ChosenImage.first
@@ -397,6 +399,76 @@ struct PostNewDog: View {
                         .environment(\.layoutDirection, .rightToLeft)
                     
                 }.padding(20)
+                
+                HStack {
+                    Text("פרטים ליצירת קשר")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundColor(Color("offBlack"))
+                        .padding(.leading, 25)
+                        .padding(.top, 30)
+                        .padding(.bottom, 5)
+                    Spacer()
+                }
+                
+                HStack {
+                    Text("מספר")
+                        .font(.system(size: 20, weight: .regular))
+                        .foregroundColor(Color("offBlack"))
+                        .padding(.leading, 25)
+                        .padding(.bottom, 5)
+                    Spacer()
+                }
+                
+                ZStack {
+                    HStack {
+                        TextField("הקלידו מספר טלפון", text: $phoneNumber, onEditingChanged: { (editingChanged) in
+                            if editingChanged {
+                                print("TextField focused")
+                            } else {
+                                if self.phoneNumber.isEmpty == false {
+                                    self.correctTextField = .correct
+                                    if self.phoneNumber.count <= 2 {
+                                        self.phoneNumberError =  ""
+                                    }
+                                } else {
+                                    self.correctTextField = .empty
+                                }
+                            }
+                        })
+                        .onReceive(Just(phoneNumber)) { newValue in
+                            let filtered = self.phoneNumber.filter { "0123456789".contains($0) }
+                            if filtered != self.phoneNumber {
+                                self.phoneNumber = filtered
+                            }
+                        }
+                        .onReceive(phoneNumber.publisher.collect()) {
+                            if self.phoneNumber.count > 2 {
+                                self.phoneNumberError =  "רק 2 ספרות"
+                            }
+                            self.phoneNumber = String($0.prefix(2))
+                        }
+
+                        .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
+                        .keyboardType(.numberPad)
+                        .padding(.bottom, 25)
+                        .padding(.leading, 25)
+                        Spacer()
+                    }
+                    
+                    Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
+                        .padding(.leading, 25)
+                        .padding(.trailing, 40)
+                    
+                    HStack {
+                        Text(phoneNumberError)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.red)
+                            .frame(width: UIScreen.main.bounds.width  / 2, height: 0.5)
+                            .padding(.leading, 25)
+                            .padding(.top, 15)
+                        Spacer()
+                    }
+                }.padding(.bottom, 20)
             }
             
             
