@@ -508,7 +508,7 @@ struct PostNewDog: View {
                 }
             }.padding(.bottom, 25)
             
-            Button(action: closeLoginScreen) {
+            Button(action: postImage) {
                 //                if waitingForResponse {
                 //
                 //                    ActivityIndicator(isAnimating: true)
@@ -552,6 +552,15 @@ struct PostNewDog: View {
                 self.value = 0
             }
         }
+    }
+    
+    func postImage() {
+
+         var data = Data()
+        data = (inputImage ?? UIImage()).jpeg(.lowest) ?? Data()
+         // set upload path
+
+        session.postPetImages(imageData: data)
     }
     
     func openCitiesSheet() {

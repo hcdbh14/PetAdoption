@@ -5,6 +5,7 @@ import Combine
 class SessionStore: ObservableObject {
     
     private let db = Firestore.firestore()
+    private let storage = Storage.storage().reference()
     var handle: AuthStateDidChangeListenerHandle?
     var didChange = PassthroughSubject<SessionStore, Never>()
     @Published var session: User? {didSet {self.didChange.send(self) }}
@@ -34,6 +35,21 @@ class SessionStore: ObservableObject {
     func saveUserData(email: String, fullName: String) {
         
         db.collection("Users_Data").document("FcGH2Jl2nOQZOr6O7vf1").setData([email: email ,fullName: fullName])
+    }
+    
+    func postPetImages(imageData: Data) {
+        
+        let filePath = "test"
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpg"
+        storage.child(filePath).putData(imageData, metadata: metaData, completion: { result, error in
+            guard error == nil else {
+                print("upload failed")
+                return
+            }
+         print(result)
+            }
+        )
     }
     
     func postNewPet(petType: String, petName: String, petRace: String, petAge: String, suitables: String,petGender: String, description: String, phoneNumber: String, city: String) {
