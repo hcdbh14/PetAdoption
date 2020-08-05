@@ -16,6 +16,7 @@
 		ED3B871824C5E9E1008479F8 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3B871724C5E9E1008479F8 /* SignUpView.swift */; };
 		ED3B871A24C5EA08008479F8 /* VerifyEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3B871924C5EA08008479F8 /* VerifyEmailView.swift */; };
 		ED3B871C24C5EA3B008479F8 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3B871B24C5EA3B008479F8 /* SignInView.swift */; };
+		ED43F71424DA9E0B00C92494 /* Regions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43F71324DA9E0B00C92494 /* Regions.swift */; };
 		ED44E24524A265F900B77D3D /* BarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED44E24424A265F900B77D3D /* BarButtons.swift */; };
 		ED49A37B2476DBEF00A87257 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49A37A2476DBEF00A87257 /* Card.swift */; };
 		ED4CB75424C5DDFF00BF20B2 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CB75324C5DDFF00BF20B2 /* UIApplication.swift */; };
@@ -64,6 +65,7 @@
 		ED3B871724C5E9E1008479F8 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		ED3B871924C5EA08008479F8 /* VerifyEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailView.swift; sourceTree = "<group>"; };
 		ED3B871B24C5EA3B008479F8 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		ED43F71324DA9E0B00C92494 /* Regions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regions.swift; sourceTree = "<group>"; };
 		ED44E24424A265F900B77D3D /* BarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtons.swift; sourceTree = "<group>"; };
 		ED49A37A2476DBEF00A87257 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		ED4CB75324C5DDFF00BF20B2 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				ED95BCEA24B7690000C88716 /* SettingsView.swift */,
 				ED0708F624C20F76005AD1BB /* AuthViewManager.swift */,
 				EDFF76C624C3679600BD256B /* PostNewDog.swift */,
+				ED43F71324DA9E0B00C92494 /* Regions.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				EDF777D924684EB100154110 /* MainScreen.swift in Sources */,
 				ED781B1D24BF34380045F1DE /* Settings.swift in Sources */,
 				EDDB49E1247708250068026C /* ImageLoader.swift in Sources */,
+				ED43F71424DA9E0B00C92494 /* Regions.swift in Sources */,
 				ED49A37B2476DBEF00A87257 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

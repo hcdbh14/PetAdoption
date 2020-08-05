@@ -27,6 +27,7 @@ enum ChosenImage {
 
 struct PostNewDog: View {
     
+    @State var showRegions = false
     @State var phoneNumber = ""
     @State var phoneNumberError = ""
     @State var SuiteableArray: [Int] = []
@@ -186,11 +187,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                        .onReceive(Just(petName)) { newValue in
-                            let filtered = self.petName.filter { self.allowedChars.contains($0) }
-                            if filtered != self.petName {
-                                self.petName = filtered
-                            }
+                            .onReceive(Just(petName)) { newValue in
+                                let filtered = self.petName.filter { self.allowedChars.contains($0) }
+                                if filtered != self.petName {
+                                    self.petName = filtered
+                                }
                         }
                         .onReceive(petName.publisher.collect()) {
                             if self.petName.count > 24 {
@@ -251,11 +252,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                        .onReceive(Just(petRace)) { newValue in
-                            let filtered = self.petRace.filter { self.allowedChars.contains($0) }
-                            if filtered != self.petRace {
-                                self.petRace = filtered
-                            }
+                            .onReceive(Just(petRace)) { newValue in
+                                let filtered = self.petRace.filter { self.allowedChars.contains($0) }
+                                if filtered != self.petRace {
+                                    self.petRace = filtered
+                                }
                         }
                         .onReceive(petRace.publisher.collect()) {
                             if self.petRace.count > 20 {
@@ -281,11 +282,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                        .onReceive(Just(petAge)) { newValue in
-                            let filtered = self.petAge.filter { "0123456789".contains($0) }
-                            if filtered != self.petAge {
-                                self.petAge = filtered
-                            }
+                            .onReceive(Just(petAge)) { newValue in
+                                let filtered = self.petAge.filter { "0123456789".contains($0) }
+                                if filtered != self.petAge {
+                                    self.petAge = filtered
+                                }
                         }
                         .onReceive(petAge.publisher.collect()) {
                             if self.petAge.count > 2 {
@@ -293,7 +294,7 @@ struct PostNewDog: View {
                             }
                             self.petAge = String($0.prefix(2))
                         }
-                        
+                            
                         .frame(width: UIScreen.main.bounds.width  / 3.8, height: 0.5)
                         .keyboardType(.numberPad)
                         .padding(.bottom, 25)
@@ -325,16 +326,16 @@ struct PostNewDog: View {
                             .padding(.top, 15)
                     }
                 }
-                        }
-                HStack {
-                    Text("מתאים ל-")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundColor(Color("offBlack"))
-                        .padding(.leading, 25)
-                        .padding(.top, 30)
-                    Spacer()
-                }
-                
+            }
+            HStack {
+                Text("מתאים ל-")
+                    .font(.system(size: 24, weight: .semibold))
+                    .foregroundColor(Color("offBlack"))
+                    .padding(.leading, 25)
+                    .padding(.top, 30)
+                Spacer()
+            }
+            
             VStack {
                 VStack {
                     HStack {
@@ -360,12 +361,12 @@ struct PostNewDog: View {
                     Spacer()
                 }
                 
-                    HStack {
-                        Spacer()
-                        SegmentedPicker(items: ["זכר", "נקבה"], selection: $petType)
-                        Spacer()
-                    }.padding(.bottom, 25)
-                    
+                HStack {
+                    Spacer()
+                    SegmentedPicker(items: ["זכר", "נקבה"], selection: $petType)
+                    Spacer()
+                }.padding(.bottom, 25)
+                
                 
                 HStack {
                     Text("גודל")
@@ -471,12 +472,21 @@ struct PostNewDog: View {
                 }.padding(.bottom, 20)
             }
             
+            Button(action: showRegionsView) {
+                HStack {
+                    Text("חזור")
+                }
+            }
+            
             
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading).edgesIgnoringSafeArea(.bottom)
-        .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + (UIDevice.current.systemVersion != "14.0" ? 20 : 0), alignment: .top).edgesIgnoringSafeArea(.bottom))
-        .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
-            ImagePicker(image: self.$inputImage)
+            .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + (UIDevice.current.systemVersion != "14.0" ? 20 : 0), alignment: .top).edgesIgnoringSafeArea(.bottom))
+            .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
+                ImagePicker(image: self.$inputImage)
+        }
+        .sheet(isPresented: $showRegions, onDismiss: showRegionsView) {
+            Regions(showRegions: self.$showRegions)
         }
         .offset(y: -self.value)
         .animation(.spring())
@@ -493,6 +503,10 @@ struct PostNewDog: View {
                 self.value = 0
             }
         }
+    }
+    
+    func showRegionsView() {
+        showRegions.toggle()
     }
     
     func checkboxSelected(id: Int) {
