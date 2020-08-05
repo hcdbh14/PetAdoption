@@ -2,8 +2,9 @@ import SwiftUI
 import Firebase
 import Combine
 
+
 class SessionStore: ObservableObject {
-    
+    @Published var imagePaths: [String] = []
     private let db = Firestore.firestore()
     private let storage = Storage.storage().reference()
     var handle: AuthStateDidChangeListenerHandle?
@@ -37,19 +38,22 @@ class SessionStore: ObservableObject {
         db.collection("Users_Data").document("FcGH2Jl2nOQZOr6O7vf1").setData([email: email ,fullName: fullName])
     }
     
-    func postPetImages(imageData: Data) {
+    func postPetImages(imagesData: [Data]) {
         
-        let filePath = "test"
-        let metaData = StorageMetadata()
-        metaData.contentType = "image/jpg"
-        storage.child(filePath).putData(imageData, metadata: metaData, completion: { result, error in
-            guard error == nil else {
-                print("upload failed")
-                return
+        for i in imagesData {
+            let filePath = "test"
+            let metaData = StorageMetadata()
+            metaData.contentType = "image/jpg"
+            storage.child(filePath).putData(i, metadata: metaData, completion: { result, error in
+                guard error == nil else {
+                    print("upload failed")
+                    return
+                }
+                //TODO create unique path
+                print(result)
             }
-         print(result)
-            }
-        )
+            )
+        }
     }
     
     func postNewPet(petType: String, petName: String, petRace: String, petAge: String, suitables: String,petGender: String, description: String, phoneNumber: String, city: String) {
