@@ -33,7 +33,7 @@ struct Regions: View {
                 }) {
                     Image(systemName: "xmark.circle.fill").opacity(searchText == "" ? 0 : 1)
                 }
-            }.padding(EdgeInsets(top: 8, leading: 6, bottom: 8, trailing: 6))
+            }.padding(15)
                 .foregroundColor(Color.gray)
                 .background(Color.white)
                 .cornerRadius(10.0)
