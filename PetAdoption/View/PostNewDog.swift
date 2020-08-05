@@ -30,7 +30,8 @@ enum ChosenImage {
 }
 
 struct PostNewDog: View {
-    
+    @State var gender = 0
+    @State var size = 0
     @State private var activeSheet: ActiveSheet = .images
     @State var region = "בחרו עיר מגורים"
     @State var showSheet = false
@@ -372,7 +373,7 @@ struct PostNewDog: View {
                 
                 HStack {
                     Spacer()
-                    SegmentedPicker(items: ["זכר", "נקבה"], selection: $petType)
+                    SegmentedPicker(items: ["זכר", "נקבה"], selection: $gender)
                     Spacer()
                 }.padding(.bottom, 25)
                 
@@ -388,7 +389,7 @@ struct PostNewDog: View {
                 
                 HStack {
                     Spacer()
-                    SegmentedPicker(items: ["קטן", "בינוני", "גדול"], selection: $petType)
+                    SegmentedPicker(items: ["קטן", "בינוני", "גדול"], selection: $size)
                     Spacer()
                 }.padding(.bottom, 25)
                 
