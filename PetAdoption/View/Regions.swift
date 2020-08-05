@@ -1,15 +1,15 @@
 import SwiftUI
 
-struct Regions: View {
+struct Cities: View {
     
-    let regionsList = ["ראשון לצין","נתניה"]
+    let cityList = ["ראשון לצין","נתניה"]
     @State var searchText = ""
-    @Binding var showRegions: Bool
-    @Binding var chosenRegion: String
+    @Binding var showCities: Bool
+    @Binding var chosenCity: String
     
-    init(showRegions: Binding<Bool>, region: Binding<String>) {
-        self._showRegions = showRegions
-        self._chosenRegion = region
+    init(showCities: Binding<Bool>, city: Binding<String>) {
+        self._showCities = showCities
+        self._chosenCity = city
     }
     
     var body: some View {
@@ -40,11 +40,11 @@ struct Regions: View {
                 .background(Color("offWhite"))
                 .cornerRadius(10.0)
             
-            List(self.regionsList.filter{$0.contains(self.searchText.lowercased()) || self.searchText == ""}, id: \.self) { region in
+            List(self.cityList.filter{$0.contains(self.searchText.lowercased()) || self.searchText == ""}, id: \.self) { city in
                 Button(action: {
-                    self.closeAndPassRegion(region)
+                    self.closeAndPassCity(city)
                 }) {
-                    Text(region)
+                    Text(city)
                 }
             }
             
@@ -53,11 +53,11 @@ struct Regions: View {
     
     
     func close() {
-       showRegions = false
+       showCities = false
     }
     
-    func closeAndPassRegion(_ region: String) {
-        self.chosenRegion = region
-        showRegions = false
+    func closeAndPassCity(_ region: String) {
+        self.chosenCity = region
+        showCities = false
     }
 }

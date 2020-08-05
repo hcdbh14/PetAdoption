@@ -36,6 +36,10 @@ class SessionStore: ObservableObject {
         db.collection("Users_Data").document("FcGH2Jl2nOQZOr6O7vf1").setData([email: email ,fullName: fullName])
     }
     
+    func postNewPet(petType: Int, petName: String, petRace: String, petAge: String, suitables: [Int],petGender: Int, description: String,phoneNumber: String, city: String) {
+        
+    }
+    
     func passwordReset(email: String, handler: @escaping SendPasswordResetCallback) {
         Auth.auth().sendPasswordReset(withEmail: email, completion: handler)
     }

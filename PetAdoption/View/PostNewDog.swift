@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 
 enum ActiveSheet {
-    case images, regions
+    case images, cities
 }
 
 enum Suitablefor {
@@ -33,7 +33,7 @@ struct PostNewDog: View {
     @State var gender = 0
     @State var size = 0
     @State private var activeSheet: ActiveSheet = .images
-    @State var region = "בחרו עיר מגורים"
+    @State var city = "בחרו עיר מגורים"
     @State var showSheet = false
     @State var phoneNumber = ""
     @State var phoneNumberError = ""
@@ -492,11 +492,11 @@ struct PostNewDog: View {
                     Spacer()
                 }
                 
-                Button(action: showRegionsView) {
+                Button(action: openCitiesSheet) {
                     VStack {
                         HStack {
-                            Text(region)
-                                .foregroundColor(region == "בחרו עיר מגורים" ? .gray : .black)
+                            Text(city)
+                                .foregroundColor(city == "בחרו עיר מגורים" ? .gray : .black)
                                 .padding(.leading, 25)
                             Spacer()
                         }
@@ -534,7 +534,7 @@ struct PostNewDog: View {
                 if self.activeSheet == .images {
                     ImagePicker(image: self.$inputImage)
                 } else {
-                    Regions(showRegions: self.$showSheet, region: self.$region)
+                    Cities(showCities: self.$showSheet, city: self.$city)
                 }
         }
         .offset(y: -self.value)
@@ -554,8 +554,8 @@ struct PostNewDog: View {
         }
     }
     
-    func showRegionsView() {
-        self.activeSheet = .regions
+    func openCitiesSheet() {
+        self.activeSheet = .cities
         showSheet = true
     }
     
@@ -584,7 +584,7 @@ struct PostNewDog: View {
     }
     
     func loadImage() {
-        if activeSheet == .regions { return }
+        if activeSheet == .cities { return }
         guard let inputImage = inputImage else { return }
         
         switch chosenImage {
