@@ -11,42 +11,21 @@ struct Regions: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Button(action: close) {
-                    HStack {
-                        Image(systemName: "chevron.right")
-                        Text("חזור")
-                    }
+        HStack {
+            Button(action: close) {
+                HStack {
+                    Image(systemName: "chevron.right")
+                    Text("חזור")
                 }
-                .foregroundColor(Color("orange"))
-                .padding(.leading, 25)
-                Spacer()
             }
-            
-            List {
-                // 2.
-                Section(header:
-                Text("צפון")) {
-                    ForEach(0 ..< regionsList.count) {
-                        Text(self.regionsList[$0])
-                    }
-                }
-                // 3.
-                Section(header:
-                Text("מרכז")) {
-                    ForEach(0 ..< regionsList.count) {
-                        Text(self.regionsList[$0])
-                    }
-                }
-                
-                Section(header:
-                Text("דרום")) {
-                    ForEach(0 ..< regionsList.count) {
-                        Text(self.regionsList[$0])
-                    }
-                }
-                
-            }
+            .foregroundColor(Color("orange"))
+            .padding(.leading, 25)
+            Spacer()
+        }
+        
+        List(regionsList, id: \.self) { region in
+            Text(region)
+        }
         }.environment(\.layoutDirection, .rightToLeft)
     }
     
