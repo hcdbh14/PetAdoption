@@ -1,6 +1,10 @@
 import SwiftUI
 import Combine
 
+enum ActiveSheet {
+    case images, regions
+}
+
 enum Suitablefor {
     
     case kids
@@ -27,8 +31,9 @@ enum ChosenImage {
 
 struct PostNewDog: View {
     
+    @State private var activeSheet: ActiveSheet = .images
     @State var region = "בחרו עיר מגורים"
-    @State var showRegions = false
+    @State var showSheet = false
     @State var phoneNumber = ""
     @State var phoneNumberError = ""
     @State var SuiteableArray: [Int] = []
@@ -52,7 +57,6 @@ struct PostNewDog: View {
     @Binding var showPostPet: Bool
     @Binding var showAuthScreen: Bool
     @State private var inputImage: UIImage?
-    @State private var showingImagePicker = false
     @EnvironmentObject var session: SessionStore
     @Environment (\.colorScheme) var colorScheme: ColorScheme
     
@@ -110,7 +114,8 @@ struct PostNewDog: View {
                 
                 imagePlacerHolder(image: $image).onTapGesture {
                     self.chosenImage = .first
-                    self.showingImagePicker = true
+                    self.activeSheet = .images
+                    self.showSheet = true
                 }
                 Spacer()
             }
@@ -119,15 +124,18 @@ struct PostNewDog: View {
                 Spacer()
                 imagePlacerHolder(image: $secondImage).onTapGesture {
                     self.chosenImage = .second
-                    self.showingImagePicker = true
+                    self.activeSheet = .images
+                    self.showSheet = true
                 }
                 imagePlacerHolder(image: $thirdImage).onTapGesture {
                     self.chosenImage = .third
-                    self.showingImagePicker = true
+                    self.activeSheet = .images
+                    self.showSheet = true
                 }
                 imagePlacerHolder(image: $fourthImage).onTapGesture {
                     self.chosenImage = .fourth
-                    self.showingImagePicker = true
+                    self.activeSheet = .images
+                    self.showSheet = true
                 }
                 Spacer()
             }.padding(.bottom, 25)
@@ -500,18 +508,18 @@ struct PostNewDog: View {
             }.padding(.bottom, 25)
             
             Button(action: closeLoginScreen) {
-//                if waitingForResponse {
-//
-//                    ActivityIndicator(isAnimating: true)
-//                        .configure { $0.color = .white }
-//                } else {
-                    Text("פרסום מודעה")
-                        .frame(width: UIScreen.main.bounds.width - 100, height: 50)
-                        .foregroundColor(.white)
-                        .background(Color("orange"))
-                        .cornerRadius(30)
-                        .shadow(radius: 5)
-//                }
+                //                if waitingForResponse {
+                //
+                //                    ActivityIndicator(isAnimating: true)
+                //                        .configure { $0.color = .white }
+                //                } else {
+                Text("פרסום מודעה")
+                    .frame(width: UIScreen.main.bounds.width - 100, height: 50)
+                    .foregroundColor(.white)
+                    .background(Color("orange"))
+                    .cornerRadius(30)
+                    .shadow(radius: 5)
+                //                }
             }.frame(width: UIScreen.main.bounds.width - 100, height: 50)
                 .foregroundColor(.white)
                 .background(Color("orange"))
@@ -521,11 +529,12 @@ struct PostNewDog: View {
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading).edgesIgnoringSafeArea(.bottom)
             .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + (UIDevice.current.systemVersion != "14.0" ? 20 : 0), alignment: .top).edgesIgnoringSafeArea(.bottom))
-            .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
-                ImagePicker(image: self.$inputImage)
-        }
-        .sheet(isPresented: $showRegions) {
-            Regions(showRegions: self.$showRegions, region: self.$region)
+            .sheet(isPresented: $showSheet, onDismiss: loadImage) {
+                if self.activeSheet == .images {
+                    ImagePicker(image: self.$inputImage)
+                } else {
+                    Regions(showRegions: self.$showSheet, region: self.$region)
+                }
         }
         .offset(y: -self.value)
         .animation(.spring())
@@ -545,7 +554,8 @@ struct PostNewDog: View {
     }
     
     func showRegionsView() {
-        showRegions.toggle()
+        self.activeSheet = .regions
+        showSheet = true
     }
     
     func checkboxSelected(id: Int) {
@@ -573,6 +583,7 @@ struct PostNewDog: View {
     }
     
     func loadImage() {
+        if activeSheet == .regions { return }
         guard let inputImage = inputImage else { return }
         
         switch chosenImage {
