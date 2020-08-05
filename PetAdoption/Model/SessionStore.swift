@@ -41,11 +41,13 @@ class SessionStore: ObservableObject {
     func postPetImages(imagesData: [Data]) {
         
         for i in imagesData {
+            
             guard let uid = Auth.auth().currentUser?.uid else { return }
             guard let index = imagesData.firstIndex(of: i) else { return }
             let filePath = "\(uid)" + "\(index)"
             let metaData = StorageMetadata()
             metaData.contentType = "image/jpg"
+            
             storage.child(filePath).putData(i, metadata: metaData, completion: { result, error in
                 guard error == nil else {
                     print("upload failed")
