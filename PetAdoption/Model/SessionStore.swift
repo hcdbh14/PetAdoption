@@ -64,6 +64,10 @@ class SessionStore: ObservableObject {
         Auth.auth().currentUser?.reload(completion: handler)
     }
     
+    func returnEmail () -> String {
+        return Auth.auth().currentUser?.email ?? "no email found"
+    }
+    
     func unbind() {
         if let handle = handle {
             Auth.auth().removeStateDidChangeListener(handle)
