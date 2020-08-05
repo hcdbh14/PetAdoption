@@ -50,10 +50,10 @@ struct PostNewDog: View {
     @State private var petRaceError = ""
     @State private var petName = ""
     @State private var petNameError = ""
-    @State private var image: Image?
-    @State private var secondImage: Image?
-    @State private var thirdImage: Image?
-    @State private var fourthImage: Image?
+    @State private var image: UIImage?
+    @State private var secondImage: UIImage?
+    @State private var thirdImage: UIImage?
+    @State private var fourthImage: UIImage?
     @State var triggerFade = true
     @Binding var showPostPet: Bool
     @Binding var showAuthScreen: Bool
@@ -557,9 +557,7 @@ struct PostNewDog: View {
     func postImage() {
 
          var data = Data()
-        data = (inputImage ?? UIImage()).jpeg(.lowest) ?? Data()
-         // set upload path
-
+        data = (image ?? UIImage()).jpeg(.lowest) ?? Data()
         session.postPetImages(imageData: data)
     }
     
@@ -598,16 +596,16 @@ struct PostNewDog: View {
         
         switch chosenImage {
         case .first:
-            image = Image(uiImage: inputImage)
+            image = inputImage
             
         case .second:
-            secondImage = Image(uiImage: inputImage)
+            secondImage = inputImage
             
         case .third:
-            thirdImage = Image(uiImage: inputImage)
+            thirdImage = inputImage
             
         case .fourth:
-            fourthImage = Image(uiImage: inputImage)
+            fourthImage = inputImage
         }
     }
     

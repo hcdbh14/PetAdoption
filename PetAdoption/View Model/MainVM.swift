@@ -28,7 +28,7 @@ class MainVM: ObservableObject {
     @Published var userDecided = PassthroughSubject<Decision, Never>()
     @Published var decision: Decision = Decision.notDecided { didSet {
         userDecided.send(decision)
-    }
+        }
     }
     
     init() {
@@ -98,7 +98,7 @@ class MainVM: ObservableObject {
                     self.reloadFrontImage.send(true)
                 } else {
                     self.frontImages = value
-                     self.reloadFrontImage.send(true)
+                    self.reloadFrontImage.send(true)
                 }
             })
         }

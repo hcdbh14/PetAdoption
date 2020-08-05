@@ -2,9 +2,9 @@ import SwiftUI
 
 struct imagePlacerHolder: View {
     
-    @Binding var image: Image?
+    @Binding var image: UIImage?
     
-    init(image: Binding<Image?>) {
+    init(image: Binding<UIImage?>) {
         self._image = image
     }
     
@@ -29,7 +29,7 @@ struct imagePlacerHolder: View {
                     .frame(width: 25, height: 25)
                     .foregroundColor(.gray)
             } else {
-                image?.resizable()
+                Image(uiImage: image ?? UIImage()).resizable()
                     .scaledToFit()
                     .frame(width: UIScreen.main.bounds.width / 3.5 , height: 150)
                     .background(Color.black)
