@@ -26,6 +26,7 @@ enum ChosenImage {
 }
 
 struct PostNewDog: View {
+    
     @State var region = "בחרו עיר מגורים"
     @State var showRegions = false
     @State var phoneNumber = ""
@@ -401,102 +402,122 @@ struct PostNewDog: View {
                     
                 }.padding(20)
                 
-                HStack {
-                    Text("פרטים ליצירת קשר")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundColor(Color("offBlack"))
-                        .padding(.leading, 25)
-                        .padding(.top, 30)
-                        .padding(.bottom, 30)
-                    Spacer()
+                VStack {
+                    HStack {
+                        Text("פרטים ליצירת קשר")
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundColor(Color("offBlack"))
+                            .padding(.leading, 25)
+                            .padding(.top, 30)
+                            .padding(.bottom, 30)
+                        Spacer()
+                    }
+                    
+                    HStack {
+                        Text("מספר טלפון")
+                            .font(.system(size: 20, weight: .regular))
+                            .foregroundColor(Color("offBlack"))
+                            .padding(.leading, 25)
+                            .padding(.bottom, 5)
+                        Spacer()
+                    }
+                    
+                    ZStack {
+                        HStack {
+                            TextField("הקלידו מספר טלפון", text: $phoneNumber, onEditingChanged: { (editingChanged) in
+                                if editingChanged {
+                                    print("TextField focused")
+                                } else {
+                                    if self.phoneNumber.isEmpty == false {
+                                        self.correctTextField = .correct
+                                        if self.phoneNumber.count <= 10 {
+                                            self.phoneNumberError =  ""
+                                        }
+                                    } else {
+                                        self.correctTextField = .empty
+                                    }
+                                }
+                            })
+                                .onReceive(Just(phoneNumber)) { newValue in
+                                    let filtered = self.phoneNumber.filter { "0123456789".contains($0) }
+                                    if filtered != self.phoneNumber {
+                                        self.phoneNumber = filtered
+                                    }
+                            }
+                            .onReceive(phoneNumber.publisher.collect()) {
+                                if self.phoneNumber.count > 10 {
+                                    self.phoneNumberError = "מספר טלפון ארוך מדיי"
+                                }
+                                self.phoneNumber = String($0.prefix(10))
+                            }
+                                
+                            .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
+                            .keyboardType(.numberPad)
+                            .padding(.bottom, 25)
+                            .padding(.leading, 25)
+                            Spacer()
+                        }
+                        
+                        Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
+                            .padding(.leading, 25)
+                            .padding(.trailing, 40)
+                        
+                        HStack {
+                            Text(phoneNumberError)
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.red)
+                                .frame(width: UIScreen.main.bounds.width  / 2, height: 0.5)
+                                .padding(.leading, 25)
+                                .padding(.top, 15)
+                            Spacer()
+                        }
+                    }.padding(.bottom, 20)
                 }
                 
                 HStack {
-                    Text("מספר טלפון")
+                    Text("עיר מגורים")
                         .font(.system(size: 20, weight: .regular))
                         .foregroundColor(Color("offBlack"))
                         .padding(.leading, 25)
-                        .padding(.bottom, 5)
+                        .padding(.bottom, 25)
                     Spacer()
                 }
                 
-                ZStack {
-                    HStack {
-                        TextField("הקלידו מספר טלפון", text: $phoneNumber, onEditingChanged: { (editingChanged) in
-                            if editingChanged {
-                                print("TextField focused")
-                            } else {
-                                if self.phoneNumber.isEmpty == false {
-                                    self.correctTextField = .correct
-                                    if self.phoneNumber.count <= 10 {
-                                        self.phoneNumberError =  ""
-                                    }
-                                } else {
-                                    self.correctTextField = .empty
-                                }
-                            }
-                        })
-                            .onReceive(Just(phoneNumber)) { newValue in
-                                let filtered = self.phoneNumber.filter { "0123456789".contains($0) }
-                                if filtered != self.phoneNumber {
-                                    self.phoneNumber = filtered
-                                }
+                Button(action: showRegionsView) {
+                    VStack {
+                        HStack {
+                            Text(region)
+                                .foregroundColor(region == "בחרו עיר מגורים" ? .gray : .black)
+                                .padding(.leading, 25)
+                            Spacer()
                         }
-                        .onReceive(phoneNumber.publisher.collect()) {
-                            if self.phoneNumber.count > 10 {
-                                self.phoneNumberError = "מספר טלפון ארוך מדיי"
-                            }
-                            self.phoneNumber = String($0.prefix(10))
-                        }
-                            
-                        .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
-                        .keyboardType(.numberPad)
-                        .padding(.bottom, 25)
-                        .padding(.leading, 25)
-                        Spacer()
-                    }
-                    
-                    Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
-                        .padding(.leading, 25)
-                        .padding(.trailing, 40)
-                    
-                    HStack {
-                        Text(phoneNumberError)
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.red)
-                            .frame(width: UIScreen.main.bounds.width  / 2, height: 0.5)
+                        Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
                             .padding(.leading, 25)
-                            .padding(.top, 15)
-                        Spacer()
+                            .padding(.trailing, 40)
+                            .padding(.top, -10)
                     }
-                }.padding(.bottom, 20)
-            }
-            
-            HStack {
-                Text("עיר מגורים")
-                    .font(.system(size: 20, weight: .regular))
-                    .foregroundColor(Color("offBlack"))
-                    .padding(.leading, 25)
-                    .padding(.bottom, 25)
-                Spacer()
-            }
-            
-            Button(action: showRegionsView) {
-                VStack {
-                    HStack {
-                        Text(region)
-                            .foregroundColor(region == "בחרו עיר מגורים" ? .gray : .black)
-                            .padding(.leading, 25)
-                        Spacer()
-                    }
-                    Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
-                        .padding(.leading, 25)
-                        .padding(.trailing, 40)
-                        .padding(.top, -10)
                 }
-            }
+            }.padding(.bottom, 25)
             
-            
+            Button(action: closeLoginScreen) {
+//                if waitingForResponse {
+//
+//                    ActivityIndicator(isAnimating: true)
+//                        .configure { $0.color = .white }
+//                } else {
+                    Text("פרסום מודעה")
+                        .frame(width: UIScreen.main.bounds.width - 100, height: 50)
+                        .foregroundColor(.white)
+                        .background(Color("orange"))
+                        .cornerRadius(30)
+                        .shadow(radius: 5)
+//                }
+            }.frame(width: UIScreen.main.bounds.width - 100, height: 50)
+                .foregroundColor(.white)
+                .background(Color("orange"))
+                .cornerRadius(30)
+                .shadow(radius: 5)
+                .padding(15)
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading).edgesIgnoringSafeArea(.bottom)
             .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + (UIDevice.current.systemVersion != "14.0" ? 20 : 0), alignment: .top).edgesIgnoringSafeArea(.bottom))
