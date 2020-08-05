@@ -555,10 +555,15 @@ struct PostNewDog: View {
     }
     
     func postImage() {
-
-         var data = Data()
-        data = (image ?? UIImage()).jpeg(.lowest) ?? Data()
-        session.postPetImages(imageData: data)
+        let images = [image, secondImage, thirdImage, fourthImage]
+        
+        for i in images {
+            if i != nil {
+                var data = Data()
+                data = (i ?? UIImage()).jpeg(.lowest) ?? Data()
+                session.postPetImages(imageData: data)
+            }
+        }
     }
     
     func openCitiesSheet() {
