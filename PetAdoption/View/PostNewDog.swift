@@ -26,7 +26,7 @@ enum ChosenImage {
 }
 
 struct PostNewDog: View {
-    
+    @State var region = "בחרו עיר מגורים"
     @State var showRegions = false
     @State var phoneNumber = ""
     @State var phoneNumberError = ""
@@ -436,11 +436,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                        .onReceive(Just(phoneNumber)) { newValue in
-                            let filtered = self.phoneNumber.filter { "0123456789".contains($0) }
-                            if filtered != self.phoneNumber {
-                                self.phoneNumber = filtered
-                            }
+                            .onReceive(Just(phoneNumber)) { newValue in
+                                let filtered = self.phoneNumber.filter { "0123456789".contains($0) }
+                                if filtered != self.phoneNumber {
+                                    self.phoneNumber = filtered
+                                }
                         }
                         .onReceive(phoneNumber.publisher.collect()) {
                             if self.phoneNumber.count > 10 {
@@ -448,7 +448,7 @@ struct PostNewDog: View {
                             }
                             self.phoneNumber = String($0.prefix(10))
                         }
-
+                            
                         .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
                         .keyboardType(.numberPad)
                         .padding(.bottom, 25)
@@ -472,9 +472,27 @@ struct PostNewDog: View {
                 }.padding(.bottom, 20)
             }
             
+            HStack {
+                Text("עיר מגורים")
+                    .font(.system(size: 20, weight: .regular))
+                    .foregroundColor(Color("offBlack"))
+                    .padding(.leading, 25)
+                    .padding(.bottom, 25)
+                Spacer()
+            }
+            
             Button(action: showRegionsView) {
-                HStack {
-                    Text("חזור")
+                VStack {
+                    HStack {
+                        Text(region)
+                            .foregroundColor(region == "בחרו עיר מגורים" ? .gray : .black)
+                            .padding(.leading, 25)
+                        Spacer()
+                    }
+                    Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
+                        .padding(.leading, 25)
+                        .padding(.trailing, 40)
+                        .padding(.top, -10)
                 }
             }
             
@@ -485,8 +503,8 @@ struct PostNewDog: View {
             .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
                 ImagePicker(image: self.$inputImage)
         }
-        .sheet(isPresented: $showRegions, onDismiss: showRegionsView) {
-            Regions(showRegions: self.$showRegions)
+        .sheet(isPresented: $showRegions) {
+            Regions(showRegions: self.$showRegions, region: self.$region)
         }
         .offset(y: -self.value)
         .animation(.spring())
