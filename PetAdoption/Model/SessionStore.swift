@@ -39,7 +39,7 @@ class SessionStore: ObservableObject {
         db.collection("Users_Data").document("FcGH2Jl2nOQZOr6O7vf1").setData([email: email ,fullName: fullName])
     }
     
-    func postPetImages(imagesData: [Data]) {
+    func postPetImages(imagesData: [Data], petType: String, petName: String, petRace: String, petAge: String, suitables: String, petGender: String, description: String, phoneNumber: String, city: String) {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -70,7 +70,7 @@ class SessionStore: ObservableObject {
                         for i in sortedKeys {
                             sortedImagePaths.append(self.imagePaths[i] ?? "")
                         }
-
+                        self.postNewPet(petType: petType, petName: petName, petRace: petRace, petAge: petAge, suitables: suitables, petGender: petGender, description: description, phoneNumber: phoneNumber, city: city)
                     }
                 })
                 print(result as Any)

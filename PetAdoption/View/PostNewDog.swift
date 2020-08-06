@@ -5,14 +5,14 @@ enum ActiveSheet {
     case images, cities
 }
 
-enum Suitablefor {
+enum Suitablefor: String {
     
-    case kids
-    case houseYard
-    case apartment
-    case adults
-    case houseWithCat
-    case allergic
+    case kids = "ילדים"
+    case houseYard = "בית עם חצר"
+    case apartment = "דירה"
+    case adults = "מבוגרים"
+    case houseWithCat = "בית עם חתול"
+    case allergic = "אלרגיים"
 }
 
 enum TextFieldCorrection {
@@ -566,7 +566,34 @@ struct PostNewDog: View {
                 
             }
         }
-        session.postPetImages(imagesData: imagesData)
+        session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, suitables: groupSuiteables(), petGender: String(gender), description: description, phoneNumber: phoneNumber, city: city)
+    }
+    
+    
+    func groupSuiteables() -> String {
+        
+        var suiteablesString = ""
+        
+        for i in SuiteableArray {
+            switch i {
+            case 0:
+                suiteablesString += "," + Suitablefor.kids.rawValue
+            case 1:
+                suiteablesString += "," + Suitablefor.adults.rawValue
+            case 2:
+                suiteablesString += "," + Suitablefor.allergic.rawValue
+            case 3:
+                suiteablesString += "," + Suitablefor.apartment.rawValue
+            case 4:
+                suiteablesString += "," + Suitablefor.houseYard.rawValue
+            case 5:
+                suiteablesString += "," + Suitablefor.houseWithCat.rawValue
+            default:
+                return ""
+            }
+        }
+        suiteablesString.remove(at: suiteablesString.startIndex)
+        return suiteablesString
     }
     
     func openCitiesSheet() {
