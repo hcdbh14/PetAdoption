@@ -10,6 +10,8 @@ enum Decision {
 }
 
 class MainVM: ObservableObject {
+    
+    @Published var noMorePets = false
     @Published  var imageIndex = 0
     var dogsList: [Dog] = []
     var firstLaunch = false
@@ -61,6 +63,7 @@ class MainVM: ObservableObject {
             } else {
                 frontImages = []
                 backImages = []
+                noMorePets = true
             }
         }
     }
