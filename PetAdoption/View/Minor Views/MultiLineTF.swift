@@ -37,7 +37,7 @@ struct MultiLineTF : UIViewRepresentable {
         }
         
         func textViewDidChange(_ textView: UITextView) {
-            
+            self.parent.txt = textView.text
         }
         
         func textViewDidBeginEditing(_ textView: UITextView) {

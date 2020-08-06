@@ -70,7 +70,7 @@ class SessionStore: ObservableObject {
                         for i in sortedKeys {
                             sortedImagePaths.append(self.imagePaths[i] ?? "")
                         }
-                        self.postNewPet(petType: petType, petName: petName, petRace: petRace, petAge: petAge, suitables: suitables, petGender: petGender, description: description, phoneNumber: phoneNumber, city: city)
+                        self.postNewPet(petType: petType, petName: petName, petRace: petRace, petAge: petAge, suitables: suitables, petGender: petGender, description: description, phoneNumber: phoneNumber, city: city, images: sortedImagePaths )
                     }
                 })
                 print(result as Any)
@@ -82,10 +82,10 @@ class SessionStore: ObservableObject {
         
     }
     
-    func postNewPet(petType: String, petName: String, petRace: String, petAge: String, suitables: String,petGender: String, description: String, phoneNumber: String, city: String) {
-        
+    func postNewPet(petType: String, petName: String, petRace: String, petAge: String, suitables: String,petGender: String, description: String, phoneNumber: String, city: String, images: [String]) {
+
         let email = Auth.auth().currentUser?.email ?? ""
-        db.collection("Cards_Data").document("mgKHizMkprh0maJSxnar").setData([email: email ,petType: petType, petName: petName, petRace: petRace, petAge: petAge, suitables: suitables,petGender: petGender, description: description,phoneNumber: phoneNumber, city: city])
+        db.collection("Cards_Data").document("mgKHizMkprh0maJSxnar").setData(["email": email ,"type": petType, "name": petName, "race": petRace, "age": petAge, "suitables": suitables,"gender": petGender, "desc": description,"number": phoneNumber, "city": city, "images": images])
     }
     
     func passwordReset(email: String, handler: @escaping SendPasswordResetCallback) {
