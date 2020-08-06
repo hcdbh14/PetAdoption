@@ -5,6 +5,7 @@ import Combine
 
 class SessionStore: ObservableObject {
     
+    @Published var waitingForResponse = false
     @Published var imagePaths: [Int : String] = [:]
     private let db = Firestore.firestore()
     private let storage = Storage.storage().reference()
@@ -41,7 +42,7 @@ class SessionStore: ObservableObject {
     }
     
     func postPetImages(imagesData: [Data], petType: String, petName: String, petRace: String, petAge: String, suitables: String, petGender: String, description: String, phoneNumber: String, city: String) {
-        
+        waitingForResponse = true
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         for i in imagesData {
@@ -58,6 +59,7 @@ class SessionStore: ObservableObject {
                 
                 self.storage.child(fileName).downloadURL(completion: { url, error in
                     guard let url = url, error == nil else {
+                        self.waitingForResponse = false
                         return
                     }
                     let urlString = url.absoluteURL
@@ -72,6 +74,7 @@ class SessionStore: ObservableObject {
                             sortedImagePaths.append(self.imagePaths[i] ?? "")
                         }
                         self.postNewPet(petType: petType, petName: petName, petRace: petRace, petAge: petAge, suitables: suitables, petGender: petGender, description: description, phoneNumber: phoneNumber, city: city, images: sortedImagePaths )
+                        self.waitingForResponse = false
                     }
                 })
                 print(result as Any)

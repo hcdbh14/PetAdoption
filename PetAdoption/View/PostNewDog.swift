@@ -30,6 +30,7 @@ enum ChosenImage {
 }
 
 struct PostNewDog: View {
+    
     @State var gender = 0
     @State var size = 0
     @State private var activeSheet: ActiveSheet = .images
@@ -197,11 +198,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                            .onReceive(Just(petName)) { newValue in
-                                let filtered = self.petName.filter { self.allowedChars.contains($0) }
-                                if filtered != self.petName {
-                                    self.petName = filtered
-                                }
+                        .onReceive(Just(petName)) { newValue in
+                            let filtered = self.petName.filter { self.allowedChars.contains($0) }
+                            if filtered != self.petName {
+                                self.petName = filtered
+                            }
                         }
                         .onReceive(petName.publisher.collect()) {
                             if self.petName.count > 24 {
@@ -262,11 +263,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                            .onReceive(Just(petRace)) { newValue in
-                                let filtered = self.petRace.filter { self.allowedChars.contains($0) }
-                                if filtered != self.petRace {
-                                    self.petRace = filtered
-                                }
+                        .onReceive(Just(petRace)) { newValue in
+                            let filtered = self.petRace.filter { self.allowedChars.contains($0) }
+                            if filtered != self.petRace {
+                                self.petRace = filtered
+                            }
                         }
                         .onReceive(petRace.publisher.collect()) {
                             if self.petRace.count > 20 {
@@ -292,11 +293,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                            .onReceive(Just(petAge)) { newValue in
-                                let filtered = self.petAge.filter { "0123456789".contains($0) }
-                                if filtered != self.petAge {
-                                    self.petAge = filtered
-                                }
+                        .onReceive(Just(petAge)) { newValue in
+                            let filtered = self.petAge.filter { "0123456789".contains($0) }
+                            if filtered != self.petAge {
+                                self.petAge = filtered
+                            }
                         }
                         .onReceive(petAge.publisher.collect()) {
                             if self.petAge.count > 2 {
@@ -304,7 +305,7 @@ struct PostNewDog: View {
                             }
                             self.petAge = String($0.prefix(2))
                         }
-                            
+                        
                         .frame(width: UIScreen.main.bounds.width  / 3.8, height: 0.5)
                         .keyboardType(.numberPad)
                         .padding(.bottom, 25)
@@ -447,11 +448,11 @@ struct PostNewDog: View {
                                     }
                                 }
                             })
-                                .onReceive(Just(phoneNumber)) { newValue in
-                                    let filtered = self.phoneNumber.filter { "0123456789".contains($0) }
-                                    if filtered != self.phoneNumber {
-                                        self.phoneNumber = filtered
-                                    }
+                            .onReceive(Just(phoneNumber)) { newValue in
+                                let filtered = self.phoneNumber.filter { "0123456789".contains($0) }
+                                if filtered != self.phoneNumber {
+                                    self.phoneNumber = filtered
+                                }
                             }
                             .onReceive(phoneNumber.publisher.collect()) {
                                 if self.phoneNumber.count > 10 {
@@ -459,7 +460,7 @@ struct PostNewDog: View {
                                 }
                                 self.phoneNumber = String($0.prefix(10))
                             }
-                                
+                            
                             .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
                             .keyboardType(.numberPad)
                             .padding(.bottom, 25)
@@ -509,33 +510,33 @@ struct PostNewDog: View {
             }.padding(.bottom, 25)
             
             Button(action: postImage) {
-                //                if waitingForResponse {
-                //
-                //                    ActivityIndicator(isAnimating: true)
-                //                        .configure { $0.color = .white }
-                //                } else {
-                Text("פרסום מודעה")
-                    .frame(width: UIScreen.main.bounds.width - 100, height: 50)
-                    .foregroundColor(.white)
-                    .background(Color("orange"))
-                    .cornerRadius(30)
-                    .shadow(radius: 5)
-                //                }
+                if session.waitingForResponse {
+                    
+                    ActivityIndicator(isAnimating: true)
+                        .configure { $0.color = .white }
+                } else {
+                    Text("פרסום מודעה")
+                        .frame(width: UIScreen.main.bounds.width - 100, height: 50)
+                        .foregroundColor(.white)
+                        .background(Color("orange"))
+                        .cornerRadius(30)
+                        .shadow(radius: 5)
+                }
             }.frame(width: UIScreen.main.bounds.width - 100, height: 50)
-                .foregroundColor(.white)
-                .background(Color("orange"))
-                .cornerRadius(30)
-                .shadow(radius: 5)
-                .padding(15)
+            .foregroundColor(.white)
+            .background(Color("orange"))
+            .cornerRadius(30)
+            .shadow(radius: 5)
+            .padding(15)
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading).edgesIgnoringSafeArea(.bottom)
-            .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + (UIDevice.current.systemVersion != "14.0" ? 20 : 0), alignment: .top).edgesIgnoringSafeArea(.bottom))
-            .sheet(isPresented: $showSheet, onDismiss: loadImage) {
-                if self.activeSheet == .images {
-                    ImagePicker(image: self.$inputImage)
-                } else {
-                    Cities(showCities: self.$showSheet, city: self.$city)
-                }
+        .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + (UIDevice.current.systemVersion != "14.0" ? 20 : 0), alignment: .top).edgesIgnoringSafeArea(.bottom))
+        .sheet(isPresented: $showSheet, onDismiss: loadImage) {
+            if self.activeSheet == .images {
+                ImagePicker(image: self.$inputImage)
+            } else {
+                Cities(showCities: self.$showSheet, city: self.$city)
+            }
         }
         .offset(y: -self.value)
         .animation(.spring())
@@ -555,7 +556,7 @@ struct PostNewDog: View {
     }
     
     func postImage() {
-    
+        
         let images = [image, secondImage, thirdImage, fourthImage]
         var imagesData: [Data] = []
         for i in images {
