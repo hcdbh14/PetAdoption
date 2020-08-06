@@ -36,7 +36,8 @@ class SessionStore: ObservableObject {
     
     func saveUserData(email: String, fullName: String) {
         
-        db.collection("Users_Data").document("FcGH2Jl2nOQZOr6O7vf1").setData([email: email ,fullName: fullName])
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        db.collection("Users_Data").document(uid).setData([email: email ,fullName: fullName])
     }
     
     func postPetImages(imagesData: [Data], petType: String, petName: String, petRace: String, petAge: String, suitables: String, petGender: String, description: String, phoneNumber: String, city: String) {
