@@ -31,6 +31,7 @@ enum ChosenImage {
 
 struct PostNewDog: View {
     
+    @State var postError = ""
     @State var gender = 0
     @State var size = 0
     @State private var activeSheet: ActiveSheet = .images
@@ -512,6 +513,14 @@ struct PostNewDog: View {
                 }
             }.padding(.bottom, 25)
             
+            HStack {
+                Spacer()
+                Text(postError)
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.red)
+                Spacer()
+            }.padding(.top, 15)
+            
             Button(action: postImage) {
                 if session.waitingForResponse {
                     
@@ -559,6 +568,9 @@ struct PostNewDog: View {
     }
     
     func postImage() {
+        
+        postError = ""
+        
         if image != nil && petName != "" && petRace != "" && petAge != "" && phoneNumber != "" && city != "" {
         let images = [image, secondImage, thirdImage, fourthImage]
         var imagesData: [Data] = []
@@ -572,7 +584,7 @@ struct PostNewDog: View {
         }
         session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, suitables: groupSuiteables(), petGender: String(gender), description: description, phoneNumber: phoneNumber, city: city)
         } else {
-            return
+            postError = "לא ניתן להשלים, קיימים שדות חסרים"
         }
     }
     
