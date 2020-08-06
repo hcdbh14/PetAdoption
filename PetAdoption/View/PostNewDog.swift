@@ -559,7 +559,7 @@ struct PostNewDog: View {
     }
     
     func postImage() {
-        
+        if image != nil && petName != "" && petRace != "" && petAge != "" && phoneNumber != "" && city != "" {
         let images = [image, secondImage, thirdImage, fourthImage]
         var imagesData: [Data] = []
         for i in images {
@@ -571,6 +571,9 @@ struct PostNewDog: View {
             }
         }
         session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, suitables: groupSuiteables(), petGender: String(gender), description: description, phoneNumber: phoneNumber, city: city)
+        } else {
+            return
+        }
     }
     
     
