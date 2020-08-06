@@ -4,7 +4,8 @@ import Combine
 
 
 class SessionStore: ObservableObject {
-    @Published var imagePaths: [String] = []
+    
+    @Published var imagePaths: [Int : String] = [:]
     private let db = Firestore.firestore()
     private let storage = Storage.storage().reference()
     var handle: AuthStateDidChangeListenerHandle?
@@ -40,24 +41,36 @@ class SessionStore: ObservableObject {
     
     func postPetImages(imagesData: [Data]) {
         
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
         for i in imagesData {
-            
-            guard let uid = Auth.auth().currentUser?.uid else { return }
             guard let index = imagesData.firstIndex(of: i) else { return }
-            let filePath = "\(uid)" + "\(index)"
+            let fileName = "\(uid)/" + "\(index)"
             let metaData = StorageMetadata()
             metaData.contentType = "image/jpg"
             
-            storage.child(filePath).putData(i, metadata: metaData, completion: { result, error in
+            storage.child(fileName).putData(i, metadata: metaData, completion: { result, error in
                 guard error == nil else {
                     print("upload failed")
                     return
                 }
-                //TODO create unique path
-                print(result)
+                
+                self.storage.child(fileName).downloadURL(completion: { url, error in
+                    guard let url = url, error == nil else {
+                        return
+                    }
+                    let urlString = url.absoluteURL
+                    self.imagePaths[index] = urlString.absoluteString
+                    print(urlString)
+                    print(self.imagePaths)
+                })
+                print(result as Any)
             }
             )
         }
+      
+
+        
     }
     
     func postNewPet(petType: String, petName: String, petRace: String, petAge: String, suitables: String,petGender: String, description: String, phoneNumber: String, city: String) {
