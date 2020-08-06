@@ -63,6 +63,15 @@ class SessionStore: ObservableObject {
                     self.imagePaths[index] = urlString.absoluteString
                     print(urlString)
                     print(self.imagePaths)
+                    
+                    if self.imagePaths.count == imagesData.count {
+                        var sortedImagePaths: [String] = []
+                        let sortedKeys = self.imagePaths.keys.sorted()
+                        for i in sortedKeys {
+                            sortedImagePaths.append(self.imagePaths[i] ?? "")
+                        }
+
+                    }
                 })
                 print(result as Any)
             }
