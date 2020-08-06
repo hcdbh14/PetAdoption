@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Card: View {
-    private let age: Int
+    private let age: String
     private let dogName: String
     private let dogDesc: String
     @State private var isImageReady = false
@@ -17,7 +17,7 @@ struct Card: View {
     @State private var image: UIImage = UIImage()
     @ObservedObject private var mainVM: MainVM
     
-    init(dogName: String, age: Int, dogDesc: String, scaleTrigger: Binding<Bool>, showMenu: Binding<Bool>, mainVM: MainVM) {
+    init(dogName: String, age: String, dogDesc: String, scaleTrigger: Binding<Bool>, showMenu: Binding<Bool>, mainVM: MainVM) {
         self.mainVM = mainVM
         self._scaleAnimation = scaleTrigger
         self._showMenu = showMenu

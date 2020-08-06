@@ -83,9 +83,9 @@ class SessionStore: ObservableObject {
     }
     
     func postNewPet(petType: String, petName: String, petRace: String, petAge: String, suitables: String,petGender: String, description: String, phoneNumber: String, city: String, images: [String]) {
-
-        let email = Auth.auth().currentUser?.email ?? ""
-        db.collection("Cards_Data").document("mgKHizMkprh0maJSxnar").setData(["email": email ,"type": petType, "name": petName, "race": petRace, "age": petAge, "suitables": suitables,"gender": petGender, "desc": description,"number": phoneNumber, "city": city, "images": images])
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection("Cards_Data").document(uid).setData(["type": petType, "name": petName, "race": petRace, "age": petAge, "suitables": suitables,"gender": petGender, "desc": description,"number": phoneNumber, "city": city, "images": images])
     }
     
     func passwordReset(email: String, handler: @escaping SendPasswordResetCallback) {

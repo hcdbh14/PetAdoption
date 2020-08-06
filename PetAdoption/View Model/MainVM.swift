@@ -72,11 +72,10 @@ class MainVM: ObservableObject {
             
             if error == nil {
                 for document in snapshot!.documents {
-                    for i in document.data() {
-                        
-                        if let dog = Dog(data: i.value as! [String : Any]) {
+                    
+                    if let dog = Dog(data: document.data()) {
                             self.dogsList.append(dog)
-                        }
+
                     }
                 }
                 self.loadImages()
