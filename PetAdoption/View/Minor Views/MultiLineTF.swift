@@ -15,6 +15,7 @@ struct MultiLineTF : UIViewRepresentable {
         tview.isUserInteractionEnabled = true
         tview.isScrollEnabled = false
         tview.text = "הקלידו פה הערות/תאור/פרטים נוספים"
+        tview.textContainer.maximumNumberOfLines = 8
         tview.textColor = .gray
         tview.backgroundColor = UIColor(named: "offPureWhite")
         tview.font = .systemFont(ofSize: 18)
@@ -31,12 +32,22 @@ struct MultiLineTF : UIViewRepresentable {
     class Coordinator : NSObject, UITextViewDelegate {
         
         var parent : MultiLineTF
+        private var lineCounter = 1
         
         init(parent : MultiLineTF) {
             self.parent = parent
         }
         
+
+        
         func textViewDidChange(_ textView: UITextView) {
+            
+            let size = textView.sizeThatFits(textView.frame.size)
+            if size.width >= UIScreen.main.bounds.width - 50 {
+                let subString = textView.text.suffix(1)
+                textView.text.removeLast(1)
+                textView.text.append(contentsOf: "\n" +  subString)
+            }
             self.parent.txt = textView.text
         }
         
