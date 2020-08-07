@@ -525,7 +525,7 @@ struct PostNewDog: View {
                     ActivityIndicator(isAnimating: true)
                         .configure { $0.color = .white }
                 } else {
-                    Text("פרסום מודעה")
+                    Text(session.localDB.existingPostID == "" ? "פרסום מודעה" : "עריכה")
                         .frame(width: UIScreen.main.bounds.width - 100, height: 50)
                         .foregroundColor(.white)
                         .background(Color("orange"))
