@@ -563,6 +563,15 @@ struct PostNewDog: View {
                 self.value = 0
             }
         }
+        .onReceive(session.existingPost.dataArivved, perform:  { answer in
+            let postData = self.session.existingPost.dog
+            self.petName = postData?.name ?? ""
+            self.petRace = postData?.race ?? ""
+            self.petAge = postData?.age ?? ""
+            self.description = postData?.desc ?? ""
+            self.phoneNumber = postData?.number ?? ""
+            self.city = postData?.city ?? ""
+        })
     }
     
     func postImage() {

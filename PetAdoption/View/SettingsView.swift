@@ -11,8 +11,8 @@ struct SettingsView: View {
     @Binding var showPostPetScreen: Bool
     @Binding var showMenu: Bool
     @ObservedObject var settings = Settings()
+    @EnvironmentObject var session: SessionStore
 
-    
     init(showMenu: Binding<Bool>, showPostPetScreen: Binding<Bool>) {
         self._showMenu = showMenu
         self._showPostPetScreen = showPostPetScreen
@@ -144,6 +144,11 @@ struct SettingsView: View {
         }.animation(Animation.spring())
         .background(Color("offWhite"))
         .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
+            .onAppear() {
+                DispatchQueue.global().async {
+                    self.session.getExistingPost()
+                }
+        }
     }
     
     func checkboxSelected(id: Int) {
