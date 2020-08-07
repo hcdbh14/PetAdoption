@@ -5,6 +5,7 @@ import Combine
 
 class SessionStore: ObservableObject {
     
+//    @Published var userLoggedIn = false
     @Published var waitingForResponse = false
     @Published var imagePaths: [Int : String] = [:]
     private let db = Firestore.firestore()
@@ -25,6 +26,15 @@ class SessionStore: ObservableObject {
         })
     }
     
+    func checkIfUserCanEnter() -> Bool {
+        guard let user = Auth.auth().currentUser else { return false }
+        
+        if user.isEmailVerified {
+        return true
+        } else {
+           return false
+        }
+    }
     
     func signUp(email: String, password: String, handler: @escaping AuthDataResultCallback) {
         
@@ -47,8 +57,18 @@ class SessionStore: ObservableObject {
     
     func postPetImages(imagesData: [Data], petType: String, petName: String, petRace: String, petAge: String, suitables: String, petGender: String, description: String, phoneNumber: String, city: String) {
         
+        var editedDesc = description
+        var editedSuitables = suitables
         waitingForResponse = true
         guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        if editedDesc == "" {
+            editedDesc = " "
+        }
+        
+        if editedSuitables == "" {
+            editedSuitables = " "
+        }
         
         for i in imagesData {
             guard let index = imagesData.firstIndex(of: i) else { return }
@@ -78,7 +98,7 @@ class SessionStore: ObservableObject {
                         for i in sortedKeys {
                             sortedImagePaths.append(self.imagePaths[i] ?? "")
                         }
-                        self.postNewPet(petType: petType, petName: petName, petRace: petRace, petAge: petAge, suitables: suitables, petGender: petGender, description: description, phoneNumber: phoneNumber, city: city, images: sortedImagePaths )
+                        self.postNewPet(petType: petType, petName: petName, petRace: petRace, petAge: petAge, suitables: editedSuitables, petGender: petGender, description: editedDesc, phoneNumber: phoneNumber, city: city, images: sortedImagePaths )
                         self.waitingForResponse = false
                         self.localDB.savePostID(id: uid)
                     }

@@ -16,7 +16,7 @@ struct AuthViewManager: View {
     var body: some View {
         VStack(alignment: .leading) {
             
-            if showPostPet == false {
+            if showPostPet == false && session.checkIfUserCanEnter() == false {
                 HStack {
                     Button(action: closeLoginScreen) {
                         HStack {
@@ -29,7 +29,7 @@ struct AuthViewManager: View {
                     .padding(.leading, 25)
                     Spacer()
                     
-                    if session.session != nil {
+                    if session.session != nil && EmailVerification {
                         Button(action: signOut) {
                             Text("התנתקות")
                                 .foregroundColor(Color("orange"))
@@ -37,22 +37,22 @@ struct AuthViewManager: View {
                                 .padding(.trailing, 25)
                         }
                     }
-                }.opacity(showPostPet ? 0 : 1)
+                }.opacity(showPostPet || session.checkIfUserCanEnter() ? 0 : 1)
             }
             
-            if showPostPet == false {
+            if showPostPet || session.checkIfUserCanEnter() == false {
                 ZStack {
                     Image("bone").resizable()
                         .renderingMode(.template)
                         .frame(width: 80, height: 80)
-                        .opacity(showPostPet ? 0 : 0.8)
+                        .opacity(showPostPet || session.checkIfUserCanEnter() ? 0 : 0.8)
                         .foregroundColor(.orange)
                     
                 }.frame(width: UIScreen.main.bounds.width, alignment: .trailing)
                     .padding(.bottom, -40)
             }
             
-            if (session.session != nil && EmailVerification == false && showPostPet) {
+            if (session.session != nil && EmailVerification == false && showPostPet || session.checkIfUserCanEnter()) {
                 PostNewDog(showAuthScreen: $showAuthScreen, showPostPet: $showPostPet)
                 
             } else if (session.session != nil && EmailVerification) {
@@ -72,7 +72,7 @@ struct AuthViewManager: View {
                     .renderingMode(.template)
                     .frame(width: 200, height: 200)
                     .foregroundColor(.orange)
-                    .opacity(showPostPet ? 0 : 0.8)
+                    .opacity(showPostPet || session.checkIfUserCanEnter() ? 0 : 0.8)
                 Spacer()
                 
             }.frame(width: UIScreen.main.bounds.width + 20)
