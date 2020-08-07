@@ -18,6 +18,7 @@ struct MainScreen: View {
     @State private var scaleAnimation = false
     @State private var selected = barItem.first
     @EnvironmentObject var mainVM: MainVM
+    @EnvironmentObject var session: SessionStore
     
     var body: some View {
         ZStack (alignment: .leading) {
@@ -26,7 +27,7 @@ struct MainScreen: View {
                 VStack {
                     HStack {
                         Button(action: {
-                                    self.showMenu.toggle()
+                            self.showMenu.toggle()
                         }) {
                             Image("settings").resizable()
                                 .frame(width: 25, height: 25)
@@ -51,14 +52,14 @@ struct MainScreen: View {
                     
                     ZStack {
                         if  mainVM.dogsList.isEmpty == false && mainVM.noMorePets == false {
-                                BackCard(scaleTrigger: $scaleAnimation, mainVM: mainVM)
+                            BackCard(scaleTrigger: $scaleAnimation, mainVM: mainVM)
                             
                             Card(dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, dogDesc: mainVM.dogsList[mainVM.count - 1].desc, scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM)
                         }
                     }.zIndex(2)
-                    .background(Color.offWhite)
-                    .disabled(showMenu ? true : false)
-                    .animation(.spring())
+                        .background(Color.offWhite)
+                        .disabled(showMenu ? true : false)
+                        .animation(.spring())
                     
                     Spacer()
                     ZStack(alignment: .top) {
@@ -68,9 +69,9 @@ struct MainScreen: View {
                             .background(ButtomBar())
                             .environment(\.layoutDirection, .leftToRight)
                     }.zIndex(1)
-                    .background(Color.offWhite)
-                    .disabled(showMenu ? true : false)
-                    .animation(.spring())
+                        .background(Color.offWhite)
+                        .disabled(showMenu ? true : false)
+                        .animation(.spring())
                 }
                 .navigationBarTitle("")
                 .navigationBarHidden(isBarHidden ? false : true)
@@ -81,7 +82,7 @@ struct MainScreen: View {
                 .offset(x: self.showMenu ?UIScreen.main.bounds.width / 1.2 : 0)
                 
             }.background(Color.offWhite)
-            .animation(.spring())
+                .animation(.spring())
             
             if showMenu {
                 SettingsView(showMenu: $showMenu, showPostPetScreen: $showPostPetScreen)
@@ -103,12 +104,17 @@ struct MainScreen: View {
                 UIApplication.shared.endEditing()
             }
         }.environment(\.layoutDirection, .rightToLeft)
-        .gesture(showPostPetScreen ? nil : DragGesture().onEnded {
-            if $0.translation.width > -100 {
-                withAnimation {
-                    self.showMenu = false
+            .gesture(showPostPetScreen ? nil : DragGesture().onEnded {
+                if $0.translation.width > -100 {
+                    withAnimation {
+                        self.showMenu = false
+                    }
                 }
-            }
-        })
+                })
+            .onAppear() {
+                DispatchQueue.global().async {
+                    self.session.getExistingPost()
+                }
+        }
     }
 }

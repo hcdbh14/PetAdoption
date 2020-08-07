@@ -5,7 +5,7 @@ import Combine
 
 class SessionStore: ObservableObject {
     
-//    @Published var userLoggedIn = false
+    @Published var existingPost = ExistingPost()
     @Published var waitingForResponse = false
     @Published var imagePaths: [Int : String] = [:]
     private let db = Firestore.firestore()
@@ -15,6 +15,13 @@ class SessionStore: ObservableObject {
     var didChange = PassthroughSubject<SessionStore, Never>()
     @Published var session: User? {didSet {self.didChange.send(self) }}
     
+    func getExistingPost() {
+        
+        DispatchQueue.global().async {
+            guard let userId = Auth.auth().currentUser?.uid else { return }
+            self.existingPost.downloadPost(id: userId)
+        }
+    }
     
     func listen() {
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
@@ -30,9 +37,9 @@ class SessionStore: ObservableObject {
         guard let user = Auth.auth().currentUser else { return false }
         
         if user.isEmailVerified {
-        return true
+            return true
         } else {
-           return false
+            return false
         }
     }
     

@@ -15,10 +15,9 @@ class ExistingPost: ObservableObject {
     @Published var race = ""
     @Published var suiteables = ""
     @Published var type = ""
-    @Published var id = ""
     
     
-    func getPost() {
+    func downloadPost(id: String) {
         db.collection("Cards_Data").document(id).getDocument(completion: {  (snapshot, error) in
             
             guard let post = snapshot?.data() else { return }
