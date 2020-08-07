@@ -1,6 +1,10 @@
 import Foundation
+import FirebaseStorage
+import FirebaseFirestore
 
 class ExistingPost: ObservableObject {
+    
+    private let db = Firestore.firestore()
     @Published var age = ""
     @Published var city = ""
     @Published var desc = ""
@@ -11,4 +15,16 @@ class ExistingPost: ObservableObject {
     @Published var race = ""
     @Published var suiteables = ""
     @Published var type = ""
+    @Published var id = ""
+    
+    
+    func getPost() {
+        db.collection("Cards_Data").document(id).getDocument(completion: {  (snapshot, error) in
+            
+            guard let post = snapshot?.data() else { return }
+            if let dog = Dog(data: post) {
+                print(dog)
+            }
+        })
+    }
 }
