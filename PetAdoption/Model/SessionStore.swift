@@ -8,10 +8,12 @@ class SessionStore: ObservableObject {
     @Published var waitingForResponse = false
     @Published var imagePaths: [Int : String] = [:]
     private let db = Firestore.firestore()
-    private let storage = Storage.storage().reference()
+    @ObservedObject var localDB = LocalDB()
     var handle: AuthStateDidChangeListenerHandle?
+    private let storage = Storage.storage().reference()
     var didChange = PassthroughSubject<SessionStore, Never>()
     @Published var session: User? {didSet {self.didChange.send(self) }}
+    
     
     func listen() {
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
@@ -35,13 +37,16 @@ class SessionStore: ObservableObject {
         Auth.auth().signIn(withEmail: email, password: password, completion: handler)
     }
     
+    
     func saveUserData(email: String, fullName: String) {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         db.collection("Users_Data").document(uid).setData([email: email ,fullName: fullName])
     }
     
+    
     func postPetImages(imagesData: [Data], petType: String, petName: String, petRace: String, petAge: String, suitables: String, petGender: String, description: String, phoneNumber: String, city: String) {
+        
         waitingForResponse = true
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -75,16 +80,14 @@ class SessionStore: ObservableObject {
                         }
                         self.postNewPet(petType: petType, petName: petName, petRace: petRace, petAge: petAge, suitables: suitables, petGender: petGender, description: description, phoneNumber: phoneNumber, city: city, images: sortedImagePaths )
                         self.waitingForResponse = false
+                        self.localDB.savePostID(id: uid)
                     }
                 })
                 print(result as Any)
-            }
-            )
+            })
         }
-      
-
-        
     }
+    
     
     func postNewPet(petType: String, petName: String, petRace: String, petAge: String, suitables: String,petGender: String, description: String, phoneNumber: String, city: String, images: [String]) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
