@@ -502,13 +502,11 @@ struct PostNewDog: View {
                                 .padding(.leading, 25)
                             Spacer()
                         }
-                        // bug work around for iOS 14
-                        Text("\(activeSheet.hashValue)")
-                            .hidden()
                         Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
                             .padding(.leading, 25)
                             .padding(.trailing, 40)
-                            .padding(.top, -10)
+                            // bug work around for iOS 14
+                            .padding(.top,activeSheet == .cities ? -10 : -10)
                     }
                 }
             }.padding(.bottom, 25)
