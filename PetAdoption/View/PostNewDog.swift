@@ -578,6 +578,9 @@ struct PostNewDog: View {
             print(postData?.desc ?? "")
             self.phoneNumber = postData?.number ?? ""
             self.city = postData?.city ?? ""
+            self.translateTypeIntoCode(postData?.type ?? "")
+            self.translateGenderIntoCode(postData?.gender ?? "")
+//            self.translateSizeIntoCode(postData?)
             self.translateSuiteablesIntoCodes(postData?.suitables ?? "")
             self.informText = "מודעה פורסמה בהצלחה,ניתן לעדכן את הפרטים בכל עת"
         })
@@ -655,6 +658,43 @@ struct PostNewDog: View {
             suiteablesString.remove(at: suiteablesString.startIndex)
         }
         return suiteablesString
+    }
+    
+    func translateSizeIntoCode(_ id: String) {
+        switch id {
+        case "קטן":
+            size = 0
+        case "בינוני":
+            size = 1
+        case "גדול":
+            size = 2
+        default:
+            size = 0
+        }
+    }
+    
+    func translateGenderIntoCode(_ id: String) {
+        switch id {
+        case "זכר":
+            gender = 0
+        case "נקבה":
+            gender = 1
+        default:
+            gender = 0
+        }
+    }
+    
+    func translateTypeIntoCode(_ id: String) {
+        switch id {
+        case "כלב":
+            petType = 0
+        case "חתול":
+            petType = 1
+        case "אחר":
+            petType = 2
+        default:
+            petType = 0
+        }
     }
     
     func openCitiesSheet() {
