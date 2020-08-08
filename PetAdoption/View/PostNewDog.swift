@@ -564,6 +564,10 @@ struct PostNewDog: View {
                 
                 self.value = 0
             }
+                DispatchQueue.global().async {
+                    self.session.getExistingPost()
+                }
+     
         }
         .onReceive(session.existingPost.dataArivved, perform:  { answer in
             let postData = self.session.existingPost.dog
