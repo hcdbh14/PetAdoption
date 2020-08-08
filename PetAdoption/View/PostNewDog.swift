@@ -575,6 +575,7 @@ struct PostNewDog: View {
             self.petRace = postData?.race ?? ""
             self.petAge = postData?.age ?? ""
             self.description = postData?.desc ?? ""
+            print(postData?.desc ?? "")
             self.phoneNumber = postData?.number ?? ""
             self.city = postData?.city ?? ""
             self.translateSuiteablesIntoCodes(postData?.suitables ?? "")

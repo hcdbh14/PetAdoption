@@ -25,7 +25,10 @@ struct MultiLineTF : UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UITextView, context: UIViewRepresentableContext<MultiLineTF>) {
-        
+        if txt != "" {
+            uiView.text = txt
+            uiView.textColor = .label
+        }
     }
     
     
@@ -38,7 +41,7 @@ struct MultiLineTF : UIViewRepresentable {
             self.parent = parent
         }
         
-
+        
         
         func textViewDidChange(_ textView: UITextView) {
             
@@ -52,15 +55,19 @@ struct MultiLineTF : UIViewRepresentable {
         }
         
         func textViewDidBeginEditing(_ textView: UITextView) {
-            textView.text = ""
-            // for dark mode im using label text
-            textView.textColor = .label
+            if textView.text == "הקלידו פה הערות/תאור/פרטים נוספים" {
+                textView.text = ""
+                // for dark mode im using label text
+                textView.textColor = .label
+            }
         }
         
         func textViewDidEndEditing(_ textView: UITextView) {
             if textView.text == "" {
                 textView.text = "הקלידו פה הערות/תאור/פרטים נוספים"
                 textView.textColor = .gray
+            } else {
+                textView.textColor = .label
             }
         }
     }
