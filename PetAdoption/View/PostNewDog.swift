@@ -31,6 +31,7 @@ enum ChosenImage {
 
 struct PostNewDog: View {
     
+    @State var informText = ""
     @State var postError = ""
     @State var gender = 0
     @State var size = 0
@@ -513,9 +514,9 @@ struct PostNewDog: View {
             
             HStack {
                 Spacer()
-                Text(session.localDB.existingPostID == "" || postError != "" ? postError : "מודעה פורסמה בהצלחה,תוכלו לעדכן את הפרטים בכל עת")
+                Text(session.localDB.existingPostID != "" && postError != "" ? postError : informText)
                     .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(session.localDB.existingPostID == ""  || postError != "" ? .red : .green)
+                    .foregroundColor(session.localDB.existingPostID != "" && postError != "" ? .red : .green)
                 Spacer()
             }.padding(.top, 15)
             
@@ -525,7 +526,7 @@ struct PostNewDog: View {
                     ActivityIndicator(isAnimating: true)
                         .configure { $0.color = .white }
                 } else {
-                    Text(session.localDB.existingPostID == "" ? "פרסום מודעה" : "עריכה")
+                    Text(session.localDB.existingPostID == "" ? "פרסום מודעה" : "עדכון")
                         .frame(width: UIScreen.main.bounds.width - 100, height: 50)
                         .foregroundColor(.white)
                         .background(Color("orange"))
@@ -573,6 +574,7 @@ struct PostNewDog: View {
             self.phoneNumber = postData?.number ?? ""
             self.city = postData?.city ?? ""
             self.translateSuiteablesIntoCodes(postData?.suitables ?? "")
+            self.informText = "מודעה פורסמה בהצלחה,ניתן לעדכן את הפרטים בכל עת"
         })
     }
     
