@@ -43,7 +43,7 @@ struct CheckboxField: View {
             HStack(alignment: .center, spacing: 10) {
                 if onLightBackground {
                     ZStack {
-                        if isMarked || suiteables.contains(id) {
+                        if isMarked || suiteables.contains(id)  {
                             
                         Image(systemName: "checkmark" )
                             .resizable()

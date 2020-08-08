@@ -58,7 +58,7 @@ class SessionStore: ObservableObject {
     func saveUserData(email: String, fullName: String) {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        db.collection("Users_Data").document(uid).setData([email: email ,fullName: fullName])
+        db.collection("Users_Data").document(uid).setData(["email": email ,"name": fullName])
     }
     
     
