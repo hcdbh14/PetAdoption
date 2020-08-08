@@ -6,6 +6,7 @@ struct Dog {
     let type: String
     let age: String
     let city: String
+    let size: String
     let gender: String
     let number: String
     let images: [String]
@@ -17,6 +18,7 @@ struct Dog {
         
         guard let name = data["name"] as? String,
             let age = data["age"] as? String,
+            let size = data["size"] as? String,
             let images = data["images"] as? [String],
             let type = data["type"] as? String,
             let city = data["city"] as? String,
@@ -29,6 +31,7 @@ struct Dog {
         }
         
         self.age = age
+        self.size = size
         self.images = images
         self.name = name
         self.desc = desc

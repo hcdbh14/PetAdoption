@@ -575,12 +575,11 @@ struct PostNewDog: View {
             self.petRace = postData?.race ?? ""
             self.petAge = postData?.age ?? ""
             self.description = postData?.desc ?? ""
-            print(postData?.desc ?? "")
             self.phoneNumber = postData?.number ?? ""
             self.city = postData?.city ?? ""
             self.translateTypeIntoCode(postData?.type ?? "")
             self.translateGenderIntoCode(postData?.gender ?? "")
-//            self.translateSizeIntoCode(postData?)
+            self.translateSizeIntoCode(postData?.size ?? "")
             self.translateSuiteablesIntoCodes(postData?.suitables ?? "")
             self.informText = "מודעה פורסמה בהצלחה,ניתן לעדכן את הפרטים בכל עת"
         })
@@ -602,7 +601,7 @@ struct PostNewDog: View {
                     
                 }
             }
-            session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, suitables: groupSuiteables(), petGender: String(gender), description: description, phoneNumber: phoneNumber, city: city)
+            session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, petSize: String(size), suitables: groupSuiteables(), petGender: String(gender), description: description, phoneNumber: phoneNumber, city: city)
         } else {
             postError = "לא ניתן להשלים, קיימים שדות חסרים"
         }
@@ -662,11 +661,11 @@ struct PostNewDog: View {
     
     func translateSizeIntoCode(_ id: String) {
         switch id {
-        case "קטן":
+        case "0":
             size = 0
-        case "בינוני":
+        case "1":
             size = 1
-        case "גדול":
+        case "2":
             size = 2
         default:
             size = 0
@@ -675,9 +674,9 @@ struct PostNewDog: View {
     
     func translateGenderIntoCode(_ id: String) {
         switch id {
-        case "זכר":
+        case "0":
             gender = 0
-        case "נקבה":
+        case "1":
             gender = 1
         default:
             gender = 0
@@ -686,11 +685,11 @@ struct PostNewDog: View {
     
     func translateTypeIntoCode(_ id: String) {
         switch id {
-        case "כלב":
+        case "0":
             petType = 0
-        case "חתול":
+        case "1":
             petType = 1
-        case "אחר":
+        case "2":
             petType = 2
         default:
             petType = 0
