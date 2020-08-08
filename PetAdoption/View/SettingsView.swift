@@ -8,6 +8,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
+    @State var placeHolder: [Int] = []
     @Binding var showPostPetScreen: Bool
     @Binding var showMenu: Bool
     @ObservedObject var settings = Settings()
@@ -98,9 +99,9 @@ struct SettingsView: View {
                 }
                 
                 HStack {
-                    CheckboxField(id: 0, label: "צפון", size: 20, color: .white, textSize: 20, marked: settings.areas?.contains(0) ?? false, callback: checkboxSelected)
-                    CheckboxField(id: 1, label: "מרכז", size: 20, color: .white, textSize: 20, marked: settings.areas?.contains(1) ?? false, callback: checkboxSelected)
-                    CheckboxField(id: 2, label: "דרום", size: 20, color: .white, textSize: 20, marked: settings.areas?.contains(2) ?? false, callback: checkboxSelected)
+                    CheckboxField(id: 0, label: "צפון", size: 20, color: .white, textSize: 20, marked: settings.areas?.contains(0) ?? false, callback: checkboxSelected, suiteables: $placeHolder)
+                    CheckboxField(id: 1, label: "מרכז", size: 20, color: .white, textSize: 20, marked: settings.areas?.contains(1) ?? false, callback: checkboxSelected, suiteables: $placeHolder)
+                    CheckboxField(id: 2, label: "דרום", size: 20, color: .white, textSize: 20, marked: settings.areas?.contains(2) ?? false, callback: checkboxSelected, suiteables: $placeHolder)
                 }.padding(.leading, 15)
                 
                 VStack(alignment: .leading) {
@@ -112,9 +113,9 @@ struct SettingsView: View {
                 }.padding(.leading, 15)
                 
                 HStack {
-                    CheckboxField(id: 3, label: "גור", size: 20, color: .white, textSize: 20, marked: settings.areas?.contains(3) ?? false, callback: checkboxSelected)
-                    CheckboxField(id: 4, label: "צעיר", size: 20, color: .white, textSize: 20, marked: settings.areas?.contains(4) ?? false, callback: checkboxSelected)
-                    CheckboxField(id: 5, label: "בוגר", size: 20, color: .white, textSize: 20, marked: settings.areas?.contains(5) ?? false, callback: checkboxSelected)
+                    CheckboxField(id: 3, label: "גור", size: 20, color: .white, textSize: 20, marked: settings.areas?.contains(3) ?? false, callback: checkboxSelected, suiteables: $placeHolder)
+                    CheckboxField(id: 4, label: "צעיר", size: 20, color: .white, textSize: 20, marked: settings.areas?.contains(4) ?? false, callback: checkboxSelected, suiteables: $placeHolder)
+                    CheckboxField(id: 5, label: "בוגר", size: 20, color: .white, textSize: 20, marked: settings.areas?.contains(5) ?? false, callback: checkboxSelected, suiteables: $placeHolder)
                 }.padding(.leading, 15)
                     .padding(.bottom, 50)
                 

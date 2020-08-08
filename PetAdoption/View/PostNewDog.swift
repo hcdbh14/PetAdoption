@@ -39,7 +39,7 @@ struct PostNewDog: View {
     @State var showSheet = false
     @State var phoneNumber = ""
     @State var phoneNumberError = ""
-    @State var SuiteableArray: [Int] = []
+    @State var suiteableArray: [Int] = []
     @State var description = ""
     @State var chosenImage = ChosenImage.first
     private let allowedChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ אבגדהוזחטיכךלמםנןסעפףצץקרשת")
@@ -351,15 +351,15 @@ struct PostNewDog: View {
             VStack {
                 VStack {
                     HStack {
-                        CheckboxField(id: 0, label: "ילדים", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(0),onLightBackground: true ,callback: checkboxSelected)
-                        CheckboxField(id: 1, label: "מבוגרים", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(1),onLightBackground: true , callback: checkboxSelected)
-                        CheckboxField(id: 2, label: "אלרגיים", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(2),onLightBackground: true , callback: checkboxSelected)
+                        CheckboxField(id: 0, label: Suitablefor.kids.rawValue, size: 16, color: .gray, textSize: 20, marked: suiteableArray.contains(0),onLightBackground: true ,callback: checkboxSelected, suiteables: $suiteableArray)
+                        CheckboxField(id: 1, label: Suitablefor.adults.rawValue, size: 16, color: .gray, textSize: 20, marked: suiteableArray.contains(1),onLightBackground: true , callback: checkboxSelected, suiteables: $suiteableArray)
+                        CheckboxField(id: 2, label: Suitablefor.allergic.rawValue, size: 16, color: .gray, textSize: 20, marked: suiteableArray.contains(2),onLightBackground: true , callback: checkboxSelected, suiteables: $suiteableArray)
                     }.padding(.leading, 15)
                     
                     HStack {
-                        CheckboxField(id: 3, label: "לדירה", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(3),onLightBackground: true , callback: checkboxSelected)
-                        CheckboxField(id: 4, label: "בית עם חצר", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(4),onLightBackground: true , callback: checkboxSelected)
-                        CheckboxField(id: 5, label: "בית עם חתול", size: 16, color: .gray, textSize: 20, marked: SuiteableArray.contains(5),onLightBackground: true , callback: checkboxSelected)
+                        CheckboxField(id: 3, label: Suitablefor.apartment.rawValue, size: 16, color: .gray, textSize: 20, marked: suiteableArray.contains(3),onLightBackground: true , callback: checkboxSelected, suiteables: $suiteableArray)
+                        CheckboxField(id: 4, label: Suitablefor.houseYard.rawValue, size: 16, color: .gray, textSize: 20, marked: suiteableArray.contains(4),onLightBackground: true , callback: checkboxSelected, suiteables: $suiteableArray)
+                        CheckboxField(id: 5, label: Suitablefor.houseWithCat.rawValue, size: 16, color: .gray, textSize: 20, marked: suiteableArray.contains(5),onLightBackground: true , callback: checkboxSelected, suiteables: $suiteableArray)
                     }.padding(.leading, 15)
                 }
                 
@@ -572,6 +572,7 @@ struct PostNewDog: View {
             self.description = postData?.desc ?? ""
             self.phoneNumber = postData?.number ?? ""
             self.city = postData?.city ?? ""
+            self.translateSuiteablesIntoCodes(postData?.suitables ?? "")
         })
     }
     
@@ -597,13 +598,36 @@ struct PostNewDog: View {
         }
     }
     
+    func translateSuiteablesIntoCodes(_ suiteables: String) {
+        var tempArray: [Int] = []
+        
+        if suiteables.contains(Suitablefor.kids.rawValue) {
+            tempArray.append(0)
+        }
+        if suiteables.contains(Suitablefor.adults.rawValue) {
+            tempArray.append(1)
+        }
+        if suiteables.contains(Suitablefor.allergic.rawValue) {
+            tempArray.append(2)
+        }
+        if suiteables.contains(Suitablefor.apartment.rawValue) {
+            tempArray.append(3)
+        }
+        if suiteables.contains(Suitablefor.houseYard.rawValue) {
+            tempArray.append(4)
+        }
+        if suiteables.contains(Suitablefor.houseWithCat.rawValue) {
+            tempArray.append(5)
+        }
+        suiteableArray = tempArray
+    }
     
     func groupSuiteables() -> String {
         var suiteablesString = ""
         
-        if SuiteableArray.isEmpty == false {
+        if suiteableArray.isEmpty == false {
             
-            for i in SuiteableArray {
+            for i in suiteableArray {
                 switch i {
                 case 0:
                     suiteablesString += "," + Suitablefor.kids.rawValue
@@ -632,11 +656,11 @@ struct PostNewDog: View {
     }
     
     func checkboxSelected(id: Int) {
-        if SuiteableArray.contains(id) == false {
-            SuiteableArray.append(id)
+        if suiteableArray.contains(id) == false {
+            suiteableArray.append(id)
         } else {
-            if let itemToRemove = SuiteableArray.firstIndex(of: id) {
-                SuiteableArray.remove(at: itemToRemove)
+            if let itemToRemove = suiteableArray.firstIndex(of: id) {
+                suiteableArray.remove(at: itemToRemove)
             }
         }
     }

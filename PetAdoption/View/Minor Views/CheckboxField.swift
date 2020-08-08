@@ -9,8 +9,9 @@ struct CheckboxField: View {
     let callback: (Int)->()
     let marked: Bool
     var onLightBackground: Bool
+    @Binding var suiteables: [Int]
     @State var isMarked: Bool = false
-    
+ 
     init(
         id: Int,
         label: String,
@@ -19,7 +20,8 @@ struct CheckboxField: View {
         textSize: Int = 14,
         marked: Bool,
         onLightBackground: Bool? = nil,
-        callback: @escaping (Int)->()
+        callback: @escaping (Int)->(),
+        suiteables: Binding< [Int]>
     ) {
         self.id = id
         self.label = label
@@ -29,6 +31,7 @@ struct CheckboxField: View {
         self.callback = callback
         self.onLightBackground = onLightBackground ?? false
         self.marked = marked
+        self._suiteables = suiteables
     }
     
     
@@ -40,7 +43,7 @@ struct CheckboxField: View {
             HStack(alignment: .center, spacing: 10) {
                 if onLightBackground {
                     ZStack {
-                        if isMarked {
+                        if isMarked || suiteables.contains(id) {
                             
                         Image(systemName: "checkmark" )
                             .resizable()
