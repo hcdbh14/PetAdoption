@@ -187,7 +187,6 @@ struct SignInView: View {
                     } else {
                         self.emailVerification = true
                     }
-                    
                 }
             }
         }

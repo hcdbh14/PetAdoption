@@ -85,8 +85,10 @@ struct VerifyEmailView: View {
                 self.emailVerified = Auth.auth().currentUser?.isEmailVerified ?? false
                 
                 if self.emailVerified {
+                    withAnimation {
                     self.emailVerification = false
                     self.showPostPet = true
+                    }
                 } else {
                     self.error = "החשבון עדין לא מאומת"
                 }
