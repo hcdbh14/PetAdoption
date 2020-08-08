@@ -31,8 +31,7 @@ enum ChosenImage {
 
 struct PostNewDog: View {
     
-    @State var informText = ""
-    @State var postError = ""
+    @State var error = false
     @State var gender = 0
     @State var size = 0
     @State private var activeSheet: ActiveSheet = .images
@@ -514,9 +513,9 @@ struct PostNewDog: View {
             
             HStack {
                 Spacer()
-                Text(session.localDB.existingPostID != "" && postError != "" ? postError : informText)
+                Text(session.informText)
                     .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(session.localDB.existingPostID != "" && postError != "" ? .red : .green)
+                    .foregroundColor(error ? .red : .green)
                 Spacer()
             }.padding(.top, 15)
             
@@ -526,7 +525,7 @@ struct PostNewDog: View {
                     ActivityIndicator(isAnimating: true)
                         .configure { $0.color = .white }
                 } else {
-                    Text(session.localDB.existingPostID == "" ? "פרסום מודעה" : "עדכון")
+                    Text(session.actionText)
                         .frame(width: UIScreen.main.bounds.width - 100, height: 50)
                         .foregroundColor(.white)
                         .background(Color("orange"))
@@ -581,13 +580,14 @@ struct PostNewDog: View {
             self.translateGenderIntoCode(postData?.gender ?? "")
             self.translateSizeIntoCode(postData?.size ?? "")
             self.translateSuiteablesIntoCodes(postData?.suitables ?? "")
-            self.informText = "מודעה פורסמה בהצלחה,ניתן לעדכן את הפרטים בכל עת"
+            self.session.actionText = "עדכון"
         })
     }
     
     func postImage() {
         
-        postError = ""
+        session.informText = ""
+        error = false
         
         if image != nil && petName != "" && petRace != "" && petAge != "" && phoneNumber != "" && city != "" {
             self.session.localDB.existingPostID = ""
@@ -603,7 +603,8 @@ struct PostNewDog: View {
             }
             session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, petSize: String(size), suitables: groupSuiteables(), petGender: String(gender), description: description, phoneNumber: phoneNumber, city: city)
         } else {
-            postError = "לא ניתן להשלים, קיימים שדות חסרים"
+            error = true
+            session.informText = "לא ניתן להשלים, קיימים שדות חסרים"
         }
     }
     

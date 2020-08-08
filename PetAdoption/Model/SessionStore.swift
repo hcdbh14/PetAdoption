@@ -5,6 +5,8 @@ import Combine
 
 class SessionStore: ObservableObject {
     
+    @Published var informText = ""
+    @Published var actionText = "פרסום מודעה"
     @Published var existingPost = ExistingPost()
     @Published var waitingForResponse = false
     @Published var imagePaths: [Int : String] = [:]
@@ -13,7 +15,7 @@ class SessionStore: ObservableObject {
     var handle: AuthStateDidChangeListenerHandle?
     private let storage = Storage.storage().reference()
     var didChange = PassthroughSubject<SessionStore, Never>()
-    @Published var session: User? {didSet {self.didChange.send(self) }}
+    @Published var session: User? { didSet {self.didChange.send(self) }}
     
     func getExistingPost() {
         
@@ -85,7 +87,7 @@ class SessionStore: ObservableObject {
             
             storage.child(fileName).putData(i, metadata: metaData, completion: { result, error in
                 guard error == nil else {
-                    print("upload failed")
+                    self.informText = "קרתה שגיאה, אנא נסו שוב"
                     return
                 }
                 
@@ -120,7 +122,13 @@ class SessionStore: ObservableObject {
     func postNewPet(petType: String, petName: String, petRace: String, petAge: String, petSize: String, suitables: String,petGender: String, description: String, phoneNumber: String, city: String, images: [String]) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        db.collection("Cards_Data").document(uid).setData(["type": petType, "name": petName, "race": petRace, "age": petAge, "size": petSize, "suitables": suitables,"gender": petGender, "desc": description,"number": phoneNumber, "city": city, "images": images])
+        db.collection("Cards_Data").document(uid).setData(["type": petType, "name": petName, "race": petRace, "age": petAge, "size": petSize, "suitables": suitables,"gender": petGender, "desc": description,"number": phoneNumber, "city": city, "images": images], completion: { (error) in
+            if error != nil {
+                self.informText = "קרתה שגיאה, אנא נסו שוב"
+             } else {
+                self.informText = "מודעה פורסמה בהצלחה,ניתן לעדכן את הפרטים בכל עת"
+             }
+                                                          })
     }
     
     func passwordReset(email: String, handler: @escaping SendPasswordResetCallback) {
