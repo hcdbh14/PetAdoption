@@ -40,7 +40,7 @@ struct AuthViewManager: View {
                 }.opacity(showPostPet || session.checkIfUserCanEnter() ? 0 : 1)
             }
             
-            if showPostPet || session.checkIfUserCanEnter() == false {
+            if showPostPet == false && session.checkIfUserCanEnter() == false {
                 ZStack {
                     Image("bone").resizable()
                         .renderingMode(.template)

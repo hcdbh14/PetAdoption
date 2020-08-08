@@ -192,12 +192,14 @@ struct SignInView: View {
         }
     }
     
+    
     func moveToSignUp() {
         withAnimation { triggerFade = true }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.showLogin = false
         }
     }
+    
     
     func moveToForgotPassword() {
         withAnimation { triggerFade = true }
