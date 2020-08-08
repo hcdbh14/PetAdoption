@@ -513,9 +513,9 @@ struct PostNewDog: View {
             
             HStack {
                 Spacer()
-                Text(postError)
+                Text(session.localDB.existingPostID == "" || postError != "" ? postError : "מודעה פורסמה בהצלחה,תוכלו לעדכן את הפרטים בכל עת")
                     .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(.red)
+                    .foregroundColor(session.localDB.existingPostID == ""  || postError != "" ? .red : .green)
                 Spacer()
             }.padding(.top, 15)
             
@@ -536,6 +536,7 @@ struct PostNewDog: View {
                 .foregroundColor(.white)
                 .background(Color("orange"))
                 .cornerRadius(30)
+                .disabled(session.waitingForResponse)
                 .shadow(radius: 5)
                 .padding(15)
             
@@ -579,6 +580,7 @@ struct PostNewDog: View {
         postError = ""
         
         if image != nil && petName != "" && petRace != "" && petAge != "" && phoneNumber != "" && city != "" {
+            self.session.localDB.existingPostID = ""
             let images = [image, secondImage, thirdImage, fourthImage]
             var imagesData: [Data] = []
             for i in images {

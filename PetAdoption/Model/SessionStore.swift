@@ -108,6 +108,7 @@ class SessionStore: ObservableObject {
                         self.postNewPet(petType: petType, petName: petName, petRace: petRace, petAge: petAge, suitables: editedSuitables, petGender: petGender, description: editedDesc, phoneNumber: phoneNumber, city: city, images: sortedImagePaths )
                         self.waitingForResponse = false
                         self.localDB.savePostID(id: uid)
+                        self.localDB.existingPostID = uid
                     }
                 })
                 print(result as Any)
