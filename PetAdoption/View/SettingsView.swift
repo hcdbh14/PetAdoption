@@ -145,11 +145,11 @@ struct SettingsView: View {
         }.animation(Animation.spring())
         .background(Color("offWhite"))
         .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
-            .onAppear() {
-                DispatchQueue.global().async {
-                    self.session.getExistingPost()
-                }
-        }
+//            .onAppear() {
+//                DispatchQueue.global().async {
+//                    self.session.getExistingPost()
+//                }
+//        }
     }
     
     private func checkboxSelected(id: Int) {

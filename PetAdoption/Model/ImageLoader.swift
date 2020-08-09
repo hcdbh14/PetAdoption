@@ -1,5 +1,5 @@
 import Combine
-import FirebaseStorage
+import Foundation
 
 class ImageLoader: ObservableObject {
     @Published var didChange = PassthroughSubject<[Data], Never>()
