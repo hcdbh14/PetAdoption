@@ -295,20 +295,22 @@ struct PostNewDog: View {
                             }
                         })
                             .onReceive(Just(petAge)) { newValue in
-                                let filtered = self.petAge.filter { "0123456789".contains($0) }
+                                let filtered = self.petAge.filter { ".0123456789".contains($0) }
                                 if filtered != self.petAge {
                                     self.petAge = filtered
                                 }
                         }
                         .onReceive(petAge.publisher.collect()) {
-                            if self.petAge.count > 2 {
+                            
+                            let numOnly = petAge.replacingOccurrences(of: ".", with: "")
+                            if numOnly.count > 2 || petAge.filter({ $0 == "." }).count > 1 {
                                 self.petAgeError =  "רק 2 ספרות"
+                                self.petAge = String($0.prefix(2))
                             }
-                            self.petAge = String($0.prefix(2))
                         }
                             
                         .frame(width: UIScreen.main.bounds.width  / 3.8, height: 0.5)
-                        .keyboardType(.numberPad)
+                        .keyboardType(.decimalPad)
                         .padding(.bottom, 25)
                         .padding(.trailing, 20)
                     }
