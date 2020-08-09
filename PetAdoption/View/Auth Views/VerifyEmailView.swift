@@ -3,13 +3,13 @@ import Firebase
 
 struct VerifyEmailView: View {
     
-    @State var error: String = ""
-    @State var triggerFade = true
-    @Binding var showPostPet: Bool
-    @State var emailVerified = false
-    @Binding var emailVerification: Bool
-    @State var waitingForResponse = false
-    @EnvironmentObject var session: SessionStore
+    @State private var error: String = ""
+    @State private var triggerFade = true
+    @Binding private var showPostPet: Bool
+    @State private var emailVerified = false
+    @Binding private var emailVerification: Bool
+    @State private var waitingForResponse = false
+    @EnvironmentObject private var session: SessionStore
     
     init(emailVerification: Binding<Bool>, showPostPet: Binding<Bool>) {
         self._showPostPet = showPostPet

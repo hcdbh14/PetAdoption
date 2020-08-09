@@ -2,15 +2,15 @@ import SwiftUI
 
 struct ForgotPasswordView: View {
     
-    @State var mailSend = false
-    @Binding var showLogin: Bool
-    @State var error: String = ""
-    @State var email: String = ""
-    @State var triggerFade = true
-    @State var waitingForResponse = false
-    @Binding var showForgotPassword: Bool
-    @EnvironmentObject var session : SessionStore
-    @Environment (\.colorScheme) var colorScheme: ColorScheme
+    @State private var mailSend = false
+    @Binding private var showLogin: Bool
+    @State private var error: String = ""
+    @State private var email: String = ""
+    @State private var triggerFade = true
+    @State private var waitingForResponse = false
+    @Binding private var showForgotPassword: Bool
+    @EnvironmentObject private var session : SessionStore
+    @Environment (\.colorScheme) private var colorScheme: ColorScheme
     
     init(showLogin: Binding<Bool>, forgotPassword: Binding<Bool>) {
         self._showLogin = showLogin

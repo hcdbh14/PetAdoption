@@ -2,16 +2,16 @@ import SwiftUI
 
 struct SignUpView: View {
     
-    @State var triggerFade = true
-    @Binding var showLogin: Bool
-    @State var error: String = ""
-    @State var email: String = ""
-    @State var password: String = ""
-    @State var fullName: String = ""
-    @State var waitingForResponse = false
-    @Binding var emailVerification: Bool
-    @EnvironmentObject var session: SessionStore
-    @Environment (\.colorScheme) var colorScheme: ColorScheme
+    @State private var triggerFade = true
+    @Binding private var showLogin: Bool
+    @State private var error: String = ""
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var fullName: String = ""
+    @State private var waitingForResponse = false
+    @Binding private var emailVerification: Bool
+    @EnvironmentObject private var session: SessionStore
+    @Environment (\.colorScheme) private var colorScheme: ColorScheme
     
     init(showLogin: Binding<Bool>, emailVerification: Binding<Bool>) {
         
