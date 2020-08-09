@@ -4,9 +4,10 @@ import FirebaseStorage
 import FirebaseFirestore
 
 class ExistingPost: ObservableObject {
-    var finishedDownloading = false
+    
     @Published var dog: Dog?
     private let db = Firestore.firestore()
+    private var finishedDownloading = false
     @Published var dataArivved = PassthroughSubject<Bool, Never>()
     
     func downloadPost(id: String) {

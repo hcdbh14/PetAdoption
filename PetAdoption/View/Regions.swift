@@ -2,10 +2,10 @@ import SwiftUI
 
 struct Cities: View {
     
-    let cityList = ["ראשון לצין","נתניה"]
-    @State var searchText = ""
-    @Binding var showCities: Bool
-    @Binding var chosenCity: String
+    @State private var searchText = ""
+    @Binding private var showCities: Bool
+    @Binding private var chosenCity: String
+    private let cityList = ["ראשון לצין","נתניה"]
     
     init(showCities: Binding<Bool>, city: Binding<String>) {
         self._showCities = showCities
@@ -52,11 +52,11 @@ struct Cities: View {
     }
     
     
-    func close() {
+    private func close() {
        showCities = false
     }
     
-    func closeAndPassCity(_ region: String) {
+    private func closeAndPassCity(_ region: String) {
         self.chosenCity = region
         showCities = false
     }

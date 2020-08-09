@@ -6,13 +6,13 @@ import Combine
 class SessionStore: ObservableObject {
     
     @Published var informText = ""
-    @Published var actionText = "פרסום מודעה"
-    @Published var existingPost = ExistingPost()
-    @Published var waitingForResponse = false
-    @Published var imagePaths: [Int : String] = [:]
     private let db = Firestore.firestore()
     @ObservedObject var localDB = LocalDB()
+    @Published var waitingForResponse = false
+    @Published var actionText = "פרסום מודעה"
     var handle: AuthStateDidChangeListenerHandle?
+    @Published var existingPost = ExistingPost()
+    @Published var imagePaths: [Int : String] = [:]
     private let storage = Storage.storage().reference()
     var didChange = PassthroughSubject<SessionStore, Never>()
     @Published var session: User? { didSet {self.didChange.send(self) }}
@@ -125,10 +125,10 @@ class SessionStore: ObservableObject {
         db.collection("Cards_Data").document(uid).setData(["type": petType, "name": petName, "race": petRace, "age": petAge, "size": petSize, "suitables": suitables,"gender": petGender, "desc": description,"number": phoneNumber, "city": city, "images": images], completion: { (error) in
             if error != nil {
                 self.informText = "קרתה שגיאה, אנא נסו שוב"
-             } else {
+            } else {
                 self.informText = "מודעה פורסמה בהצלחה,ניתן לעדכן את הפרטים בכל עת"
-             }
-                                                          })
+            }
+        })
     }
     
     func passwordReset(email: String, handler: @escaping SendPasswordResetCallback) {

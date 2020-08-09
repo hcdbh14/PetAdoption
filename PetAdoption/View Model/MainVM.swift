@@ -11,23 +11,23 @@ enum Decision {
 
 class MainVM: ObservableObject {
     
-    @Published var noMorePets = false
-    @Published  var imageIndex = 0
-    var dogsList: [Dog] = []
     var firstLaunch = false
+    @Published var count = 1
+    var dogsList: [Dog] = []
+    @Published  var imageIndex = 0
     private var sub: AnyCancellable?
+    @Published var noMorePets = false
+    @Published var localDB = LocalDB()
     private var backSub: AnyCancellable?
     private var imageLoader: ImageLoader?
     private let db = Firestore.firestore()
-    private var backImageLoader: ImageLoader?
-    @Published var count = 1
-    @Published var localDB = LocalDB()
-    @Published var frontImages: [Data] = []
     @Published var backImages: [Data] = []
+    @Published var frontImages: [Data] = []
     @Published var frontImage: [String] = []
-    @Published var reloadFrontImage = PassthroughSubject<Bool, Never>()
+    private var backImageLoader: ImageLoader?
     @Published var reloadBackImage = PassthroughSubject<Bool, Never>()
     @Published var userDecided = PassthroughSubject<Decision, Never>()
+    @Published var reloadFrontImage = PassthroughSubject<Bool, Never>()
     @Published var decision: Decision = Decision.notDecided { didSet {
         userDecided.send(decision)
         }
@@ -77,8 +77,8 @@ class MainVM: ObservableObject {
                 for document in snapshot!.documents {
                     
                     if let dog = Dog(data: document.data()) {
-                            self.dogsList.append(dog)
-
+                        self.dogsList.append(dog)
+                        
                     }
                 }
                 self.loadImages()
