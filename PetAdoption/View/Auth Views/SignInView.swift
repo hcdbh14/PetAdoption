@@ -2,12 +2,12 @@ import SwiftUI
 
 struct SignInView: View {
     
-    @Binding var showPostPet: Bool
+    @Binding var showLogin: Bool
     @State var triggerFade = true
     @State var email: String = ""
-    @State var password: String = ""
     @State var error: String = ""
-    @Binding var showLogin: Bool
+    @Binding var showPostPet: Bool
+    @State var password: String = ""
     @Binding var emailVerification: Bool
     @Binding var showForgotPassword: Bool
     @State var waitingForResponse = false
@@ -193,7 +193,7 @@ struct SignInView: View {
     }
     
     
-    func moveToSignUp() {
+    private func moveToSignUp() {
         withAnimation { triggerFade = true }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.showLogin = false
@@ -201,7 +201,7 @@ struct SignInView: View {
     }
     
     
-    func moveToForgotPassword() {
+    private func moveToForgotPassword() {
         withAnimation { triggerFade = true }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.showLogin = false

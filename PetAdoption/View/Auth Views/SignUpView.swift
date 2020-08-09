@@ -169,14 +169,14 @@ struct SignUpView: View {
         withAnimation { triggerFade = true }
     }
     
-    func moveToLogin() {
+    private func moveToLogin() {
         triggerFadeAnimation()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.showLogin = true
         }
     }
     
-    func signUp() {
+    private func signUp() {
         
         UIApplication.shared.endEditing()
         

@@ -3,12 +3,12 @@ import Firebase
 
 struct VerifyEmailView: View {
     
-    @State var emailVerified = false
     @State var error: String = ""
-    @State var waitingForResponse = false
     @State var triggerFade = true
     @Binding var showPostPet: Bool
+    @State var emailVerified = false
     @Binding var emailVerification: Bool
+    @State var waitingForResponse = false
     @EnvironmentObject var session: SessionStore
     
     init(emailVerification: Binding<Bool>, showPostPet: Binding<Bool>) {
@@ -70,11 +70,11 @@ struct VerifyEmailView: View {
         }
     }
     
-    func sendMailAgain() {
+    private func sendMailAgain() {
         self.session.verifyEmail()
     }
     
-    func checkIfEmailVerified() {
+    private func checkIfEmailVerified() {
         waitingForResponse = true
         
         session.checkIfEmailVerified() { (error) in

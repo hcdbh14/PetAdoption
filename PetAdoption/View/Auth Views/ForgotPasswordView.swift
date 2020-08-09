@@ -5,10 +5,10 @@ struct ForgotPasswordView: View {
     @State var mailSend = false
     @Binding var showLogin: Bool
     @State var error: String = ""
-    @Binding var showForgotPassword: Bool
     @State var email: String = ""
     @State var triggerFade = true
     @State var waitingForResponse = false
+    @Binding var showForgotPassword: Bool
     @EnvironmentObject var session : SessionStore
     @Environment (\.colorScheme) var colorScheme: ColorScheme
     
@@ -104,7 +104,7 @@ struct ForgotPasswordView: View {
     }
     
     
-    func resetPassword() {
+    private func resetPassword() {
         
         mailSend = false
         
@@ -136,7 +136,7 @@ struct ForgotPasswordView: View {
     }
     
     
-    func returnToLogin() {
+    private func returnToLogin() {
         withAnimation { triggerFade = true }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.showForgotPassword = false
