@@ -2,12 +2,12 @@ import SwiftUI
 
 struct AuthViewManager: View {
     
-    @State var showLogin = false
-    @State var showPostPet = false
-    @State var EmailVerification = false
-    @State var showForgotPassword = false
-    @Binding var showAuthScreen: Bool
-    @EnvironmentObject var session: SessionStore
+    @State private var showLogin = false
+    @State private var showPostPet = false
+    @Binding private var showAuthScreen: Bool
+    @State private var EmailVerification = false
+    @State private var showForgotPassword = false
+    @EnvironmentObject private var session: SessionStore
     
     init(showPostPetScreen: Binding<Bool>) {
         self._showAuthScreen = showPostPetScreen
@@ -83,18 +83,20 @@ struct AuthViewManager: View {
     }
     
     
-    func startSession() {
+    private func startSession() {
         session.listen()
     }
     
-    func signOut() {
+    
+    private func signOut() {
         session.signOut()
         showLogin = true
         showPostPet = false
         EmailVerification = false
     }
     
-    func closeLoginScreen() {
+    
+    private func closeLoginScreen() {
         
         UIApplication.shared.endEditing()
         

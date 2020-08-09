@@ -1,8 +1,9 @@
 import SwiftUI
 
 struct SavedDogsScreen: View {
-    @State var localDB = LocalDB()
-    @Binding var isBarHidden: Bool
+    
+    @Binding private var isBarHidden: Bool
+    @State private var localDB = LocalDB()
     
     init(isBarHidden: Binding<Bool>) {
         self._isBarHidden = isBarHidden

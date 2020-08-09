@@ -8,11 +8,11 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @State var placeHolder: [Int] = []
-    @Binding var showPostPetScreen: Bool
-    @Binding var showMenu: Bool
-    @ObservedObject var settings = Settings()
-    @EnvironmentObject var session: SessionStore
+    @Binding private var showMenu: Bool
+    @State private var placeHolder: [Int] = []
+    @Binding private var showPostPetScreen: Bool
+    @ObservedObject private var settings = Settings()
+    @EnvironmentObject private var session: SessionStore
 
     init(showMenu: Binding<Bool>, showPostPetScreen: Binding<Bool>) {
         self._showMenu = showMenu
@@ -152,7 +152,7 @@ struct SettingsView: View {
         }
     }
     
-    func checkboxSelected(id: Int) {
+    private func checkboxSelected(id: Int) {
         settings.updateArea(id)
     }
 }

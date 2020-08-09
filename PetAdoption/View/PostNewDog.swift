@@ -1,67 +1,67 @@
 import SwiftUI
 import Combine
 
-enum ActiveSheet {
-    case images, cities
-}
-
-enum Suitablefor: String {
-    
-    case kids = "ילדים"
-    case houseYard = "בית עם חצר"
-    case apartment = "דירה"
-    case adults = "מבוגרים"
-    case houseWithCat = "בית עם חתול"
-    case allergic = "אלרגיים"
-}
-
-enum TextFieldCorrection {
-    
-    case correct
-    case needFixing
-    case empty
-}
-
-enum ChosenImage {
-    case first
-    case second
-    case third
-    case fourth
-}
-
 struct PostNewDog: View {
     
-    @State var error = false
-    @State var gender = 0
-    @State var size = 0
-    @State private var activeSheet: ActiveSheet = .images
-    @State var city = "בחרו עיר מגורים"
-    @State var showSheet = false
-    @State var phoneNumber = ""
-    @State var phoneNumberError = ""
-    @State var suiteableArray: [Int] = []
-    @State var description = ""
-    @State var chosenImage = ChosenImage.first
-    private let allowedChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ אבגדהוזחטיכךלמםנןסעפףצץקרשת")
-    @State var value : CGFloat = 0
+    private enum ActiveSheet {
+        case images, cities
+    }
+
+    private enum Suitablefor: String {
+        
+        case kids = "ילדים"
+        case houseYard = "בית עם חצר"
+        case apartment = "דירה"
+        case adults = "מבוגרים"
+        case houseWithCat = "בית עם חתול"
+        case allergic = "אלרגיים"
+    }
+
+    private enum TextFieldCorrection {
+        
+        case correct
+        case needFixing
+        case empty
+    }
+
+     enum ChosenImage {
+        case first
+        case second
+        case third
+        case fourth
+    }
+    
+    @State private var size = 0
+    @State private var gender = 0
     @State private var petType = 0
-    @State private var correctTextField = TextFieldCorrection.empty
     @State private var petAge = ""
-    @State private var petAgeError = ""
     @State private var petRace = ""
-    @State private var petRaceError = ""
     @State private var petName = ""
+    @State private var error = false
+    @State private var petAgeError = ""
+    @State private var phoneNumber = ""
+    @State private var description = ""
+    @State private var petRaceError = ""
     @State private var petNameError = ""
+    @State private var showSheet = false
+    @State private var value : CGFloat = 0
+    @State private var triggerFade = true
+    @Binding private var showPostPet: Bool
     @State private var image: UIImage?
     @State private var secondImage: UIImage?
     @State private var thirdImage: UIImage?
     @State private var fourthImage: UIImage?
-    @State var triggerFade = true
-    @Binding var showPostPet: Bool
-    @Binding var showAuthScreen: Bool
     @State private var inputImage: UIImage?
-    @EnvironmentObject var session: SessionStore
-    @Environment (\.colorScheme) var colorScheme: ColorScheme
+    @State private var phoneNumberError = ""
+    @State private var city = "בחרו עיר מגורים"
+    @Binding private var showAuthScreen: Bool
+    @State private var suiteableArray: [Int] = []
+    @State private var chosenImage = ChosenImage.first
+    @EnvironmentObject private var session: SessionStore
+    @State private var activeSheet: ActiveSheet = .images
+    @State private var correctTextField = TextFieldCorrection.empty
+    @Environment (\.colorScheme) private var colorScheme: ColorScheme
+    private let allowedChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ אבגדהוזחטיכךלמםנןסעפףצץקרשת")
     
     init(showAuthScreen: Binding<Bool>, showPostPet: Binding<Bool>) {
         self._showPostPet = showPostPet
@@ -584,7 +584,8 @@ struct PostNewDog: View {
         })
     }
     
-    func postImage() {
+    
+    private func postImage() {
         
         session.informText = ""
         error = false
@@ -608,7 +609,8 @@ struct PostNewDog: View {
         }
     }
     
-    func translateSuiteablesIntoCodes(_ suiteables: String) {
+    
+    private func translateSuiteablesIntoCodes(_ suiteables: String) {
         var tempArray: [Int] = []
         
         if suiteables.contains(Suitablefor.kids.rawValue) {
@@ -632,7 +634,8 @@ struct PostNewDog: View {
         suiteableArray = tempArray
     }
     
-    func groupSuiteables() -> String {
+    
+    private func groupSuiteables() -> String {
         var suiteablesString = ""
         
         if suiteableArray.isEmpty == false {
@@ -660,7 +663,8 @@ struct PostNewDog: View {
         return suiteablesString
     }
     
-    func translateSizeIntoCode(_ id: String) {
+    
+    private func translateSizeIntoCode(_ id: String) {
         switch id {
         case "0":
             size = 0
@@ -673,7 +677,8 @@ struct PostNewDog: View {
         }
     }
     
-    func translateGenderIntoCode(_ id: String) {
+    
+    private func translateGenderIntoCode(_ id: String) {
         switch id {
         case "0":
             gender = 0
@@ -684,7 +689,9 @@ struct PostNewDog: View {
         }
     }
     
-    func translateTypeIntoCode(_ id: String) {
+    
+    private func translateTypeIntoCode(_ id: String) {
+        
         switch id {
         case "0":
             petType = 0
@@ -697,12 +704,14 @@ struct PostNewDog: View {
         }
     }
     
-    func openCitiesSheet() {
+    
+    private func openCitiesSheet() {
         self.activeSheet = .cities
         showSheet = true
     }
     
-    func checkboxSelected(id: Int) {
+    
+    private func checkboxSelected(id: Int) {
         if suiteableArray.contains(id) == false {
             suiteableArray.append(id)
         } else {
@@ -712,7 +721,8 @@ struct PostNewDog: View {
         }
     }
     
-    func closeLoginScreen() {
+    
+    private func closeLoginScreen() {
         
         UIApplication.shared.endEditing()
         
@@ -721,12 +731,13 @@ struct PostNewDog: View {
         }
     }
     
-    func signOut() {
+    private func signOut() {
         session.signOut()
         showPostPet = false
     }
     
-    func loadImage() {
+    private func loadImage() {
+        
         if activeSheet == .cities { return }
         guard let inputImage = inputImage else { return }
         
@@ -745,7 +756,7 @@ struct PostNewDog: View {
         }
     }
     
-    func returnPetType()  -> String {
+    private func returnPetType()  -> String {
         
         switch petType {
         case 0:

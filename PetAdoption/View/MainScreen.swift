@@ -10,14 +10,14 @@ enum barItem {
 
 struct MainScreen: View {
     
-    @State var showPostPetScreen = false
     @State private var showMenu = false
-    @State private var showNewDogScreen = false
-    @State private var isBarHidden = false
+    @State var showPostPetScreen = false
     @State private var staticIndex = 0
+    @State private var isBarHidden = false
     @State private var scaleAnimation = false
+    @State private var showNewDogScreen = false
     @State private var selected = barItem.first
-    @EnvironmentObject var mainVM: MainVM
+    @EnvironmentObject private var mainVM: MainVM
     
     var body: some View {
         ZStack (alignment: .leading) {

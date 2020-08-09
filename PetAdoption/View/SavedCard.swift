@@ -3,7 +3,7 @@ import SwiftUI
 struct SavedCard: View {
     
     @State private var image: UIImage = UIImage()
-    @ObservedObject var imageLoader: ImageLoader
+    @ObservedObject private var imageLoader: ImageLoader
     
     init(imageURL: [String]) {
         imageLoader = ImageLoader(urlString: imageURL)

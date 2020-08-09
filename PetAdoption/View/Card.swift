@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct Card: View {
+    
     private let age: String
     private let dogName: String
     private let dogDesc: String
