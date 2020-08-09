@@ -3,8 +3,8 @@ import Foundation
 class LocalDB: ObservableObject {
     
     @Published var savedDogsCount = "0"
-    @Published var savedDogsURLS: [[String]]? = UserDefaults.standard.array(forKey: "savedDogsURLS") as? [[String]]
     @Published var existingPostID: String? = UserDefaults.standard.string(forKey: "postID")
+    @Published var savedDogsURLS: [[String]]? = UserDefaults.standard.array(forKey: "savedDogsURLS") as? [[String]]
     
     init() {
         if let count = savedDogsURLS?.count {
