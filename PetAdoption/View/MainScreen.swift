@@ -53,7 +53,7 @@ struct MainScreen: View {
                         if  mainVM.dogsList.isEmpty == false && mainVM.noMorePets == false {
                             BackCard(scaleTrigger: $scaleAnimation, mainVM: mainVM)
                             
-                            Card(dogName: mainVM.dogsList[mainVM.count - 1].name, age: mainVM.dogsList[mainVM.count - 1].age, dogDesc: mainVM.dogsList[mainVM.count - 1].desc, scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM)
+                            Card(scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM)
                         }
                     }.zIndex(2)
                         .background(Color.offWhite)

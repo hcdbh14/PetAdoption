@@ -2,9 +2,6 @@ import SwiftUI
 
 struct Card: View {
 
-    private let age: String
-    private let dogName: String
-    private let dogDesc: String
     @State private var isImageReady = false
     @State private var speed = 0.5
     @State private var x: CGFloat = 0
@@ -18,13 +15,10 @@ struct Card: View {
     @State private var image: UIImage = UIImage()
     @ObservedObject private var mainVM: MainVM
     
-    init(dogName: String, age: String, dogDesc: String, scaleTrigger: Binding<Bool>, showMenu: Binding<Bool>, mainVM: MainVM) {
+    init(scaleTrigger: Binding<Bool>, showMenu: Binding<Bool>, mainVM: MainVM) {
         self.mainVM = mainVM
         self._scaleAnimation = scaleTrigger
         self._showMenu = showMenu
-        self.dogName = dogName
-        self.age = age
-        self.dogDesc = dogDesc
         UIScrollView.appearance().bounces = false
     }
     
@@ -216,7 +210,7 @@ struct Card: View {
                         }
                         
                     }
-                    Text(dogDesc).frame(width: UIScreen.main.bounds.width - 50, alignment: .trailing)
+                    Text(mainVM.dogsList[mainVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
                         .foregroundColor(.black)
                         .environment(\.layoutDirection, .rightToLeft)
                     
