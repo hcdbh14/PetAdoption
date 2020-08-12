@@ -168,9 +168,6 @@ struct Card: View {
                             
                             Spacer()
                             
-                            Text(mainVM.dogsList[mainVM.count - 1].gender)
-                                .font(.system(size: 20))
-                                .foregroundColor(.black)
                             Text(mainVM.dogsList[mainVM.count - 1].name)
                                 .font(.system(size: 28))
                                 .foregroundColor(.black)
@@ -178,15 +175,6 @@ struct Card: View {
                                 .padding(.trailing, 10)
                         }
                         
-                        HStack {
-                            Text((mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " " + self.returnAge() + " ")
-
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.black)
-                            Image("cake").resizable()
-                                .frame(width: 16 , height : 16)
-                                .padding(.trailing, 10)
-                        }
                         HStack {
                             Text(mainVM.dogsList[mainVM.count - 1].race)
                                 .font(.system(size: 16, weight: .semibold))
@@ -207,6 +195,16 @@ struct Card: View {
                                 .foregroundColor(.gray)
                                 .padding(.trailing, 10)
                             
+                        }
+                        
+                        HStack {
+                            Text((mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " " + self.returnAge() + " ")
+
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.black)
+                            Image("cake").resizable()
+                                .frame(width: 16 , height : 16)
+                                .padding(.trailing, 10)
                         }
                         
                     }
