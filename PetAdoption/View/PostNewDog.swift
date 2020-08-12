@@ -38,11 +38,13 @@ struct PostNewDog: View {
     @State private var petRace = ""
     @State private var petName = ""
     @State private var error = false
+    @State private var goodWords = ""
     @State private var petAgeError = ""
     @State private var phoneNumber = ""
     @State private var description = ""
     @State private var petRaceError = ""
     @State private var petNameError = ""
+    @State private var goodWordsError = ""
     @State private var showSheet = false
     @State private var value : CGFloat = 0
     @State private var triggerFade = true
@@ -61,7 +63,7 @@ struct PostNewDog: View {
     @State private var activeSheet: ActiveSheet = .images
     @State private var correctTextField = TextFieldCorrection.empty
     @Environment (\.colorScheme) private var colorScheme: ColorScheme
-    private let allowedChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ אבגדהוזחטיכךלמםנןסעפףצץקרשת")
+    private let allowedChars = Set("-,abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ אבגדהוזחטיכךלמםנןסעפףצץקרשת")
     
     init(showAuthScreen: Binding<Bool>, showPostPet: Binding<Bool>) {
         self._showPostPet = showPostPet
@@ -340,7 +342,66 @@ struct PostNewDog: View {
                             .padding(.top, 15)
                     }
                 }
+                
+                HStack {
+                     Text(" מילים טובות על ה\(returnPetType())")
+                         .font(.system(size: 20, weight: .regular))
+                         .foregroundColor(Color("offBlack"))
+                         .padding(.leading, 25)
+                         .padding(.bottom, 5)
+                     
+                     Spacer()
+                }.padding(.top, 20)
+                
+                ZStack {
+                    HStack {
+                        TextField("אופי ותכונות טובות של ה\(returnPetType())", text: $goodWords, onEditingChanged: { (editingChanged) in
+                            if editingChanged {
+                                print("TextField focused")
+                            } else {
+                                if self.goodWords.isEmpty == false {
+                                    self.correctTextField = .correct
+                                    if self.goodWords.count <= 30 {
+                                        self.goodWords =  ""
+                                    }
+                                } else {
+                                    self.correctTextField = .empty
+                                }
+                            }
+                        })
+                            .onReceive(Just(goodWords)) { newValue in
+                                let filtered = self.goodWords.filter { self.allowedChars.contains($0) }
+                                if filtered != self.goodWords {
+                                    self.goodWords = filtered
+                                }
+                        }
+                        .onReceive(goodWords.publisher.collect()) {
+                            if self.goodWords.count > 30 {
+                                self.goodWordsError = "ניתן לרשום רק 30 תווים"
+                            }
+                            self.goodWords = String($0.prefix(30))
+                        }
+                        .padding(.leading, 30)
+                        .padding(.bottom, 25)
+                        .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
+                        Spacer()
+                    }
+                    
+                    Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
+                        .padding(.leading, 25)
+                        .padding(.trailing, 40)
+                    
+                    Text(goodWordsError)
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(.red)
+                        .frame(width: UIScreen.main.bounds.width, height: 16, alignment: .center)
+                        .padding(.top, 20)
+                    
+                    
+                }
             }
+            
+            
             HStack {
                 Text("מתאים ל-")
                     .font(.system(size: 24, weight: .semibold))
