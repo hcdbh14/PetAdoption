@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Card: View {
-    
+
     private let age: String
     private let dogName: String
     private let dogDesc: String
@@ -101,7 +101,8 @@ struct Card: View {
                         
                         Spacer()
                         
-                        Text(mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן" )
+                        Text((mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " "
+                            + returnAge() + " " + monthsOrYears())
                             .font(.system(size: 24))
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
@@ -370,6 +371,26 @@ struct Card: View {
             if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
                 self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
             }
+        }
+    }
+    
+    private func monthsOrYears() -> String {
+        let ageNum = Double(mainVM.dogsList[mainVM.count - 1].age) ?? 0
+        if ageNum < 1 {
+            return "חודשים"
+        } else {
+            return "שנים"
+        }
+    }
+    
+    private func returnAge() -> String {
+        let ageNum = Double(mainVM.dogsList[mainVM.count - 1].age) ?? 0
+        if ageNum < 1 {
+            let monthsNum = ageNum.truncatingRemainder(dividingBy: 1)
+            return String(monthsNum)
+
+        } else {
+            return mainVM.dogsList[mainVM.count - 1].age
         }
     }
     
