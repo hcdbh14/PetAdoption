@@ -124,7 +124,7 @@ struct SettingsView: View {
                 
                 Button(action: {
                     withAnimation {
-                        self.showPostPetScreen.toggle()
+                        self.showPostPetScreen = true
                     }
                 })
                 {

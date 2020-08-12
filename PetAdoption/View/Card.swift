@@ -102,7 +102,7 @@ struct Card: View {
                         Spacer()
                         
                         Text((mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " "
-                            + returnAge() + " " + monthsOrYears())
+                            + returnAge())
                             .font(.system(size: 24))
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
@@ -185,7 +185,8 @@ struct Card: View {
                         }
                         
                         HStack {
-                            Text(mainVM.dogsList[mainVM.count - 1].age)
+                            Text((mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " " + self.returnAge() + " ")
+
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.black)
                             Image("cake").resizable()
@@ -374,25 +375,16 @@ struct Card: View {
         }
     }
     
-    private func monthsOrYears() -> String {
-        let ageNum = Double(mainVM.dogsList[mainVM.count - 1].age) ?? 0
-        if ageNum < 1 {
-            return "חודשים"
-        } else {
-            return "שנים"
-        }
-    }
-    
     private func returnAge() -> String {
         let ageNum = Double(mainVM.dogsList[mainVM.count - 1].age) ?? 0
         
         if ageNum < 1 {
             if let range = mainVM.dogsList[mainVM.count - 1].age.range(of: ".") {
-                return String(mainVM.dogsList[mainVM.count - 1].age[range.upperBound...])
+                return String(mainVM.dogsList[mainVM.count - 1].age[range.upperBound...]) + " חודשים"
             }
             return ""
         } else {
-            return mainVM.dogsList[mainVM.count - 1].age
+            return mainVM.dogsList[mainVM.count - 1].age + " שנים"
         }
     }
     
