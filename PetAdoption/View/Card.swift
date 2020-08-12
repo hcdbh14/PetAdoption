@@ -101,24 +101,24 @@ struct Card: View {
                         
                         Spacer()
                         
-                        Text("גור נקבה")
+                        Text(mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן" )
                             .font(.system(size: 24))
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
                         
                         
-                        Text(dogName + "," )
+                        Text(mainVM.dogsList[mainVM.count - 1].name + "," )
                             .font(.system(size: 28))
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
                             .padding(.trailing, 10)
                     }
-                    Text("לוולאדור")
+                    Text(mainVM.dogsList[mainVM.count - 1].race)
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
                         .padding(.trailing, 10)
                     
-                    Text("ראשון לציון")
+                    Text(mainVM.dogsList[mainVM.count - 1].city)
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
                         .padding(.trailing, 10)
@@ -173,10 +173,10 @@ struct Card: View {
                             
                             Spacer()
                             
-                            Text("נקבה")
+                            Text(mainVM.dogsList[mainVM.count - 1].gender)
                                 .font(.system(size: 20))
                                 .foregroundColor(.black)
-                            Text(dogName)
+                            Text(mainVM.dogsList[mainVM.count - 1].name)
                                 .font(.system(size: 28))
                                 .foregroundColor(.black)
                                 .fontWeight(.heavy)
@@ -184,7 +184,7 @@ struct Card: View {
                         }
                         
                         HStack {
-                            Text("גור")
+                            Text(mainVM.dogsList[mainVM.count - 1].age)
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.black)
                             Image("cake").resizable()
@@ -192,7 +192,7 @@ struct Card: View {
                                 .padding(.trailing, 10)
                         }
                         HStack {
-                            Text("לוולאדור")
+                            Text(mainVM.dogsList[mainVM.count - 1].race)
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.black)
                             
@@ -203,7 +203,7 @@ struct Card: View {
                         
                         HStack {
                             
-                            Text("ראשון לציון")
+                            Text(mainVM.dogsList[mainVM.count - 1].city)
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.black)
                             
