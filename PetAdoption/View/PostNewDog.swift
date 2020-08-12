@@ -302,8 +302,8 @@ struct PostNewDog: View {
                         }
                         .onReceive(petAge.publisher.collect()) {
                             
-                            let numOnly = petAge.replacingOccurrences(of: ".", with: "")
-                            if numOnly.count > 2 || petAge.filter({ $0 == "." }).count > 1 {
+                            let numOnly = self.petAge.replacingOccurrences(of: ".", with: "")
+                            if numOnly.count > 2 || self.petAge.filter({ $0 == "." }).count > 1 {
                                 self.petAgeError =  "רק 2 ספרות"
                                 self.petAge = String($0.prefix(2))
                             }
@@ -587,13 +587,13 @@ struct PostNewDog: View {
         .onReceive(session.existingPost.loadImage, perform:  { imageIndex in
             switch imageIndex {
             case 0:
-                image = UIImage(data: self.session.existingPost.imageData[0])
+                self.image = UIImage(data: self.session.existingPost.imageData[0])
             case 1:
-                secondImage = UIImage(data: self.session.existingPost.imageData[1])
+                self.secondImage = UIImage(data: self.session.existingPost.imageData[1])
             case 2:
-                thirdImage = UIImage(data: self.session.existingPost.imageData[2])
+                self.thirdImage = UIImage(data: self.session.existingPost.imageData[2])
             case 3:
-                fourthImage = UIImage(data: self.session.existingPost.imageData[3])
+                self.fourthImage = UIImage(data: self.session.existingPost.imageData[3])
             default:
                 return
             }
