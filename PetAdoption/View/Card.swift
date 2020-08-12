@@ -385,10 +385,12 @@ struct Card: View {
     
     private func returnAge() -> String {
         let ageNum = Double(mainVM.dogsList[mainVM.count - 1].age) ?? 0
+        
         if ageNum < 1 {
-            let monthsNum = ageNum.truncatingRemainder(dividingBy: 1)
-            return String(monthsNum)
-
+            if let range = mainVM.dogsList[mainVM.count - 1].age.range(of: ".") {
+                return String(mainVM.dogsList[mainVM.count - 1].age[range.upperBound...])
+            }
+            return ""
         } else {
             return mainVM.dogsList[mainVM.count - 1].age
         }
