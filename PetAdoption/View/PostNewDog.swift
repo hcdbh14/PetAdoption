@@ -639,6 +639,7 @@ struct PostNewDog: View {
             self.description = postData?.desc ?? ""
             self.phoneNumber = postData?.number ?? ""
             self.city = postData?.city ?? ""
+            self.goodWords = postData?.goodWords ?? ""
             self.translateTypeIntoCode(postData?.type ?? "")
             self.translateGenderIntoCode(postData?.gender ?? "")
             self.translateSizeIntoCode(postData?.size ?? "")
