@@ -197,20 +197,7 @@ struct Card: View {
                                     .frame(width: 20 , height : 20)
                                     .padding(.trailing, 10)
                             }
-                            
-                            HStack {
-                                
-                                Text(mainVM.dogsList[mainVM.count - 1].city)
-                                    .font(.system(size: 16, weight: .semibold))
-                                    .foregroundColor(.black)
-                                
-                                Image(systemName: "mappin.and.ellipse").resizable()
-                                    .frame(width: 20 , height : 20)
-                                    .foregroundColor(.gray)
-                                    .padding(.trailing, 10)
-                                
-                            }
-                            
+
                             HStack {
                                 Text((mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " " + self.returnAge() + " ")
                                     
@@ -222,7 +209,20 @@ struct Card: View {
                             }
                             
                             HStack {
-                                Text(mainVM.dogsList[mainVM.count - 1].number)
+                                
+                                Text( "אזור: " + mainVM.dogsList[mainVM.count - 1].city)
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(.black)
+                                
+                                Image(systemName: "mappin.and.ellipse").resizable()
+                                    .frame(width: 20 , height : 20)
+                                    .foregroundColor(.gray)
+                                    .padding(.trailing, 10)
+                                
+                            }
+                            
+                            HStack {
+                                Text("טלפון: " + mainVM.dogsList[mainVM.count - 1].number)
                                     
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
@@ -232,8 +232,8 @@ struct Card: View {
                                     .padding(.trailing, 10)
                             }
                         }
-                        
                     }
+                    
                     Text(mainVM.dogsList[mainVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
                         .foregroundColor(.black)
                         .environment(\.layoutDirection, .rightToLeft)
