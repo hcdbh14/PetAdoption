@@ -194,7 +194,7 @@ struct Card: View {
                                     .foregroundColor(.black)
                                 
                                 Image("paw").resizable()
-                                    .frame(width: 16 , height : 16)
+                                    .frame(width: 20 , height : 20)
                                     .padding(.trailing, 10)
                             }
                             
@@ -204,7 +204,8 @@ struct Card: View {
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
                                 
-                                Image(systemName: "mappin.and.ellipse")
+                                Image(systemName: "mappin.and.ellipse").resizable()
+                                    .frame(width: 20 , height : 20)
                                     .foregroundColor(.gray)
                                     .padding(.trailing, 10)
                                 
@@ -216,7 +217,7 @@ struct Card: View {
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
                                 Image("cake").resizable()
-                                    .frame(width: 16 , height : 16)
+                                    .frame(width: 20 , height : 20)
                                     .padding(.trailing, 10)
                             }
                             
@@ -225,7 +226,8 @@ struct Card: View {
                                     
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
-                                Image(systemName: "phone.circle")
+                                Image(systemName: "phone.circle").resizable()
+                                    .frame(width: 20 , height : 20)
                                     .foregroundColor(.gray)
                                     .padding(.trailing, 10)
                             }
