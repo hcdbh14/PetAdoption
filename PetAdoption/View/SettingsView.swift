@@ -27,7 +27,7 @@ struct SettingsView: View {
                 VStack(alignment: .leading) {
                     Text("הגדרות")
                         .foregroundColor(.white)
-                        .padding(.top, 30)
+                        .padding(.top, 70)
                         .padding(.leading, 15)
                         .font(.system(size: 34))
                     
