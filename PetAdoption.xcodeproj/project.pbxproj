@@ -43,6 +43,7 @@
 		EDDB49E1247708250068026C /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDB49E0247708250068026C /* ImageLoader.swift */; };
 		EDF4CB0E24A71FF900060F37 /* SavedDogsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF4CB0D24A71FF900060F37 /* SavedDogsScreen.swift */; };
 		EDF52F2224817CF200EF5070 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDF52F2124817CF200EF5070 /* GoogleService-Info.plist */; };
+		EDF718B224E549B100831263 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF718B124E549B100831263 /* BlurView.swift */; };
 		EDF777D524684EB100154110 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF777D424684EB100154110 /* AppDelegate.swift */; };
 		EDF777D724684EB100154110 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF777D624684EB100154110 /* SceneDelegate.swift */; };
 		EDF777D924684EB100154110 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF777D824684EB100154110 /* MainScreen.swift */; };
@@ -93,6 +94,7 @@
 		EDDB49E0247708250068026C /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		EDF4CB0D24A71FF900060F37 /* SavedDogsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDogsScreen.swift; sourceTree = "<group>"; };
 		EDF52F2124817CF200EF5070 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EDF718B124E549B100831263 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		EDF777D124684EB100154110 /* PetAdoption.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetAdoption.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDF777D424684EB100154110 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDF777D624684EB100154110 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				ED9A009224D55977004DA9F0 /* imagePlacerHolder.swift */,
 				EDD6C4EB24D84E65005E24EE /* MultiLineTF.swift */,
 				EDD6C4ED24D84E8B005E24EE /* SegmentedPicker.swift */,
+				EDF718B124E549B100831263 /* BlurView.swift */,
 			);
 			path = "Minor Views";
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				EDF4CB0E24A71FF900060F37 /* SavedDogsScreen.swift in Sources */,
 				EDF777D524684EB100154110 /* AppDelegate.swift in Sources */,
 				ED9A009324D55977004DA9F0 /* imagePlacerHolder.swift in Sources */,
+				EDF718B224E549B100831263 /* BlurView.swift in Sources */,
 				EDD53A062483B88D004EB14F /* Array.swift in Sources */,
 				ED0708F724C20F76005AD1BB /* AuthViewManager.swift in Sources */,
 				ED3B871C24C5EA3B008479F8 /* SignInView.swift in Sources */,
