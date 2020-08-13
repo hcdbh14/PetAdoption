@@ -30,7 +30,8 @@ struct PostNewDog: View {
         case third
         case fourth
     }
-    
+    @State private var poopTrained = 0
+    @State private var vaccinated = 0
     @State private var showAlert = false
     @State private var size = 0
     @State private var gender = 0
@@ -446,7 +447,7 @@ struct PostNewDog: View {
                     }.padding(.leading, 15)
                 }
                 
-                
+                VStack {
                 HStack {
                     Text("מין")
                         .font(.system(size: 24, weight: .semibold))
@@ -479,12 +480,44 @@ struct PostNewDog: View {
                 }.padding(.bottom, 25)
                 
                 HStack {
+                    Text("מחוסן")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundColor(Color("offBlack"))
+                        .padding(.leading, 25)
+                        .padding(.top, 30)
+                    Spacer()
+                }
+                
+                HStack {
+                    Spacer()
+                    SegmentedPicker(items: ["לא", "כן"], selection: $vaccinated)
+                    Spacer()
+                }.padding(.bottom, 25)
+                    
+                    HStack {
+                        Text((gender == 0 ?  "מחונכת" : "מחונך") + " לצרכים" )
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundColor(Color("offBlack"))
+                            .padding(.leading, 25)
+                            .padding(.top, 30)
+                        Spacer()
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        SegmentedPicker(items: ["לא", "כן"], selection: $poopTrained)
+                        Spacer()
+                    }.padding(.bottom, 25)
+                
+                HStack {
                     Text("מלל חופשי")
                         .font(.system(size: 24, weight: .semibold))
                         .foregroundColor(Color("offBlack"))
                         .padding(.leading, 25)
                         .padding(.top, 30)
                     Spacer()
+                }
+                    
                 }
                 
                 HStack {
