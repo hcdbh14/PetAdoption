@@ -434,15 +434,15 @@ struct PostNewDog: View {
             VStack {
                 VStack {
                     HStack {
-                        CheckboxField(id: 0, label: Suitablefor.kids.rawValue, size: 16, color: .gray, textSize: 20, onLightBackground: true ,callback: checkboxSelected, suiteables: $suiteableArray)
-                        CheckboxField(id: 1, label: Suitablefor.adults.rawValue, size: 16, color: .gray, textSize: 20,onLightBackground: true , callback: checkboxSelected, suiteables: $suiteableArray)
-                        CheckboxField(id: 2, label: Suitablefor.allergic.rawValue, size: 16, color: .gray, textSize: 20, onLightBackground: true , callback: checkboxSelected, suiteables: $suiteableArray)
+                        CheckboxField(id: 0, label: Suitablefor.kids.rawValue, size: 16, color: .gray, textSize: 20, onLightBackground: true ,callback: checkboxSelected, array: $suiteableArray)
+                        CheckboxField(id: 1, label: Suitablefor.adults.rawValue, size: 16, color: .gray, textSize: 20,onLightBackground: true , callback: checkboxSelected, array: $suiteableArray)
+                        CheckboxField(id: 2, label: Suitablefor.allergic.rawValue, size: 16, color: .gray, textSize: 20, onLightBackground: true , callback: checkboxSelected, array: $suiteableArray)
                     }.padding(.leading, 15)
                     
                     HStack {
-                        CheckboxField(id: 3, label: Suitablefor.apartment.rawValue, size: 16, color: .gray, textSize: 20, onLightBackground: true , callback: checkboxSelected, suiteables: $suiteableArray)
-                        CheckboxField(id: 4, label: Suitablefor.houseYard.rawValue, size: 16, color: .gray, textSize: 20, onLightBackground: true , callback: checkboxSelected, suiteables: $suiteableArray)
-                        CheckboxField(id: 5, label: Suitablefor.houseWithCat.rawValue, size: 16, color: .gray, textSize: 20, onLightBackground: true , callback: checkboxSelected, suiteables: $suiteableArray)
+                        CheckboxField(id: 3, label: Suitablefor.apartment.rawValue, size: 16, color: .gray, textSize: 20, onLightBackground: true , callback: checkboxSelected, array: $suiteableArray)
+                        CheckboxField(id: 4, label: Suitablefor.houseYard.rawValue, size: 16, color: .gray, textSize: 20, onLightBackground: true , callback: checkboxSelected, array: $suiteableArray)
+                        CheckboxField(id: 5, label: Suitablefor.houseWithCat.rawValue, size: 16, color: .gray, textSize: 20, onLightBackground: true , callback: checkboxSelected, array: $suiteableArray)
                     }.padding(.leading, 15)
                 }
                 

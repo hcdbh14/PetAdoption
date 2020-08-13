@@ -8,7 +8,7 @@ struct CheckboxField: View {
     let textSize: Int
     let callback: (Int)->()
     var onLightBackground: Bool
-    @Binding var suiteables: [Int]
+    @Binding var dataArray: [Int]
     @State var isMarked: Bool = false
  
     init(
@@ -19,7 +19,7 @@ struct CheckboxField: View {
         textSize: Int = 14,
         onLightBackground: Bool? = nil,
         callback: @escaping (Int)->(),
-        suiteables: Binding< [Int]>
+        array: Binding< [Int]>
     ) {
         self.id = id
         self.label = label
@@ -28,7 +28,7 @@ struct CheckboxField: View {
         self.textSize = textSize
         self.callback = callback
         self.onLightBackground = onLightBackground ?? false
-        self._suiteables = suiteables
+        self._dataArray = array
     }
     
     
@@ -39,7 +39,7 @@ struct CheckboxField: View {
             HStack(alignment: .center, spacing: 10) {
                 if onLightBackground {
                     ZStack {
-                        if suiteables.contains(id)  {
+                        if dataArray.contains(id)  {
                             
                         Image(systemName: "checkmark" )
                             .resizable()
@@ -54,7 +54,7 @@ struct CheckboxField: View {
                     }
                     
                 } else {
-                Image(systemName: suiteables.contains(id)  ? "checkmark.square" : "square")
+                Image(systemName: dataArray.contains(id)  ? "checkmark.square" : "square")
                     .resizable()
                     .foregroundColor(Color.orange)
                     .frame(width: self.size, height: self.size)

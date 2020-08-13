@@ -9,7 +9,8 @@ import SwiftUI
 struct SettingsView: View {
     
     @Binding private var showMenu: Bool
-    @State private var placeHolder: [Int] = []
+    @State private var ages: [Int] = []
+    @State private var regions: [Int] = []
     @Binding private var showPostPetScreen: Bool
     @ObservedObject private var settings = Settings()
     @EnvironmentObject private var session: SessionStore
@@ -99,9 +100,9 @@ struct SettingsView: View {
                 }
                 
                 HStack {
-                    CheckboxField(id: 0, label: "צפון", size: 20, color: .white, textSize: 20, callback: checkboxSelected, suiteables: $placeHolder)
-                    CheckboxField(id: 1, label: "מרכז", size: 20, color: .white, textSize: 20, callback: checkboxSelected, suiteables: $placeHolder)
-                    CheckboxField(id: 2, label: "דרום", size: 20, color: .white, textSize: 20, callback: checkboxSelected, suiteables: $placeHolder)
+                    CheckboxField(id: 0, label: "צפון", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $regions)
+                    CheckboxField(id: 1, label: "מרכז", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $regions)
+                    CheckboxField(id: 2, label: "דרום", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $regions)
                 }.padding(.leading, 15)
                 
                 VStack(alignment: .leading) {
@@ -113,9 +114,9 @@ struct SettingsView: View {
                 }.padding(.leading, 15)
                 
                 HStack {
-                    CheckboxField(id: 3, label: "גור", size: 20, color: .white, textSize: 20, callback: checkboxSelected, suiteables: $placeHolder)
-                    CheckboxField(id: 4, label: "צעיר", size: 20, color: .white, textSize: 20, callback: checkboxSelected, suiteables: $placeHolder)
-                    CheckboxField(id: 5, label: "מבוגר", size: 20, color: .white, textSize: 20, callback: checkboxSelected, suiteables: $placeHolder)
+                    CheckboxField(id: 3, label: "גור", size: 20, color: .white, textSize: 20, callback: saveAgeChoice, array: $ages)
+                    CheckboxField(id: 4, label: "צעיר", size: 20, color: .white, textSize: 20, callback: saveAgeChoice, array: $ages)
+                    CheckboxField(id: 5, label: "מבוגר", size: 20, color: .white, textSize: 20, callback: saveAgeChoice, array: $ages)
                 }.padding(.leading, 15)
                     .padding(.bottom, 50)
                 
@@ -145,15 +146,32 @@ struct SettingsView: View {
         }.animation(Animation.spring())
         .background(Color("offWhite"))
         .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
-//            .onAppear() {
-//                DispatchQueue.global().async {
-//                    self.session.getExistingPost()
-//                }
-//        }
+            .onAppear() {
+                self.regions = self.settings.areas ?? []
+        }
     }
     
-    private func checkboxSelected(id: Int) {
+    private func saveAreaChoice(id: Int) {
+        
+        if regions.contains(id) == false {
+            regions.append(id)
+        } else {
+            if let itemToRemove = regions.firstIndex(of: id) {
+                regions.remove(at: itemToRemove)
+            }
+        }
+        
         settings.updateArea(id)
+    }
+    
+    private func saveAgeChoice(id: Int) {
+        if ages.contains(id) == false {
+            ages.append(id)
+        } else {
+            if let itemToRemove = ages.firstIndex(of: id) {
+                ages.remove(at: itemToRemove)
+            }
+        }
     }
 }
 
