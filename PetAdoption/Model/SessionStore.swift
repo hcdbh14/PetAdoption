@@ -66,18 +66,9 @@ class SessionStore: ObservableObject {
     
     func postPetImages(imagesData: [Data], petType: String, petName: String, petRace: String, petAge: String, petSize: String, suitables: String, petGender: String, description: String, phoneNumber: String, city: String, goodWords: String) {
         
-        var editedDesc = description
-        var editedSuitables = suitables
         waitingForResponse = true
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        if editedDesc == "" {
-            editedDesc = " "
-        }
-        
-        if editedSuitables == "" {
-            editedSuitables = " "
-        }
         
         for i in imagesData {
             guard let index = imagesData.firstIndex(of: i) else { return }
@@ -107,7 +98,7 @@ class SessionStore: ObservableObject {
                         for i in sortedKeys {
                             sortedImagePaths.append(self.imagePaths[i] ?? "")
                         }
-                        self.postNewPet(petType: petType, petName: petName, petRace: petRace, petAge: petAge, petSize: petSize, suitables: editedSuitables, petGender: petGender, description: editedDesc, phoneNumber: phoneNumber, city: city, goodWords: goodWords, images: sortedImagePaths )
+                        self.postNewPet(petType: petType, petName: petName, petRace: petRace, petAge: petAge, petSize: petSize, suitables: suitables, petGender: petGender, description: description, phoneNumber: phoneNumber, city: city, goodWords: goodWords, images: sortedImagePaths )
                         self.waitingForResponse = false
                         self.localDB.savePostID(id: uid)
                         self.localDB.existingPostID = uid
