@@ -234,37 +234,40 @@ struct Card: View {
                             
                         }
                         
-                        
-                        HStack {
-                            Text("קצת עלי:")
-                                .font(.system(size: 20, weight: .semibold))
-                                .underline()
+                        if mainVM.dogsList[mainVM.count - 1].desc != "" {
+                            HStack {
+                                Text("קצת עלי:")
+                                    .font(.system(size: 20, weight: .semibold))
+                                    .underline()
+                                    .foregroundColor(.black)
+                                    .padding(.trailing, 20)
+                                    .padding(.top, 20)
+                                
+                            }
+                            Text(mainVM.dogsList[mainVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
                                 .foregroundColor(.black)
-                                .padding(.trailing, 20)
+                                .environment(\.layoutDirection, .rightToLeft)
                                 .padding(.top, 20)
-                            
-                        }
-                        Text(mainVM.dogsList[mainVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
-                            .foregroundColor(.black)
-                            .environment(\.layoutDirection, .rightToLeft)
-                            .padding(.top, 20)
-                            .padding(.trailing, 20)
-                        
-                        
-                        HStack {
-                            Text("מתאים ל:")
-                                .font(.system(size: 20, weight: .semibold))
-                                .underline()
-                                .foregroundColor(.black)
                                 .padding(.trailing, 20)
-                                .padding(.top, 20)
-                            
                         }
-                        HStack() {
-                            Text(mainVM.dogsList[mainVM.count - 1].suitables)
-                                .foregroundColor(.black)
-                                .padding(.trailing, 20)
-                                .frame(width: UIScreen.main.bounds.width - 100, height: 50, alignment: .trailing)
+                        
+                        if mainVM.dogsList[mainVM.count - 1].suitables != "" {
+                            HStack {
+                                Text("מתאים ל:")
+                                    .font(.system(size: 20, weight: .semibold))
+                                    .underline()
+                                    .foregroundColor(.black)
+                                    .padding(.trailing, 20)
+                                    .padding(.top, 20)
+                                
+                            }
+                            
+                            HStack() {
+                                Text(mainVM.dogsList[mainVM.count - 1].suitables)
+                                    .foregroundColor(.black)
+                                    .padding(.trailing, 20)
+                                    .frame(width: UIScreen.main.bounds.width - 100, height: 50, alignment: .trailing)
+                            }
                         }
                     }
                 }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height)
