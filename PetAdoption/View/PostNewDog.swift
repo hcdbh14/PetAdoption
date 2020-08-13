@@ -669,7 +669,7 @@ struct PostNewDog: View {
         session.informText = ""
         error = false
         
-        if image != nil && petName != "" && petRace != "" && petAge != "" && phoneNumber != "" && city != "" {
+        if image != nil && petName != "" && petRace != "" && petAge != "" && phoneNumber != "" && city != "" && goodWords != "" {
             self.session.localDB.existingPostID = ""
             let images = [image, secondImage, thirdImage, fourthImage]
             var imagesData: [Data] = []
@@ -680,9 +680,6 @@ struct PostNewDog: View {
                     imagesData.append(data)
                     
                 }
-            }
-            if goodWords == "" {
-                goodWords = " "
             }
             session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, petSize: String(size), suitables: groupSuiteables(), petGender: String(gender), description: description, phoneNumber: phoneNumber, city: city, goodWords: goodWords)
         } else {

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Card: View {
-
+    
     @State private var isImageReady = false
     @State private var speed = 0.5
     @State private var x: CGFloat = 0
@@ -108,10 +108,12 @@ struct Card: View {
                             .fontWeight(.heavy)
                             .padding(.trailing, 10)
                     }
-                    Text(mainVM.dogsList[mainVM.count - 1].goodWords)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.white)
-                        .padding(.trailing, 10)
+
+                        Text(mainVM.dogsList[mainVM.count - 1].goodWords)
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.white)
+                            .padding(.trailing, 10)
+
                     
                     Text(mainVM.dogsList[mainVM.count - 1].city)
                         .font(.system(size: 16, weight: .semibold))
@@ -199,7 +201,7 @@ struct Card: View {
                         
                         HStack {
                             Text((mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " " + self.returnAge() + " ")
-
+                                
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.black)
                             Image("cake").resizable()
