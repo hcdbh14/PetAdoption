@@ -209,6 +209,16 @@ struct Card: View {
                                 .padding(.trailing, 10)
                         }
                         
+                        HStack {
+                            Text(mainVM.dogsList[mainVM.count - 1].number)
+                                
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.black)
+                            Image(systemName: "phone.circle")
+                                .foregroundColor(.gray)
+                                .padding(.trailing, 10)
+                        }
+                        
                     }
                     Text(mainVM.dogsList[mainVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
                         .foregroundColor(.black)
