@@ -31,6 +31,7 @@ struct PostNewDog: View {
         case fourth
     }
     
+    @State private var showAlert = false
     @State private var size = 0
     @State private var gender = 0
     @State private var petType = 0
@@ -119,8 +120,12 @@ struct PostNewDog: View {
                 
                 imagePlacerHolder(image: $image).onTapGesture {
                     self.chosenImage = .first
-                    self.activeSheet = .images
-                    self.showSheet = true
+                    if self.image == nil {
+                        self.activeSheet = .images
+                        self.showSheet = true
+                    } else {
+                        self.showAlert = true
+                    }
                 }
                 Spacer()
             }
@@ -129,18 +134,35 @@ struct PostNewDog: View {
                 Spacer()
                 imagePlacerHolder(image: $secondImage).onTapGesture {
                     self.chosenImage = .second
-                    self.activeSheet = .images
-                    self.showSheet = true
+                    if self.secondImage == nil {
+                        self.activeSheet = .images
+                        self.showSheet = true
+                    } else {
+                        self.showAlert = true
+                    }
+                    
                 }
                 imagePlacerHolder(image: $thirdImage).onTapGesture {
                     self.chosenImage = .third
-                    self.activeSheet = .images
-                    self.showSheet = true
+                    
+                    if self.thirdImage == nil {
+                        self.activeSheet = .images
+                        self.showSheet = true
+                    } else {
+                        self.showAlert = true
+                    }
+                    
                 }
                 imagePlacerHolder(image: $fourthImage).onTapGesture {
+                    
                     self.chosenImage = .fourth
-                    self.activeSheet = .images
-                    self.showSheet = true
+                    if self.fourthImage == nil {
+                        self.activeSheet = .images
+                        self.showSheet = true
+                    } else {
+                        self.showAlert = true
+                    }
+                    
                 }
                 Spacer()
             }.padding(.bottom, 25)
@@ -344,13 +366,13 @@ struct PostNewDog: View {
                 }
                 
                 HStack {
-                     Text(" מילים טובות על ה\(returnPetType())")
-                         .font(.system(size: 20, weight: .regular))
-                         .foregroundColor(Color("offBlack"))
-                         .padding(.leading, 25)
-                         .padding(.bottom, 5)
-                     
-                     Spacer()
+                    Text(" מילים טובות על ה\(returnPetType())")
+                        .font(.system(size: 20, weight: .regular))
+                        .foregroundColor(Color("offBlack"))
+                        .padding(.leading, 25)
+                        .padding(.bottom, 5)
+                    
+                    Spacer()
                 }.padding(.top, 20)
                 
                 ZStack {
@@ -361,7 +383,7 @@ struct PostNewDog: View {
                             } else {
                                 if self.goodWords.isEmpty == false {
                                     self.correctTextField = .correct
- 
+                                    
                                 } else {
                                     self.correctTextField = .empty
                                 }
@@ -661,6 +683,11 @@ struct PostNewDog: View {
                 }
                 
             })
+            .alert(isPresented:$showAlert) {
+                Alert(title: Text("האם להסיר את תמונה זו?"), primaryButton: .destructive(Text("מחיקה")) {
+                    self.removeImage()
+                    }, secondaryButton: .cancel(Text("ביטול")))
+        }
     }
     
     
@@ -848,7 +875,19 @@ struct PostNewDog: View {
             return "חיית מחמד"
         }
     }
+    
+    private func removeImage() {
+        switch chosenImage {
+        case .first:
+            image = nil
+        case .second:
+            secondImage = nil
+        case .third:
+            thirdImage = nil
+        case .fourth:
+            fourthImage = nil
+        }
+    }
 }
-
 
 
