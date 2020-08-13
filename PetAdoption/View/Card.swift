@@ -108,12 +108,12 @@ struct Card: View {
                             .fontWeight(.heavy)
                             .padding(.trailing, 10)
                     }
-
-                        Text(mainVM.dogsList[mainVM.count - 1].goodWords)
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.white)
-                            .padding(.trailing, 10)
-
+                    
+                    Text(mainVM.dogsList[mainVM.count - 1].goodWords)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.trailing, 10)
+                    
                     
                     Text(mainVM.dogsList[mainVM.count - 1].city)
                         .font(.system(size: 16, weight: .semibold))
@@ -170,59 +170,72 @@ struct Card: View {
                             
                             Spacer()
                             
-                            Text(mainVM.dogsList[mainVM.count - 1].name)
-                                .font(.system(size: 28))
-                                .foregroundColor(.black)
-                                .fontWeight(.heavy)
-                                .padding(.trailing, 10)
-                        }
-                        
-                        HStack {
-                            Text(mainVM.dogsList[mainVM.count - 1].race)
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.black)
-                            
-                            Image("paw").resizable()
-                                .frame(width: 16 , height : 16)
-                                .padding(.trailing, 10)
-                        }
-                        
-                        HStack {
-                            
-                            Text(mainVM.dogsList[mainVM.count - 1].city)
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.black)
-                            
-                            Image(systemName: "mappin.and.ellipse")
-                                .foregroundColor(.gray)
-                                .padding(.trailing, 10)
-                            
-                        }
-                        
-                        HStack {
-                            Text((mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " " + self.returnAge() + " ")
+                            VStack {
+                                Text(mainVM.dogsList[mainVM.count - 1].name)
+                                    .font(.system(size: 28))
+                                    .foregroundColor(.black)
+                                    .fontWeight(.heavy)
+                                    .padding(.bottom, 10)
+                                    .padding(.trailing, -10)
                                 
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.black)
-                            Image("cake").resizable()
-                                .frame(width: 16 , height : 16)
-                                .padding(.trailing, 10)
+                                Text(mainVM.dogsList[mainVM.count - 1].goodWords)
+                                    .font(.system(size: 18))
+                                    .foregroundColor(.gray)
+                                    .fontWeight(.medium)
+                                    .padding(.bottom, 20)
+                                    .padding(.trailing, 20)
+                            }
                         }
                         
-                        HStack {
-                            Text(mainVM.dogsList[mainVM.count - 1].number)
+                        VStack(alignment: .trailing, spacing: 10) {
+                            HStack {
+                                Text(mainVM.dogsList[mainVM.count - 1].race)
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(.black)
                                 
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.black)
-                            Image(systemName: "phone.circle")
-                                .foregroundColor(.gray)
-                                .padding(.trailing, 10)
+                                Image("paw").resizable()
+                                    .frame(width: 16 , height : 16)
+                                    .padding(.trailing, 10)
+                            }
+                            
+                            HStack {
+                                
+                                Text(mainVM.dogsList[mainVM.count - 1].city)
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(.black)
+                                
+                                Image(systemName: "mappin.and.ellipse")
+                                    .foregroundColor(.gray)
+                                    .padding(.trailing, 10)
+                                
+                            }
+                            
+                            HStack {
+                                Text((mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " " + self.returnAge() + " ")
+                                    
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(.black)
+                                Image("cake").resizable()
+                                    .frame(width: 16 , height : 16)
+                                    .padding(.trailing, 10)
+                            }
+                            
+                            HStack {
+                                Text(mainVM.dogsList[mainVM.count - 1].number)
+                                    
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(.black)
+                                Image(systemName: "phone.circle")
+                                    .foregroundColor(.gray)
+                                    .padding(.trailing, 10)
+                            }
                         }
                         
                     }
                     Text(mainVM.dogsList[mainVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
                         .foregroundColor(.black)
                         .environment(\.layoutDirection, .rightToLeft)
+                        .padding(.top, 20)
                     
                 }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height)
                     .animation(.none)
