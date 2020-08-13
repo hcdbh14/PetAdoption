@@ -197,7 +197,7 @@ struct Card: View {
                                     .frame(width: 20 , height : 20)
                                     .padding(.trailing, 10)
                             }
-
+                            
                             HStack {
                                 Text((mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " " + self.returnAge() + " ")
                                     
@@ -231,14 +231,42 @@ struct Card: View {
                                     .foregroundColor(.gray)
                                     .padding(.trailing, 10)
                             }
+                            
+                        }
+                        
+                        
+                        HStack {
+                            Text("קצת עלי:")
+                                .font(.system(size: 20, weight: .semibold))
+                                .underline()
+                                .foregroundColor(.black)
+                                .padding(.trailing, 20)
+                                .padding(.top, 20)
+                            
+                        }
+                        Text(mainVM.dogsList[mainVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
+                            .foregroundColor(.black)
+                            .environment(\.layoutDirection, .rightToLeft)
+                            .padding(.top, 20)
+                            .padding(.trailing, 20)
+                        
+                        
+                        HStack {
+                            Text("מתאים ל:")
+                                .font(.system(size: 20, weight: .semibold))
+                                .underline()
+                                .foregroundColor(.black)
+                                .padding(.trailing, 20)
+                                .padding(.top, 20)
+                            
+                        }
+                        HStack() {
+                            Text(mainVM.dogsList[mainVM.count - 1].suitables)
+                                .foregroundColor(.black)
+                                .padding(.trailing, 20)
+                                .frame(width: UIScreen.main.bounds.width - 100, height: 50, alignment: .trailing)
                         }
                     }
-                    
-                    Text(mainVM.dogsList[mainVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
-                        .foregroundColor(.black)
-                        .environment(\.layoutDirection, .rightToLeft)
-                        .padding(.top, 20)
-                    
                 }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height)
                     .animation(.none)
                     .background(Color.offWhite)
