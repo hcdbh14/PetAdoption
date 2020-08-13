@@ -108,7 +108,7 @@ struct Card: View {
                             .fontWeight(.heavy)
                             .padding(.trailing, 10)
                     }
-                    Text(mainVM.dogsList[mainVM.count - 1].race)
+                    Text(mainVM.dogsList[mainVM.count - 1].goodWords)
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
                         .padding(.trailing, 10)

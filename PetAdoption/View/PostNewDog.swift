@@ -361,9 +361,7 @@ struct PostNewDog: View {
                             } else {
                                 if self.goodWords.isEmpty == false {
                                     self.correctTextField = .correct
-                                    if self.goodWords.count <= 30 {
-                                        self.goodWords =  ""
-                                    }
+ 
                                 } else {
                                     self.correctTextField = .empty
                                 }
@@ -682,7 +680,10 @@ struct PostNewDog: View {
                     
                 }
             }
-            session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, petSize: String(size), suitables: groupSuiteables(), petGender: String(gender), description: description, phoneNumber: phoneNumber, city: city)
+            if goodWords == "" {
+                goodWords = " "
+            }
+            session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, petSize: String(size), suitables: groupSuiteables(), petGender: String(gender), description: description, phoneNumber: phoneNumber, city: city, goodWords: goodWords)
         } else {
             error = true
             session.informText = "לא ניתן להשלים, קיימים שדות חסרים"

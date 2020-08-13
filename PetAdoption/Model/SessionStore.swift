@@ -64,7 +64,7 @@ class SessionStore: ObservableObject {
     }
     
     
-    func postPetImages(imagesData: [Data], petType: String, petName: String, petRace: String, petAge: String, petSize: String, suitables: String, petGender: String, description: String, phoneNumber: String, city: String) {
+    func postPetImages(imagesData: [Data], petType: String, petName: String, petRace: String, petAge: String, petSize: String, suitables: String, petGender: String, description: String, phoneNumber: String, city: String, goodWords: String) {
         
         var editedDesc = description
         var editedSuitables = suitables
@@ -107,7 +107,7 @@ class SessionStore: ObservableObject {
                         for i in sortedKeys {
                             sortedImagePaths.append(self.imagePaths[i] ?? "")
                         }
-                        self.postNewPet(petType: petType, petName: petName, petRace: petRace, petAge: petAge, petSize: petSize, suitables: editedSuitables, petGender: petGender, description: editedDesc, phoneNumber: phoneNumber, city: city, images: sortedImagePaths )
+                        self.postNewPet(petType: petType, petName: petName, petRace: petRace, petAge: petAge, petSize: petSize, suitables: editedSuitables, petGender: petGender, description: editedDesc, phoneNumber: phoneNumber, city: city, goodWords: goodWords, images: sortedImagePaths )
                         self.waitingForResponse = false
                         self.localDB.savePostID(id: uid)
                         self.localDB.existingPostID = uid
@@ -119,10 +119,10 @@ class SessionStore: ObservableObject {
     }
     
     
-    func postNewPet(petType: String, petName: String, petRace: String, petAge: String, petSize: String, suitables: String,petGender: String, description: String, phoneNumber: String, city: String, images: [String]) {
+    func postNewPet(petType: String, petName: String, petRace: String, petAge: String, petSize: String, suitables: String,petGender: String, description: String, phoneNumber: String, city: String, goodWords: String, images: [String]) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        db.collection("Cards_Data").document(uid).setData(["type": petType, "name": petName, "race": petRace, "age": petAge, "size": petSize, "suitables": suitables,"gender": petGender, "desc": description,"number": phoneNumber, "city": city, "images": images], completion: { (error) in
+        db.collection("Cards_Data").document(uid).setData(["type": petType, "name": petName, "race": petRace, "age": petAge, "size": petSize, "suitables": suitables,"gender": petGender, "desc": description,"number": phoneNumber, "city": city,"goodWords": goodWords, "images": images], completion: { (error) in
             if error != nil {
                 self.informText = "קרתה שגיאה, אנא נסו שוב"
             } else {
