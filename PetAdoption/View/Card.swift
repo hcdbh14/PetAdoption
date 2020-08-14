@@ -274,22 +274,23 @@ struct Card: View {
                         
                         HStack {
                             
-                            if mainVM.dogsList[mainVM.count - 1].vaccinated == "1"  {
-                                
-                                ZStack {
+                            
+                            
+                            ZStack {
+                                if mainVM.dogsList[mainVM.count - 1].vaccinated == "1"  {
                                     Image(systemName: "checkmark" )
                                         .resizable()
                                         .foregroundColor(Color.black)
                                         .frame(width: 11, height: 11)
-                                    
-                                    
-                                    Image(systemName: "square")
-                                        .resizable()
-                                        .foregroundColor(Color.orange)
-                                        .frame(width: 21, height: 21)
-                                }.padding(.top, 20)
-                                .padding(.trailing, 10)
-                            }
+                                }
+                                
+                                Image(systemName: "square")
+                                    .resizable()
+                                    .foregroundColor(Color.orange)
+                                    .frame(width: 21, height: 21)
+                            }.padding(.top, 20)
+                            .padding(.trailing, 10)
+                            
                             
                             Text("אני " + (mainVM.dogsList[mainVM.count - 1].gender == "1" ? "מחוסנת" : "מחוסן"))
                                 .font(.system(size: 20, weight: .semibold))
@@ -300,22 +301,23 @@ struct Card: View {
                         
                         HStack {
                             
-                            if mainVM.dogsList[mainVM.count - 1].poopTrained == "1"  {
-                                
-                                ZStack {
+                            
+                            
+                            ZStack {
+                                if mainVM.dogsList[mainVM.count - 1].poopTrained == "1"  {
                                     Image(systemName: "checkmark" )
                                         .resizable()
                                         .foregroundColor(Color.black)
                                         .frame(width: 11, height: 11)
-                                    
-                                    
-                                    Image(systemName: "square")
-                                        .resizable()
-                                        .foregroundColor(Color.orange)
-                                        .frame(width: 21, height: 21)
-                                }.padding(.top, 20)
-                                .padding(.trailing, 10)
-                            }
+                                }
+                                
+                                Image(systemName: "square")
+                                    .resizable()
+                                    .foregroundColor(Color.orange)
+                                    .frame(width: 21, height: 21)
+                            }.padding(.top, 20)
+                            .padding(.trailing, 10)
+                            
                             
                             Text("אני " + (mainVM.dogsList[mainVM.count - 1].gender == "1" ? "מחונכת" : "מחונך") + " לצרכים")
                                 .font(.system(size: 20, weight: .semibold))
