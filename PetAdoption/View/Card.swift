@@ -245,6 +245,8 @@ struct Card: View {
                                 
                             }
                             Text(mainVM.dogsList[mainVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
+                                
+                                .fixedSize(horizontal: false, vertical: true)
                                 .foregroundColor(.black)
                                 .environment(\.layoutDirection, .rightToLeft)
                                 .padding(.top, 20)
@@ -320,7 +322,7 @@ struct Card: View {
                                 .foregroundColor(.black)
                                 .padding(.trailing, 20)
                                 .padding(.top, 20)
-                        }
+                        } .padding(.bottom, 20)
                     }
                 }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height)
                 .animation(.none)
