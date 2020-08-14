@@ -3,6 +3,7 @@ import SwiftUI
 struct MultiLineTF : UIViewRepresentable {
     
     @Binding var txt : String
+    @Binding var txtFromDB : String
     
     func makeCoordinator() -> Coordinator {
         return MultiLineTF.Coordinator(parent: self)
@@ -25,8 +26,19 @@ struct MultiLineTF : UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UITextView, context: UIViewRepresentableContext<MultiLineTF>) {
-        if txt != "" {
-            uiView.text = txt
+        if txt != "" && txt == txtFromDB {
+            var count = 1
+            var textBuilder = ""
+            for i in txt {
+                textBuilder.append(i)
+                if textBuilder.count > 40 * count {
+                    let subString = textBuilder.suffix(1)
+                    textBuilder.removeLast(1)
+                    textBuilder.append(contentsOf: "\n" +  subString)
+                    count += 1
+                }
+            }
+            uiView.text = textBuilder
             uiView.textColor = .label
         }
     }

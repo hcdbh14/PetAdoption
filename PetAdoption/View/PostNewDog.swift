@@ -30,6 +30,7 @@ struct PostNewDog: View {
         case third
         case fourth
     }
+    @State private var descFromDB = ""
     @State private var poopTrained = 0
     @State private var vaccinated = 0
     @State private var showAlert = false
@@ -522,7 +523,7 @@ struct PostNewDog: View {
                 
                 HStack {
                     
-                    MultiLineTF(txt: $description)
+                    MultiLineTF(txt: $description, txtFromDB: $descFromDB)
                         .frame(width: UIScreen.main.bounds.width - 40, height: 200, alignment: .topLeading)
                         .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray))
                         .environment(\.layoutDirection, .rightToLeft)
@@ -691,6 +692,7 @@ struct PostNewDog: View {
             self.petName = petDetails?.name ?? ""
             self.petRace = petDetails?.race ?? ""
             self.petAge = petDetails?.age ?? ""
+            self.descFromDB = petDetails?.desc ?? ""
             self.description = petDetails?.desc ?? ""
             self.phoneNumber = petDetails?.number ?? ""
             self.city = petDetails?.city ?? ""
