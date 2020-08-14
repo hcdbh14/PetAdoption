@@ -68,7 +68,7 @@ struct Card: View {
                         })
                         .onAppear() {
                             self.populateImage()
-                    }
+                        }
                 }
                 
                 HStack {
@@ -96,7 +96,7 @@ struct Card: View {
                         Spacer()
                         
                         Text((mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " "
-                            + returnAge())
+                                + returnAge())
                             .font(.system(size: 24))
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
@@ -269,11 +269,63 @@ struct Card: View {
                                     .frame(width: UIScreen.main.bounds.width - 100, height: 50, alignment: .trailing)
                             }
                         }
+                        
+                        HStack {
+                            
+                            if mainVM.dogsList[mainVM.count - 1].vaccinated == "1"  {
+                                
+                                ZStack {
+                                    Image(systemName: "checkmark" )
+                                        .resizable()
+                                        .foregroundColor(Color.black)
+                                        .frame(width: 11, height: 11)
+                                    
+                                    
+                                    Image(systemName: "square")
+                                        .resizable()
+                                        .foregroundColor(Color.orange)
+                                        .frame(width: 21, height: 21)
+                                }.padding(.top, 20)
+                                .padding(.trailing, 10)
+                            }
+                            
+                            Text("אני " + (mainVM.dogsList[mainVM.count - 1].gender == "1" ? "מחוסנת" : "מחוסן"))
+                                .font(.system(size: 20, weight: .semibold))
+                                .foregroundColor(.black)
+                                .padding(.trailing, 20)
+                                .padding(.top, 20)
+                        }
+                        
+                        HStack {
+                            
+                            if mainVM.dogsList[mainVM.count - 1].poopTrained == "1"  {
+                                
+                                ZStack {
+                                    Image(systemName: "checkmark" )
+                                        .resizable()
+                                        .foregroundColor(Color.black)
+                                        .frame(width: 11, height: 11)
+                                    
+                                    
+                                    Image(systemName: "square")
+                                        .resizable()
+                                        .foregroundColor(Color.orange)
+                                        .frame(width: 21, height: 21)
+                                }.padding(.top, 20)
+                                .padding(.trailing, 10)
+                            }
+                            
+                            Text("אני " + (mainVM.dogsList[mainVM.count - 1].gender == "1" ? "מחונכת" : "מחונך") + " לצרכים")
+                                .font(.system(size: 20, weight: .semibold))
+                                .foregroundColor(.black)
+                                .padding(.trailing, 20)
+                                .padding(.top, 20)
+                        }
                     }
                 }.frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height)
-                    .animation(.none)
-                    .background(Color.offWhite)
-                    .padding(.top, 60)
+                .animation(.none)
+                .background(Color.offWhite)
+                .padding(.top, 60)
             }
         }
         .offset(x: self.x, y: self.y)
@@ -283,32 +335,32 @@ struct Card: View {
         .transition(.move(edge: .bottom))
         .allowsHitTesting(isImageReady ? true : false)
         .gesture(showInfo ? nil : DragGesture(minimumDistance: 0, coordinateSpace: .global)
-        .onChanged({ (value) in
-            self.speed = 5
-            if value.startLocation != value.location {
-                if self.switchingImage == false {
-                    self.inAnimation = true
-                }
-                if value.translation.width > 50 && value.translation.width > 10 {
-                    self.x = value.translation.width
-                    self.y = value.translation.height
-                    self.degree = -6
-                } else if value.translation.width < -50 && value.translation.width < -10 {
-                    self.x = value.translation.width
-                    self.y = value.translation.height
-                    self.degree = 6
-                } else {
-                    self.x = value.translation.width
-                    self.y = value.translation.height
-                    self.degree = 0
-                }
-            }
-        })
-            .onEnded({ (value) in
-                self.speed = 0.5
-                self.dragFinished(x: value.translation.width, y: value.translation.height, direction: value.location.x, start: value.startLocation, end: value.location)
-            }))
-            .environment(\.layoutDirection, .leftToRight)
+                    .onChanged({ (value) in
+                        self.speed = 5
+                        if value.startLocation != value.location {
+                            if self.switchingImage == false {
+                                self.inAnimation = true
+                            }
+                            if value.translation.width > 50 && value.translation.width > 10 {
+                                self.x = value.translation.width
+                                self.y = value.translation.height
+                                self.degree = -6
+                            } else if value.translation.width < -50 && value.translation.width < -10 {
+                                self.x = value.translation.width
+                                self.y = value.translation.height
+                                self.degree = 6
+                            } else {
+                                self.x = value.translation.width
+                                self.y = value.translation.height
+                                self.degree = 0
+                            }
+                        }
+                    })
+                    .onEnded({ (value) in
+                        self.speed = 0.5
+                        self.dragFinished(x: value.translation.width, y: value.translation.height, direction: value.location.x, start: value.startLocation, end: value.location)
+                    }))
+        .environment(\.layoutDirection, .leftToRight)
     }
     
     
