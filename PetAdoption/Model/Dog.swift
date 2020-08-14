@@ -14,6 +14,8 @@ struct Dog {
     let race: String
     let suitables: String
     let goodWords: String
+    let vaccinated: String
+    let poopTrained: String
     
     init?(data: [String: Any]) {
         
@@ -28,6 +30,8 @@ struct Dog {
             let gender = data["gender"] as? String,
             let suitables = data["suitables"] as? String,
             let goodWords = data["goodWords"] as? String,
+            let vaccinated = data["vaccinated"] as? String,
+            let poopTrained = data["poopTrained"] as? String,
             let desc = data["desc"] as? String else {
                 return nil
         }
@@ -44,5 +48,7 @@ struct Dog {
         self.race = race
         self.goodWords = goodWords
         self.suitables = suitables
+        self.vaccinated = vaccinated
+        self.poopTrained = poopTrained
     }
 }

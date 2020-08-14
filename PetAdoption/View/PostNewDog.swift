@@ -224,11 +224,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                            .onReceive(Just(petName)) { newValue in
-                                let filtered = self.petName.filter { self.allowedChars.contains($0) }
-                                if filtered != self.petName {
-                                    self.petName = filtered
-                                }
+                        .onReceive(Just(petName)) { newValue in
+                            let filtered = self.petName.filter { self.allowedChars.contains($0) }
+                            if filtered != self.petName {
+                                self.petName = filtered
+                            }
                         }
                         .onReceive(petName.publisher.collect()) {
                             if self.petName.count > 24 {
@@ -289,11 +289,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                            .onReceive(Just(petRace)) { newValue in
-                                let filtered = self.petRace.filter { self.allowedChars.contains($0) }
-                                if filtered != self.petRace {
-                                    self.petRace = filtered
-                                }
+                        .onReceive(Just(petRace)) { newValue in
+                            let filtered = self.petRace.filter { self.allowedChars.contains($0) }
+                            if filtered != self.petRace {
+                                self.petRace = filtered
+                            }
                         }
                         .onReceive(petRace.publisher.collect()) {
                             if self.petRace.count > 20 {
@@ -319,11 +319,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                            .onReceive(Just(petAge)) { newValue in
-                                let filtered = self.petAge.filter { ".0123456789".contains($0) }
-                                if filtered != self.petAge {
-                                    self.petAge = filtered
-                                }
+                        .onReceive(Just(petAge)) { newValue in
+                            let filtered = self.petAge.filter { ".0123456789".contains($0) }
+                            if filtered != self.petAge {
+                                self.petAge = filtered
+                            }
                         }
                         .onReceive(petAge.publisher.collect()) {
                             
@@ -333,7 +333,7 @@ struct PostNewDog: View {
                                 self.petAge = String($0.prefix(2))
                             }
                         }
-                            
+                        
                         .frame(width: UIScreen.main.bounds.width  / 3.8, height: 0.5)
                         .keyboardType(.decimalPad)
                         .padding(.bottom, 25)
@@ -390,11 +390,11 @@ struct PostNewDog: View {
                                 }
                             }
                         })
-                            .onReceive(Just(goodWords)) { newValue in
-                                let filtered = self.goodWords.filter { self.allowedChars.contains($0) }
-                                if filtered != self.goodWords {
-                                    self.goodWords = filtered
-                                }
+                        .onReceive(Just(goodWords)) { newValue in
+                            let filtered = self.goodWords.filter { self.allowedChars.contains($0) }
+                            if filtered != self.goodWords {
+                                self.goodWords = filtered
+                            }
                         }
                         .onReceive(goodWords.publisher.collect()) {
                             if self.goodWords.count > 30 {
@@ -448,51 +448,51 @@ struct PostNewDog: View {
                 }
                 
                 VStack {
-                HStack {
-                    Text("מין")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundColor(Color("offBlack"))
-                        .padding(.leading, 25)
-                        .padding(.top, 30)
-                    Spacer()
-                }
-                
-                HStack {
-                    Spacer()
-                    SegmentedPicker(items: ["זכר", "נקבה"], selection: $gender)
-                    Spacer()
-                }.padding(.bottom, 25)
-                
-                
-                HStack {
-                    Text("גודל")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundColor(Color("offBlack"))
-                        .padding(.leading, 25)
-                        .padding(.top, 30)
-                    Spacer()
-                }
-                
-                HStack {
-                    Spacer()
-                    SegmentedPicker(items: ["קטן", "בינוני", "גדול"], selection: $size)
-                    Spacer()
-                }.padding(.bottom, 25)
-                
-                HStack {
-                    Text("מחוסן")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundColor(Color("offBlack"))
-                        .padding(.leading, 25)
-                        .padding(.top, 30)
-                    Spacer()
-                }
-                
-                HStack {
-                    Spacer()
-                    SegmentedPicker(items: ["לא", "כן"], selection: $vaccinated)
-                    Spacer()
-                }.padding(.bottom, 25)
+                    HStack {
+                        Text("מין")
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundColor(Color("offBlack"))
+                            .padding(.leading, 25)
+                            .padding(.top, 30)
+                        Spacer()
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        SegmentedPicker(items: ["זכר", "נקבה"], selection: $gender)
+                        Spacer()
+                    }.padding(.bottom, 25)
+                    
+                    
+                    HStack {
+                        Text("גודל")
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundColor(Color("offBlack"))
+                            .padding(.leading, 25)
+                            .padding(.top, 30)
+                        Spacer()
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        SegmentedPicker(items: ["קטן", "בינוני", "גדול"], selection: $size)
+                        Spacer()
+                    }.padding(.bottom, 25)
+                    
+                    HStack {
+                        Text("מחוסן")
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundColor(Color("offBlack"))
+                            .padding(.leading, 25)
+                            .padding(.top, 30)
+                        Spacer()
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        SegmentedPicker(items: ["לא", "כן"], selection: $vaccinated)
+                        Spacer()
+                    }.padding(.bottom, 25)
                     
                     HStack {
                         Text((gender == 0 ?  "מחונכת" : "מחונך") + " לצרכים" )
@@ -508,15 +508,15 @@ struct PostNewDog: View {
                         SegmentedPicker(items: ["לא", "כן"], selection: $poopTrained)
                         Spacer()
                     }.padding(.bottom, 25)
-                
-                HStack {
-                    Text("מלל חופשי")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundColor(Color("offBlack"))
-                        .padding(.leading, 25)
-                        .padding(.top, 30)
-                    Spacer()
-                }
+                    
+                    HStack {
+                        Text("מלל חופשי")
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundColor(Color("offBlack"))
+                            .padding(.leading, 25)
+                            .padding(.top, 30)
+                        Spacer()
+                    }
                     
                 }
                 
@@ -565,11 +565,11 @@ struct PostNewDog: View {
                                     }
                                 }
                             })
-                                .onReceive(Just(phoneNumber)) { newValue in
-                                    let filtered = self.phoneNumber.filter { "0123456789".contains($0) }
-                                    if filtered != self.phoneNumber {
-                                        self.phoneNumber = filtered
-                                    }
+                            .onReceive(Just(phoneNumber)) { newValue in
+                                let filtered = self.phoneNumber.filter { "0123456789".contains($0) }
+                                if filtered != self.phoneNumber {
+                                    self.phoneNumber = filtered
+                                }
                             }
                             .onReceive(phoneNumber.publisher.collect()) {
                                 if self.phoneNumber.count > 10 {
@@ -577,7 +577,7 @@ struct PostNewDog: View {
                                 }
                                 self.phoneNumber = String($0.prefix(10))
                             }
-                                
+                            
                             .frame(width: UIScreen.main.bounds.width - 70 , height: 50)
                             .keyboardType(.numberPad)
                             .padding(.bottom, 25)
@@ -635,7 +635,7 @@ struct PostNewDog: View {
                 Spacer()
             }.padding(.top, 15)
             
-            Button(action: postImage) {
+            Button(action: postPetDetails) {
                 if session.waitingForResponse {
                     
                     ActivityIndicator(isAnimating: true)
@@ -649,21 +649,21 @@ struct PostNewDog: View {
                         .shadow(radius: 5)
                 }
             }.frame(width: UIScreen.main.bounds.width - 100, height: 50)
-                .foregroundColor(.white)
-                .background(Color("orange"))
-                .cornerRadius(30)
-                .disabled(session.waitingForResponse)
-                .shadow(radius: 5)
-                .padding(15)
+            .foregroundColor(.white)
+            .background(Color("orange"))
+            .cornerRadius(30)
+            .disabled(session.waitingForResponse)
+            .shadow(radius: 5)
+            .padding(15)
             
         }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading).edgesIgnoringSafeArea(.bottom)
-            .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + (UIDevice.current.systemVersion != "14.0" ? 20 : 0), alignment: .top).edgesIgnoringSafeArea(.bottom))
-            .sheet(isPresented: $showSheet, onDismiss: loadImage) {
-                if self.activeSheet == .images {
-                    ImagePicker(image: self.$inputImage)
-                } else {
-                    Cities(showCities: self.$showSheet, city: self.$city)
-                }
+        .background(Color("offWhite").frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + (UIDevice.current.systemVersion != "14.0" ? 20 : 0), alignment: .top).edgesIgnoringSafeArea(.bottom))
+        .sheet(isPresented: $showSheet, onDismiss: loadImage) {
+            if self.activeSheet == .images {
+                ImagePicker(image: self.$inputImage)
+            } else {
+                Cities(showCities: self.$showSheet, city: self.$city)
+            }
         }
         .offset(y: -self.value)
         .animation(.spring())
@@ -687,44 +687,46 @@ struct PostNewDog: View {
             
         }
         .onReceive(session.existingPost.dataArivved, perform:  { answer in
-            let postData = self.session.existingPost.dog
-            self.petName = postData?.name ?? ""
-            self.petRace = postData?.race ?? ""
-            self.petAge = postData?.age ?? ""
-            self.description = postData?.desc ?? ""
-            self.phoneNumber = postData?.number ?? ""
-            self.city = postData?.city ?? ""
-            self.goodWords = postData?.goodWords ?? ""
-            self.translateTypeIntoCode(postData?.type ?? "")
-            self.translateGenderIntoCode(postData?.gender ?? "")
-            self.translateSizeIntoCode(postData?.size ?? "")
-            self.translateSuiteablesIntoCodes(postData?.suitables ?? "")
+            let petDetails = self.session.existingPost.dog
+            self.petName = petDetails?.name ?? ""
+            self.petRace = petDetails?.race ?? ""
+            self.petAge = petDetails?.age ?? ""
+            self.description = petDetails?.desc ?? ""
+            self.phoneNumber = petDetails?.number ?? ""
+            self.city = petDetails?.city ?? ""
+            self.goodWords = petDetails?.goodWords ?? ""
+            self.translateTypeIntoCode(petDetails?.type ?? "")
+            self.translateGenderIntoCode(petDetails?.gender ?? "")
+            self.translateSizeIntoCode(petDetails?.size ?? "")
+            self.translateVaccinatedIntoCode(petDetails?.vaccinated ?? "")
+            self.translatePoopTrainedntoCode(petDetails?.poopTrained ?? "")
+            self.translateSuiteablesIntoCodes(petDetails?.suitables ?? "")
             self.session.actionText = "עדכון"
         })
-            .onReceive(session.existingPost.loadImage, perform:  { imageIndex in
-                switch imageIndex {
-                case 0:
-                    self.image = UIImage(data: self.session.existingPost.imageData[0])
-                case 1:
-                    self.secondImage = UIImage(data: self.session.existingPost.imageData[1])
-                case 2:
-                    self.thirdImage = UIImage(data: self.session.existingPost.imageData[2])
-                case 3:
-                    self.fourthImage = UIImage(data: self.session.existingPost.imageData[3])
-                default:
-                    return
-                }
-                
-            })
-            .alert(isPresented:$showAlert) {
-                Alert(title: Text("האם להסיר את תמונה זו?"), primaryButton: .destructive(Text("מחיקה")) {
-                    self.removeImage()
-                    }, secondaryButton: .cancel(Text("ביטול")))
+        .onReceive(session.existingPost.loadImage, perform:  { imageIndex in
+            switch imageIndex {
+            case 0:
+                self.image = UIImage(data: self.session.existingPost.imageData[0])
+            case 1:
+                self.secondImage = UIImage(data: self.session.existingPost.imageData[1])
+            case 2:
+                self.thirdImage = UIImage(data: self.session.existingPost.imageData[2])
+            case 3:
+                self.fourthImage = UIImage(data: self.session.existingPost.imageData[3])
+            default:
+                return
+            }
+            
+        })
+        .alert(isPresented:$showAlert) {
+            Alert(title: Text("האם להסיר את תמונה זו?"), primaryButton: .destructive(Text("מחיקה")) {
+                self.removeImage()
+            }, secondaryButton: .cancel(Text("ביטול")))
         }
     }
     
     
-    private func postImage() {
+    private func postPetDetails() {
         
         session.informText = ""
         error = false
@@ -741,7 +743,7 @@ struct PostNewDog: View {
                     
                 }
             }
-            session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, petSize: String(size), suitables: groupSuiteables(), petGender: String(gender), description: description, phoneNumber: phoneNumber, city: city, goodWords: goodWords)
+            session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, petSize: String(size), suitables: groupSuiteables(), petGender: String(gender), description: description, phoneNumber: phoneNumber, city: city, goodWords: goodWords, vaccinated: String(vaccinated), poopTrained: String(poopTrained))
         } else {
             error = true
             session.informText = "לא ניתן להשלים, קיימים שדות חסרים"
@@ -802,6 +804,27 @@ struct PostNewDog: View {
         return suiteablesString
     }
     
+    private func translateVaccinatedIntoCode(_ id: String) {
+        switch id {
+        case "0":
+            vaccinated = 0
+        case "1":
+            vaccinated = 1
+        default:
+            vaccinated = 0
+        }
+    }
+    
+    private func translatePoopTrainedntoCode(_ id: String) {
+        switch id {
+        case "0":
+            poopTrained = 0
+        case "1":
+            poopTrained = 1
+        default:
+            poopTrained = 0
+        }
+    }
     
     private func translateSizeIntoCode(_ id: String) {
         switch id {
