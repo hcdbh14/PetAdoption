@@ -784,17 +784,17 @@ struct PostNewDog: View {
             for i in suiteableArray {
                 switch i {
                 case 0:
-                    suiteablesString += "," + Suitablefor.kids.rawValue
+                    suiteablesString += ", " + Suitablefor.kids.rawValue
                 case 1:
-                    suiteablesString += "," + Suitablefor.adults.rawValue
+                    suiteablesString += ", " + Suitablefor.adults.rawValue
                 case 2:
-                    suiteablesString += "," + Suitablefor.allergic.rawValue
+                    suiteablesString += ", " + Suitablefor.allergic.rawValue
                 case 3:
-                    suiteablesString += "," + Suitablefor.apartment.rawValue
+                    suiteablesString += ", " + Suitablefor.apartment.rawValue
                 case 4:
-                    suiteablesString += "," + Suitablefor.houseYard.rawValue
+                    suiteablesString += ", " + Suitablefor.houseYard.rawValue
                 case 5:
-                    suiteablesString += "," + Suitablefor.houseWithCat.rawValue
+                    suiteablesString += ", " + Suitablefor.houseWithCat.rawValue
                 default:
                     return ""
                 }
