@@ -495,10 +495,10 @@ struct Card: View {
     
     private func populateImage()  {
         
-        if self.isImageReady == false {
-            image = UIImage()
-            return
-        }
+//        if self.isImageReady == false {
+//            image = UIImage()
+//            return
+//        }
         
         if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
             image = UIImage(data: self.mainVM.frontImages[mainVM.imageIndex]) ?? UIImage()

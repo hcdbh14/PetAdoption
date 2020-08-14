@@ -95,13 +95,8 @@ class MainVM: ObservableObject {
             imageLoader = ImageLoader(urlString: dogsList[count - 1].images)
             sub = imageLoader?.didChange.sink(receiveValue: { value in
                 
-                if self.frontImages.hasValueAt(index: self.imageIndex) == false {
                     self.frontImages = value
                     self.reloadFrontImage.send(true)
-                } else {
-                    self.frontImages = value
-                    self.reloadFrontImage.send(true)
-                }
             })
         }
         
