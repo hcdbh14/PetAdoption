@@ -65,7 +65,7 @@ struct PostNewDog: View {
     @State private var activeSheet: ActiveSheet = .images
     @State private var correctTextField = TextFieldCorrection.empty
     @Environment (\.colorScheme) private var colorScheme: ColorScheme
-    private let allowedChars = Set("-,abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ אבגדהוזחטיכךלמםנןסעפףצץקרשת")
+    private let allowedChars = Set("-’',abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ ׳אבגדהוזחטיכךלמםנןסעפףצץקרשת")
     
     init(showAuthScreen: Binding<Bool>, showPostPet: Binding<Bool>) {
         self._showPostPet = showPostPet
@@ -743,7 +743,7 @@ struct PostNewDog: View {
                     
                 }
             }
-            session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, petSize: String(size), suitables: groupSuiteables(), petGender: String(gender), description: description, phoneNumber: phoneNumber, city: city, goodWords: goodWords, vaccinated: String(vaccinated), poopTrained: String(poopTrained))
+            session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, petSize: String(size), suitables: groupSuiteables(), petGender: String(gender), description: description.trim(), phoneNumber: phoneNumber, city: city, goodWords: goodWords, vaccinated: String(vaccinated), poopTrained: String(poopTrained))
         } else {
             error = true
             session.informText = "לא ניתן להשלים, קיימים שדות חסרים"

@@ -36,6 +36,7 @@
 		ED95BCEB24B7690000C88716 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED95BCEA24B7690000C88716 /* SettingsView.swift */; };
 		ED9A009324D55977004DA9F0 /* imagePlacerHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9A009224D55977004DA9F0 /* imagePlacerHolder.swift */; };
 		ED9A009524D559BF004DA9F0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9A009424D559BF004DA9F0 /* ImagePicker.swift */; };
+		EDB08B6824E6EA7D006B94FD /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB08B6724E6EA7D006B94FD /* String.swift */; };
 		EDD53A042483B856004EB14F /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD53A032483B856004EB14F /* URLSession.swift */; };
 		EDD53A062483B88D004EB14F /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD53A052483B88D004EB14F /* Array.swift */; };
 		EDD6C4EC24D84E65005E24EE /* MultiLineTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD6C4EB24D84E65005E24EE /* MultiLineTF.swift */; };
@@ -87,6 +88,7 @@
 		ED95BCEA24B7690000C88716 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		ED9A009224D55977004DA9F0 /* imagePlacerHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagePlacerHolder.swift; sourceTree = "<group>"; };
 		ED9A009424D559BF004DA9F0 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		EDB08B6724E6EA7D006B94FD /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		EDD53A032483B856004EB14F /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		EDD53A052483B88D004EB14F /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		EDD6C4EB24D84E65005E24EE /* MultiLineTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLineTF.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				ED4CB75324C5DDFF00BF20B2 /* UIApplication.swift */,
 				ED00EC7524CD66DA0048AE56 /* View.swift */,
 				ED8ABC7524D3437300D9D854 /* UIImage.swift */,
+				EDB08B6724E6EA7D006B94FD /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				ED84EC5824B0B26A00E25B2F /* SavedCard.swift in Sources */,
 				ED781B2024C025080045F1DE /* CheckboxField.swift in Sources */,
 				ED95BCEB24B7690000C88716 /* SettingsView.swift in Sources */,
+				EDB08B6824E6EA7D006B94FD /* String.swift in Sources */,
 				EDFF76C724C3679600BD256B /* PostNewDog.swift in Sources */,
 				ED8B167224994BB300AF7B33 /* Color.swift in Sources */,
 				ED84EC5424B09F8000E25B2F /* LocalDB.swift in Sources */,

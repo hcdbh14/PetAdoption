@@ -245,7 +245,6 @@ struct Card: View {
                                 
                             }
                             Text(mainVM.dogsList[mainVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
-                                
                                 .fixedSize(horizontal: false, vertical: true)
                                 .foregroundColor(.black)
                                 .environment(\.layoutDirection, .rightToLeft)
