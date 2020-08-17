@@ -46,6 +46,9 @@ struct Card: View {
                             case .picked:
                                 self.decideHeightDirection(y: -100)
                                 self.x = 500
+                                DispatchQueue.global().async {
+                                    self.mainVM.localDB.saveDogURL(self.mainVM.dogsList[self.mainVM.count - 1].images)
+                                }
                             case .rejected:
                                 self.decideHeightDirection(y: -100)
                                 self.x = -500
