@@ -88,9 +88,9 @@ struct Card: View {
                 HStack {
                    Text("  SAVE  ")
                         .frame(width:100)
-                               .border(Color.green, width: 4)
+                               .border(Color("green"), width: 4)
                         .font(.system(size: 32, weight: .semibold))
-                            .foregroundColor(.green)
+                            .foregroundColor(Color("green"))
                       .rotationEffect(.degrees(-45))
                            
                         // MARK: - BUG 2
@@ -100,8 +100,8 @@ struct Card: View {
                     Text("  PASS  ")
 
                         .frame(width:100)
-                          .border(Color.red, width: 4)
-                        .foregroundColor(.red)
+                          .border(Color("red"), width: 4)
+                        .foregroundColor(Color("red"))
                           .rotationEffect(.degrees(45))
                          .font(.system(size: 32, weight: .semibold))
                         // MARK: - BUG 3
