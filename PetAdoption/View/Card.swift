@@ -94,7 +94,7 @@ struct Card: View {
                       .rotationEffect(.degrees(-45))
                            
                         // MARK: - BUG 2
-                        .opacity(Double(self.x/10 - 1))
+                        .opacity(Double(self.x/30 - 1))
                         .padding(15)
                     Spacer()
                     Text("  PASS  ")
@@ -105,7 +105,7 @@ struct Card: View {
                           .rotationEffect(.degrees(45))
                          .font(.system(size: 32, weight: .semibold))
                         // MARK: - BUG 3
-                        .opacity(Double(self.x/10 * -1 - 1))
+                        .opacity(Double(self.x/30 * -1 - 1))
                       
                       .padding(15)
                 }.padding(.bottom, UIScreen.main.bounds.height / 1.8)
