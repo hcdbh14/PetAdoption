@@ -86,24 +86,27 @@ struct Card: View {
                 
                 
                 HStack {
-                    Image("yes")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                   Text("SAVE")
                         .frame(width:100)
+                               .border(Color.green, width: 4)
                         .font(.system(size: 40, weight: .semibold))
                             .foregroundColor(.green)
+                      .rotationEffect(.degrees(-45))
+                           
                         // MARK: - BUG 2
                         .opacity(Double(self.x/10 - 1))
                         .padding(15)
                     Spacer()
-                    Image("nope")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                    Text("PASS")
+
                         .frame(width:100)
+                          .border(Color.red, width: 4)
                         .foregroundColor(.red)
+                          .rotationEffect(.degrees(45))
                          .font(.system(size: 40, weight: .semibold))
                         // MARK: - BUG 3
                         .opacity(Double(self.x/10 * -1 - 1))
+                      
                       .padding(15)
                 }.padding(.bottom, UIScreen.main.bounds.height / 1.8)
                 
