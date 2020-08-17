@@ -437,7 +437,7 @@ struct Card: View {
     private func dragFinished(x: CGFloat, y: CGFloat, direction: CGFloat, start: CGPoint, end: CGPoint) {
         
         if x > 0 {
-            if x > 50 {
+            if x > 130 {
                 self.x = 500
                 decideHeightDirection(y: y)
                 self.degree = -15
@@ -461,7 +461,7 @@ struct Card: View {
                 self.inAnimation = false
             }
         } else {
-            if x < -50 {
+            if x < -150 {
                 self.x = -500
                 decideHeightDirection(y: y)
                 self.degree = 15
