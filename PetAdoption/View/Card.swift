@@ -2,6 +2,8 @@ import SwiftUI
 
 struct Card: View {
     
+    @State private var save = false
+    @State private var pass = false
     @State private var isImageReady = false
     @State private var speed = 0.5
     @State private var x: CGFloat = 0
@@ -41,39 +43,49 @@ struct Card: View {
                         })
                         .onReceive(mainVM.userDecided, perform: { decision in
                             self.inAnimation = true
-                            self.speed = 0.5
+                            self.speed = 0.25
                             switch decision {
                             case .picked:
-                                self.decideHeightDirection(y: -100)
-                                self.x = 500
-                                DispatchQueue.global().async {
-                                    self.mainVM.localDB.saveDogURL(self.mainVM.dogsList[self.mainVM.count - 1].images)
+                                self.save = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    self.decideHeightDirection(y: -100)
+                                    self.x = 500
+                                    self.save = false
+                                    DispatchQueue.global().async {
+                                        self.mainVM.localDB.saveDogURL(self.mainVM.dogsList[self.mainVM.count - 1].images)
+                                    }
                                 }
                             case .rejected:
-                                self.decideHeightDirection(y: -100)
-                                self.x = -500
+                                self.pass = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    self.decideHeightDirection(y: -100)
+                                    self.x = -500
+                                    self.pass = false
+                                }
                             case .notDecided:
                                 self.decideHeightDirection(y: 0)
                             }
-                            self.degree = -15
-                            self.switchingImage = true
-                            withAnimation(.easeIn(duration : 0.6)) {
-                                self.scaleAnimation = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                self.degree = -15
+                                self.switchingImage = true
+                                withAnimation(.easeIn(duration : 0.6)) {
+                                    self.scaleAnimation = true
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                    self.mainVM.imageIndex = 0
+                                }
+                                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
+                                    self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
+                                }
+                                self.mainVM.pushNewImage()
+                                self.moveToNextCard()
                             }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                                self.mainVM.imageIndex = 0
-                            }
-                            if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
-                                self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
-                            }
-                            self.mainVM.pushNewImage()
-                            self.moveToNextCard()
                         })
                         .onAppear() {
                             self.populateImage()
                         }
                 }
-
+                
                 
                 HStack {
                     Spacer()
@@ -89,28 +101,28 @@ struct Card: View {
                 
                 
                 HStack {
-                   Text("  SAVE  ")
+                    Text("  SAVE  ")
                         .frame(width:100)
-                               .border(Color("green"), width: 4)
+                        .border(Color("green"), width: 4)
                         .font(.system(size: 32, weight: .semibold))
-                            .foregroundColor(Color("green"))
-                      .rotationEffect(.degrees(-45))
-                           
+                        .foregroundColor(Color("green"))
+                        .rotationEffect(.degrees(-45))
+                        
                         // MARK: - BUG 2
-                        .opacity(Double(self.x/30 - 1))
+                        .opacity(Double(self.save ? 1 : self.x/30 - 1))
                         .padding(15)
                     Spacer()
                     Text("  PASS  ")
-
+                        
                         .frame(width:100)
-                          .border(Color("red"), width: 4)
+                        .border(Color("red"), width: 4)
                         .foregroundColor(Color("red"))
-                          .rotationEffect(.degrees(45))
-                         .font(.system(size: 32, weight: .semibold))
+                        .rotationEffect(.degrees(45))
+                        .font(.system(size: 32, weight: .semibold))
                         // MARK: - BUG 3
-                        .opacity(Double(self.x/30 * -1 - 1))
-                      
-                      .padding(15)
+                        .opacity(Double(self.pass ? 1 : self.x/30 * -1 - 1))
+                        
+                        .padding(15)
                 }.padding(.bottom, UIScreen.main.bounds.height / 1.8)
                 
                 
@@ -523,12 +535,7 @@ struct Card: View {
     }
     
     private func populateImage()  {
-        
-//        if self.isImageReady == false {
-//            image = UIImage()
-//            return
-//        }
-        
+
         if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
             image = UIImage(data: self.mainVM.frontImages[mainVM.imageIndex]) ?? UIImage()
             self.isImageReady = true
