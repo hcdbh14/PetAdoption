@@ -86,10 +86,10 @@ struct Card: View {
                 
                 
                 HStack {
-                   Text("SAVE")
+                   Text("  SAVE  ")
                         .frame(width:100)
                                .border(Color.green, width: 4)
-                        .font(.system(size: 40, weight: .semibold))
+                        .font(.system(size: 32, weight: .semibold))
                             .foregroundColor(.green)
                       .rotationEffect(.degrees(-45))
                            
@@ -97,13 +97,13 @@ struct Card: View {
                         .opacity(Double(self.x/10 - 1))
                         .padding(15)
                     Spacer()
-                    Text("PASS")
+                    Text("  PASS  ")
 
                         .frame(width:100)
                           .border(Color.red, width: 4)
                         .foregroundColor(.red)
                           .rotationEffect(.degrees(45))
-                         .font(.system(size: 40, weight: .semibold))
+                         .font(.system(size: 32, weight: .semibold))
                         // MARK: - BUG 3
                         .opacity(Double(self.x/10 * -1 - 1))
                       
