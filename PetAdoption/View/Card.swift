@@ -70,6 +70,7 @@ struct Card: View {
                             self.populateImage()
                         }
                 }
+
                 
                 HStack {
                     Spacer()
@@ -83,6 +84,31 @@ struct Card: View {
                     Spacer()
                 }.padding(.bottom, UIScreen.main.bounds.height / 1.47)
                 
+                
+                HStack {
+                   Text("  SAVE  ")
+                        .frame(width:100)
+                               .border(Color("green"), width: 4)
+                        .font(.system(size: 32, weight: .semibold))
+                            .foregroundColor(Color("green"))
+                      .rotationEffect(.degrees(-45))
+                           
+                        // MARK: - BUG 2
+                        .opacity(Double(self.x/10 - 1))
+                        .padding(15)
+                    Spacer()
+                    Text("  PASS  ")
+
+                        .frame(width:100)
+                          .border(Color("red"), width: 4)
+                        .foregroundColor(Color("red"))
+                          .rotationEffect(.degrees(45))
+                         .font(.system(size: 32, weight: .semibold))
+                        // MARK: - BUG 3
+                        .opacity(Double(self.x/10 * -1 - 1))
+                      
+                      .padding(15)
+                }.padding(.bottom, UIScreen.main.bounds.height / 1.8)
                 
                 
                 VStack(alignment: .trailing, spacing: 3) {
