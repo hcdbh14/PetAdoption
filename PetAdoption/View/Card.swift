@@ -70,6 +70,7 @@ struct Card: View {
                             self.populateImage()
                         }
                 }
+
                 
                 HStack {
                     Spacer()
@@ -83,6 +84,28 @@ struct Card: View {
                     Spacer()
                 }.padding(.bottom, UIScreen.main.bounds.height / 1.47)
                 
+                
+                HStack {
+                    Image(systemName: "checkmark")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width:100)
+                        .font(.system(size: 40, weight: .semibold))
+                            .foregroundColor(.green)
+                        // MARK: - BUG 2
+                        .opacity(Double(self.x/10 - 1))
+                        .padding(15)
+                    Spacer()
+                    Image(systemName: "xmark")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width:100)
+                        .foregroundColor(.red)
+                         .font(.system(size: 40, weight: .semibold))
+                        // MARK: - BUG 3
+                        .opacity(Double(self.x/10 * -1 - 1))
+                      .padding(15)
+                }.padding(.bottom, UIScreen.main.bounds.height / 1.8)
                 
                 
                 VStack(alignment: .trailing, spacing: 3) {
