@@ -81,7 +81,8 @@ struct MainScreen: View {
                 .offset(x: self.showMenu ?UIScreen.main.bounds.width / 1.2 : 0)
                 
             }.background(Color.offWhite)
-                .animation(.spring())
+            .animation(.spring())
+            .navigationViewStyle(StackNavigationViewStyle())
             
             if showMenu {
                 SettingsView(showMenu: $showMenu, showPostPetScreen: $showPostPetScreen)
