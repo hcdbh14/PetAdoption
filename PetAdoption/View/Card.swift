@@ -86,7 +86,7 @@ struct Card: View {
                 
                 
                 HStack {
-                    Image(systemName: "checkmark")
+                    Image("yes")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width:100)
@@ -96,7 +96,7 @@ struct Card: View {
                         .opacity(Double(self.x/10 - 1))
                         .padding(15)
                     Spacer()
-                    Image(systemName: "xmark")
+                    Image("nope")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width:100)
