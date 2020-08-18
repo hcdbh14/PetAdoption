@@ -8,7 +8,7 @@ struct LottieView: UIViewRepresentable {
         let view = UIView(frame: .zero)
         
         let animationView = AnimationView()
-        let animation = Animation.named("dogWalk")
+        let animation = Animation.named("dogAndBall")
         animationView.animation = animation
         animationView.contentMode = .scaleAspectFit
         animationView.animationSpeed = 1
@@ -18,6 +18,7 @@ struct LottieView: UIViewRepresentable {
         animationView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(animationView)
         NSLayoutConstraint.activate([animationView.widthAnchor.constraint(equalTo: view.heightAnchor)])
+        NSLayoutConstraint.activate([animationView.heightAnchor.constraint(equalTo: view.widthAnchor)])
         
         return view
     }

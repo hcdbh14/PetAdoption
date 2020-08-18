@@ -57,7 +57,7 @@ struct MainScreen: View {
                             Card(scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM)
                         } else {
                             LottieView()
-                                .frame(width: 100, height: 100)
+                                .frame(width: 300, height: 300)
                         }
                     }.zIndex(2)
                         .background(Color.offWhite)

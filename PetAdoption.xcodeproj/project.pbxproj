@@ -20,9 +20,9 @@
 		ED44E24524A265F900B77D3D /* BarButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED44E24424A265F900B77D3D /* BarButtons.swift */; };
 		ED49A37B2476DBEF00A87257 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED49A37A2476DBEF00A87257 /* Card.swift */; };
 		ED4CB75424C5DDFF00BF20B2 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4CB75324C5DDFF00BF20B2 /* UIApplication.swift */; };
-		ED541A2024EBECA400A7A953 /* pawAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = ED541A1F24EBECA400A7A953 /* pawAnimation.json */; };
 		ED541A2324EBED7700A7A953 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED541A2224EBED7700A7A953 /* LottieView.swift */; };
 		ED541A2724EBF53C00A7A953 /* dogWalk.json in Resources */ = {isa = PBXBuildFile; fileRef = ED541A2624EBF53C00A7A953 /* dogWalk.json */; };
+		ED541A3D24EBFE8C00A7A953 /* dogAndBall.json in Resources */ = {isa = PBXBuildFile; fileRef = ED541A3C24EBFE8C00A7A953 /* dogAndBall.json */; };
 		ED584B0924DD98AB002D70B9 /* ExistingPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED584B0824DD98AB002D70B9 /* ExistingPost.swift */; };
 		ED5A628024770AF70081DF00 /* MainVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5A627F24770AF70081DF00 /* MainVM.swift */; };
 		ED5BAEA424CB62F100536E7B /* ErrorTranslater.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5BAEA324CB62F100536E7B /* ErrorTranslater.swift */; };
@@ -75,9 +75,9 @@
 		ED44E24424A265F900B77D3D /* BarButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtons.swift; sourceTree = "<group>"; };
 		ED49A37A2476DBEF00A87257 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		ED4CB75324C5DDFF00BF20B2 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
-		ED541A1F24EBECA400A7A953 /* pawAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = pawAnimation.json; sourceTree = "<group>"; };
 		ED541A2224EBED7700A7A953 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		ED541A2624EBF53C00A7A953 /* dogWalk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dogWalk.json; sourceTree = "<group>"; };
+		ED541A3C24EBFE8C00A7A953 /* dogAndBall.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dogAndBall.json; sourceTree = "<group>"; };
 		ED584B0824DD98AB002D70B9 /* ExistingPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingPost.swift; sourceTree = "<group>"; };
 		ED5A627F24770AF70081DF00 /* MainVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVM.swift; sourceTree = "<group>"; };
 		ED5BAEA324CB62F100536E7B /* ErrorTranslater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTranslater.swift; sourceTree = "<group>"; };
@@ -213,7 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				ED541A2624EBF53C00A7A953 /* dogWalk.json */,
-				ED541A1F24EBECA400A7A953 /* pawAnimation.json */,
+				ED541A3C24EBFE8C00A7A953 /* dogAndBall.json */,
 				EDF777DA24684EB400154110 /* Assets.xcassets */,
 			);
 			path = Assets;
@@ -352,10 +352,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED541A3D24EBFE8C00A7A953 /* dogAndBall.json in Resources */,
 				EDF777E124684EB400154110 /* LaunchScreen.storyboard in Resources */,
 				ED541A2724EBF53C00A7A953 /* dogWalk.json in Resources */,
 				EDF52F2224817CF200EF5070 /* GoogleService-Info.plist in Resources */,
-				ED541A2024EBECA400A7A953 /* pawAnimation.json in Resources */,
 				EDF777DE24684EB400154110 /* Preview Assets.xcassets in Resources */,
 				EDF777DB24684EB400154110 /* Assets.xcassets in Resources */,
 			);
