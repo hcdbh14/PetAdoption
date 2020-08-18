@@ -1,5 +1,6 @@
 import SwiftUI
 import FirebaseStorage
+import Lottie
 
 enum barItem {
     case first
@@ -48,12 +49,15 @@ struct MainScreen: View {
                     }.padding(.top, 50)
                     Spacer()
                     
-                    
+
                     ZStack {
                         if  mainVM.dogsList.isEmpty == false && mainVM.noMorePets == false {
                             BackCard(scaleTrigger: $scaleAnimation, mainVM: mainVM)
-                            
+
                             Card(scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM)
+                        } else {
+                            LottieView()
+                                .frame(width: 100, height: 100)
                         }
                     }.zIndex(2)
                         .background(Color.offWhite)
