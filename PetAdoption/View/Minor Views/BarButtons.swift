@@ -22,7 +22,7 @@ struct BarButtons : View {
             }) {
                 Image(systemName: "xmark").resizable()
                     .frame(width: 20, height: 20)
-                    .foregroundColor(.orange)
+                    .foregroundColor(.red)
             }
             .buttonStyle(CircleButtonStyle(isBig: true, buttonType: .reject, isEnabled: $isEnabled, mainVM: self._mainVM))
 
@@ -32,7 +32,7 @@ struct BarButtons : View {
             }) {
                 Image(systemName: "suit.heart.fill").resizable()
                     .frame(width: 20, height: 20)
-                    .foregroundColor(.pink)
+                    .foregroundColor(.orange)
             }
             .buttonStyle(CircleButtonStyle(isBig: true, buttonType: .pick, isEnabled: $isEnabled, mainVM: self._mainVM))
             Spacer(minLength: 12)
