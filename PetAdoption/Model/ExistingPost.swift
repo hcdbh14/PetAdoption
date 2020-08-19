@@ -6,7 +6,7 @@ import FirebaseFirestore
 class ExistingPost: ObservableObject {
     
     var imageCounter = 0
-    @Published var dog: Dog?
+    @Published var dog: Pet?
     var imageData: [Data] = []
     private var sub: AnyCancellable?
     private var imageLoader: ImageLoader?
@@ -20,7 +20,7 @@ class ExistingPost: ObservableObject {
             db.collection("Cards_Data").document(id).getDocument(completion: {  (snapshot, error) in
                 
                 guard let post = snapshot?.data() else { return }
-                if let dog = Dog(data: post) {
+                if let dog = Pet(data: post) {
                     self.dog = dog
                     self.dataArivved.send(true)
                     print(snapshot as Any)

@@ -51,7 +51,7 @@ struct MainScreen: View {
                     
 
                     ZStack {
-                        if  mainVM.dogsList.isEmpty == false && mainVM.noMorePets == false {
+                        if  mainVM.petsList.isEmpty == false && mainVM.noMorePets == false {
                             BackCard(scaleTrigger: $scaleAnimation, mainVM: mainVM)
 
                             Card(scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM)

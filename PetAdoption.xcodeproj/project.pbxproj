@@ -28,7 +28,7 @@
 		ED5BAEA424CB62F100536E7B /* ErrorTranslater.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5BAEA324CB62F100536E7B /* ErrorTranslater.swift */; };
 		ED781B1D24BF34380045F1DE /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED781B1C24BF34380045F1DE /* Settings.swift */; };
 		ED781B2024C025080045F1DE /* CheckboxField.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED781B1F24C025080045F1DE /* CheckboxField.swift */; };
-		ED825A382478185C00ACA8E6 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED825A372478185C00ACA8E6 /* Dog.swift */; };
+		ED825A382478185C00ACA8E6 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED825A372478185C00ACA8E6 /* Pet.swift */; };
 		ED84EC5424B09F8000E25B2F /* LocalDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED84EC5324B09F8000E25B2F /* LocalDB.swift */; };
 		ED84EC5624B0A79900E25B2F /* SavedDogsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED84EC5524B0A79900E25B2F /* SavedDogsVM.swift */; };
 		ED84EC5824B0B26A00E25B2F /* SavedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED84EC5724B0B26A00E25B2F /* SavedCard.swift */; };
@@ -83,7 +83,7 @@
 		ED5BAEA324CB62F100536E7B /* ErrorTranslater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorTranslater.swift; sourceTree = "<group>"; };
 		ED781B1C24BF34380045F1DE /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		ED781B1F24C025080045F1DE /* CheckboxField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxField.swift; sourceTree = "<group>"; };
-		ED825A372478185C00ACA8E6 /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
+		ED825A372478185C00ACA8E6 /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
 		ED84EC5324B09F8000E25B2F /* LocalDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDB.swift; sourceTree = "<group>"; };
 		ED84EC5524B0A79900E25B2F /* SavedDogsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDogsVM.swift; sourceTree = "<group>"; };
 		ED84EC5724B0B26A00E25B2F /* SavedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCard.swift; sourceTree = "<group>"; };
@@ -189,7 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				EDDB49E0247708250068026C /* ImageLoader.swift */,
-				ED825A372478185C00ACA8E6 /* Dog.swift */,
+				ED825A372478185C00ACA8E6 /* Pet.swift */,
 				ED84EC5324B09F8000E25B2F /* LocalDB.swift */,
 				ED781B1C24BF34380045F1DE /* Settings.swift */,
 				ED0708F424C20CBB005AD1BB /* SessionStore.swift */,
@@ -432,7 +432,7 @@
 				EDFF76C724C3679600BD256B /* PostNewDog.swift in Sources */,
 				ED8B167224994BB300AF7B33 /* Color.swift in Sources */,
 				ED84EC5424B09F8000E25B2F /* LocalDB.swift in Sources */,
-				ED825A382478185C00ACA8E6 /* Dog.swift in Sources */,
+				ED825A382478185C00ACA8E6 /* Pet.swift in Sources */,
 				ED84EC5624B0A79900E25B2F /* SavedDogsVM.swift in Sources */,
 				ED584B0924DD98AB002D70B9 /* ExistingPost.swift in Sources */,
 				ED8B167624994C7100AF7B33 /* CircleButtonStyle.swift in Sources */,

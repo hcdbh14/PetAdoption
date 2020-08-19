@@ -1,6 +1,6 @@
 import Foundation
 
-struct Dog {
+struct Pet {
     
     let name: String
     let type: String

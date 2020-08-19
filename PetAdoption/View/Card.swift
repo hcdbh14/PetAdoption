@@ -52,7 +52,7 @@ struct Card: View {
                                     self.x = 500
                                     self.save = false
                                     DispatchQueue.global().async {
-                                        self.mainVM.localDB.saveDogURL(self.mainVM.dogsList[self.mainVM.count - 1].images)
+                                        self.mainVM.localDB.saveDogURL(self.mainVM.petsList[self.mainVM.count - 1].images)
                                     }
                                 }
                             case .rejected:
@@ -89,12 +89,12 @@ struct Card: View {
                 
                 HStack {
                     Spacer()
-                    ForEach (0...self.mainVM.dogsList[self.mainVM.count - 1].images.count - 1,id: \.self) { i in
+                    ForEach (0...self.mainVM.petsList[self.mainVM.count - 1].images.count - 1,id: \.self) { i in
                         Rectangle()
                             .fill(Color.clear)
                             .background((self.mainVM.imageIndex == i ? Color.orange : Color.gray).cornerRadius(20))
-                            .frame(width: (UIScreen.main.bounds.width / CGFloat(self.mainVM.dogsList[self.mainVM.count - 1].images.count)) - 30, height: 10)
-                            .opacity(self.mainVM.dogsList[self.mainVM.count - 1].images.count == 1 ? 0 : 0.7)
+                            .frame(width: (UIScreen.main.bounds.width / CGFloat(self.mainVM.petsList[self.mainVM.count - 1].images.count)) - 30, height: 10)
+                            .opacity(self.mainVM.petsList[self.mainVM.count - 1].images.count == 1 ? 0 : 0.7)
                     }
                     Spacer()
                 }.padding(.bottom, UIScreen.main.bounds.height / 1.47)
@@ -136,27 +136,27 @@ struct Card: View {
                         
                         Spacer()
                         
-                        Text((mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " "
+                        Text((mainVM.petsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " "
                                 + returnAge())
                             .font(.system(size: 24))
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
                         
                         
-                        Text(mainVM.dogsList[mainVM.count - 1].name + "," )
+                        Text(mainVM.petsList[mainVM.count - 1].name + "," )
                             .font(.system(size: 28))
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
                             .padding(.trailing, 10)
                     }
                     
-                    Text(mainVM.dogsList[mainVM.count - 1].goodWords)
+                    Text(mainVM.petsList[mainVM.count - 1].goodWords)
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
                         .padding(.trailing, 10)
                     
                     
-                    Text(mainVM.dogsList[mainVM.count - 1].city)
+                    Text(mainVM.petsList[mainVM.count - 1].city)
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
                         .padding(.trailing, 10)
@@ -212,14 +212,14 @@ struct Card: View {
                             Spacer()
                             
                             VStack {
-                                Text(mainVM.dogsList[mainVM.count - 1].name)
+                                Text(mainVM.petsList[mainVM.count - 1].name)
                                     .font(.system(size: 28))
                                     .foregroundColor(.black)
                                     .fontWeight(.heavy)
                                     .padding(.bottom, 10)
                                     .padding(.trailing, -10)
                                 
-                                Text(mainVM.dogsList[mainVM.count - 1].goodWords)
+                                Text(mainVM.petsList[mainVM.count - 1].goodWords)
                                     .font(.system(size: 18))
                                     .foregroundColor(.gray)
                                     .fontWeight(.medium)
@@ -230,7 +230,7 @@ struct Card: View {
                         
                         VStack(alignment: .trailing, spacing: 10) {
                             HStack {
-                                Text(mainVM.dogsList[mainVM.count - 1].race)
+                                Text(mainVM.petsList[mainVM.count - 1].race)
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
                                 
@@ -240,7 +240,7 @@ struct Card: View {
                             }
                             
                             HStack {
-                                Text((mainVM.dogsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " " + self.returnAge() + " ")
+                                Text((mainVM.petsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " " + self.returnAge() + " ")
                                     
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
@@ -251,7 +251,7 @@ struct Card: View {
                             
                             HStack {
                                 
-                                Text( "אזור: " + mainVM.dogsList[mainVM.count - 1].city)
+                                Text( "אזור: " + mainVM.petsList[mainVM.count - 1].city)
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
                                 
@@ -263,7 +263,7 @@ struct Card: View {
                             }
                             
                             HStack {
-                                Text("טלפון: " + mainVM.dogsList[mainVM.count - 1].number)
+                                Text("טלפון: " + mainVM.petsList[mainVM.count - 1].number)
                                     
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
@@ -275,7 +275,7 @@ struct Card: View {
                             
                         }
                         
-                        if mainVM.dogsList[mainVM.count - 1].desc != "" {
+                        if mainVM.petsList[mainVM.count - 1].desc != "" {
                             HStack {
                                 Text("קצת עלי:")
                                     .font(.system(size: 20, weight: .semibold))
@@ -285,7 +285,7 @@ struct Card: View {
                                     .padding(.top, 20)
                                 
                             }
-                            Text(mainVM.dogsList[mainVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
+                            Text(mainVM.petsList[mainVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .foregroundColor(.black)
                                 .environment(\.layoutDirection, .rightToLeft)
@@ -293,7 +293,7 @@ struct Card: View {
                                 .padding(.trailing, 20)
                         }
                         
-                        if mainVM.dogsList[mainVM.count - 1].suitables != "" {
+                        if mainVM.petsList[mainVM.count - 1].suitables != "" {
                             HStack {
                                 Text("מתאים ל:")
                                     .font(.system(size: 20, weight: .semibold))
@@ -305,7 +305,7 @@ struct Card: View {
                             }
                             
                             HStack() {
-                                Text(mainVM.dogsList[mainVM.count - 1].suitables)
+                                Text(mainVM.petsList[mainVM.count - 1].suitables)
                                     .foregroundColor(.black)
                                     .padding(.trailing, 20)
                                     .frame(width: UIScreen.main.bounds.width - 100, height: 50, alignment: .trailing)
@@ -317,7 +317,7 @@ struct Card: View {
                             
                             
                             ZStack {
-                                if mainVM.dogsList[mainVM.count - 1].vaccinated == "1"  {
+                                if mainVM.petsList[mainVM.count - 1].vaccinated == "1"  {
                                     Image(systemName: "checkmark" )
                                         .resizable()
                                         .foregroundColor(Color.black)
@@ -332,7 +332,7 @@ struct Card: View {
                             .padding(.trailing, 10)
                             
                             
-                            Text("אני " + (mainVM.dogsList[mainVM.count - 1].gender == "1" ? "מחוסנת" : "מחוסן"))
+                            Text("אני " + (mainVM.petsList[mainVM.count - 1].gender == "1" ? "מחוסנת" : "מחוסן"))
                                 .font(.system(size: 20, weight: .semibold))
                                 .foregroundColor(.black)
                                 .padding(.trailing, 20)
@@ -344,7 +344,7 @@ struct Card: View {
                             
                             
                             ZStack {
-                                if mainVM.dogsList[mainVM.count - 1].poopTrained == "1"  {
+                                if mainVM.petsList[mainVM.count - 1].poopTrained == "1"  {
                                     Image(systemName: "checkmark" )
                                         .resizable()
                                         .foregroundColor(Color.black)
@@ -359,7 +359,7 @@ struct Card: View {
                             .padding(.trailing, 10)
                             
                             
-                            Text("אני " + (mainVM.dogsList[mainVM.count - 1].gender == "1" ? "מחונכת" : "מחונך") + " לצרכים")
+                            Text("אני " + (mainVM.petsList[mainVM.count - 1].gender == "1" ? "מחונכת" : "מחונך") + " לצרכים")
                                 .font(.system(size: 20, weight: .semibold))
                                 .foregroundColor(.black)
                                 .padding(.trailing, 20)
@@ -411,7 +411,7 @@ struct Card: View {
     private func moveToImage(direction: CGFloat) {
         if direction > 180 {
             
-            if self.mainVM.imageIndex == self.self.mainVM.dogsList[self.mainVM.count - 1].images.count - 1 || self.switchingImage {
+            if self.mainVM.imageIndex == self.self.mainVM.petsList[self.mainVM.count - 1].images.count - 1 || self.switchingImage {
                 return
             } else {
                 if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex + 1) {
@@ -461,7 +461,7 @@ struct Card: View {
                     self.scaleAnimation = true
                 }
                 DispatchQueue.global().async {
-                    self.mainVM.localDB.saveDogURL(self.mainVM.dogsList[self.mainVM.count - 1].images)
+                    self.mainVM.localDB.saveDogURL(self.mainVM.petsList[self.mainVM.count - 1].images)
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                     self.mainVM.imageIndex = 0
@@ -522,15 +522,15 @@ struct Card: View {
     }
     
     private func returnAge() -> String {
-        let ageNum = Double(mainVM.dogsList[mainVM.count - 1].age) ?? 0
+        let ageNum = Double(mainVM.petsList[mainVM.count - 1].age) ?? 0
         
         if ageNum < 1 {
-            if let range = mainVM.dogsList[mainVM.count - 1].age.range(of: ".") {
-                return String(mainVM.dogsList[mainVM.count - 1].age[range.upperBound...]) + " חודשים"
+            if let range = mainVM.petsList[mainVM.count - 1].age.range(of: ".") {
+                return String(mainVM.petsList[mainVM.count - 1].age[range.upperBound...]) + " חודשים"
             }
             return ""
         } else {
-            return mainVM.dogsList[mainVM.count - 1].age + " שנים"
+            return mainVM.petsList[mainVM.count - 1].age + " שנים"
         }
     }
     

@@ -13,7 +13,7 @@ class MainVM: ObservableObject {
     
     var firstLaunch = false
     @Published var count = 1
-    var dogsList: [Dog] = []
+    var petsList: [Pet] = []
     @Published  var imageIndex = 0
     private var sub: AnyCancellable?
     @Published var noMorePets = false
@@ -34,14 +34,14 @@ class MainVM: ObservableObject {
     }
     
     init() {
-        getDogsFromDB()
+        getPetsFromDB()
         print("initalized")
     }
     
     
     func pushNewImage() {
         withAnimation(.none) {
-            if dogsList.hasValueAt(index: count) {
+            if petsList.hasValueAt(index: count) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     self.count += 1
                     if self.frontImages.hasValueAt(index: 0) && self.backImages.hasValueAt(index: 0) {
@@ -69,15 +69,15 @@ class MainVM: ObservableObject {
     }
     
     
-    func getDogsFromDB() {
+    func getPetsFromDB() {
         
         db.collection("Cards_Data").getDocuments( completion: { (snapshot, error) in
             
             if error == nil {
                 for document in snapshot!.documents {
                     
-                    if let dog = Dog(data: document.data()) {
-                        self.dogsList.append(dog)
+                    if let pet = Pet(data: document.data()) {
+                        self.petsList.append(pet)
                         
                     }
                 }
@@ -89,10 +89,10 @@ class MainVM: ObservableObject {
     
     func loadImages() {
         
-        let allImages = dogsList[count - 1].images.count
+        let allImages = petsList[count - 1].images.count
         if frontImages.isEmpty  || frontImages.count != allImages {
             
-            imageLoader = ImageLoader(urlString: dogsList[count - 1].images)
+            imageLoader = ImageLoader(urlString: petsList[count - 1].images)
             sub = imageLoader?.didChange.sink(receiveValue: { value in
                 
                     self.frontImages = value
@@ -100,8 +100,8 @@ class MainVM: ObservableObject {
             })
         }
         
-        if dogsList.hasValueAt(index: count) {
-            backImageLoader = ImageLoader(urlString: dogsList[count].images)
+        if petsList.hasValueAt(index: count) {
+            backImageLoader = ImageLoader(urlString: petsList[count].images)
             backSub = backImageLoader?.didChange.sink(receiveValue: { value in
                 if self.frontImages.isEmpty == false {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
