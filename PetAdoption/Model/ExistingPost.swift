@@ -6,17 +6,17 @@ import FirebaseFirestore
 class ExistingPost: ObservableObject {
     
     var imageCounter = 0
+    var didDownload = false
     @Published var dog: Pet?
     var imageData: [Data] = []
     private var sub: AnyCancellable?
     private var imageLoader: ImageLoader?
     private let db = Firestore.firestore()
-    private var finishedDownloading = false
     @Published var loadImage = PassthroughSubject<Int, Never>()
     @Published var dataArivved = PassthroughSubject<Bool, Never>()
     
     func downloadPost(id: String) {
-        if finishedDownloading == false {
+        if didDownload == false {
             db.collection("Cards_Data").document(id).getDocument(completion: {  (snapshot, error) in
                 
                 guard let post = snapshot?.data() else { return }
@@ -24,7 +24,7 @@ class ExistingPost: ObservableObject {
                     self.dog = dog
                     self.dataArivved.send(true)
                     print(snapshot as Any)
-                    self.finishedDownloading = true
+                    self.didDownload = true
                     self.imageLoader = ImageLoader(urlString: dog.images)
                     self.sub = self.imageLoader?.didChange.sink(receiveValue: { value in
                         

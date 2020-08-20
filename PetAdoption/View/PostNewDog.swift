@@ -897,6 +897,8 @@ struct PostNewDog: View {
     
     private func signOut() {
         session.signOut()
+        session.existingPost.imageCounter = 0
+        session.existingPost.didDownload = false
         showPostPet = false
     }
     
