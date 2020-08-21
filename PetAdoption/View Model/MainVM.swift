@@ -83,6 +83,9 @@ class MainVM: ObservableObject {
                         
                     }
                 }
+                
+                self.localFilter()
+                
                 self.loadImages()
             }
         })
@@ -117,11 +120,10 @@ class MainVM: ObservableObject {
         }
     }
     
+    
     private func dbQuery() -> Query {
         
         var petsRef: Query = db.collection("Cards_Data")
-        var minAge = 0
-        var maxAge: Int
         
         if settings.searchBy == 0 {
             petsRef = petsRef.whereField("type", isEqualTo: "0")
@@ -130,6 +132,33 @@ class MainVM: ObservableObject {
         }
         
         return petsRef
+    }
+    
+    
+    private func localFilter() {
+        
+        if let ages = self.settings.ages {
+            if (ages.contains(3) && ages.contains(4) && ages.contains(5)) == false  {
+                
+                if ages.contains(3) && ages.contains(5) {
+                    self.petsList = self.petsList.filter { $0.age <= 1 || $0.age >= 8 }
+                } else if ages.contains(3) && ages.contains(4) {
+                    self.petsList = self.petsList.filter { $0.age < 8 }
+                } else if ages.contains(3) {
+                    self.petsList = self.petsList.filter { $0.age <= 1 }
+                }
+                
+                else if ages.contains(4) && ages.contains(5) {
+                    self.petsList = self.petsList.filter { $0.age > 1 }
+                } else if ages.contains(4) {
+                    self.petsList = self.petsList.filter { $0.age > 1 && $0.age < 8 }
+                } else if ages.contains(5) {
+                    self.petsList = self.petsList.filter { $0.age >= 8 }
+                } else {
+                    return
+                }
+            }
+        }
     }
 }
 

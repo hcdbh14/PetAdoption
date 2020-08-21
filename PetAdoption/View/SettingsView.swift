@@ -1,6 +1,6 @@
 import SwiftUI
 
- var line: some View {
+var line: some View {
     VStack {
         Divider().background(Color.orange)
     }
@@ -14,7 +14,7 @@ struct SettingsView: View {
     @Binding private var showPostPetScreen: Bool
     @ObservedObject private var settings = Settings()
     @EnvironmentObject private var session: SessionStore
-
+    
     init(showMenu: Binding<Bool>, showPostPetScreen: Binding<Bool>) {
         self._showMenu = showMenu
         self._showPostPetScreen = showPostPetScreen
@@ -118,7 +118,7 @@ struct SettingsView: View {
                     CheckboxField(id: 4, label: "צעיר", size: 20, color: .white, textSize: 20, callback: saveAgeChoice, array: $ages)
                     CheckboxField(id: 5, label: "מבוגר", size: 20, color: .white, textSize: 20, callback: saveAgeChoice, array: $ages)
                 }.padding(.leading, 15)
-                    .padding(.bottom, 50)
+                .padding(.bottom, 50)
                 
                 line.frame(width: UIScreen.main.bounds.width  / 1.2, height: 1)
                 
@@ -146,11 +146,13 @@ struct SettingsView: View {
         }.animation(Animation.spring())
         .background(Color("offWhite"))
         .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
-            .onAppear() {
-                guard let savedAges = self.settings.ages else { return }
-                guard let savedRegions = self.settings.areas else { return }
+        .onAppear() {
+            if let savedAges = self.settings.ages {
                 self.ages = savedAges
+            }
+            if let savedRegions = self.settings.areas {
                 self.areas = savedRegions
+            }
         }
     }
     
@@ -166,7 +168,7 @@ struct SettingsView: View {
         
         settings.updateArea(areas)
     }
-
+    
     
     
     private func saveAgeChoice(id: Int) {
