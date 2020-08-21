@@ -1,9 +1,9 @@
 import Foundation
 
 enum SearchBy: Int {
-    case dog = 0
-    case cat = 1
-    case all = 2
+    case all = 0
+    case dog = 1
+    case cat = 2
 }
 
 enum AreaInIsrael: Int {

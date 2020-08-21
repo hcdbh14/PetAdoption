@@ -125,9 +125,9 @@ class MainVM: ObservableObject {
         
         var petsRef: Query = db.collection("Cards_Data")
         
-        if settings.searchBy == 0 {
+        if settings.searchBy == SearchBy.dog.rawValue {
             petsRef = petsRef.whereField("type", isEqualTo: "0")
-        } else if settings.searchBy == 1 {
+        } else if settings.searchBy == SearchBy.cat.rawValue {
             petsRef = petsRef.whereField("type", isEqualTo: "1")
         }
         
