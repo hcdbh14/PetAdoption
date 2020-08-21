@@ -31,7 +31,7 @@ class MainVM: ObservableObject {
     @Published var reloadFrontImage = PassthroughSubject<Bool, Never>()
     @Published var decision: Decision = Decision.notDecided { didSet {
         userDecided.send(decision)
-        }
+    }
     }
     
     init() {
@@ -71,7 +71,7 @@ class MainVM: ObservableObject {
     
     
     func getPetsFromDB() {
-
+        
         
         dbQuery().getDocuments( completion: { (snapshot, error) in
             
@@ -97,8 +97,8 @@ class MainVM: ObservableObject {
             imageLoader = ImageLoader(urlString: petsList[count - 1].images)
             sub = imageLoader?.didChange.sink(receiveValue: { value in
                 
-                    self.frontImages = value
-                    self.reloadFrontImage.send(true)
+                self.frontImages = value
+                self.reloadFrontImage.send(true)
             })
         }
         
@@ -119,15 +119,16 @@ class MainVM: ObservableObject {
     
     private func dbQuery() -> Query {
         
-        var petsRef: Query
+        var petsRef: Query = db.collection("Cards_Data")
+        var minAge = 0
+        var maxAge: Int
         
         if settings.searchBy == 0 {
-             petsRef = db.collection("Cards_Data").whereField("type", isEqualTo: "0")
+            petsRef = petsRef.whereField("type", isEqualTo: "0")
         } else if settings.searchBy == 1 {
-             petsRef = db.collection("Cards_Data").whereField("type", isEqualTo: "1")
-        } else {
-             petsRef = db.collection("Cards_Data")
+            petsRef = petsRef.whereField("type", isEqualTo: "1")
         }
+        
         return petsRef
     }
 }
