@@ -25,6 +25,7 @@ class MainVM: ObservableObject {
     @Published var frontImages: [Data] = []
     @Published var frontImage: [String] = []
     private var backImageLoader: ImageLoader?
+    @ObservedObject private var settings = Settings()
     @Published var reloadBackImage = PassthroughSubject<Bool, Never>()
     @Published var userDecided = PassthroughSubject<Decision, Never>()
     @Published var reloadFrontImage = PassthroughSubject<Bool, Never>()
@@ -70,8 +71,16 @@ class MainVM: ObservableObject {
     
     
     func getPetsFromDB() {
+        var petsRef: Query
+        if settings.searchBy == 0 {
+             petsRef = db.collection("Cards_Data").whereField("type", isEqualTo: "0")
+        } else if settings.searchBy == 1 {
+             petsRef = db.collection("Cards_Data").whereField("type", isEqualTo: "1")
+        } else {
+             petsRef = db.collection("Cards_Data")
+        }
         
-        db.collection("Cards_Data").getDocuments( completion: { (snapshot, error) in
+        petsRef.getDocuments( completion: { (snapshot, error) in
             
             if error == nil {
                 for document in snapshot!.documents {
