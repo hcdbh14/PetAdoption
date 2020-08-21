@@ -691,7 +691,7 @@ struct PostNewDog: View {
             let petDetails = self.session.existingPost.dog
             self.petName = petDetails?.name ?? ""
             self.petRace = petDetails?.race ?? ""
-            self.petAge = petDetails?.age ?? ""
+            self.petAge = String(petDetails?.age ?? 0)
             self.descFromDB = petDetails?.desc ?? ""
             self.description = petDetails?.desc ?? ""
             self.phoneNumber = petDetails?.number ?? ""

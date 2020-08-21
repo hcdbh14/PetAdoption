@@ -113,7 +113,7 @@ class SessionStore: ObservableObject {
     func postNewPet(petType: String, petName: String, petRace: String, petAge: String, petSize: String, suitables: String,petGender: String, description: String, phoneNumber: String, city: String, goodWords: String, vaccinated: String, poopTrained: String, images: [String]) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        db.collection("Cards_Data").document(uid).setData(["type": petType, "name": petName, "race": petRace, "age": petAge, "size": petSize, "suitables": suitables,"gender": petGender, "desc": description,"number": phoneNumber, "city": city,"goodWords": goodWords, "vaccinated": vaccinated, "poopTrained": poopTrained, "images": images], completion: { (error) in
+        db.collection("Cards_Data").document(uid).setData(["type": petType, "name": petName, "race": petRace, "age": Float(petAge) ?? 0, "size": petSize, "suitables": suitables,"gender": petGender, "desc": description,"number": phoneNumber, "city": city,"goodWords": goodWords, "vaccinated": vaccinated, "poopTrained": poopTrained, "images": images], completion: { (error) in
             if error != nil {
                 self.informText = "קרתה שגיאה, אנא נסו שוב"
             } else {

@@ -522,15 +522,17 @@ struct Card: View {
     }
     
     private func returnAge() -> String {
-        let ageNum = Double(mainVM.petsList[mainVM.count - 1].age) ?? 0
-        
-        if ageNum < 1 {
-            if let range = mainVM.petsList[mainVM.count - 1].age.range(of: ".") {
-                return String(mainVM.petsList[mainVM.count - 1].age[range.upperBound...]) + " חודשים"
+        let ageFloat = mainVM.petsList[mainVM.count - 1].age
+        let ageString = String(mainVM.petsList[mainVM.count - 1].age)
+        if ageFloat < 1 {
+            
+            if let range = ageString.range(of: ".") {
+                return ageString[range.upperBound...] + " חודשים"
             }
             return ""
         } else {
-            return mainVM.petsList[mainVM.count - 1].age + " שנים"
+            let ageInt = Int(ageFloat)
+            return String(ageInt) + " שנים"
         }
     }
     
