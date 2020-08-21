@@ -9,8 +9,8 @@ import SwiftUI
 struct SettingsView: View {
     
     @Binding private var showMenu: Bool
-    @State private var ages: [Int] = []
-    @State private var regions: [Int] = []
+    @State private var ages: [Int] = [3, 4, 5]
+    @State private var areas: [Int] = [0, 1, 2]
     @Binding private var showPostPetScreen: Bool
     @ObservedObject private var settings = Settings()
     @EnvironmentObject private var session: SessionStore
@@ -100,9 +100,9 @@ struct SettingsView: View {
                 }
                 
                 HStack {
-                    CheckboxField(id: 0, label: "צפון", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $regions)
-                    CheckboxField(id: 1, label: "מרכז", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $regions)
-                    CheckboxField(id: 2, label: "דרום", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $regions)
+                    CheckboxField(id: 0, label: "צפון", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $areas)
+                    CheckboxField(id: 1, label: "מרכז", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $areas)
+                    CheckboxField(id: 2, label: "דרום", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $areas)
                 }.padding(.leading, 15)
                 
                 VStack(alignment: .leading) {
@@ -147,22 +147,24 @@ struct SettingsView: View {
         .background(Color("offWhite"))
         .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
             .onAppear() {
-                self.ages = self.settings.ages ?? [3, 4 ,5]
-                self.regions = self.settings.areas ?? [0, 1 ,2]
+                guard let savedAges = self.settings.ages else { return }
+                guard let savedRegions = self.settings.areas else { return }
+                self.ages = savedAges
+                self.areas = savedRegions
         }
     }
     
     private func saveAreaChoice(id: Int) {
         
-        if regions.contains(id) == false {
-            regions.append(id)
+        if areas.contains(id) == false {
+            areas.append(id)
         } else {
-            if let itemToRemove = regions.firstIndex(of: id) {
-                regions.remove(at: itemToRemove)
+            if let itemToRemove = areas.firstIndex(of: id) {
+                areas.remove(at: itemToRemove)
             }
         }
         
-        settings.updateArea(id)
+        settings.updateArea(areas)
     }
 
     
@@ -176,7 +178,7 @@ struct SettingsView: View {
                 ages.remove(at: itemToRemove)
             }
         }
-        settings.updateAge(id)
+        settings.updateAge(ages)
     }
 }
 

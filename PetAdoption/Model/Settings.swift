@@ -24,31 +24,15 @@ class Settings: ObservableObject {
     }
     
     
-    func updateArea(_ choice: Int) {
-        var tempArray: [Int] = areas ?? []
-        
-        if tempArray.contains(choice) {
-            if let index = tempArray.firstIndex(of: choice) {
-                tempArray.remove(at: index)
-            }
-        } else {
-            tempArray.append(choice)
-        }
-        UserDefaults.standard.set(tempArray, forKey: "areas")
-        areas = tempArray
+    func updateArea(_ choice: [Int]) {
+
+        UserDefaults.standard.set(choice, forKey: "areas")
+        areas = choice
     }
     
-    func updateAge(_ choice: Int) {
-        var tempArray: [Int] = ages ?? []
-        
-        if tempArray.contains(choice) {
-            if let index = tempArray.firstIndex(of: choice) {
-                tempArray.remove(at: index)
-            }
-        } else {
-            tempArray.append(choice)
-        }
-        UserDefaults.standard.set(tempArray, forKey: "ages")
-        ages = tempArray
+    func updateAge(_ choice: [Int]) {
+
+        UserDefaults.standard.set(choice, forKey: "ages")
+        ages = choice
     }
 }
