@@ -15,8 +15,8 @@ enum AreaInIsrael: Int {
 class Settings: ObservableObject {
     
     @Published var searchBy = UserDefaults.standard.integer(forKey: "searchBy")
+    @Published var ages: [Int]? = UserDefaults.standard.array(forKey: "ages") as? [Int]
     @Published var areas: [Int]? = UserDefaults.standard.array(forKey: "areas") as? [Int]
-    
     
     func updateSettings(_ choice: Int) {
         UserDefaults.standard.set(choice, forKey: "searchBy")
@@ -36,5 +36,19 @@ class Settings: ObservableObject {
         }
         UserDefaults.standard.set(tempArray, forKey: "areas")
         areas = tempArray
+    }
+    
+    func updateAge(_ choice: Int) {
+        var tempArray: [Int] = ages ?? []
+        
+        if tempArray.contains(choice) {
+            if let index = tempArray.firstIndex(of: choice) {
+                tempArray.remove(at: index)
+            }
+        } else {
+            tempArray.append(choice)
+        }
+        UserDefaults.standard.set(tempArray, forKey: "ages")
+        ages = tempArray
     }
 }

@@ -147,7 +147,8 @@ struct SettingsView: View {
         .background(Color("offWhite"))
         .frame(maxWidth: UIScreen.main.bounds.width / 1.2, maxHeight: .infinity, alignment: .topLeading)
             .onAppear() {
-                self.regions = self.settings.areas ?? []
+                self.ages = self.settings.ages ?? [3, 4 ,5]
+                self.regions = self.settings.areas ?? [0, 1 ,2]
         }
     }
     
@@ -163,6 +164,21 @@ struct SettingsView: View {
         
         settings.updateArea(id)
     }
+    
+    
+    private func saveAgehoice(id: Int) {
+        
+        if ages.contains(id) == false {
+            ages.append(id)
+        } else {
+            if let itemToRemove = ages.firstIndex(of: id) {
+                ages.remove(at: itemToRemove)
+            }
+        }
+        
+        settings.updateAge(id)
+    }
+    
     
     private func saveAgeChoice(id: Int) {
         if ages.contains(id) == false {
