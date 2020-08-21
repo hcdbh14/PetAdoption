@@ -164,23 +164,11 @@ struct SettingsView: View {
         
         settings.updateArea(id)
     }
-    
-    
-    private func saveAgehoice(id: Int) {
-        
-        if ages.contains(id) == false {
-            ages.append(id)
-        } else {
-            if let itemToRemove = ages.firstIndex(of: id) {
-                ages.remove(at: itemToRemove)
-            }
-        }
-        
-        settings.updateAge(id)
-    }
+
     
     
     private func saveAgeChoice(id: Int) {
+        
         if ages.contains(id) == false {
             ages.append(id)
         } else {
@@ -188,6 +176,7 @@ struct SettingsView: View {
                 ages.remove(at: itemToRemove)
             }
         }
+        settings.updateAge(id)
     }
 }
 
