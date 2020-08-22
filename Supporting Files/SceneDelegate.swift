@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view that provides the window contents.
         let contentView = MainScreen()
         let mainVM = MainVM()
+        let settings = Settings()
         
         
         if let windowScene = scene as? UIWindowScene {
@@ -29,6 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // The HostingController is a custom class created by Kenny Kurochkin in order to change the font color of the IOS status bar code
             window.rootViewController = HostingController(rootView: AnyView(contentView
                                                                                 .environmentObject(SessionStore())
+                                                                                .environmentObject(settings)
                                                                                 .environmentObject(mainVM)))
             self.window = window
             window.makeKeyAndVisible()

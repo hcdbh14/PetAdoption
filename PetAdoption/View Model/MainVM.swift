@@ -25,7 +25,6 @@ class MainVM: ObservableObject {
     @Published var frontImages: [Data] = []
     @Published var frontImage: [String] = []
     private var backImageLoader: ImageLoader?
-    @ObservedObject private var settings = Settings()
     @Published var reloadBackImage = PassthroughSubject<Bool, Never>()
     @Published var userDecided = PassthroughSubject<Decision, Never>()
     @Published var reloadFrontImage = PassthroughSubject<Bool, Never>()
@@ -124,10 +123,11 @@ class MainVM: ObservableObject {
     private func dbQuery() -> Query {
         
         var petsRef: Query = db.collection("Cards_Data")
+        let searchBy = UserDefaults.standard.integer(forKey: "searchBy")
         
-        if settings.searchBy == SearchBy.dog.rawValue {
+        if searchBy == SearchBy.dog.rawValue {
             petsRef = petsRef.whereField("type", isEqualTo: "0")
-        } else if settings.searchBy == SearchBy.cat.rawValue {
+        } else if searchBy == SearchBy.cat.rawValue {
             petsRef = petsRef.whereField("type", isEqualTo: "1")
         }
         
@@ -136,8 +136,9 @@ class MainVM: ObservableObject {
     
     
     private func localFilter() {
+        let agesLocalDB: [Int]? = UserDefaults.standard.array(forKey: "ages") as? [Int]
         
-        if let ages = self.settings.ages {
+        if let ages = agesLocalDB {
             if (ages.contains(3) && ages.contains(4) && ages.contains(5)) == false  {
                 
                 if ages.contains(3) && ages.contains(5) {

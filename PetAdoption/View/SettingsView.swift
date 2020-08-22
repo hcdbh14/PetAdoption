@@ -12,7 +12,7 @@ struct SettingsView: View {
     @State private var ages: [Int] = [3, 4, 5]
     @State private var areas: [Int] = [0, 1, 2]
     @Binding private var showPostPetScreen: Bool
-    @ObservedObject private var settings = Settings()
+    @EnvironmentObject private var settings: Settings
     @EnvironmentObject private var session: SessionStore
     
     init(showMenu: Binding<Bool>, showPostPetScreen: Binding<Bool>) {
