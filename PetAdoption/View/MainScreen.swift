@@ -29,6 +29,7 @@ struct MainScreen: View {
                     HStack {
                         Button(action: {
                             self.showMenu.toggle()
+                            reloadPets()
                         }) {
                             Image("settings").resizable()
                                 .frame(width: 25, height: 25)
@@ -113,8 +114,15 @@ struct MainScreen: View {
                 if $0.translation.width > -100 {
                     withAnimation {
                         self.showMenu = false
+                        reloadPets()
                     }
                 }
                 })
+    }
+    
+    private func reloadPets() {
+        if settings.settingsChanged {
+            mainVM.noMorePets = true
+        }
     }
 }

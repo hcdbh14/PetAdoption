@@ -14,25 +14,36 @@ enum AreaInIsrael: Int {
 
 class Settings: ObservableObject {
     
+    var settingsChanged = false
     @Published var searchBy = UserDefaults.standard.integer(forKey: "searchBy")
     @Published var ages: [Int]? = UserDefaults.standard.array(forKey: "ages") as? [Int]
     @Published var areas: [Int]? = UserDefaults.standard.array(forKey: "areas") as? [Int]
     
     func updateSettings(_ choice: Int) {
-        UserDefaults.standard.set(choice, forKey: "searchBy")
-        searchBy = choice
+        
+        if searchBy != choice {
+            UserDefaults.standard.set(choice, forKey: "searchBy")
+            searchBy = choice
+            settingsChanged = true
+        }
     }
     
     
     func updateArea(_ choice: [Int]) {
-
-        UserDefaults.standard.set(choice, forKey: "areas")
-        areas = choice
+        
+        if areas != choice {
+            UserDefaults.standard.set(choice, forKey: "areas")
+            areas = choice
+            settingsChanged = true
+        }
     }
     
     func updateAge(_ choice: [Int]) {
-
-        UserDefaults.standard.set(choice, forKey: "ages")
-        ages = choice
+        
+        if ages != choice {
+            UserDefaults.standard.set(choice, forKey: "ages")
+            ages = choice
+            settingsChanged = true
+        }
     }
 }
