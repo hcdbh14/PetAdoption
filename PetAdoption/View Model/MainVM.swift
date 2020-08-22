@@ -11,6 +11,7 @@ enum Decision {
 
 class MainVM: ObservableObject {
     
+    @Published var reload = false
     var firstLaunch = false
     @Published var count = 1
     var petsList: [Pet] = []
@@ -71,6 +72,7 @@ class MainVM: ObservableObject {
     
     func getPetsFromDB() {
         
+        var tempArray: [Pet] = []
         
         dbQuery().getDocuments( completion: { (snapshot, error) in
             
@@ -78,9 +80,20 @@ class MainVM: ObservableObject {
                 for document in snapshot!.documents {
                     
                     if let pet = Pet(data: document.data()) {
-                        self.petsList.append(pet)
-                        
+                        if self.reload {
+                            tempArray.append(pet)
+                        } else {
+                            self.petsList.append(pet)
+                        }
                     }
+                }
+                
+                if self.reload {
+                    self.petsList = tempArray
+                    self.frontImage = []
+                    self.backImages = []
+                    self.noMorePets = false
+                    self.reload = false
                 }
                 
                 self.localFilter()
@@ -92,17 +105,19 @@ class MainVM: ObservableObject {
     
     
     func loadImages() {
-        
-        let allImages = petsList[count - 1].images.count
-        if frontImages.isEmpty  || frontImages.count != allImages {
-            
-            imageLoader = ImageLoader(urlString: petsList[count - 1].images)
-            sub = imageLoader?.didChange.sink(receiveValue: { value in
+        if petsList.hasValueAt(index: count - 1) {
+            let allImages = petsList[count - 1].images.count
+            if frontImages.isEmpty  || frontImages.count != allImages {
                 
-                self.frontImages = value
-                self.reloadFrontImage.send(true)
-            })
+                imageLoader = ImageLoader(urlString: petsList[count - 1].images)
+                sub = imageLoader?.didChange.sink(receiveValue: { value in
+                    
+                    self.frontImages = value
+                    self.reloadFrontImage.send(true)
+                })
+            }
         }
+        
         
         if petsList.hasValueAt(index: count) {
             backImageLoader = ImageLoader(urlString: petsList[count].images)

@@ -375,7 +375,7 @@ struct Card: View {
         .offset(x: self.x, y: self.y)
         .rotationEffect(.init(degrees: self.degree))
         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
-        .animation(decideAnimation())
+        .animation(mainVM.reload ? .none : decideAnimation())
         .transition(.move(edge: .bottom))
         .allowsHitTesting(isImageReady ? true : false)
         .gesture(showInfo ? nil : DragGesture(minimumDistance: 0, coordinateSpace: .global)

@@ -51,20 +51,20 @@ struct MainScreen: View {
                     }.padding(.top, 50)
                     Spacer()
                     
-
+                    
                     ZStack {
                         if  mainVM.petsList.isEmpty == false && mainVM.noMorePets == false {
                             BackCard(scaleTrigger: $scaleAnimation, mainVM: mainVM)
-
+                            
                             Card(scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM)
                         } else {
                             LottieView()
                                 .frame(width: 300, height: 300)
                         }
                     }.zIndex(2)
-                        .background(Color.offWhite)
-                        .disabled(showMenu ? true : false)
-                        .animation(.spring())
+                    .background(Color.offWhite)
+                    .disabled(showMenu ? true : false)
+                    .animation(.spring())
                     
                     Spacer()
                     ZStack(alignment: .top) {
@@ -74,9 +74,9 @@ struct MainScreen: View {
                             .background(ButtomBar())
                             .environment(\.layoutDirection, .leftToRight)
                     }.zIndex(1)
-                        .background(Color.offWhite)
-                        .disabled(showMenu ? true : false)
-                        .animation(.spring())
+                    .background(Color.offWhite)
+                    .disabled(showMenu ? true : false)
+                    .animation(.spring())
                 }
                 .navigationBarTitle("")
                 .navigationBarHidden(isBarHidden ? false : true)
@@ -110,19 +110,23 @@ struct MainScreen: View {
                 UIApplication.shared.endEditing()
             }
         }.environment(\.layoutDirection, .rightToLeft)
-            .gesture(showPostPetScreen ? nil : DragGesture().onEnded {
-                if $0.translation.width > -100 {
-                    withAnimation {
-                        self.showMenu = false
-                        reloadPets()
-                    }
+        .gesture(showPostPetScreen ? nil : DragGesture().onEnded {
+            if $0.translation.width > -100 {
+                withAnimation {
+                    self.showMenu = false
+                    reloadPets()
                 }
-                })
+            }
+        })
     }
     
     private func reloadPets() {
+        
         if settings.settingsChanged {
             mainVM.noMorePets = true
+            mainVM.reload = true
+            mainVM.getPetsFromDB()
+            settings.settingsChanged = false
         }
     }
 }
