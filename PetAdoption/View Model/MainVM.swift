@@ -87,11 +87,16 @@ class MainVM: ObservableObject {
                         }
                     }
                 }
-                
+
                 if self.reload {
-                    self.petsList = tempArray
+                    self.count = 1
+                    self.imageIndex = 0
                     self.frontImage = []
                     self.backImages = []
+                    self.frontImage = []
+                    self.petsList = tempArray
+                    self.reloadBackImage.send(false)
+                    self.reloadFrontImage.send(false)
                     self.noMorePets = false
                     self.reload = false
                 }
@@ -99,6 +104,9 @@ class MainVM: ObservableObject {
                 self.localFilter()
                 
                 self.loadImages()
+                
+                
+                
             }
         })
     }
