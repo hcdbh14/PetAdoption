@@ -11,6 +11,7 @@ enum barItem {
 
 struct MainScreen: View {
     
+    @State private var reload = false
     @State private var showMenu = false
     @State var showPostPetScreen = false
     @State private var staticIndex = 0
@@ -56,7 +57,7 @@ struct MainScreen: View {
                         if  mainVM.petsList.isEmpty == false && mainVM.noMorePets == false {
                             BackCard(scaleTrigger: $scaleAnimation, mainVM: mainVM)
                             
-                            Card(scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM)
+                            Card(scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM, reload: $reload)
                         } else {
                             LottieView()
                                 .frame(width: 300, height: 300)
@@ -123,6 +124,7 @@ struct MainScreen: View {
     private func reloadPets() {
         
         if settings.settingsChanged {
+            reload = true
             mainVM.noMorePets = true
             mainVM.reload = true
             mainVM.getPetsFromDB()

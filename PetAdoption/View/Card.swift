@@ -2,6 +2,7 @@ import SwiftUI
 
 struct Card: View {
     
+    @Binding var reload: Bool
     @State private var save = false
     @State private var pass = false
     @State private var isImageReady = false
@@ -17,7 +18,8 @@ struct Card: View {
     @State private var image: UIImage = UIImage()
     @ObservedObject private var mainVM: MainVM
     
-    init(scaleTrigger: Binding<Bool>, showMenu: Binding<Bool>, mainVM: MainVM) {
+    init(scaleTrigger: Binding<Bool>, showMenu: Binding<Bool>, mainVM: MainVM, reload: Binding<Bool>) {
+        self._reload = reload
         self.mainVM = mainVM
         self._scaleAnimation = scaleTrigger
         self._showMenu = showMenu
@@ -29,7 +31,7 @@ struct Card: View {
             if showInfo == false {
                 VStack {
                     
-                    Image(uiImage: image).resizable()
+                    Image(uiImage: reload ? UIImage() :  image).resizable()
                         .scaledToFit()
                         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                         .background(Color.black)
@@ -39,6 +41,9 @@ struct Card: View {
                         .animation(.none)
                         .onReceive(mainVM.reloadFrontImage, perform:  { answer in
                             self.isImageReady = answer
+                            if answer == true && reload && mainVM.reload == false {
+                                reload = false
+                            }
                             self.populateImage()
                         })
                         .onReceive(mainVM.userDecided, perform: { decision in
@@ -172,7 +177,7 @@ struct Card: View {
             }
             
             ZStack {
-                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) == false  || isImageReady == false {
+                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) == false  || isImageReady == false || reload {
                     ActivityIndicator(isAnimating: true)
                         .configure { $0.color = .orange }
                 }
