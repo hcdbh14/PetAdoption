@@ -92,7 +92,7 @@ class MainVM: ObservableObject {
                     self.imageIndex = 0
                     self.frontImage = []
                     self.backImages = []
-                    self.frontImage = []
+                    self.frontImages = []
                     self.petsList = tempArray
                     self.reloadBackImage.send(false)
                     self.reloadFrontImage.send(false)
