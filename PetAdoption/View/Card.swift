@@ -170,8 +170,9 @@ struct Card: View {
                     self.timedInfoAnimation()
                 }
             }
+            
             ZStack {
-                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) == false {
+                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) == false  || isImageReady == false {
                     ActivityIndicator(isAnimating: true)
                         .configure { $0.color = .orange }
                 }
