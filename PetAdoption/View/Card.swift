@@ -41,8 +41,8 @@ struct Card: View {
                         .animation(.none)
                         .onReceive(mainVM.reloadFrontImage, perform:  { answer in
                             self.isImageReady = answer
-                            if answer == true && reload && mainVM.reload == false {
-                                reload = false
+                            if answer == true && self.reload && self.mainVM.reload == false {
+                                self.reload = false
                             }
                             self.populateImage()
                         })
