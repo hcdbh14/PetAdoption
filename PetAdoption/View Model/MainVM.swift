@@ -11,10 +11,9 @@ enum Decision {
 
 class MainVM: ObservableObject {
     
-    @Published var reload = false
-    var firstLaunch = false
     @Published var count = 1
     var petsList: [Pet] = []
+    @Published var reload = false
     @Published  var imageIndex = 0
     private var sub: AnyCancellable?
     @Published var noMorePets = false
