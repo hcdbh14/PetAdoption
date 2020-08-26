@@ -114,7 +114,7 @@ class CardVM: ObservableObject {
     func loadImages() {
         if petsList.hasValueAt(index: count - 1) {
             let allImages = petsList[count - 1].images.count
-            if frontImages.isEmpty  || frontImages.count != allImages {
+            if frontImages.isEmpty  || frontImages.count != allImages || frontImages.hasValueAt(index: 0) {
                 
                 imageLoader = ImageLoader(urlString: petsList[count - 1].images)
                 sub = imageLoader?.didChange.sink(receiveValue: { value in
