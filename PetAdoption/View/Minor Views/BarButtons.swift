@@ -3,7 +3,7 @@ import SwiftUI
 struct BarButtons : View {
     
     @State private var isEnabled = true
-    @EnvironmentObject var mainVM: MainVM
+    @EnvironmentObject var mainVM: CardVM
     
     var body : some View {
         HStack {

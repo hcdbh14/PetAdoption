@@ -9,7 +9,7 @@ enum Decision {
     case notDecided
 }
 
-class MainVM: ObservableObject {
+class CardVM: ObservableObject {
     
     @Published var count = 1
     var petsList: [Pet] = []

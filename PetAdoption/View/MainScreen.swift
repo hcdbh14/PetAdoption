@@ -19,7 +19,7 @@ struct MainScreen: View {
     @State private var scaleAnimation = false
     @State private var showNewDogScreen = false
     @State private var selected = barItem.first
-    @EnvironmentObject private var mainVM: MainVM
+    @EnvironmentObject private var mainVM: CardVM
     @EnvironmentObject private var settings: Settings
     
     var body: some View {

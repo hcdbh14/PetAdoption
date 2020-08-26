@@ -4,9 +4,9 @@ struct BackCard: View {
     
     @State private var image: UIImage = UIImage()
     @Binding private var scaleAnimation: Bool
-    @ObservedObject private var mainVM: MainVM
+    @ObservedObject private var mainVM: CardVM
     
-    init(scaleTrigger: Binding<Bool>, mainVM: MainVM) {
+    init(scaleTrigger: Binding<Bool>, mainVM: CardVM) {
         self.mainVM = mainVM
         self._scaleAnimation = scaleTrigger
     }

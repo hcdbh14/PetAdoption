@@ -16,9 +16,9 @@ struct Card: View {
     @State private var switchingImage = false
     @Binding private var scaleAnimation: Bool
     @State private var image: UIImage = UIImage()
-    @ObservedObject private var mainVM: MainVM
+    @ObservedObject private var mainVM: CardVM
     
-    init(scaleTrigger: Binding<Bool>, showMenu: Binding<Bool>, mainVM: MainVM, reload: Binding<Bool>) {
+    init(scaleTrigger: Binding<Bool>, showMenu: Binding<Bool>, mainVM: CardVM, reload: Binding<Bool>) {
         self._reload = reload
         self.mainVM = mainVM
         self._scaleAnimation = scaleTrigger

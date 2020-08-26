@@ -12,7 +12,7 @@ struct CircleButtonStyle: ButtonStyle {
     let isBig: Bool
     let buttonType: ButtonType
     @Binding var isEnabled: Bool
-    @EnvironmentObject var mainVM: MainVM
+    @EnvironmentObject var mainVM: CardVM
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
