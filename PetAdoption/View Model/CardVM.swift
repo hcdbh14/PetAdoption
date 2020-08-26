@@ -136,6 +136,7 @@ class CardVM: ObservableObject {
                     }
                 } else {
                     self.backImages = value
+                    self.reloadBackImage.send(true)
                 }
             })
         }
