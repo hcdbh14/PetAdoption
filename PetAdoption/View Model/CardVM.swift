@@ -30,7 +30,7 @@ class CardVM: ObservableObject {
     @Published var reloadFrontImage = PassthroughSubject<Bool, Never>()
     @Published var decision: Decision = Decision.notDecided { didSet {
         userDecided.send(decision)
-    }
+        }
     }
     
     init() {
@@ -86,7 +86,7 @@ class CardVM: ObservableObject {
                         }
                     }
                 }
-
+                
                 if self.reload {
                     self.count = 1
                     self.imageIndex = 0
@@ -129,14 +129,16 @@ class CardVM: ObservableObject {
         if petsList.hasValueAt(index: count) {
             backImageLoader = ImageLoader(urlString: petsList[count].images)
             backSub = backImageLoader?.didChange.sink(receiveValue: { value in
-                if self.frontImages.isEmpty == false {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                    if self.frontImages.isEmpty == false {
+                        
+                        self.backImages = value
+                        self.reloadBackImage.send(true)
+                        
+                    } else {
                         self.backImages = value
                         self.reloadBackImage.send(true)
                     }
-                } else {
-                    self.backImages = value
-                    self.reloadBackImage.send(true)
                 }
             })
         }
@@ -171,7 +173,7 @@ class CardVM: ObservableObject {
                 } else if ages.contains(3) {
                     self.petsList = self.petsList.filter { $0.age <= 1 }
                 }
-                
+                    
                 else if ages.contains(4) && ages.contains(5) {
                     self.petsList = self.petsList.filter { $0.age > 1 }
                 } else if ages.contains(4) {
