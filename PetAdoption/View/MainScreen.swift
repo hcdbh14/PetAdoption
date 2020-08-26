@@ -58,6 +58,8 @@ struct MainScreen: View {
                             BackCard(scaleTrigger: $scaleAnimation, mainVM: mainVM)
                             
                             Card(scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM, reload: $reload)
+                        } else if mainVM.noMorePets {
+                            Text("אין יותר חיות להצגה :(")
                         } else {
                             LottieView()
                                 .frame(width: 300, height: 300)
