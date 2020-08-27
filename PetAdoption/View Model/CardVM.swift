@@ -126,22 +126,22 @@ class CardVM: ObservableObject {
         }
         
         
-        if petsList.hasValueAt(index: count) {
-            backImageLoader = ImageLoader(urlString: petsList[count].images)
-            backSub = backImageLoader?.didChange.sink(receiveValue: { value in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-                    if self.frontImages.isEmpty == false {
-                        
+            if petsList.hasValueAt(index: count) {
+                backImageLoader = ImageLoader(urlString: petsList[count].images)
+                backSub = backImageLoader?.didChange.sink(receiveValue: { value in
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                         self.backImages = value
                         self.reloadBackImage.send(true)
                         
-                    } else {
-                        self.backImages = value
-                        self.reloadBackImage.send(true)
                     }
+                })
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                    print("wrok")
+                    self.reloadBackImage.send(false)
                 }
-            })
-        }
+            }
     }
     
     
