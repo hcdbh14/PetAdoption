@@ -38,7 +38,7 @@ struct Card: View {
                         .cornerRadius(5)
                         .fixedSize()
                         .allowsHitTesting(x == 0 ? true : false)
-                        .animation(.none)
+                        .animation(mainVM.reload ? .none : decideAnimation())
                         .onReceive(mainVM.reloadFrontImage, perform:  { answer in
                             self.isImageReady = answer
                             if answer == true && self.reload && self.mainVM.reload == false {
