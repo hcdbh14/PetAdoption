@@ -3,6 +3,7 @@ import SwiftUI
 struct Card: View {
     
     @Binding var reload: Bool
+    
     @State private var save = false
     @State private var pass = false
     @State private var isImageReady = false
@@ -12,6 +13,7 @@ struct Card: View {
     @State private var showInfo = false
     @Binding private var showMenu: Bool
     @State private var inAnimation = false
+    @State private var noAnimation = false
     @State private var degree: Double = 0
     @State private var switchingImage = false
     @Binding private var scaleAnimation: Bool
@@ -38,7 +40,7 @@ struct Card: View {
                         .cornerRadius(5)
                         .fixedSize()
                         .allowsHitTesting(x == 0 ? true : false)
-                        .animation(mainVM.reload ? .none : decideAnimation())
+                        .animation(mainVM.reload || noAnimation ? .none : decideAnimation())
                         .onReceive(mainVM.reloadFrontImage, perform:  { answer in
                             self.isImageReady = answer
                             if answer == true && self.reload && self.mainVM.reload == false {
@@ -457,6 +459,8 @@ struct Card: View {
     
     private func dragFinished(x: CGFloat, y: CGFloat, direction: CGFloat, start: CGPoint, end: CGPoint) {
         
+        self.noAnimation = false
+        
         if x > 0 {
             if x > 130 {
                 self.x = 500
@@ -502,7 +506,11 @@ struct Card: View {
                 self.inAnimation = false
             }
         }
-        if start == end { self.moveToImage(direction: direction) }
+        
+        if start == end {
+            self.noAnimation = true
+            self.moveToImage(direction: direction)
+        }
     }
     
     private func decideHeightDirection(y: CGFloat) {
