@@ -6,6 +6,7 @@ struct SavedDogsScreen: View {
     
     @Binding private var isBarHidden: Bool
     @State private var localDB = LocalDB()
+    @Environment(\.presentationMode) var presentationMode
     
     let layout = [
         GridItem(.adaptive(minimum: 80))
@@ -15,7 +16,6 @@ struct SavedDogsScreen: View {
         self._isBarHidden = isBarHidden
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
-        appearance.configureWithOpaqueBackground()
         appearance.titleTextAttributes = [.font : UIFont.systemFont(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.orange]
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().standardAppearance = appearance
@@ -36,16 +36,32 @@ struct SavedDogsScreen: View {
                     }
                 }.edgesIgnoringSafeArea(.top)
                 
-//                ForEach(localDB.savedDogsURLS ?? [], id: \.self) { Dog in
-//                    SavedCard(imageURL: Dog)
-//                }
+                //                ForEach(localDB.savedDogsURLS ?? [], id: \.self) { Dog in
+                //                    SavedCard(imageURL: Dog)
+                //                }
             }   .background(Color.offWhite.edgesIgnoringSafeArea([.all]))
         }
-
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-                .navigationBarBackButtonHidden(false)
-                    .navigationBarTitle(Text("חיות ששמרתם")
-                    .foregroundColor(.black)
-                    .font(.title), displayMode: .inline)
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        .onAppear() {
+            self.isBarHidden = false
+        }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(isBarHidden)
+        .navigationBarTitle("חיות ששמרתם")
+        .navigationBarItems(leading:
+                                Button(action: test) {
+                                    HStack {
+                                        Image(systemName: "chevron.right")
+                                        Text("חזור")
+                                    }
+                                }
+        )
+    }
+    
+    func test () {
+        withAnimation(.none) {
+            self.isBarHidden = true
+            self.presentationMode.wrappedValue.dismiss()
+        }
     }
 }

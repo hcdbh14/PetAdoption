@@ -15,7 +15,7 @@ struct MainScreen: View {
     @State private var showMenu = false
     @State var showPostPetScreen = false
     @State private var staticIndex = 0
-    @State private var isBarHidden = false
+    @State private var isBarHidden = true
     @State private var scaleAnimation = false
     @State private var showNewDogScreen = false
     @State private var selected = barItem.first
@@ -50,7 +50,8 @@ struct MainScreen: View {
                                 .animation(.spring())
                         }
                         .navigationBarBackButtonHidden(false)
-                        .navigationBarTitle("חזור")
+                        .navigationBarTitle("")
+               
 
                         
                     }.padding(.top, 50)
@@ -86,7 +87,7 @@ struct MainScreen: View {
                     .animation(.spring())
                 }
                 .navigationBarTitle("")
-                .navigationBarHidden(isBarHidden ? false : true)
+                .navigationBarHidden(isBarHidden)
                 .animation(.spring())
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20)
                 .background(Color.offWhite)
