@@ -43,7 +43,7 @@ struct SavedDogsScreen: View {
                     .foregroundColor(.black)
                     .font(.title), displayMode: .inline)
                 .onDisappear() {
-                    self.isBarHidden = false
+                    self.isBarHidden = true
             }
     }
 }
