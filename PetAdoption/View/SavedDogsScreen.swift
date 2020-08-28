@@ -15,7 +15,8 @@ struct SavedDogsScreen: View {
     init(isBarHidden: Binding<Bool>) {
         self._isBarHidden = isBarHidden
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
+
+        appearance.backgroundColor = UIColor(named: "offWhite")
         appearance.titleTextAttributes = [.font : UIFont.systemFont(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.orange]
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().standardAppearance = appearance
@@ -23,7 +24,7 @@ struct SavedDogsScreen: View {
     }
     
     var body: some View {
-        NavigationView {
+
             ScrollView {
                 
                 LazyVGrid(columns: layout, spacing: 20) {
@@ -40,16 +41,15 @@ struct SavedDogsScreen: View {
                 //                    SavedCard(imageURL: Dog)
                 //                }
             }   .background(Color.offWhite.edgesIgnoringSafeArea([.all]))
-        }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         .onAppear() {
             self.isBarHidden = false
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(isBarHidden)
-        .navigationBarTitle("חיות ששמרתם")
-        .navigationBarItems(leading:
-                                Button(action: test) {
+        .navigationBarTitle(Text("חיות ששמרתם"))
+        .navigationBarItems(trailing:
+                            Button(action: test) {
                                     HStack {
                                         Image(systemName: "chevron.right")
                                         Text("חזור")

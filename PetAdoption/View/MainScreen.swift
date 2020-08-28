@@ -87,7 +87,7 @@ struct MainScreen: View {
                     .animation(.spring())
                 }
                 .navigationBarTitle("")
-                .navigationBarHidden(isBarHidden)
+                .navigationBarHidden(true)
                 .animation(.spring())
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 20)
                 .background(Color.offWhite)
