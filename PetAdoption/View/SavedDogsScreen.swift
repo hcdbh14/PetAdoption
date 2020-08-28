@@ -2,8 +2,14 @@ import SwiftUI
 
 struct SavedDogsScreen: View {
     
+    let data = Array(1...100).map { "Item \($0)" }
+    
     @Binding private var isBarHidden: Bool
     @State private var localDB = LocalDB()
+    
+    let layout = [
+        GridItem(.adaptive(minimum: 80))
+    ]
     
     init(isBarHidden: Binding<Bool>) {
         self._isBarHidden = isBarHidden
@@ -16,11 +22,21 @@ struct SavedDogsScreen: View {
     }
     
     var body: some View {
-        VStack {
             ScrollView {
-                ForEach(localDB.savedDogsURLS ?? [], id: \.self) { Dog in
-                    SavedCard(imageURL: Dog)
+                
+                LazyVGrid(columns: layout, spacing: 20) {
+                    ForEach(data, id: \.self) { item in
+                        VStack {
+                            Capsule()
+                                .fill(Color.red)
+                                .frame(height: 50)
+                        }
+                    }
                 }
+                
+//                ForEach(localDB.savedDogsURLS ?? [], id: \.self) { Dog in
+//                    SavedCard(imageURL: Dog)
+//                }
             }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 180)
                 .background(Color.offWhite.edgesIgnoringSafeArea([.all]))
                 .navigationBarTitle(Text("פרסום מודעה")
@@ -29,6 +45,5 @@ struct SavedDogsScreen: View {
                 .onDisappear() {
                     self.isBarHidden = false
             }
-        }
     }
 }
