@@ -49,6 +49,10 @@ struct MainScreen: View {
                                 .padding(.trailing, 10)
                                 .animation(.spring())
                         }
+                        .navigationBarBackButtonHidden(false)
+                        .navigationBarTitle("חזור")
+
+                        
                     }.padding(.top, 50)
                     Spacer()
                     

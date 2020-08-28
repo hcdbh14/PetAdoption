@@ -15,13 +15,15 @@ struct SavedDogsScreen: View {
         self._isBarHidden = isBarHidden
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
-        appearance.titleTextAttributes = [.font : UIFont.systemFont(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.black]
+        appearance.configureWithOpaqueBackground()
+        appearance.titleTextAttributes = [.font : UIFont.systemFont(ofSize: 20), NSAttributedString.Key.foregroundColor : UIColor.orange]
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().tintColor = .black
+        UINavigationBar.appearance().tintColor = .orange
     }
     
     var body: some View {
+        NavigationView {
             ScrollView {
                 
                 LazyVGrid(columns: layout, spacing: 20) {
@@ -32,18 +34,18 @@ struct SavedDogsScreen: View {
                                 .frame(height: 50)
                         }
                     }
-                }
+                }.edgesIgnoringSafeArea(.top)
                 
 //                ForEach(localDB.savedDogsURLS ?? [], id: \.self) { Dog in
 //                    SavedCard(imageURL: Dog)
 //                }
-            }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height + 180)
-                .background(Color.offWhite.edgesIgnoringSafeArea([.all]))
-                .navigationBarTitle(Text("פרסום מודעה")
+            }   .background(Color.offWhite.edgesIgnoringSafeArea([.all]))
+        }
+
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                .navigationBarBackButtonHidden(false)
+                    .navigationBarTitle(Text("חיות ששמרתם")
                     .foregroundColor(.black)
                     .font(.title), displayMode: .inline)
-                .onDisappear() {
-                    self.isBarHidden = true
-            }
     }
 }
