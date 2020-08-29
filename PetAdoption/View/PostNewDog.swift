@@ -58,7 +58,7 @@ struct PostNewDog: View {
     @State private var fourthImage: UIImage?
     @State private var inputImage: UIImage?
     @State private var phoneNumberError = ""
-    @State private var city = 1
+    @State private var region = 1
     @Binding private var showAuthScreen: Bool
     @State private var suiteableArray: [Int] = []
     @State private var chosenImage = ChosenImage.first
@@ -613,7 +613,7 @@ struct PostNewDog: View {
                 
                 HStack {
                     Spacer()
-                    SegmentedPicker(items: ["דרום", "מרכז", "צפון"], selection: $city)
+                    SegmentedPicker(items: ["דרום", "מרכז", "צפון"], selection: $region)
                     Spacer()
                 }.padding(.bottom, 25)
             }.padding(.bottom, 25)
@@ -686,7 +686,7 @@ struct PostNewDog: View {
             self.descFromDB = petDetails?.desc ?? ""
             self.description = petDetails?.desc ?? ""
             self.phoneNumber = petDetails?.number ?? ""
-            self.city = 1
+            self.region = 1
             self.goodWords = petDetails?.goodWords ?? ""
             self.translateTypeIntoCode(petDetails?.type ?? "")
             self.translateGenderIntoCode(petDetails?.gender ?? "")
@@ -736,7 +736,7 @@ struct PostNewDog: View {
                     
                 }
             }
-            session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, petSize: String(size), suitables: groupSuiteables(), petGender: String(gender), description: description.trim(), phoneNumber: phoneNumber, city: String(city), goodWords: goodWords, vaccinated: String(vaccinated), poopTrained: String(poopTrained))
+            session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, petSize: String(size), suitables: groupSuiteables(), petGender: String(gender), description: description.trim(), phoneNumber: phoneNumber, region: String(region), goodWords: goodWords, vaccinated: String(vaccinated), poopTrained: String(poopTrained))
         } else {
             error = true
             session.informText = "לא ניתן להשלים, קיימים שדות חסרים"
