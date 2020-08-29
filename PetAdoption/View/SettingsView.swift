@@ -100,9 +100,9 @@ struct SettingsView: View {
                 }
                 
                 HStack {
-                    CheckboxField(id: 0, label: "צפון", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $areas)
+                    CheckboxField(id: 2, label: "צפון", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $areas)
                     CheckboxField(id: 1, label: "מרכז", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $areas)
-                    CheckboxField(id: 2, label: "דרום", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $areas)
+                    CheckboxField(id: 0, label: "דרום", size: 20, color: .white, textSize: 20, callback: saveAreaChoice, array: $areas)
                 }.padding(.leading, 15)
                 
                 VStack(alignment: .leading) {
