@@ -58,7 +58,7 @@ struct PostNewDog: View {
     @State private var fourthImage: UIImage?
     @State private var inputImage: UIImage?
     @State private var phoneNumberError = ""
-    @State private var city = "בחרו עיר מגורים"
+    @State private var city = 1
     @Binding private var showAuthScreen: Bool
     @State private var suiteableArray: [Int] = []
     @State private var chosenImage = ChosenImage.first
@@ -603,29 +603,19 @@ struct PostNewDog: View {
                 }
                 
                 HStack {
-                    Text("עיר מגורים")
-                        .font(.system(size: 20, weight: .regular))
+                    Text("בחירת אזור")
+                        .font(.system(size: 24, weight: .semibold))
                         .foregroundColor(Color("offBlack"))
                         .padding(.leading, 25)
-                        .padding(.bottom, 25)
+                        .padding(.top, 30)
                     Spacer()
                 }
                 
-                Button(action: openCitiesSheet) {
-                    VStack {
-                        HStack {
-                            Text(city)
-                                .foregroundColor(city == "בחרו עיר מגורים" ? .gray : .black)
-                                .padding(.leading, 25)
-                            Spacer()
-                        }
-                        Divider().background(Color.black).frame(width: UIScreen.main.bounds.width  / 1.2, height: 2)
-                            .padding(.leading, 25)
-                            .padding(.trailing, 40)
-                            // bug work around for iOS 14
-                            .padding(.top,activeSheet == .cities ? -10 : -10)
-                    }
-                }
+                HStack {
+                    Spacer()
+                    SegmentedPicker(items: ["דרום", "מרכז", "צפון"], selection: $city)
+                    Spacer()
+                }.padding(.bottom, 25)
             }.padding(.bottom, 25)
             
             HStack {
@@ -662,9 +652,10 @@ struct PostNewDog: View {
         .sheet(isPresented: $showSheet, onDismiss: loadImage) {
             if self.activeSheet == .images {
                 ImagePicker(image: self.$inputImage)
-            } else {
-                Cities(showCities: self.$showSheet, city: self.$city)
             }
+//            else {
+//                Cities(showCities: self.$showSheet, city: self.$city)
+//            }
         }
         .offset(y: -self.value)
         .animation(.spring())
@@ -695,7 +686,7 @@ struct PostNewDog: View {
             self.descFromDB = petDetails?.desc ?? ""
             self.description = petDetails?.desc ?? ""
             self.phoneNumber = petDetails?.number ?? ""
-            self.city = petDetails?.city ?? ""
+            self.city = 1
             self.goodWords = petDetails?.goodWords ?? ""
             self.translateTypeIntoCode(petDetails?.type ?? "")
             self.translateGenderIntoCode(petDetails?.gender ?? "")
@@ -733,7 +724,7 @@ struct PostNewDog: View {
         session.informText = ""
         error = false
         
-        if image != nil && petName != "" && petRace != "" && petAge != "" && phoneNumber != "" && city != "" && goodWords != "" {
+        if image != nil && petName != "" && petRace != "" && petAge != "" && phoneNumber != "" && goodWords != "" {
             self.session.localDB.existingPostID = ""
             let images = [image, secondImage, thirdImage, fourthImage]
             var imagesData: [Data] = []
@@ -745,7 +736,7 @@ struct PostNewDog: View {
                     
                 }
             }
-            session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, petSize: String(size), suitables: groupSuiteables(), petGender: String(gender), description: description.trim(), phoneNumber: phoneNumber, city: city, goodWords: goodWords, vaccinated: String(vaccinated), poopTrained: String(poopTrained))
+            session.postPetImages(imagesData: imagesData, petType: String(petType), petName: petName, petRace: petRace, petAge: petAge, petSize: String(size), suitables: groupSuiteables(), petGender: String(gender), description: description.trim(), phoneNumber: phoneNumber, city: String(city), goodWords: goodWords, vaccinated: String(vaccinated), poopTrained: String(poopTrained))
         } else {
             error = true
             session.informText = "לא ניתן להשלים, קיימים שדות חסרים"
