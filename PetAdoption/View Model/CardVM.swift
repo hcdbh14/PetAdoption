@@ -147,7 +147,7 @@ class CardVM: ObservableObject {
         var petsRef: Query = db.collection("Cards_Data")
         let searchBy = UserDefaults.standard.integer(forKey: "searchBy")
         if let regions: [Int] = UserDefaults.standard.array(forKey: "areas") as? [Int] {
-            print(regions)
+            
             if (regions.contains(0) && regions.contains(1) && regions.contains(2)) == false {
                 if regions.contains(0) {
                     petsRef = petsRef.whereField("region", isEqualTo: "0")
