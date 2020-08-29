@@ -11,6 +11,7 @@ enum barItem {
 
 struct MainScreen: View {
     
+    @State private var showAuth = false
     @State private var reload = false
     @State private var showMenu = false
     @State var showPostPetScreen = false
@@ -106,6 +107,7 @@ struct MainScreen: View {
                     .zIndex(3)
             }
             
+            if showAuth {
             ZStack {
                 AuthViewManager(showPostPetScreen: $showPostPetScreen)
             }
@@ -117,6 +119,7 @@ struct MainScreen: View {
             .onTapGesture {
                 UIApplication.shared.endEditing()
             }
+            }
         }.environment(\.layoutDirection, .rightToLeft)
         .gesture(showPostPetScreen ? nil : DragGesture().onEnded {
             if $0.translation.width > -100 {
@@ -126,6 +129,11 @@ struct MainScreen: View {
                 }
             }
         })
+        .onAppear() {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                showAuth = true
+            }
+        }
     }
     
     private func reloadPets() {
