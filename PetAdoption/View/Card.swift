@@ -163,7 +163,7 @@ struct Card: View {
                         .padding(.trailing, 10)
                     
                     
-                    Text(mainVM.petsList[mainVM.count - 1].city)
+                    Text(mainVM.petsList[mainVM.count - 1].region)
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
                         .padding(.trailing, 10)
@@ -259,7 +259,7 @@ struct Card: View {
                             
                             HStack {
                                 
-                                Text( "אזור: " + mainVM.petsList[mainVM.count - 1].city)
+                                Text( "אזור: " + mainVM.petsList[mainVM.count - 1].region)
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
                                 

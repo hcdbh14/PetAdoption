@@ -686,11 +686,11 @@ struct PostNewDog: View {
             self.descFromDB = petDetails?.desc ?? ""
             self.description = petDetails?.desc ?? ""
             self.phoneNumber = petDetails?.number ?? ""
-            self.region = 1
             self.goodWords = petDetails?.goodWords ?? ""
             self.translateTypeIntoCode(petDetails?.type ?? "")
             self.translateGenderIntoCode(petDetails?.gender ?? "")
             self.translateSizeIntoCode(petDetails?.size ?? "")
+            self.translateRegionIntoCode(petDetails?.region ?? "")
             self.translateVaccinatedIntoCode(petDetails?.vaccinated ?? "")
             self.translatePoopTrainedntoCode(petDetails?.poopTrained ?? "")
             self.translateSuiteablesIntoCodes(petDetails?.suitables ?? "")
@@ -841,6 +841,17 @@ struct PostNewDog: View {
             gender = 1
         default:
             gender = 0
+        }
+    }
+    
+    private func translateRegionIntoCode(_ id: String) {
+        switch id {
+        case "0":
+            region = 0
+        case "1":
+            region = 1
+        default:
+            region = 2
         }
     }
     

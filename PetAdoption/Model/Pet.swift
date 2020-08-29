@@ -5,7 +5,7 @@ struct Pet {
     let name: String
     let type: String
     let age: Float
-    let city: String
+    let region: String
     let size: String
     let gender: String
     let number: String
@@ -24,7 +24,7 @@ struct Pet {
             let size = data["size"] as? String,
             let images = data["images"] as? [String],
             let type = data["type"] as? String,
-            let city = data["city"] as? String,
+            let region = data["region"] as? String,
             let number = data["number"] as? String,
             let race = data["race"] as? String,
             let gender = data["gender"] as? String,
@@ -42,7 +42,7 @@ struct Pet {
         self.name = name
         self.desc = desc
         self.type = type
-        self.city = city
+        self.region = region
         self.gender = gender
         self.number = number
         self.race = race
