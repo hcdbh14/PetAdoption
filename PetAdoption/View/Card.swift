@@ -190,7 +190,7 @@ struct Card: View {
                 ScrollView {
                     Image(uiImage: image).resizable()
                         .background(Color.gray)
-                        .aspectRatio(contentMode: .fill)
+                        .aspectRatio(contentMode: .fit)
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4)
                         .cornerRadius(1)
                         .animation(.none)
