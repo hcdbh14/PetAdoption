@@ -114,8 +114,6 @@ struct Card: View {
                         .font(.system(size: 32, weight: .semibold))
                         .foregroundColor(Color("green"))
                         .rotationEffect(.degrees(-45))
-                        
-                        // MARK: - BUG 2
                         .opacity(Double(self.save ? 1 : self.x/30 - 1))
                         .padding(15)
                     Spacer()
@@ -126,7 +124,6 @@ struct Card: View {
                         .foregroundColor(Color("red"))
                         .rotationEffect(.degrees(45))
                         .font(.system(size: 32, weight: .semibold))
-                        // MARK: - BUG 3
                         .opacity(Double(self.pass ? 1 : self.x/30 * -1 - 1))
                         
                         .padding(15)
@@ -190,7 +187,7 @@ struct Card: View {
                 ScrollView {
                     
                     ZStack {
-                        Image(uiImage: image).resizable()
+                        Image(uiImage: reload ? UIImage() :  image).resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4)
                             .background(Color.black)
@@ -211,6 +208,10 @@ struct Card: View {
                             .padding(.trailing , 5)
                             Spacer()
                             
+                            if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) == false  || isImageReady == false || reload {
+                                ActivityIndicator(isAnimating: true)
+                                    .configure { $0.color = .orange }
+                            }
                             
                             Button(action: {
                                 self.moveToImage(direction: 400)
@@ -222,6 +223,13 @@ struct Card: View {
                             .padding(.leading , 5)
                         }
                     }.frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
+                    .onReceive(mainVM.reloadFrontImage, perform:  { answer in
+                        self.isImageReady = answer
+                        if answer == true && self.reload && self.mainVM.reload == false {
+                            self.reload = false
+                        }
+                        self.populateImage()
+                    })
                     
                     VStack(alignment: .trailing, spacing: 5) {
                         
