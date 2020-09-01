@@ -191,9 +191,9 @@ struct Card: View {
                     
                     ZStack {
                         Image(uiImage: image).resizable()
-                            .background(Color.gray)
                             .aspectRatio(contentMode: .fit)
                             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4)
+                            .background(Color.black)
                             .cornerRadius(1)
                             .animation(.none)
                             .padding(.top, -42)
@@ -221,7 +221,7 @@ struct Card: View {
                             }
                             .padding(.leading , 5)
                         }
-                    }
+                    }.frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                     
                     VStack(alignment: .trailing, spacing: 5) {
                         
