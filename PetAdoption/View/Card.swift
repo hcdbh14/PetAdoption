@@ -188,6 +188,7 @@ struct Card: View {
             
             if showInfo {
                 ScrollView {
+                    
                     ZStack {
                         Image(uiImage: image).resizable()
                             .background(Color.gray)
@@ -197,10 +198,6 @@ struct Card: View {
                             .animation(.none)
                             .padding(.top, -42)
                             .transition(.move(edge: .bottom))
-                        //                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                        //                            .onEnded({ (value) in
-                        //                                self.moveToImage(direction: value.location.x)
-                        //                            }))
                         
                         HStack(spacing: -10) {
                             
