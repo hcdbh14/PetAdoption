@@ -188,18 +188,43 @@ struct Card: View {
             
             if showInfo {
                 ScrollView {
-                    Image(uiImage: image).resizable()
-                        .background(Color.gray)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4)
-                        .cornerRadius(1)
-                        .animation(.none)
-                        .padding(.top, -42)
-                        .transition(.move(edge: .bottom))
-                    //                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                    //                            .onEnded({ (value) in
-                    //                                self.moveToImage(direction: value.location.x)
-                    //                            }))
+                    ZStack {
+                        Image(uiImage: image).resizable()
+                            .background(Color.gray)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.4)
+                            .cornerRadius(1)
+                            .animation(.none)
+                            .padding(.top, -42)
+                            .transition(.move(edge: .bottom))
+                        //                        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                        //                            .onEnded({ (value) in
+                        //                                self.moveToImage(direction: value.location.x)
+                        //                            }))
+                        
+                        HStack(spacing: -10) {
+                            
+                            Button(action: {
+                                self.moveToImage(direction: -100)
+                            }) {
+                                Rectangle()
+                                    .contentShape(Rectangle())
+                                    .foregroundColor(.clear)
+                            }
+                            .padding(.trailing , 5)
+                            Spacer()
+                            
+                            
+                            Button(action: {
+                                self.moveToImage(direction: 400)
+                            }) {
+                                Rectangle()
+                                    .contentShape(Rectangle())
+                                    .foregroundColor(.clear)
+                            }
+                            .padding(.leading , 5)
+                        }
+                    }
                     
                     VStack(alignment: .trailing, spacing: 5) {
                         
@@ -551,7 +576,7 @@ struct Card: View {
     }
     
     private func populateImage()  {
-
+        
         if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
             image = UIImage(data: self.mainVM.frontImages[mainVM.imageIndex]) ?? UIImage()
             self.isImageReady = true
