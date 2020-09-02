@@ -3,7 +3,6 @@ import SwiftUI
 struct Card: View {
     
     @Binding var reload: Bool
-    
     @State private var save = false
     @State private var pass = false
     @State private var isImageReady = false
@@ -222,6 +221,18 @@ struct Card: View {
                             }
                             .padding(.leading , 5)
                         }
+                        
+                        HStack {
+                            Spacer()
+                            ForEach (0...self.mainVM.petsList[self.mainVM.count - 1].images.count - 1,id: \.self) { i in
+                                Rectangle()
+                                    .fill(Color.clear)
+                                    .background((self.mainVM.imageIndex == i ? Color.orange : Color.gray).cornerRadius(20))
+                                    .frame(width: (UIScreen.main.bounds.width / CGFloat(self.mainVM.petsList[self.mainVM.count - 1].images.count)) - 30, height: 10)
+                                    .opacity(self.mainVM.petsList[self.mainVM.count - 1].images.count == 1 ? 0 : 0.7)
+                            }
+                            Spacer()
+                        }.padding(.bottom, UIScreen.main.bounds.height / 1.47)
                     }.frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
                     .onReceive(mainVM.reloadFrontImage, perform:  { answer in
                         self.isImageReady = answer
