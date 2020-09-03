@@ -4,10 +4,10 @@ struct BackCard: View {
     
     @State private var image: UIImage = UIImage()
     @Binding private var scaleAnimation: Bool
-    @ObservedObject private var mainVM: CardVM
+    @ObservedObject private var cardVM: CardVM
     
     init(scaleTrigger: Binding<Bool>, mainVM: CardVM) {
-        self.mainVM = mainVM
+        self.cardVM = mainVM
         self._scaleAnimation = scaleTrigger
     }
     
@@ -23,7 +23,7 @@ struct BackCard: View {
                 .fixedSize()
                 .cornerRadius(20)
                 .animation(.none)
-                .onReceive(mainVM.reloadBackImage, perform:  { answer in
+                .onReceive(cardVM.reloadBackImage, perform:  { answer in
                     self.populateImage(answer)
                 })
         }.animation(scaleAnimation ? .spring() : .none)
@@ -36,8 +36,8 @@ struct BackCard: View {
             return
         }
         
-        if self.mainVM.backImages.hasValueAt(index: 0)   {
-            image = UIImage(data: self.mainVM.backImages[0]) ?? UIImage()
+        if self.cardVM.backImages.hasValueAt(index: 0)   {
+            image = UIImage(data: self.cardVM.backImages[0]) ?? UIImage()
         } else {
             image = UIImage()
         }

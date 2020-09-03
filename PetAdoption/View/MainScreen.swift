@@ -20,7 +20,7 @@ struct MainScreen: View {
     @State private var scaleAnimation = false
     @State private var showNewDogScreen = false
     @State private var selected = barItem.first
-    @EnvironmentObject private var mainVM: CardVM
+    @EnvironmentObject private var cardVM: CardVM
     @EnvironmentObject private var settings: Settings
     
     var body: some View {
@@ -41,7 +41,7 @@ struct MainScreen: View {
                         
                         
                         Spacer()
-                        Text(self.mainVM.localDB.savedDogsCount)
+                        Text(self.cardVM.localDB.savedDogsCount)
                             .foregroundColor(.black)
                             .animation(.default)
                         NavigationLink (destination: SavedDogsScreen(isBarHidden: $isBarHidden), isActive: $showNewDogScreen) {
@@ -60,11 +60,11 @@ struct MainScreen: View {
                     
                     
                     ZStack {
-                        if  mainVM.petsList.isEmpty == false && mainVM.noMorePets == false {
-                            BackCard(scaleTrigger: $scaleAnimation, mainVM: mainVM)
+                        if  cardVM.petsList.isEmpty == false && cardVM.noMorePets == false {
+                            BackCard(scaleTrigger: $scaleAnimation, mainVM: cardVM)
                             
-                            Card(scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: mainVM, reload: $reload)
-                        } else if mainVM.noMorePets {
+                            Card(scaleTrigger: $scaleAnimation, showMenu: $showMenu, mainVM: cardVM, reload: $reload)
+                        } else if cardVM.noMorePets {
                             Text("אין יותר חיות להצגה :(")
                         } else {
                             LottieView()
@@ -140,9 +140,9 @@ struct MainScreen: View {
         
         if settings.settingsChanged {
             reload = true
-            mainVM.noMorePets = true
-            mainVM.reload = true
-            mainVM.getPetsFromDB()
+            cardVM.noMorePets = true
+            cardVM.reload = true
+            cardVM.getPetsFromDB()
             settings.settingsChanged = false
         }
     }

@@ -17,11 +17,11 @@ struct Card: View {
     @State private var switchingImage = false
     @Binding private var scaleAnimation: Bool
     @State private var image: UIImage = UIImage()
-    @ObservedObject private var mainVM: CardVM
+    @ObservedObject private var cardVM: CardVM
     
     init(scaleTrigger: Binding<Bool>, showMenu: Binding<Bool>, mainVM: CardVM, reload: Binding<Bool>) {
         self._reload = reload
-        self.mainVM = mainVM
+        self.cardVM = mainVM
         self._scaleAnimation = scaleTrigger
         self._showMenu = showMenu
         UIScrollView.appearance().bounces = false
@@ -39,15 +39,15 @@ struct Card: View {
                         .cornerRadius(5)
                         .fixedSize()
                         .allowsHitTesting(x == 0 ? true : false)
-                        .animation(mainVM.reload || noAnimation ? .none : decideAnimation())
-                        .onReceive(mainVM.reloadFrontImage, perform:  { answer in
+                        .animation(cardVM.reload || noAnimation ? .none : decideAnimation())
+                        .onReceive(cardVM.reloadFrontImage, perform:  { answer in
                             self.isImageReady = answer
-                            if answer == true && self.reload && self.mainVM.reload == false {
+                            if answer == true && self.reload && self.cardVM.reload == false {
                                 self.reload = false
                             }
                             self.populateImage()
                         })
-                        .onReceive(mainVM.userDecided, perform: { decision in
+                        .onReceive(cardVM.userDecided, perform: { decision in
                             self.inAnimation = true
                             self.speed = 0.25
                             switch decision {
@@ -58,7 +58,7 @@ struct Card: View {
                                     self.x = 500
                                     self.save = false
                                     DispatchQueue.global().async {
-                                        self.mainVM.localDB.saveDogURL(self.mainVM.petsList[self.mainVM.count - 1].images)
+                                        self.cardVM.localDB.saveDogURL(self.cardVM.petsList[self.cardVM.count - 1].images)
                                     }
                                 }
                             case .rejected:
@@ -78,12 +78,12 @@ struct Card: View {
                                     self.scaleAnimation = true
                                 }
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                                    self.mainVM.imageIndex = 0
+                                    self.cardVM.imageIndex = 0
                                 }
-                                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
-                                    self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
+                                if self.cardVM.frontImages.hasValueAt(index: self.cardVM.imageIndex) {
+                                    self.image = UIImage(data: self.cardVM.frontImages[self.cardVM.imageIndex]) ?? UIImage()
                                 }
-                                self.mainVM.pushNewImage()
+                                self.cardVM.pushNewImage()
                                 self.moveToNextCard()
                             }
                         })
@@ -95,12 +95,12 @@ struct Card: View {
                 
                 HStack {
                     Spacer()
-                    ForEach (0...self.mainVM.petsList[self.mainVM.count - 1].images.count - 1,id: \.self) { i in
+                    ForEach (0...self.cardVM.petsList[self.cardVM.count - 1].images.count - 1,id: \.self) { i in
                         Rectangle()
                             .fill(Color.clear)
-                            .background((self.mainVM.imageIndex == i ? Color.orange : Color.gray).cornerRadius(20))
-                            .frame(width: (UIScreen.main.bounds.width / CGFloat(self.mainVM.petsList[self.mainVM.count - 1].images.count)) - 30, height: 10)
-                            .opacity(self.mainVM.petsList[self.mainVM.count - 1].images.count == 1 ? 0 : 0.7)
+                            .background((self.cardVM.imageIndex == i ? Color.orange : Color.gray).cornerRadius(20))
+                            .frame(width: (UIScreen.main.bounds.width / CGFloat(self.cardVM.petsList[self.cardVM.count - 1].images.count)) - 30, height: 10)
+                            .opacity(self.cardVM.petsList[self.cardVM.count - 1].images.count == 1 ? 0 : 0.7)
                     }
                     Spacer()
                 }.padding(.bottom, UIScreen.main.bounds.height / 1.47)
@@ -139,27 +139,27 @@ struct Card: View {
                         
                         Spacer()
                         
-                        Text((mainVM.petsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " "
+                        Text((cardVM.petsList[cardVM.count - 1].gender == "1" ? "בת" : "בן") + " "
                                 + returnAge())
                             .font(.system(size: 24))
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
                         
                         
-                        Text(mainVM.petsList[mainVM.count - 1].name + "," )
+                        Text(cardVM.petsList[cardVM.count - 1].name + "," )
                             .font(.system(size: 28))
                             .foregroundColor(.white)
                             .fontWeight(.heavy)
                             .padding(.trailing, 10)
                     }
                     
-                    Text(mainVM.petsList[mainVM.count - 1].goodWords)
+                    Text(cardVM.petsList[cardVM.count - 1].goodWords)
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
                         .padding(.trailing, 10)
                     
                     
-                    Text(decideRegion(code: mainVM.petsList[mainVM.count - 1].region))
+                    Text(decideRegion(code: cardVM.petsList[cardVM.count - 1].region))
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
                         .padding(.trailing, 10)
@@ -175,7 +175,7 @@ struct Card: View {
             }
             
             ZStack {
-                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) == false  || isImageReady == false || reload {
+                if self.cardVM.frontImages.hasValueAt(index: self.cardVM.imageIndex) == false  || isImageReady == false || reload {
                     ActivityIndicator(isAnimating: true)
                         .configure { $0.color = .orange }
                 }
@@ -207,7 +207,7 @@ struct Card: View {
                             .padding(.trailing , 5)
                             Spacer()
                             
-                            if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) == false  || isImageReady == false || reload {
+                            if self.cardVM.frontImages.hasValueAt(index: self.cardVM.imageIndex) == false  || isImageReady == false || reload {
                                 ActivityIndicator(isAnimating: true)
                                     .configure { $0.color = .orange }
                             }
@@ -224,19 +224,19 @@ struct Card: View {
                         
                         HStack {
                             Spacer()
-                            ForEach (0...self.mainVM.petsList[self.mainVM.count - 1].images.count - 1,id: \.self) { i in
+                            ForEach (0...self.cardVM.petsList[self.cardVM.count - 1].images.count - 1,id: \.self) { i in
                                 Rectangle()
                                     .fill(Color.clear)
-                                    .background((self.mainVM.imageIndex == i ? Color.orange : Color.gray).cornerRadius(20))
-                                    .frame(width: (UIScreen.main.bounds.width / CGFloat(self.mainVM.petsList[self.mainVM.count - 1].images.count)) - 30, height: 10)
-                                    .opacity(self.mainVM.petsList[self.mainVM.count - 1].images.count == 1 ? 0 : 0.7)
+                                    .background((self.cardVM.imageIndex == i ? Color.orange : Color.gray).cornerRadius(20))
+                                    .frame(width: (UIScreen.main.bounds.width / CGFloat(self.cardVM.petsList[self.cardVM.count - 1].images.count)) - 30, height: 10)
+                                    .opacity(self.cardVM.petsList[self.cardVM.count - 1].images.count == 1 ? 0 : 0.7)
                             }
                             Spacer()
                         }.padding(.bottom, UIScreen.main.bounds.height / 1.47)
                     }.frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
-                    .onReceive(mainVM.reloadFrontImage, perform:  { answer in
+                    .onReceive(cardVM.reloadFrontImage, perform:  { answer in
                         self.isImageReady = answer
-                        if answer == true && self.reload && self.mainVM.reload == false {
+                        if answer == true && self.reload && self.cardVM.reload == false {
                             self.reload = false
                         }
                         self.populateImage()
@@ -261,14 +261,14 @@ struct Card: View {
                             Spacer()
                             
                             VStack {
-                                Text(mainVM.petsList[mainVM.count - 1].name)
+                                Text(cardVM.petsList[cardVM.count - 1].name)
                                     .font(.system(size: 28))
                                     .foregroundColor(.black)
                                     .fontWeight(.heavy)
                                     .padding(.bottom, 10)
                                     .padding(.trailing, -10)
                                 
-                                Text(mainVM.petsList[mainVM.count - 1].goodWords)
+                                Text(cardVM.petsList[cardVM.count - 1].goodWords)
                                     .font(.system(size: 18))
                                     .foregroundColor(.gray)
                                     .fontWeight(.medium)
@@ -279,7 +279,7 @@ struct Card: View {
                         
                         VStack(alignment: .trailing, spacing: 10) {
                             HStack {
-                                Text(mainVM.petsList[mainVM.count - 1].race)
+                                Text(cardVM.petsList[cardVM.count - 1].race)
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
                                 
@@ -289,7 +289,7 @@ struct Card: View {
                             }
                             
                             HStack {
-                                Text((mainVM.petsList[mainVM.count - 1].gender == "1" ? "בת" : "בן") + " " + self.returnAge() + " ")
+                                Text((cardVM.petsList[cardVM.count - 1].gender == "1" ? "בת" : "בן") + " " + self.returnAge() + " ")
                                     
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
@@ -300,7 +300,7 @@ struct Card: View {
                             
                             HStack {
                                 
-                                Text( "אזור: " + decideRegion(code: mainVM.petsList[mainVM.count - 1].region))
+                                Text( "אזור: " + decideRegion(code: cardVM.petsList[cardVM.count - 1].region))
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
                                 
@@ -312,7 +312,7 @@ struct Card: View {
                             }
                             
                             HStack {
-                                Text("טלפון: " + mainVM.petsList[mainVM.count - 1].number)
+                                Text("טלפון: " + cardVM.petsList[cardVM.count - 1].number)
                                     
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.black)
@@ -324,7 +324,7 @@ struct Card: View {
                             
                         }
                         
-                        if mainVM.petsList[mainVM.count - 1].desc != "" {
+                        if cardVM.petsList[cardVM.count - 1].desc != "" {
                             HStack {
                                 Text("קצת עלי:")
                                     .font(.system(size: 20, weight: .semibold))
@@ -334,7 +334,7 @@ struct Card: View {
                                     .padding(.top, 20)
                                 
                             }
-                            Text(mainVM.petsList[mainVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
+                            Text(cardVM.petsList[cardVM.count - 1].desc).frame(width: UIScreen.main.bounds.width - 50, alignment: .leading)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .foregroundColor(.black)
                                 .environment(\.layoutDirection, .rightToLeft)
@@ -342,7 +342,7 @@ struct Card: View {
                                 .padding(.trailing, 20)
                         }
                         
-                        if mainVM.petsList[mainVM.count - 1].suitables != "" {
+                        if cardVM.petsList[cardVM.count - 1].suitables != "" {
                             HStack {
                                 Text("מתאים ל:")
                                     .font(.system(size: 20, weight: .semibold))
@@ -354,7 +354,7 @@ struct Card: View {
                             }
                             
                             HStack() {
-                                Text(mainVM.petsList[mainVM.count - 1].suitables)
+                                Text(cardVM.petsList[cardVM.count - 1].suitables)
                                     .foregroundColor(.black)
                                     .padding(.trailing, 20)
                                     .frame(width: UIScreen.main.bounds.width - 100, height: 50, alignment: .trailing)
@@ -366,7 +366,7 @@ struct Card: View {
                             
                             
                             ZStack {
-                                if mainVM.petsList[mainVM.count - 1].vaccinated == "1"  {
+                                if cardVM.petsList[cardVM.count - 1].vaccinated == "1"  {
                                     Image(systemName: "checkmark" )
                                         .resizable()
                                         .foregroundColor(Color.black)
@@ -381,7 +381,7 @@ struct Card: View {
                             .padding(.trailing, 10)
                             
                             
-                            Text("אני " + (mainVM.petsList[mainVM.count - 1].gender == "1" ? "מחוסנת" : "מחוסן"))
+                            Text("אני " + (cardVM.petsList[cardVM.count - 1].gender == "1" ? "מחוסנת" : "מחוסן"))
                                 .font(.system(size: 20, weight: .semibold))
                                 .foregroundColor(.black)
                                 .padding(.trailing, 20)
@@ -393,7 +393,7 @@ struct Card: View {
                             
                             
                             ZStack {
-                                if mainVM.petsList[mainVM.count - 1].poopTrained == "1"  {
+                                if cardVM.petsList[cardVM.count - 1].poopTrained == "1"  {
                                     Image(systemName: "checkmark" )
                                         .resizable()
                                         .foregroundColor(Color.black)
@@ -408,7 +408,7 @@ struct Card: View {
                             .padding(.trailing, 10)
                             
                             
-                            Text("אני " + (mainVM.petsList[mainVM.count - 1].gender == "1" ? "מחונכת" : "מחונך") + " לצרכים")
+                            Text("אני " + (cardVM.petsList[cardVM.count - 1].gender == "1" ? "מחונכת" : "מחונך") + " לצרכים")
                                 .font(.system(size: 20, weight: .semibold))
                                 .foregroundColor(.black)
                                 .padding(.trailing, 20)
@@ -424,7 +424,7 @@ struct Card: View {
         .offset(x: self.x, y: self.y)
         .rotationEffect(.init(degrees: self.degree))
         .frame(width: UIScreen.main.bounds.width - 10, height: UIScreen.main.bounds.height / 1.4)
-        .animation(mainVM.reload ? .none : decideAnimation())
+        .animation(cardVM.reload ? .none : decideAnimation())
         .transition(.move(edge: .bottom))
         .allowsHitTesting(isImageReady ? true : false)
         .gesture(showInfo ? nil : DragGesture(minimumDistance: 0, coordinateSpace: .global)
@@ -460,28 +460,28 @@ struct Card: View {
     private func moveToImage(direction: CGFloat) {
         if direction > 180 {
             
-            if self.mainVM.imageIndex == self.self.mainVM.petsList[self.mainVM.count - 1].images.count - 1 || self.switchingImage {
+            if self.cardVM.imageIndex == self.self.cardVM.petsList[self.cardVM.count - 1].images.count - 1 || self.switchingImage {
                 return
             } else {
-                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex + 1) {
+                if self.cardVM.frontImages.hasValueAt(index: self.cardVM.imageIndex + 1) {
                     self.inAnimation = false
-                    self.mainVM.imageIndex += 1
-                    self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
+                    self.cardVM.imageIndex += 1
+                    self.image = UIImage(data: self.cardVM.frontImages[self.cardVM.imageIndex]) ?? UIImage()
                 } else {
-                    self.mainVM.imageIndex += 1
+                    self.cardVM.imageIndex += 1
                     self.image = UIImage()
                 }
             }
         } else {
-            if self.mainVM.imageIndex == 0 || self.switchingImage  {
+            if self.cardVM.imageIndex == 0 || self.switchingImage  {
                 return
             } else {
-                if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex - 1) {
+                if self.cardVM.frontImages.hasValueAt(index: self.cardVM.imageIndex - 1) {
                     self.inAnimation = false
-                    self.mainVM.imageIndex -= 1
-                    self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
+                    self.cardVM.imageIndex -= 1
+                    self.image = UIImage(data: self.cardVM.frontImages[self.cardVM.imageIndex]) ?? UIImage()
                 } else {
-                    self.mainVM.imageIndex -= 1
+                    self.cardVM.imageIndex -= 1
                     self.image = UIImage()
                 }
             }
@@ -512,12 +512,12 @@ struct Card: View {
                     self.scaleAnimation = true
                 }
                 DispatchQueue.global().async {
-                    self.mainVM.localDB.saveDogURL(self.mainVM.petsList[self.mainVM.count - 1].images)
+                    self.cardVM.localDB.saveDogURL(self.cardVM.petsList[self.cardVM.count - 1].images)
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                    self.mainVM.imageIndex = 0
+                    self.cardVM.imageIndex = 0
                 }
-                self.mainVM.pushNewImage()
+                self.cardVM.pushNewImage()
                 moveToNextCard()
                 
             } else {
@@ -536,9 +536,9 @@ struct Card: View {
                     self.scaleAnimation = true
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                    self.mainVM.imageIndex = 0
+                    self.cardVM.imageIndex = 0
                 }
-                self.mainVM.pushNewImage()
+                self.cardVM.pushNewImage()
                 moveToNextCard()
             } else {
                 self.x = 0
@@ -570,15 +570,15 @@ struct Card: View {
             self.x = 0
             self.y = 0
             self.degree = 0
-            if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
-                self.image = UIImage(data: self.mainVM.frontImages[self.mainVM.imageIndex]) ?? UIImage()
+            if self.cardVM.frontImages.hasValueAt(index: self.cardVM.imageIndex) {
+                self.image = UIImage(data: self.cardVM.frontImages[self.cardVM.imageIndex]) ?? UIImage()
             }
         }
     }
     
     private func returnAge() -> String {
-        let ageFloat = mainVM.petsList[mainVM.count - 1].age
-        let ageString = String(mainVM.petsList[mainVM.count - 1].age)
+        let ageFloat = cardVM.petsList[cardVM.count - 1].age
+        let ageString = String(cardVM.petsList[cardVM.count - 1].age)
         if ageFloat < 1 {
             
             if let range = ageString.range(of: ".") {
@@ -593,8 +593,8 @@ struct Card: View {
     
     private func populateImage()  {
         
-        if self.mainVM.frontImages.hasValueAt(index: self.mainVM.imageIndex) {
-            image = UIImage(data: self.mainVM.frontImages[mainVM.imageIndex]) ?? UIImage()
+        if self.cardVM.frontImages.hasValueAt(index: self.cardVM.imageIndex) {
+            image = UIImage(data: self.cardVM.frontImages[cardVM.imageIndex]) ?? UIImage()
             self.isImageReady = true
         } else {
             image = UIImage()
