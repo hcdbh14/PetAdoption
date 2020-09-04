@@ -68,7 +68,14 @@ class SessionStore: ObservableObject {
         
         waitingForResponse = true
         
-        let petID = UUID().uuidString
+        var petID: String
+        
+        if existingPost.petID == "" {
+             petID = UUID().uuidString
+        } else {
+            petID = existingPost.petID
+        }
+        
         
         for i in imagesData {
             guard let index = imagesData.firstIndex(of: i) else { return }

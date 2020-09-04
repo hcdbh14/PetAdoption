@@ -2,6 +2,7 @@ import Foundation
 
 struct Pet {
     
+    let userID: String
     let name: String
     let type: String
     let age: Double
@@ -19,7 +20,8 @@ struct Pet {
     
     init?(data: [String: Any]) {
         
-        guard let name = data["name"] as? String,
+        guard let userID = data["userID"] as? String,
+            let name = data["name"] as? String,
             let age = data["age"] as? Double,
             let size = data["size"] as? String,
             let images = data["images"] as? [String],
@@ -36,6 +38,7 @@ struct Pet {
                 return nil
         }
         
+        self.userID = userID
         self.age = age
         self.size = size
         self.images = images

@@ -679,7 +679,7 @@ struct PostNewDog: View {
             
         }
         .onReceive(session.existingPost.dataArivved, perform:  { answer in
-            let petDetails = self.session.existingPost.dog
+            let petDetails = self.session.existingPost.pet
             self.petName = petDetails?.name ?? ""
             self.petRace = petDetails?.race ?? ""
             self.petAge = String(petDetails?.age ?? 0)

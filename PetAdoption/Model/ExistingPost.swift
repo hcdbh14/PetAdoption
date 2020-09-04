@@ -5,10 +5,11 @@ import FirebaseFirestore
 
 class ExistingPost: ObservableObject {
     
+    var petID = ""
     private var count = 0
     var imageCounter = 0
     var didDownload = false
-    @Published var dog: Pet?
+    @Published var pet: Pet?
     var imageData: [Data] = []
     private var sub: AnyCancellable?
     private var imageLoader: ImageLoader?
@@ -29,7 +30,8 @@ class ExistingPost: ObservableObject {
                         self.petLists.append(pet)
                         
                         if self.count == 0 {
-                            self.dog = pet
+                            self.pet = pet
+                            self.petID = document.documentID
                             self.dataArivved.send(true)
                             print(snapshot as Any)
                             self.didDownload = true
