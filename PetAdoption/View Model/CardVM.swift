@@ -77,7 +77,7 @@ class CardVM: ObservableObject {
             
             if error == nil {
                 for document in snapshot!.documents {
-                    
+                    print(document.data())
                     if let pet = Pet(data: document.data()) {
                         if self.reload {
                             tempArray.append(pet)

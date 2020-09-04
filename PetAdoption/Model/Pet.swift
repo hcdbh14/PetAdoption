@@ -4,7 +4,7 @@ struct Pet {
     
     let name: String
     let type: String
-    let age: Float
+    let age: Double
     let region: String
     let size: String
     let gender: String
@@ -20,7 +20,7 @@ struct Pet {
     init?(data: [String: Any]) {
         
         guard let name = data["name"] as? String,
-            let age = data["age"] as? Float,
+            let age = data["age"] as? Double,
             let size = data["size"] as? String,
             let images = data["images"] as? [String],
             let type = data["type"] as? String,

@@ -67,12 +67,12 @@ class SessionStore: ObservableObject {
     func postPetImages(imagesData: [Data], petType: String, petName: String, petRace: String, petAge: String, petSize: String, suitables: String, petGender: String, description: String, phoneNumber: String, region: String, goodWords: String, vaccinated: String, poopTrained: String) {
         
         waitingForResponse = true
-        guard let uid = Auth.auth().currentUser?.uid else { return }
         
+        let petID = UUID().uuidString
         
         for i in imagesData {
             guard let index = imagesData.firstIndex(of: i) else { return }
-            let fileName = "\(uid)/" + "\(index)"
+            let fileName = "\(petID)/" + "\(index)"
             let metaData = StorageMetadata()
             metaData.contentType = "image/jpg"
             
@@ -98,10 +98,13 @@ class SessionStore: ObservableObject {
                         for i in sortedKeys {
                             sortedImagePaths.append(self.imagePaths[i] ?? "")
                         }
-                        self.postNewPet(petType: petType, petName: petName, petRace: petRace, petAge: petAge, petSize: petSize, suitables: suitables, petGender: petGender, description: description, phoneNumber: phoneNumber, region: region, goodWords: goodWords, vaccinated: vaccinated, poopTrained: poopTrained, images: sortedImagePaths )
+                        
+                       
+                        
+                        self.postNewPet(petID: petID, petType: petType, petName: petName, petRace: petRace, petAge: petAge, petSize: petSize, suitables: suitables, petGender: petGender, description: description, phoneNumber: phoneNumber, region: region, goodWords: goodWords, vaccinated: vaccinated, poopTrained: poopTrained, images: sortedImagePaths )
                         self.waitingForResponse = false
-                        self.localDB.savePostID(id: uid)
-                        self.localDB.existingPostID = uid
+                        self.localDB.savePostID(id: petID)
+                        self.localDB.existingPostID = petID
                     }
                 })
                 print(result as Any)
@@ -110,10 +113,15 @@ class SessionStore: ObservableObject {
     }
     
     
-    func postNewPet(petType: String, petName: String, petRace: String, petAge: String, petSize: String, suitables: String,petGender: String, description: String, phoneNumber: String, region: String, goodWords: String, vaccinated: String, poopTrained: String, images: [String]) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+    func postNewPet(petID: String, petType: String, petName: String, petRace: String, petAge: String, petSize: String, suitables: String,petGender: String, description: String, phoneNumber: String, region: String, goodWords: String, vaccinated: String, poopTrained: String, images: [String]) {
         
-        db.collection("Cards_Data").document(uid).setData(["type": petType, "name": petName, "race": petRace, "age": Float(petAge) ?? 0, "size": petSize, "suitables": suitables,"gender": petGender, "desc": description,"number": phoneNumber, "region": region,"goodWords": goodWords, "vaccinated": vaccinated, "poopTrained": poopTrained, "images": images], completion: { (error) in
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+
+        db.collection("Users_Data").document(userID).updateData([
+            "petsID": FieldValue.arrayUnion([petID])
+        ])
+        
+        db.collection("Cards_Data").document(petID).setData(["userID": userID, "type": petType, "name": petName, "race": petRace, "age": Float(petAge) ?? 0, "size": petSize, "suitables": suitables,"gender": petGender, "desc": description,"number": phoneNumber, "region": region,"goodWords": goodWords, "vaccinated": vaccinated, "poopTrained": poopTrained, "images": images], completion: { (error) in
             if error != nil {
                 self.informText = "קרתה שגיאה, אנא נסו שוב"
             } else {
