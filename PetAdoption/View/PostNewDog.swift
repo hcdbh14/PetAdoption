@@ -694,7 +694,9 @@ struct PostNewDog: View {
             self.translateVaccinatedIntoCode(petDetails?.vaccinated ?? "")
             self.translatePoopTrainedntoCode(petDetails?.poopTrained ?? "")
             self.translateSuiteablesIntoCodes(petDetails?.suitables ?? "")
-            self.session.actionText = "עדכון"
+            if petName != "" {
+                self.session.actionText = "עדכון"
+            }
         })
         .onReceive(session.existingPost.loadImage, perform:  { imageIndex in
             switch imageIndex {
